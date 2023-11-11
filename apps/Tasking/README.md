@@ -1,4 +1,4 @@
-# Tasking
+# makc2024_tasking
 
 ## Назначение
 
@@ -67,7 +67,7 @@
 1. Generates a self-signed certificate to enable HTTPS use in development:
 
 ```
-dotnet dev-certs https -ep .\https\cert.pfx -p Makc2024
+dotnet dev-certs https -ep .\https\cert.pfx -p makc2024
 ```
 
 2. Trusts the certificate on the local machine:

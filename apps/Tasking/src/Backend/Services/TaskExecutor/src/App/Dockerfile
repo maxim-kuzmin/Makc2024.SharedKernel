@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Backend/Services/TaskExecutor/App/Backend.Services.TaskExecutor.App.csproj", "App/"]
-RUN dotnet restore "App/Backend.Services.TaskExecutor.App.csproj"
+COPY ["${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PATH}${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PROJECT}", "App/"]
+RUN dotnet restore "${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PROJECT}"
 COPY . .
 WORKDIR "/src/App"
-RUN dotnet build "Backend.Services.TaskExecutor.App.csproj" -c Release -o /app/build
+RUN dotnet build "${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PROJECT}" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Backend.Services.TaskExecutor.App.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PROJECT}" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Backend.Services.TaskExecutor.App.dll"]
+ENTRYPOINT ["dotnet", "${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_ENTRYPOINT}"]
