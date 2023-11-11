@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Backend/Features/TaskManagement/App/Backend.Features.TaskManagement.App.csproj", "Backend/Features/TaskManagement/App/"]
-RUN dotnet restore "Backend/Features/TaskManagement/App/Backend.Features.TaskManagement.App.csproj"
+COPY ["Backend/Features/TaskManagement/src/App/Backend.Features.TaskManagement.App.csproj", "App/"]
+RUN dotnet restore "App/Backend.Features.TaskManagement.App.csproj"
 COPY . .
-WORKDIR "/src/Backend/Features/TaskManagement/App"
+WORKDIR "/src/App"
 RUN dotnet build "Backend.Features.TaskManagement.App.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -1,3 +1,8 @@
+**/.vs
+**/bin
+**/obj
+**/*Publish
+**/*.user
 /docker
 /https
 /secrets

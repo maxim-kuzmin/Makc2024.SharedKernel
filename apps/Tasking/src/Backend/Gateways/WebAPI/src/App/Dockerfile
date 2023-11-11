@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Backend/Gateways/WebAPI/App/Backend.Gateways.WebAPI.App.csproj", "Backend/Gateways/WebAPI/App/"]
-RUN dotnet restore "Backend/Gateways/WebAPI/App/Backend.Gateways.WebAPI.App.csproj"
+COPY ["Backend/Gateways/WebAPI/App/Backend.Gateways.WebAPI.App.csproj", "App/"]
+RUN dotnet restore "App/Backend.Gateways.WebAPI.App.csproj"
 COPY . .
-WORKDIR "/src/Backend/Gateways/WebAPI/App"
+WORKDIR "/src/App"
 RUN dotnet build "Backend.Gateways.WebAPI.App.csproj" -c Release -o /app/build
 
 FROM build AS publish

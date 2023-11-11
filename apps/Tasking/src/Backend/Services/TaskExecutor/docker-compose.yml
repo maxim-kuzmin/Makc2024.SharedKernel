@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  backend.services.taskexecutor.app:
+    image: ${DOCKER_REGISTRY-}backendservicestaskexecutorapp
+    build:
+      context: .
+      dockerfile: src/App/Dockerfile

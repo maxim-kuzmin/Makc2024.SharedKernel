@@ -6,7 +6,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-feature-task-management
     build:
       context: .
-      dockerfile: Backend/Features/TaskManagement/App/Dockerfile
+      dockerfile: Backend/Features/TaskManagement/src/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_HTTP_PORT}
@@ -29,7 +29,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-gateway-webapi
     build:
       context: .
-      dockerfile: Backend/Gateways/WebAPI/App/Dockerfile
+      dockerfile: Backend/Gateways/WebAPI/src/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=https://+:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTPS_PORT};http://+:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTP_PORT}
@@ -53,7 +53,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-service-task-executor
     build:
       context: .
-      dockerfile: Backend/Services/TaskExecutor/App/Dockerfile
+      dockerfile: Backend/Services/TaskExecutor/src/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}
@@ -73,7 +73,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-service-task-reader
     build:
       context: .
-      dockerfile: Backend/Services/TaskReader/App/Dockerfile
+      dockerfile: Backend/Services/TaskReader/src/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_READER_HTTP_PORT}
@@ -93,7 +93,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-service-task-storage
     build:
       context: .
-      dockerfile: Backend/Services/TaskStorage/App/Dockerfile
+      dockerfile: Backend/Services/TaskStorage/src/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}

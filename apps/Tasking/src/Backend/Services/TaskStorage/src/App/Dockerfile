@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Backend/Services/TaskStorage/App/Backend.Services.TaskStorage.App.csproj", "Backend/Services/TaskStorage/App/"]
-RUN dotnet restore "Backend/Services/TaskStorage/App/Backend.Services.TaskStorage.App.csproj"
+COPY ["Backend/Services/TaskStorage/App/Backend.Services.TaskStorage.App.csproj", "App/"]
+RUN dotnet restore "App/Backend.Services.TaskStorage.App.csproj"
 COPY . .
-WORKDIR "/src/Backend/Services/TaskStorage/App"
+WORKDIR "/src/App"
 RUN dotnet build "Backend.Services.TaskStorage.App.csproj" -c Release -o /app/build
 
 FROM build AS publish
