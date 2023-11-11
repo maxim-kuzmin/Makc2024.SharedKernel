@@ -1,0 +1,64 @@
+version: '3.4'
+
+services:
+  backend-feature-task-management:
+    ports:
+      - "${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_HTTP_PORT}:${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_HTTP_PORT}"
+
+  backend-gateway-webapi:
+    ports:
+      - "${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTP_PORT}:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTP_PORT}"
+      - "${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTPS_PORT}:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTPS_PORT}"
+
+  backend-service-task-executor:
+    ports:
+      - "${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}:${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}"
+
+  backend-service-task-reader:
+    ports:
+      - "${MY_SERVICE_BACKEND_SERVICE_TASK_READER_HTTP_PORT}:${MY_SERVICE_BACKEND_SERVICE_TASK_READER_HTTP_PORT}"
+
+  backend-service-task-storage:
+    ports:
+      - "${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}:${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}"
+
+  external-mongo:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_MONGO_PORT}:${MY_SERVICE_EXTERNAL_MONGO_PORT}"
+
+  external-mongo-express:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_MONGO_EXPRESS_PORT}:8081"
+
+  external-nginx:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_NGINX_HTTP_PORT}:${MY_SERVICE_EXTERNAL_NGINX_HTTP_PORT}"
+      - "${MY_SERVICE_EXTERNAL_NGINX_HTTPS_PORT}:${MY_SERVICE_EXTERNAL_NGINX_HTTPS_PORT}"
+
+  external-postgres:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_POSTGRES_PORT}:${MY_SERVICE_EXTERNAL_POSTGRES_PORT}"
+
+  external-pgadmin:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_PGADMIN_PORT}:80"
+
+  external-pgbouncer:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_PGBOUNCER_PORT}:${MY_SERVICE_EXTERNAL_PGBOUNCER_PORT}"
+
+  external-rabbitmq:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_RABBITMQ_MANAGENENT_PORT}:${MY_SERVICE_EXTERNAL_RABBITMQ_MANAGENENT_PORT}"
+      - "${MY_SERVICE_EXTERNAL_RABBITMQ_PORT}:${MY_SERVICE_EXTERNAL_RABBITMQ_PORT}"
+
+  frontend-web:
+    build:
+      context: .
+      dockerfile: Frontend/Web/App/debug/Dockerfile
+    environment:
+      - WATCHPACK_POLLING=true #https://stackoverflow.com/questions/72023425/my-react-18-app-does-not-reload-automatically-i-try-to-click-on-the-create-new-p
+    volumes:
+      - ./Frontend/Web/App:/app
+    ports:
+      - "${MY_SERVICE_FRONTEND_WEB_HTTP_PORT}:${MY_SERVICE_FRONTEND_WEB_HTTP_PORT}"

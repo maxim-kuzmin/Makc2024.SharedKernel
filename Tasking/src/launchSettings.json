@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "backend-feature-task-management": "StartDebugging",
+        "backend-gateway-webapi": "StartDebugging",
+        "backend-service-task-executor": "StartDebugging",
+        "backend-service-task-reader": "StartDebugging",
+        "backend-service-task-storage": "StartDebugging"
+      }
+    }
+  }
+}

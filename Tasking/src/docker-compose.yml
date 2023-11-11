@@ -1,0 +1,214 @@
+version: '3.4'
+
+services:
+  backend-feature-task-management:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-feature-task-management
+    image: ${MY_IMAGE_PEFIX}backend-feature-task-management
+    build:
+      context: .
+      dockerfile: Backend/Features/TaskManagement/App/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_HTTP_PORT}
+      - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
+      - App__Language=${MY_LANGUAGE}
+    volumes:
+      - ${MY_DOCKER_FOLDER}backend-feature-task-management/logs:/app/logs
+      - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - backend-service-task-executor
+      - backend-service-task-reader
+      - backend-service-task-storage
+      - external-pgbouncer
+      - external-rabbitmq
+    networks:
+      - network-backend
+
+  backend-gateway-webapi:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-gateway-webapi
+    image: ${MY_IMAGE_PEFIX}backend-gateway-webapi
+    build:
+      context: .
+      dockerfile: Backend/Gateways/WebAPI/App/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=https://+:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTPS_PORT};http://+:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTP_PORT}
+      #- ASPNETCORE_HTTPS_PORT=${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTPS_PORT}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${MY_DEFAULT_PASSWORD}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/cert.pfx
+      - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
+      - App__Language=${MY_LANGUAGE}
+    volumes:
+      - ${MY_DOCKER_FOLDER}backend-gateway-webapi/logs:/app/logs
+      - ${MY_HTTPS_FOLDER}:/https:ro
+      - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - backend-feature-task-management
+    networks:
+      - network-backend
+      - network-frontend
+
+  backend-service-task-executor:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-task-executor
+    image: ${MY_IMAGE_PEFIX}backend-service-task-executor
+    build:
+      context: .
+      dockerfile: Backend/Services/TaskExecutor/App/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}
+      - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
+      - App__Language=${MY_LANGUAGE}
+    volumes:
+      - ${MY_DOCKER_FOLDER}backend-service-task-executor/logs:/app/logs
+      - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - external-mongo
+      - external-rabbitmq
+    networks:
+      - network-backend
+
+  backend-service-task-reader:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-task-reader
+    image: ${MY_IMAGE_PEFIX}backend-service-task-reader
+    build:
+      context: .
+      dockerfile: Backend/Services/TaskReader/App/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_READER_HTTP_PORT}
+      - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
+      - App__Language=${MY_LANGUAGE}
+    volumes:
+      - ${MY_DOCKER_FOLDER}backend-service-task-reader/logs:/app/logs
+      - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - external-pgbouncer
+      - external-rabbitmq
+    networks:
+      - network-backend
+
+  backend-service-task-storage:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-task-storage
+    image: ${MY_IMAGE_PEFIX}backend-service-task-storage
+    build:
+      context: .
+      dockerfile: Backend/Services/TaskStorage/App/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}
+      - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
+      - App__Language=${MY_LANGUAGE}
+    volumes:
+      - ${MY_DOCKER_FOLDER}backend-service-task-storage/logs:/app/logs
+      - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - external-pgbouncer
+      - external-rabbitmq
+    networks:
+      - network-backend
+
+  external-mongo:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-mongo
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MY_DEFAULT_LOGIN}
+      - MONGO_INITDB_ROOT_PASSWORD=${MY_DEFAULT_PASSWORD}
+    volumes:
+      - ${MY_DOCKER_FOLDER}external-mongo/data:/data/db
+    networks:
+      - network-backend
+
+  external-mongo-express:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-mongo-express
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MY_DEFAULT_LOGIN}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MY_DEFAULT_PASSWORD}
+      - ME_CONFIG_MONGODB_PORT=${MY_SERVICE_EXTERNAL_MONGO_PORT}
+      - ME_CONFIG_MONGODB_SERVER=external-mongo
+    depends_on:
+      - external-mongo
+    restart: always
+    networks:
+      - network-backend
+
+  external-nginx:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-nginx
+    image: nginx:alpine
+    volumes:
+      - ${MY_CONFIGS_FOLDER}nginx.conf:/etc/nginx/nginx.conf
+      - ${MY_HTTPS_FOLDER}cert.crt:/etc/nginx/cert.crt
+      - ${MY_HTTPS_FOLDER}cert.rsa:/etc/nginx/cert.rsa
+    depends_on:
+      - backend-gateway-webapi
+      - frontend-web
+    networks:
+      - network-backend
+      - network-frontend
+
+  external-postgres:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-postgres
+    image: postgres:15.1
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${MY_DEFAULT_LOGIN}
+      - POSTGRES_PASSWORD=${MY_DEFAULT_PASSWORD}
+      - PGDATA=/var/lib/postgres/data
+    volumes:
+      - ${MY_DOCKER_FOLDER}external-postgres/data:/var/lib/postgres/data
+    networks:
+      - network-backend
+
+  external-pgadmin:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-pgadmin
+    image: dpage/pgadmin4:6.19
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${MY_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${MY_DEFAULT_PASSWORD}
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    volumes:
+      - ${MY_DOCKER_FOLDER}external-pgadmin:/var/lib/pgadmin
+    networks:
+      - network-backend
+
+  external-pgbouncer:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-pgbouncer
+    image: "brainsam/pgbouncer"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=${MY_DEFAULT_LOGIN}
+      - DB_PASSWORD=${MY_DEFAULT_PASSWORD}
+    depends_on:
+      - external-postgres
+    networks:
+      - network-backend
+
+  external-rabbitmq:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-rabbitmq
+    image: rabbitmq:3.11.7-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=${MY_DEFAULT_LOGIN}
+      - RABBITMQ_DEFAULT_PASS=${MY_DEFAULT_PASSWORD}
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    volumes:
+      - ${MY_DOCKER_FOLDER}external-rabbitmq/data:/var/lib/rabbitmq
+    networks:
+      - network-backend
+
+  frontend-web:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}frontend-web
+    image: ${MY_IMAGE_PEFIX}frontend-web
+    build:
+      context: .
+      dockerfile: Frontend/Web/App/Dockerfile
+    volumes:
+      - ${MY_DOCKER_FOLDER}frontend-web:/app
+    networks:
+      - network-frontend
+
+networks:
+  network-backend:
+    attachable: true
+  network-frontend:
+    attachable: true
