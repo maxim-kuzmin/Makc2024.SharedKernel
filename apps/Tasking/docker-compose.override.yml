@@ -55,10 +55,10 @@ services:
   frontend-web:
     build:
       context: .
-      dockerfile: Frontend/Web/App/debug/Dockerfile
+      dockerfile: src/Frontend/Web/App/debug/Dockerfile
     environment:
       - WATCHPACK_POLLING=true #https://stackoverflow.com/questions/72023425/my-react-18-app-does-not-reload-automatically-i-try-to-click-on-the-create-new-p
     volumes:
-      - ./Frontend/Web/App:/app
+      - ./src/Frontend/Web/App:/app
     ports:
       - "${MY_SERVICE_FRONTEND_WEB_HTTP_PORT}:${MY_SERVICE_FRONTEND_WEB_HTTP_PORT}"
