@@ -7,6 +7,9 @@ services:
     build:
       context: .
       dockerfile: src/Backend/Features/TaskManagement/src/App/Dockerfile
+      args:
+        APP_PATH: ${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_APP_PATH}
+        APP_PROJECT: ${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_APP_PROJECT}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_HTTP_PORT}
@@ -30,6 +33,9 @@ services:
     build:
       context: .
       dockerfile: src/Backend/Gateways/WebAPI/src/App/Dockerfile
+      args:
+        APP_PATH: ${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_APP_PATH}
+        APP_PROJECT: ${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_APP_PROJECT}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=https://+:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTPS_PORT};http://+:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTP_PORT}
@@ -54,6 +60,9 @@ services:
     build:
       context: .
       dockerfile: src/Backend/Services/TaskExecutor/src/App/Dockerfile
+      args:
+        APP_PATH: ${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PATH}
+        APP_PROJECT: ${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PROJECT}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}
@@ -74,6 +83,9 @@ services:
     build:
       context: .
       dockerfile: src/Backend/Services/TaskReader/src/App/Dockerfile
+      args:
+        APP_PATH: ${MY_SERVICE_BACKEND_SERVICE_TASK_READER_APP_PATH}
+        APP_PROJECT: ${MY_SERVICE_BACKEND_SERVICE_TASK_READER_APP_PROJECT}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_READER_HTTP_PORT}
@@ -94,6 +106,9 @@ services:
     build:
       context: .
       dockerfile: src/Backend/Services/TaskStorage/src/App/Dockerfile
+      args:
+        APP_PATH: ${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_APP_PATH}
+        APP_PROJECT: ${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_APP_PROJECT}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}

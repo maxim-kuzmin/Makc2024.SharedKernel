@@ -1,10 +1,19 @@
 version: '3.4'
 
 services:
-  backend.services.taskexecutor.app:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+  backend-service-task-executor:
     ports:
-      - "80"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - "${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}:${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}"
+
+  external-mongo:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_MONGO_PORT}:${MY_SERVICE_EXTERNAL_MONGO_PORT}"
+
+  external-mongo-express:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_MONGO_EXPRESS_PORT}:8081"
+
+  external-rabbitmq:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_RABBITMQ_MANAGENENT_PORT}:${MY_SERVICE_EXTERNAL_RABBITMQ_MANAGENENT_PORT}"
+      - "${MY_SERVICE_EXTERNAL_RABBITMQ_PORT}:${MY_SERVICE_EXTERNAL_RABBITMQ_PORT}"

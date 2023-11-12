@@ -4,8 +4,13 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>a67f720a-e15d-4e2b-8fe3-479260062e83</ProjectGuid>
+    <DockerComposeProjectName>makc2024_tasking_task_executor</DockerComposeProjectName>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/swagger</DockerServiceUrl>
+    <DockerServiceName>backend-service-task-executor</DockerServiceName>	
   </PropertyGroup>
   <ItemGroup>
+    <None Include=".env" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>

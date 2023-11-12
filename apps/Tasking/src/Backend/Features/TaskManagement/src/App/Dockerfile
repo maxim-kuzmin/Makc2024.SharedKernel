@@ -1,20 +1,22 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ARG APP_PATH
+ARG APP_PROJECT
 WORKDIR /src
-COPY ["Backend/Features/TaskManagement/src/App/Backend.Features.TaskManagement.App.csproj", "App/"]
-RUN dotnet restore "App/Backend.Features.TaskManagement.App.csproj"
+COPY ["$APP_PATH$APP_PROJECT", "$APP_PATH"]
+RUN dotnet restore "$APP_PATH$APP_PROJECT"
 COPY . .
-WORKDIR "/src/App"
-RUN dotnet build "Backend.Features.TaskManagement.App.csproj" -c Release -o /app/build
+WORKDIR "/src/$APP_PATH"
+RUN dotnet build "$APP_PROJECT" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Backend.Features.TaskManagement.App.csproj" -c Release -o /app/publish /p:UseAppHost=false
+ARG APP_PROJECT
+RUN dotnet publish "$APP_PROJECT" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

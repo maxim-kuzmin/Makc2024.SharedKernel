@@ -99,13 +99,13 @@ openssl pkcs12 -in .\https\cert.pfx -nocerts -nodes -out .\https\cert.rsa
 1. Start
 
 ```
-docker-compose  -f ".\src\docker-compose.yml" -f ".\src\docker-compose.override.yml" --project-name="makc2024_tasking" up -d
+docker-compose  -f ".\docker-compose.yml" -f ".\docker-compose.override.yml" --project-name="makc2024_tasking" up -d
 ```
 
 2. Stop
 
 ```
-docker-compose  -f ".\src\docker-compose.yml" -f ".\src\docker-compose.override.yml" --project-name="makc2024_tasking" down
+docker-compose  -f ".\docker-compose.yml" -f ".\docker-compose.override.yml" --project-name="makc2024_tasking" down
 ```
 
 ## Help
