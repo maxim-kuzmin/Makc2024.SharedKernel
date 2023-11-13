@@ -6,7 +6,9 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-service-task-executor
     build:
       context: .
-      dockerfile: src/Backend/Services/TaskExecutor/src/App/Dockerfile
+      dockerfile: ${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PATH}Dockerfile
+      args:
+        - APP_PATH=${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PATH}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}

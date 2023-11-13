@@ -6,7 +6,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-feature-task-management
     build:
       context: .
-      dockerfile: src/Backend/Features/TaskManagement/src/App/Dockerfile
+      dockerfile: ${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_APP_PATH}Dockerfile
       args:
         - APP_PATH=${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_APP_PATH}
     environment:
@@ -31,7 +31,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-gateway-webapi
     build:
       context: .
-      dockerfile: src/Backend/Gateways/WebAPI/src/App/Dockerfile
+      dockerfile: ${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_APP_PATH}Dockerfile
       args:
         - APP_PATH=${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_APP_PATH}
     environment:
@@ -57,7 +57,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-service-task-executor
     build:
       context: .
-      dockerfile: src/Backend/Services/TaskExecutor/src/App/Dockerfile
+      dockerfile: ${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PATH}Dockerfile
       args:
         - APP_PATH=${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PATH}
     environment:
@@ -79,7 +79,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-service-task-reader
     build:
       context: .
-      dockerfile: src/Backend/Services/TaskReader/src/App/Dockerfile
+      dockerfile: ${MY_SERVICE_BACKEND_SERVICE_TASK_READER_APP_PATH}Dockerfile
       args:
         - APP_PATH=${MY_SERVICE_BACKEND_SERVICE_TASK_READER_APP_PATH}
     environment:
@@ -101,7 +101,7 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-service-task-storage
     build:
       context: .
-      dockerfile: src/Backend/Services/TaskStorage/src/App/Dockerfile
+      dockerfile: ${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_APP_PATH}Dockerfile
       args:
         - APP_PATH=${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_APP_PATH}
     environment:
@@ -211,7 +211,7 @@ services:
     image: ${MY_IMAGE_PEFIX}frontend-web
     build:
       context: .
-      dockerfile: src/Frontend/Web/App/Dockerfile
+      dockerfile: ${MY_SERVICE_FRONTEND_WEB_APP_PATH}Dockerfile
     volumes:
       - ${MY_DOCKER_FOLDER}frontend-web:/app
     networks:
