@@ -1,21 +1,21 @@
 version: '3.4'
 
 services:
-  backend-service-task-reader:
-    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-task-reader
-    image: ${MY_IMAGE_PEFIX}backend-service-task-reader
+  backend-service-task-storage:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-task-storage
+    image: ${MY_IMAGE_PEFIX}backend-service-task-storage
     build:
       context: .
-      dockerfile: ${MY_SERVICE_BACKEND_SERVICE_TASK_READER_APP_PATH}Dockerfile
+      dockerfile: ${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_APP_PATH}Dockerfile
       args:
-        - APP_PATH=${MY_SERVICE_BACKEND_SERVICE_TASK_READER_APP_PATH}
+        - APP_PATH=${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_APP_PATH}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_READER_HTTP_PORT}
+      - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}
       - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
       - App__Language=${MY_LANGUAGE}
     volumes:
-      - ${MY_DOCKER_FOLDER}backend-service-task-reader/logs:/app/logs
+      - ${MY_DOCKER_FOLDER}backend-service-task-storage/logs:/app/logs
       - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
     depends_on:
       - external-mongo

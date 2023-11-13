@@ -63,5 +63,3 @@ services:
 networks:
   network-backend:
     attachable: true
-  network-frontend:
-    attachable: true

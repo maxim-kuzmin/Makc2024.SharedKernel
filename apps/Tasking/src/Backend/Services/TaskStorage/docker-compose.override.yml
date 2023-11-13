@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  backend-service-task-storage:
+    ports:
+      - "${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}:${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}"
+
+  external-postgres:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_POSTGRES_PORT}:${MY_SERVICE_EXTERNAL_POSTGRES_PORT}"
+
+  external-pgadmin:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_PGADMIN_PORT}:80"
+
+  external-pgbouncer:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_PGBOUNCER_PORT}:${MY_SERVICE_EXTERNAL_PGBOUNCER_PORT}"
+
+  external-rabbitmq:
+    ports:
+      - "${MY_SERVICE_EXTERNAL_RABBITMQ_MANAGENENT_PORT}:${MY_SERVICE_EXTERNAL_RABBITMQ_MANAGENENT_PORT}"
+      - "${MY_SERVICE_EXTERNAL_RABBITMQ_PORT}:${MY_SERVICE_EXTERNAL_RABBITMQ_PORT}"
