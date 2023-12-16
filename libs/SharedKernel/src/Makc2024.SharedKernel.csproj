@@ -13,10 +13,7 @@
     <RepositoryUrl>https://github.com/maxim-kuzmin/Makc2024</RepositoryUrl>
     <PackageTags>DDD;Shared Kernel;SharedKernel;Domain-Driven Design;Repository;Specification;ValueObject;Value Object;Ardalis;Clean;Clean Architecture;Clean Architecture Template</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.1</Version>
-    <PackageReleaseNotes>
-      * Adding LoggingBehavior
-    </PackageReleaseNotes>
+    <Version>1.0.1</Version> 
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
@@ -25,7 +22,14 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.Extensions.Localization" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="NLog" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +42,7 @@
 
   <PropertyGroup>
     <NoWarn>1701;1702;1591;1573;1712</NoWarn>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
 
