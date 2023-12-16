@@ -5,14 +5,12 @@ namespace Makc2024.SharedKernel.App;
 /// <summary>
 /// Обработчик приложения.
 /// </summary>
-/// <param name="logger">Регистратор.</param>
-public abstract class AppHandler(ILoggerOfNLog logger) : IDisposable
+/// <param name="_logger">Регистратор.</param>
+public abstract class AppHandler(ILoggerOfNLog _logger) : IDisposable
 {
     #region Fields
 
     private bool _disposedValue;
-
-    private readonly ILoggerOfNLog _logger = logger;
 
     #endregion Fields
 

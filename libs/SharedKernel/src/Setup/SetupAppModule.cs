@@ -5,15 +5,9 @@ namespace Makc2024.SharedKernel.Setup;
 /// <summary>
 /// Модуль настройки приложения.
 /// </summary>
-/// <param name="configurationSection">Раздел конфигурации.</param>
-public class SetupAppModule(IConfigurationSection configurationSection) : AppModule
+/// <param name="_configurationSection">Раздел конфигурации.</param>
+public class SetupAppModule(IConfigurationSection _configurationSection) : AppModule
 {
-    #region Fields
-
-    private readonly IConfigurationSection _configurationSection = configurationSection;
-
-    #endregion Fields
-
     #region Public methods
 
     /// <inheritdoc/>

@@ -5,15 +5,9 @@ namespace Makc2024.SharedKernel.App;
 /// <summary>
 /// Ресурс приложения.
 /// </summary>
-/// <param name="localizer">Локализатор.</param>
-public class AppResource(IStringLocalizer<AppResource> localizer) : IAppResource
+/// <param name="_localizer">Локализатор.</param>
+public class AppResource(IStringLocalizer<AppResource> _localizer) : IAppResource
 {
-    #region Fields
-
-    private readonly IStringLocalizer<AppResource> _localizer = localizer;
-
-    #endregion Fields
-
     #region Public methods
 
     /// <inheritdoc/>
