@@ -1,28 +1,15 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 
 namespace Makc2024.SharedKernel;
 
-public class MediatRDomainEventDispatcher : IDomainEventDispatcher
+/// <summary>
+/// Отправитель доменных событий на основе библиотеки MediatR.
+/// </summary>
+public class MediatRDomainEventDispatcher : ArdalisSharedKernel.MediatRDomainEventDispatcher
 {
-  private readonly IMediator _mediator;
-
   public MediatRDomainEventDispatcher(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
-
-  public async Task DispatchAndClearEvents(IEnumerable<EntityBase> entitiesWithEvents)
-  {
-    foreach (var entity in entitiesWithEvents)
-    {
-      var events = entity.DomainEvents.ToArray();
-      entity.ClearDomainEvents();
-      foreach (var domainEvent in events)
-      {
-        await _mediator.Publish(domainEvent).ConfigureAwait(false);
-      }
-    }
+    : base(mediator)
+  {    
   }
 }
 

@@ -1,13 +1,10 @@
-﻿using MediatR;
-
-namespace Makc2024.SharedKernel;
+﻿namespace Makc2024.SharedKernel;
 
 /// <summary>
-/// A base type for domain events. Depends on MediatR INotification.
-/// Includes DateOccurred which is set on creation.
+/// Базовый тип для доменных событий. Зависит от MediatR INotification.
+/// Включает свойство DateOccurred (дата появления), которое инициализируется при создании экземпляра класса.
 /// </summary>
-public abstract class DomainEventBase : INotification
+public abstract class DomainEventBase : ArdalisSharedKernel.DomainEventBase
 {
-  public DateTime DateOccurred { get; protected set; } = DateTime.UtcNow;
 }
 

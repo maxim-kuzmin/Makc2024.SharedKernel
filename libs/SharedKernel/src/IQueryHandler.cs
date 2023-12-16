@@ -1,13 +1,11 @@
-﻿using MediatR;
-
-namespace Makc2024.SharedKernel;
+﻿namespace Makc2024.SharedKernel;
 
 /// <summary>
-/// Source: https://code-maze.com/cqrs-mediatr-fluentvalidation/
+/// Интерфейс обработчика запроса. Источник: https://code-maze.com/cqrs-mediatr-fluentvalidation/
 /// </summary>
-/// <typeparam name="TQuery"></typeparam>
-/// <typeparam name="TResponse"></typeparam>
-public interface IQueryHandler<in TQuery, TResponse> : IRequestHandler<TQuery, TResponse>
+/// <typeparam name="TQuery">Тип запроса.</typeparam>
+/// <typeparam name="TResponse">Тип ответа.</typeparam>
+public interface IQueryHandler<in TQuery, TResponse> : ArdalisSharedKernel.IQueryHandler<TQuery, TResponse>
        where TQuery : IQuery<TResponse>
 {
 }

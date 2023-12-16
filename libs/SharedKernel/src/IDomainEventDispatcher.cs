@@ -1,9 +1,9 @@
 ﻿namespace Makc2024.SharedKernel;
 
 /// <summary>
-/// A simple interface for sending domain events. Can use MediatR or any other implementation.
+/// Интерфейс для отправки доменных событий.
+/// В реализации может использоваться MediatR или любая другая библиотека.
 /// </summary>
-public interface IDomainEventDispatcher
+public interface IDomainEventDispatcher : ArdalisSharedKernel.IDomainEventDispatcher
 {
-  Task DispatchAndClearEvents(IEnumerable<EntityBase> entitiesWithEvents);
 }

@@ -1,11 +1,10 @@
-﻿using Ardalis.Specification;
-
-namespace Makc2024.SharedKernel;
+﻿namespace Makc2024.SharedKernel;
 
 /// <summary>
-/// An abstraction for persistence, based on Ardalis.Specification
+/// Интерфейс репозитория.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IRepository<T> : IRepositoryBase<T> where T : class, IAggregateRoot
+public interface IRepository<T> : ArdalisSharedKernel.IRepository<T>
+  where T : class, IAggregateRoot
 {
 }

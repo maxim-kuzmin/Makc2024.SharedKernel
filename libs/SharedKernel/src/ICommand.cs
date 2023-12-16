@@ -1,11 +1,9 @@
-﻿using MediatR;
-
-namespace Makc2024.SharedKernel;
+﻿namespace Makc2024.SharedKernel;
 
 /// <summary>
-/// Source: https://code-maze.com/cqrs-mediatr-fluentvalidation/
+/// Интерфейс команды. Источник: https://code-maze.com/cqrs-mediatr-fluentvalidation/
 /// </summary>
-/// <typeparam name="TResponse"></typeparam>
-public interface ICommand<out TResponse> : IRequest<TResponse>
+/// <typeparam name="TResponse">Тип ответа.</typeparam>
+public interface ICommand<out TResponse> : ArdalisSharedKernel.ICommand<TResponse>
 {
 }

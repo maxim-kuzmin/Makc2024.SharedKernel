@@ -1,12 +1,11 @@
-﻿using Ardalis.Specification;
-
-namespace Makc2024.SharedKernel;
+﻿namespace Makc2024.SharedKernel;
 
 /// <summary>
-/// An abstraction for read only persistence operations, based on Ardalis.Specification.
-/// Use this primarily to fetch trackable domain entities, not for custom queries.
+/// Интерфейс репозитория с операциями только для чтения.
+/// Используется главным образом для получения отслеживаемых доменных сущностей, а не для произвольных запросов.
 /// </summary>
-/// <typeparam name="T"></typeparam>
-public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IAggregateRoot
+/// <typeparam name="T">Тип корня агрегата.</typeparam>
+public interface IReadRepository<T> : ArdalisSharedKernel.IReadRepository<T>
+  where T : class, IAggregateRoot
 {
 }
