@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>Makc2024.SharedKernel</AssemblyName>
@@ -41,9 +41,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <NoWarn>1701;1702;1591;1573;1712</NoWarn>
-    <TargetFramework>net8.0</TargetFramework>
+    <NoWarn>1701;1702;1591;1573;1712</NoWarn>    
   </PropertyGroup>
-
 
 </Project>
