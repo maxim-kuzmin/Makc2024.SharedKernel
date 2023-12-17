@@ -8,7 +8,16 @@
         "backend-gateway-webapi": "StartDebugging",
         "backend-service-task-executor": "StartDebugging",
         "backend-service-task-reader": "StartDebugging",
-        "backend-service-task-storage": "StartDebugging"
+        "backend-service-task-storage": "StartDebugging",
+        "frontend-web": "StartWithoutDebugging",
+        "external-mongo": "StartWithoutDebugging",
+        "external-mongo-express": "StartWithoutDebugging",
+        "external-nginx": "StartWithoutDebugging",
+        "external-pgadmin": "StartWithoutDebugging",
+        "external-pgbouncer": "StartWithoutDebugging",
+        "external-postgres": "StartWithoutDebugging",
+        "external-rabbitmq": "StartWithoutDebugging",
+        "frontend-web-debug": "StartWithoutDebugging"
       }
     }
   }

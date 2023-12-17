@@ -212,8 +212,10 @@ services:
     build:
       context: .
       dockerfile: ${MY_SERVICE_FRONTEND_WEB_APP_PATH}Dockerfile
-    volumes:
-      - ${MY_DOCKER_FOLDER}frontend-web:/app
+      args:
+        - APP_PATH=${MY_SERVICE_FRONTEND_WEB_APP_PATH}
+    # ports:
+    #   - "${MY_SERVICE_FRONTEND_WEB_HTTP_PORT}:80"
     networks:
       - network-frontend
 

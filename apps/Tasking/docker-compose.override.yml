@@ -55,10 +55,24 @@ services:
   frontend-web:
     build:
       context: .
-      dockerfile: src/Frontend/Web/App/debug/Dockerfile
+      dockerfile: ${MY_SERVICE_FRONTEND_WEB_APP_PATH}debug/Dockerfile
     environment:
       - WATCHPACK_POLLING=true #https://stackoverflow.com/questions/72023425/my-react-18-app-does-not-reload-automatically-i-try-to-click-on-the-create-new-p
     volumes:
-      - ./src/Frontend/Web/App:/app
+      - ./${MY_SERVICE_FRONTEND_WEB_APP_PATH}:/app
+      - ./${MY_SERVICE_FRONTEND_WEB_APP_PATH}debug/node_modules:/app/node_modules
     ports:
       - "${MY_SERVICE_FRONTEND_WEB_HTTP_PORT}:${MY_SERVICE_FRONTEND_WEB_HTTP_PORT}"
+
+  frontend-web-debug:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}frontend-web-debug
+    image: ${MY_IMAGE_PEFIX}frontend-web-debug
+    build:
+      context: .
+      dockerfile: ${MY_SERVICE_FRONTEND_WEB_APP_PATH}Dockerfile
+      args:
+        - APP_PATH=${MY_SERVICE_FRONTEND_WEB_APP_PATH}
+    ports:
+      - "${MY_SERVICE_FRONTEND_WEB_DEBUG_HTTP_PORT}:80"
+    networks:
+      - network-frontend
