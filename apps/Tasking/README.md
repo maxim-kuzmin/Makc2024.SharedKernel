@@ -119,3 +119,258 @@ docker-compose  -f ".\docker-compose.yml" -f ".\docker-compose.override.yml" --p
 2. OpenSSL:
 
 - https://think.unblog.ch/en/how-to-install-openssl-on-windows-10-11/
+
+# Services
+
+## TaskStorage
+
+### Language
+
+- **LanguageId** - string, PK, values:
+    - **ru**
+    - **en**
+
+### ParameterType
+
+- **ParameterTypeId** - string, PK,values:
+    - **number**
+    - **string**
+    - **boolean**
+
+### ParameterTypeResource
+
+- **LanguageId** - string, PK, FK
+
+- **ParameterTypeId** - string, PK, FK
+
+- **ParameterTypeName** - string
+
+- **ParameterTypeDescription** - string, null
+
+### TaskStatus
+
+- **TaskStatusId** - string, PK, values:
+    - **open**
+    - **in_progress**
+    - **paused**
+    - **done**
+
+### TaskStatusResource
+
+- **LanguageId** - string, PK, FK
+
+- **TaskStatusId** - string, PK, FK
+
+- **TaskStatusName** - string
+
+- **TaskStatusDescription** - string, null
+
+### TaskKind
+
+- **TaskKindId** - string, PK, values:
+    - **first_kind_task**
+    - **second_kind_task**
+    - **third_kind_task**
+
+### TaskKindResource
+
+- **LanguageId** - string, PK, FK
+
+- **TaskKindId** - string, PK, FK
+
+- **TaskKindName** - string
+
+- **TaskKindDescription** - string, null
+
+### TaskKindParameter
+
+- **TaskKindId** - string, PK, FK
+
+- **ParameterKey** - string, PK
+
+- **ParameterTypeId** - string, FK
+
+- **IsRequired** - bool
+
+- **IsArray** - bool
+
+- **Value** - string, null
+
+### TaskKindParameterResource
+
+- **LanguageId** - string, PK, FK
+
+- **TaskKindId** - string, PK, FK
+
+- **ParameterKey** - string, PK, FK
+
+- **TaskKindParameterName** - string
+
+- **TaskKindParameterDescription** - string, null
+
+### Task
+
+- **TaskId** - int, PK, auto generated values
+
+- **TaskKindId** - string, FK
+
+- **TaskStatusId** - string, FK
+
+- **CommandToExecute** - string, null
+
+- **CommandToRollback** - string, null
+
+### TaskResource
+
+- **LanguageId** - string, PK, FK
+
+- **TaskId** - int, PK, FK
+
+- **TaskTitle** - string
+
+- **TaskDescription** - string, null
+
+### TaskParameter
+
+- **TaskId** - int, PK, FK
+
+- **TaskKindId** - string, PK, FK
+
+- **ParameterKey** - string, PK, FK
+
+- **Value** - string, null
+
+### TaskExecutionStatus
+
+- **TaskExecutionStatusId** - string, PK, values:
+    - **success**
+    - **error**
+    - **pending**
+    - **in_progress**
+    - **canceled**
+
+### TaskExecutionStatusResource
+
+- **LanguageId** - string, PK
+
+- **TaskExecutionStatusId** - string, PK
+
+- **TaskExecutionStatusName** - string
+
+- **TaskExecutionStatusDescription** - string, null
+
+### TaskExecution
+
+- **TaskExecutionId** - string, PK, outside generated values
+
+- **TaskId** - int, FK
+
+- **TaskExecutionStatusId** - string, FK
+
+- **IsRollback** - bool
+
+- **CreationDate** - datetime
+
+- **StartDate** - datetime
+
+- **CompletionDate** - datetime
+
+## TaskFeature
+
+### Action
+
+- **ActionId** - string, PK, values:
+    - **task_delete**
+    - **task_insert**
+    - **task_update**
+
+### Transaction
+
+- **TransactionId** - int, PK, auto generated values
+
+- **ItitiatorId** - int
+
+- **StartDate** - datetime
+
+- **ActionId** - string, FK
+
+- **Input** - string, null
+
+- **TaskStorageState** - string, null
+
+- **TaskStorageActionDate** - datetime, null
+
+- **TaskReaderState** - string, null
+
+- **TaskReaderActionDate** - datetime, null
+
+# Action processing
+
+## task_delete
+
+### Input
+
+- **InitiatorId** = 1
+
+- **TaskId** = 1
+
+### 1. Select state from TaskStorage
+
+Task_from_TaskStorage_with_TaskId_1
+
+### 2. Select state from TaskReader
+
+Task_from_TaskReader_with_TaskId_1
+
+### 3. Insert into Transaction
+
+#### Input
+
+- **InitiatorId** = 1
+
+- **StartDate** = now()
+
+- **Input** = { "TaskId": "1" }
+
+- **TaskStorageState** = { Task_from_TaskStorage_with_TaskId_1 }
+
+- **TaskStorageActionDate** = null
+
+- **TaskReaderState** = { Task_from_TaskReader_with_TaskId_1 }
+
+- **TaskReaderActionDate** = null
+
+#### Output
+
+- **TransactionId** = 1
+
+### 4. Delete Task from TaskStorage
+
+### 5. Update Transaction after TaskStorage action completed
+
+#### Where
+
+- **TransactionId** = 1
+
+#### Input
+
+- **TaskStorageActionDate** = now()
+
+### 6. Delete Task from TaskReader
+
+### 7. Update Transaction after TaskReader action completed
+
+#### Where
+
+- **TransactionId** = 1
+
+#### Input
+
+- **TaskReaderActionDate** = now()
+
+### 8. Delete Transaction
+
+#### Where
+
+- **TransactionId** = 1
+
