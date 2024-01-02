@@ -3,13 +3,13 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
-      "serviceActions": {
-        "backend-feature-task-management": "StartDebugging",
+      "serviceActions": {        
         "backend-gateway-webapi": "StartDebugging",
         "backend-service-task-executor": "StartDebugging",
+        "backend-service-task-manager": "StartDebugging",
         "backend-service-task-reader": "StartDebugging",
         "backend-service-task-storage": "StartDebugging",
-        "frontend-web": "StartWithoutDebugging",
+        "frontend-web-reactvite": "StartWithoutDebugging",
         "external-mongo": "StartWithoutDebugging",
         "external-mongo-express": "StartWithoutDebugging",
         "external-nginx": "StartWithoutDebugging",
@@ -17,7 +17,7 @@
         "external-pgbouncer": "StartWithoutDebugging",
         "external-postgres": "StartWithoutDebugging",
         "external-rabbitmq": "StartWithoutDebugging",
-        "frontend-web-debug": "StartWithoutDebugging"
+        "frontend-web-reactvite-debug": "StartWithoutDebugging"
       }
     }
   }

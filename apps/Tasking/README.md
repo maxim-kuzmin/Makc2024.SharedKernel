@@ -34,7 +34,7 @@
 
 ### Докер-контейнеры приложения
 
-1. frontend-web - Фронт Web на React
+1. frontend-web-reactvite - Фронт Web на React Vite
 
 2. backend-gateway-webapi - Шлюз Web API для взаимодействия с фронтом Web
 
@@ -44,7 +44,7 @@
 
 5. backend-service-task-storage - Хранение задач ("С" в паттерне CQRS)
 
-6. backend-feature-task-management - Организация работы сервисов выполнения, чтения и хранения задач (через саги MassTransit)
+6. backend-service-task-manager - Организация работы сервисов выполнения, чтения и хранения задач (через саги MassTransit)
 
 ### Докер-контейнеры внешних приложений
 
@@ -275,7 +275,7 @@ docker-compose  -f ".\docker-compose.yml" -f ".\docker-compose.override.yml" --p
 
 - **CompletionDate** - datetime
 
-## TaskFeature
+## TaskManager
 
 ### Action
 

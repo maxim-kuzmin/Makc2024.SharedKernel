@@ -6,12 +6,12 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-service-task-reader
     build:
       context: .
-      dockerfile: ${MY_SERVICE_BACKEND_SERVICE_TASK_READER_APP_PATH}Dockerfile
+      dockerfile: ${MY_BACKEND_SERVICE_TASK_READER_WEB_PATH}Dockerfile
       args:
-        - APP_PATH=${MY_SERVICE_BACKEND_SERVICE_TASK_READER_APP_PATH}
+        - APP_PATH=${MY_BACKEND_SERVICE_TASK_READER_WEB_PATH}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_READER_HTTP_PORT}
+      - ASPNETCORE_URLS=http://*:${MY_BACKEND_SERVICE_TASK_READER_WEB_PORT_HTTP}
       - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
       - App__Language=${MY_LANGUAGE}
     volumes:

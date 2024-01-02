@@ -6,12 +6,12 @@ services:
     image: ${MY_IMAGE_PEFIX}backend-service-task-executor
     build:
       context: .
-      dockerfile: ${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PATH}Dockerfile
+      dockerfile: ${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PATH}Dockerfile
       args:
-        - APP_PATH=${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_APP_PATH}
+        - APP_PATH=${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PATH}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ASPNETCORE_URLS=http://*:${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}
+      - ASPNETCORE_URLS=http://*:${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PORT_HTTP}
       - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
       - App__Language=${MY_LANGUAGE}
     volumes:
@@ -40,7 +40,7 @@ services:
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=${MY_DEFAULT_LOGIN}
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${MY_DEFAULT_PASSWORD}
-      - ME_CONFIG_MONGODB_PORT=${MY_SERVICE_EXTERNAL_MONGO_PORT}
+      - ME_CONFIG_MONGODB_PORT=${MY_EXTERNAL_MONGO_PORT}
       - ME_CONFIG_MONGODB_SERVER=external-mongo
     depends_on:
       - external-mongo

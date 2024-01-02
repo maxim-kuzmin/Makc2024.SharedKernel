@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{507CA46A-946E-406B-AF8B-7D2BAC243908}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskStorage.App", "src\App\Backend.Services.TaskStorage.App.csproj", "{3E387DF4-E1DB-4BCA-8030-95A019BAB9BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskStorage.Web", "src\Web\Backend.Services.TaskStorage.Web.csproj", "{3E387DF4-E1DB-4BCA-8030-95A019BAB9BD}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{460D249B-519C-4FB1-A32A-E14E977B46BF}"
 EndProject

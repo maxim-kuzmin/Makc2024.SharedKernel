@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7BCA7102-2C36-4652-89E0-4CDAD1575E48}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskExecutor.App", "src\App\Backend.Services.TaskExecutor.App.csproj", "{326086DE-D55A-46CE-A3EE-60F3F341693C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskExecutor.Web", "src\Web\Backend.Services.TaskExecutor.Web.csproj", "{326086DE-D55A-46CE-A3EE-60F3F341693C}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A67F720A-E15D-4E2B-8FE3-479260062E83}"
 EndProject

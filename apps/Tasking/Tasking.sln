@@ -18,21 +18,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1A35D5A2-07A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{54F866E1-6B28-4AD9-B51B-79168998965D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{17145B05-D0C6-43F5-B281-C5782E7DA10F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskManagement", "TaskManagement", "{2E7D2775-7118-403B-8BA5-6753511B5AEF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0511FEBA-D00E-4651-82D4-5166593EFA31}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Features.TaskManagement.App", "src\Backend\Features\TaskManagement\src\App\Backend.Features.TaskManagement.App.csproj", "{162D4C4A-9D98-4F8A-B214-44EA26DD1E36}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{D61B3351-0B55-4B40-9190-258B92597E85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{FBC530CC-1A74-4ABF-B14E-8393307891AA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{54A163E1-1D25-4FC8-88C5-7FCFDBC5E3BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Gateways.WebAPI.App", "src\Backend\Gateways\WebAPI\src\App\Backend.Gateways.WebAPI.App.csproj", "{84ACBC5B-1C73-4216-9F58-261BCB49F6D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Gateways.WebAPI.Web", "src\Backend\Gateways\WebAPI\src\Web\Backend.Gateways.WebAPI.Web.csproj", "{84ACBC5B-1C73-4216-9F58-261BCB49F6D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{6ABCE7C2-AB71-416F-894A-A9DA739A5786}"
 EndProject
@@ -40,25 +32,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskExecutor", "TaskExecuto
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{16F826E8-F894-4624-A946-6B018CAF4656}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskExecutor.App", "src\Backend\Services\TaskExecutor\src\App\Backend.Services.TaskExecutor.App.csproj", "{00C04719-B2EA-46C8-AD2E-06A625347425}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskExecutor.Web", "src\Backend\Services\TaskExecutor\src\Web\Backend.Services.TaskExecutor.Web.csproj", "{00C04719-B2EA-46C8-AD2E-06A625347425}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0511FEBA-D00E-4651-82D4-5166593EFA31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskManager", "TaskManager", "{2E7D2775-7118-403B-8BA5-6753511B5AEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskManager.Web", "src\Backend\Services\TaskManager\src\Web\Backend.Services.TaskManager.Web.csproj", "{162D4C4A-9D98-4F8A-B214-44EA26DD1E36}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{29838BD0-9ABD-4272-857F-10D69BB4705A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskReader", "TaskReader", "{FF4B5A07-9698-4089-B0B5-06D3A8EA2AFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskReader.App", "src\Backend\Services\TaskReader\src\App\Backend.Services.TaskReader.App.csproj", "{812C8C48-5342-4CEC-A76D-E14E2F2256E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskReader.Web", "src\Backend\Services\TaskReader\src\Web\Backend.Services.TaskReader.Web.csproj", "{812C8C48-5342-4CEC-A76D-E14E2F2256E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FED63F37-4CB2-49D4-995B-52BA4AD1E036}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskStorage", "TaskStorage", "{8F19346C-048B-412B-B50A-D85DA7B6A13F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskStorage.App", "src\Backend\Services\TaskStorage\src\App\Backend.Services.TaskStorage.App.csproj", "{0524715D-7ABE-4A5D-A739-2CB0C29F74D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.TaskStorage.Web", "src\Backend\Services\TaskStorage\src\Web\Backend.Services.TaskStorage.Web.csproj", "{0524715D-7ABE-4A5D-A739-2CB0C29F74D0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{B0C42731-6086-4BCA-A6D6-DC010B60FFF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{7C825D15-2A32-4A27-899C-4BC0663B4515}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Frontend.Web.App", "src\Frontend\Web\App\Frontend.Web.App.esproj", "{CBBF9DDE-BE98-413D-87D6-99640346BFD1}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Frontend.Web.ReactVite", "src\Frontend\Web\ReactVite\Frontend.Web.ReactVite.esproj", "{CBBF9DDE-BE98-413D-87D6-99640346BFD1}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81632C6C-A0B7-405C-937F-14187D2E7E0E}"
 EndProject
@@ -116,8 +114,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{54F866E1-6B28-4AD9-B51B-79168998965D} = {1A35D5A2-07A9-404C-A354-BA81746310DD}
-		{17145B05-D0C6-43F5-B281-C5782E7DA10F} = {54F866E1-6B28-4AD9-B51B-79168998965D}
-		{2E7D2775-7118-403B-8BA5-6753511B5AEF} = {17145B05-D0C6-43F5-B281-C5782E7DA10F}
+		{2E7D2775-7118-403B-8BA5-6753511B5AEF} = {6ABCE7C2-AB71-416F-894A-A9DA739A5786}
 		{0511FEBA-D00E-4651-82D4-5166593EFA31} = {2E7D2775-7118-403B-8BA5-6753511B5AEF}
 		{162D4C4A-9D98-4F8A-B214-44EA26DD1E36} = {0511FEBA-D00E-4651-82D4-5166593EFA31}
 		{D61B3351-0B55-4B40-9190-258B92597E85} = {54F866E1-6B28-4AD9-B51B-79168998965D}

@@ -1,78 +1,78 @@
 version: '3.4'
 
 services:
-  backend-feature-task-management:
+  backend-service-task-manager:
     ports:
-      - "${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_HTTP_PORT}:${MY_SERVICE_BACKEND_FEATURE_TASK_MANAGEMENT_HTTP_PORT}"
+      - "${MY_BACKEND_SERVICE_TASK_MANAGER_WEB_PORT_HTTP}:${MY_BACKEND_SERVICE_TASK_MANAGER_WEB_PORT_HTTP}"
 
   backend-gateway-webapi:
     ports:
-      - "${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTP_PORT}:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTP_PORT}"
-      - "${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTPS_PORT}:${MY_SERVICE_BACKEND_GATEWAY_WEBAPI_HTTPS_PORT}"
+      - "${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTP}:${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTP}"
+      - "${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTPS}:${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTPS}"
 
   backend-service-task-executor:
     ports:
-      - "${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}:${MY_SERVICE_BACKEND_SERVICE_TASK_EXECUTOR_HTTP_PORT}"
+      - "${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PORT_HTTP}:${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PORT_HTTP}"
 
   backend-service-task-reader:
     ports:
-      - "${MY_SERVICE_BACKEND_SERVICE_TASK_READER_HTTP_PORT}:${MY_SERVICE_BACKEND_SERVICE_TASK_READER_HTTP_PORT}"
+      - "${MY_BACKEND_SERVICE_TASK_READER_WEB_PORT_HTTP}:${MY_BACKEND_SERVICE_TASK_READER_WEB_PORT_HTTP}"
 
   backend-service-task-storage:
     ports:
-      - "${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}:${MY_SERVICE_BACKEND_SERVICE_TASK_STORAGE_HTTP_PORT}"
+      - "${MY_BACKEND_SERVICE_TASK_STORAGE_WEB_PORT_HTTP}:${MY_BACKEND_SERVICE_TASK_STORAGE_WEB_PORT_HTTP}"
 
   external-mongo:
     ports:
-      - "${MY_SERVICE_EXTERNAL_MONGO_PORT}:${MY_SERVICE_EXTERNAL_MONGO_PORT}"
+      - "${MY_EXTERNAL_MONGO_PORT}:${MY_EXTERNAL_MONGO_PORT}"
 
   external-mongo-express:
     ports:
-      - "${MY_SERVICE_EXTERNAL_MONGO_EXPRESS_PORT}:8081"
+      - "${MY_EXTERNAL_MONGO_EXPRESS_PORT}:8081"
 
   external-nginx:
     ports:
-      - "${MY_SERVICE_EXTERNAL_NGINX_HTTP_PORT}:${MY_SERVICE_EXTERNAL_NGINX_HTTP_PORT}"
-      - "${MY_SERVICE_EXTERNAL_NGINX_HTTPS_PORT}:${MY_SERVICE_EXTERNAL_NGINX_HTTPS_PORT}"
+      - "${MY_EXTERNAL_NGINX_PORT_HTTP}:${MY_EXTERNAL_NGINX_PORT_HTTP}"
+      - "${MY_EXTERNAL_NGINX_PORT_HTTPS}:${MY_EXTERNAL_NGINX_PORT_HTTPS}"
 
   external-postgres:
     ports:
-      - "${MY_SERVICE_EXTERNAL_POSTGRES_PORT}:${MY_SERVICE_EXTERNAL_POSTGRES_PORT}"
+      - "${MY_EXTERNAL_POSTGRES_PORT}:${MY_EXTERNAL_POSTGRES_PORT}"
 
   external-pgadmin:
     ports:
-      - "${MY_SERVICE_EXTERNAL_PGADMIN_PORT}:80"
+      - "${MY_EXTERNAL_PGADMIN_PORT}:80"
 
   external-pgbouncer:
     ports:
-      - "${MY_SERVICE_EXTERNAL_PGBOUNCER_PORT}:${MY_SERVICE_EXTERNAL_PGBOUNCER_PORT}"
+      - "${MY_EXTERNAL_PGBOUNCER_PORT}:${MY_EXTERNAL_PGBOUNCER_PORT}"
 
   external-rabbitmq:
     ports:
-      - "${MY_SERVICE_EXTERNAL_RABBITMQ_MANAGENENT_PORT}:${MY_SERVICE_EXTERNAL_RABBITMQ_MANAGENENT_PORT}"
-      - "${MY_SERVICE_EXTERNAL_RABBITMQ_PORT}:${MY_SERVICE_EXTERNAL_RABBITMQ_PORT}"
+      - "${MY_EXTERNAL_RABBITMQ_MANAGENENT_PORT}:${MY_EXTERNAL_RABBITMQ_MANAGENENT_PORT}"
+      - "${MY_EXTERNAL_RABBITMQ_PORT}:${MY_EXTERNAL_RABBITMQ_PORT}"
 
-  frontend-web:
+  frontend-web-reactvite:
     build:
       context: .
-      dockerfile: ${MY_SERVICE_FRONTEND_WEB_APP_PATH}debug/Dockerfile
+      dockerfile: ${MY_FRONTEND_WEB_REACTVITE_PATH}debug/Dockerfile
     environment:
       - WATCHPACK_POLLING=true #https://stackoverflow.com/questions/72023425/my-react-18-app-does-not-reload-automatically-i-try-to-click-on-the-create-new-p
     volumes:
-      - ./${MY_SERVICE_FRONTEND_WEB_APP_PATH}:/app
-      - ./${MY_SERVICE_FRONTEND_WEB_APP_PATH}debug/node_modules:/app/node_modules
+      - ./${MY_FRONTEND_WEB_REACTVITE_PATH}:/app
+      - ./${MY_FRONTEND_WEB_REACTVITE_PATH}debug/node_modules:/app/node_modules
     ports:
-      - "${MY_SERVICE_FRONTEND_WEB_HTTP_PORT}:${MY_SERVICE_FRONTEND_WEB_HTTP_PORT}"
+      - "${MY_FRONTEND_WEB_REACTVITE_PORT_HTTP}:${MY_FRONTEND_WEB_REACTVITE_PORT_HTTP}"
 
-  frontend-web-debug:
-    container_name: ${MY_CONTAINER_NAME_PEFIX}frontend-web-debug
-    image: ${MY_IMAGE_PEFIX}frontend-web-debug
+  frontend-web-reactvite-debug:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}frontend-web-reactvite-debug
+    image: ${MY_IMAGE_PEFIX}frontend-web-reactvite-debug
     build:
       context: .
-      dockerfile: ${MY_SERVICE_FRONTEND_WEB_APP_PATH}Dockerfile
+      dockerfile: ${MY_FRONTEND_WEB_REACTVITE_PATH}Dockerfile
       args:
-        - APP_PATH=${MY_SERVICE_FRONTEND_WEB_APP_PATH}
+        - APP_PATH=${MY_FRONTEND_WEB_REACTVITE_PATH}
     ports:
-      - "${MY_SERVICE_FRONTEND_WEB_DEBUG_HTTP_PORT}:80"
+      - "${MY_FRONTEND_WEB_REACTVITE_PORT_HTTP_DEBUG}:80"
     networks:
       - network-frontend
