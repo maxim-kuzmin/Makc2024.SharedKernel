@@ -1,0 +1,65 @@
+version: '3.4'
+
+services:
+  backend-task-executor-web:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-task-executor-web
+    image: ${MY_IMAGE_PEFIX}backend-task-executor-web
+    build:
+      context: .
+      dockerfile: ${MY_BACKEND_TASK_EXECUTOR_WEB_PATH}Dockerfile
+      args:
+        - APP_PATH=${MY_BACKEND_TASK_EXECUTOR_WEB_PATH}
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://*:${MY_BACKEND_TASK_EXECUTOR_WEB_PORT_HTTP}
+      - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
+      - App__Language=${MY_LANGUAGE}
+    volumes:
+      - ${MY_DOCKER_FOLDER}backend-task-executor-web/logs:/app/logs
+      - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - external-mongo
+      - external-rabbitmq
+    networks:
+      - network-backend
+
+  external-mongo:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-mongo
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MY_DEFAULT_LOGIN}
+      - MONGO_INITDB_ROOT_PASSWORD=${MY_DEFAULT_PASSWORD}
+    volumes:
+      - ${MY_DOCKER_FOLDER}external-mongo/data:/data/db
+    networks:
+      - network-backend
+
+  external-mongo-express:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-mongo-express
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MY_DEFAULT_LOGIN}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MY_DEFAULT_PASSWORD}
+      - ME_CONFIG_MONGODB_PORT=${MY_EXTERNAL_MONGO_PORT}
+      - ME_CONFIG_MONGODB_SERVER=external-mongo
+    depends_on:
+      - external-mongo
+    restart: always
+    networks:
+      - network-backend
+
+  external-rabbitmq:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-rabbitmq
+    image: rabbitmq:3.11.7-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=${MY_DEFAULT_LOGIN}
+      - RABBITMQ_DEFAULT_PASS=${MY_DEFAULT_PASSWORD}
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    volumes:
+      - ${MY_DOCKER_FOLDER}external-rabbitmq/data:/var/lib/rabbitmq
+    networks:
+      - network-backend
+
+networks:
+  network-backend:
+    attachable: true

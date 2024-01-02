@@ -1,26 +1,26 @@
 version: '3.4'
 
 services:
-  backend-service-task-manager:
+  backend-task-manager-web:
     ports:
-      - "${MY_BACKEND_SERVICE_TASK_MANAGER_WEB_PORT_HTTP}:${MY_BACKEND_SERVICE_TASK_MANAGER_WEB_PORT_HTTP}"
+      - "${MY_BACKEND_TASK_MANAGER_WEB_PORT_HTTP}:${MY_BACKEND_TASK_MANAGER_WEB_PORT_HTTP}"
 
-  backend-gateway-webapi:
+  backend-gateway-web:
     ports:
-      - "${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTP}:${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTP}"
-      - "${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTPS}:${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTPS}"
+      - "${MY_BACKEND_GATEWAY_WEB_PORT_HTTP}:${MY_BACKEND_GATEWAY_WEB_PORT_HTTP}"
+      - "${MY_BACKEND_GATEWAY_WEB_PORT_HTTPS}:${MY_BACKEND_GATEWAY_WEB_PORT_HTTPS}"
 
-  backend-service-task-executor:
+  backend-task-executor-web:
     ports:
-      - "${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PORT_HTTP}:${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PORT_HTTP}"
+      - "${MY_BACKEND_TASK_EXECUTOR_WEB_PORT_HTTP}:${MY_BACKEND_TASK_EXECUTOR_WEB_PORT_HTTP}"
 
-  backend-service-task-reader:
+  backend-task-reader-web:
     ports:
-      - "${MY_BACKEND_SERVICE_TASK_READER_WEB_PORT_HTTP}:${MY_BACKEND_SERVICE_TASK_READER_WEB_PORT_HTTP}"
+      - "${MY_BACKEND_TASK_READER_WEB_PORT_HTTP}:${MY_BACKEND_TASK_READER_WEB_PORT_HTTP}"
 
-  backend-service-task-storage:
+  backend-task-storage-web:
     ports:
-      - "${MY_BACKEND_SERVICE_TASK_STORAGE_WEB_PORT_HTTP}:${MY_BACKEND_SERVICE_TASK_STORAGE_WEB_PORT_HTTP}"
+      - "${MY_BACKEND_TASK_STORAGE_WEB_PORT_HTTP}:${MY_BACKEND_TASK_STORAGE_WEB_PORT_HTTP}"
 
   external-mongo:
     ports:

@@ -36,15 +36,15 @@
 
 1. frontend-web-reactvite - Фронт Web на React Vite
 
-2. backend-gateway-webapi - Шлюз Web API для взаимодействия с фронтом Web
+2. backend-gateway-web - Шлюз Web API для взаимодействия с фронтом Web
 
-3. backend-service-task-executor - Выполнение задач
+3. backend-task-executor-web - Выполнение задач
 
-4. backend-service-task-reader - Чтение задач ("Q" в паттерне CQRS)
+4. backend-task-reader-web - Чтение задач ("Q" в паттерне CQRS)
 
-5. backend-service-task-storage - Хранение задач ("С" в паттерне CQRS)
+5. backend-task-storage-web - Хранение задач ("С" в паттерне CQRS)
 
-6. backend-service-task-manager - Организация работы сервисов выполнения, чтения и хранения задач (через саги MassTransit)
+6. backend-task-manager-web - Организация работы сервисов выполнения, чтения и хранения задач (через саги MassTransit)
 
 ### Докер-контейнеры внешних приложений
 

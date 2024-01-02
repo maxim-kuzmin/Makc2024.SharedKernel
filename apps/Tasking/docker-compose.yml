@@ -1,47 +1,47 @@
 version: '3.4'
 
 services:
-  backend-gateway-webapi:
-    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-gateway-webapi
-    image: ${MY_IMAGE_PEFIX}backend-gateway-webapi
+  backend-gateway-web:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-gateway-web
+    image: ${MY_IMAGE_PEFIX}backend-gateway-web
     build:
       context: .
-      dockerfile: ${MY_BACKEND_GATEWAY_WEBAPI_WEB_PATH}Dockerfile
+      dockerfile: ${MY_BACKEND_GATEWAY_WEB_PATH}Dockerfile
       args:
-        - APP_PATH=${MY_BACKEND_GATEWAY_WEBAPI_WEB_PATH}
+        - APP_PATH=${MY_BACKEND_GATEWAY_WEB_PATH}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ASPNETCORE_URLS=https://+:${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTPS};http://+:${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTP}
-      #- ASPNETCORE_PORT_HTTPS=${MY_BACKEND_GATEWAY_WEBAPI_WEB_PORT_HTTPS}
+      - ASPNETCORE_URLS=https://+:${MY_BACKEND_GATEWAY_WEB_PORT_HTTPS};http://+:${MY_BACKEND_GATEWAY_WEB_PORT_HTTP}
+      #- ASPNETCORE_PORT_HTTPS=${MY_BACKEND_GATEWAY_WEB_PORT_HTTPS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${MY_DEFAULT_PASSWORD}
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/cert.pfx
       - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
       - App__Language=${MY_LANGUAGE}
     volumes:
-      - ${MY_DOCKER_FOLDER}backend-gateway-webapi/logs:/app/logs
+      - ${MY_DOCKER_FOLDER}backend-gateway-web/logs:/app/logs
       - ${MY_HTTPS_FOLDER}:/https:ro
       - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
     depends_on:
-      - backend-service-task-manager
+      - backend-task-manager-web
     networks:
       - network-backend
       - network-frontend
 
-  backend-service-task-executor:
-    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-task-executor
-    image: ${MY_IMAGE_PEFIX}backend-service-task-executor
+  backend-task-executor-web:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-task-executor-web
+    image: ${MY_IMAGE_PEFIX}backend-task-executor-web
     build:
       context: .
-      dockerfile: ${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PATH}Dockerfile
+      dockerfile: ${MY_BACKEND_TASK_EXECUTOR_WEB_PATH}Dockerfile
       args:
-        - APP_PATH=${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PATH}
+        - APP_PATH=${MY_BACKEND_TASK_EXECUTOR_WEB_PATH}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ASPNETCORE_URLS=http://*:${MY_BACKEND_SERVICE_TASK_EXECUTOR_WEB_PORT_HTTP}
+      - ASPNETCORE_URLS=http://*:${MY_BACKEND_TASK_EXECUTOR_WEB_PORT_HTTP}
       - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
       - App__Language=${MY_LANGUAGE}
     volumes:
-      - ${MY_DOCKER_FOLDER}backend-service-task-executor/logs:/app/logs
+      - ${MY_DOCKER_FOLDER}backend-task-executor-web/logs:/app/logs
       - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
     depends_on:
       - external-mongo
@@ -49,46 +49,46 @@ services:
     networks:
       - network-backend
 
-  backend-service-task-manager:
-    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-task-manager
-    image: ${MY_IMAGE_PEFIX}backend-service-task-manager
+  backend-task-manager-web:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-task-manager-web
+    image: ${MY_IMAGE_PEFIX}backend-task-manager-web
     build:
       context: .
-      dockerfile: ${MY_BACKEND_SERVICE_TASK_MANAGER_WEB_PATH}Dockerfile
+      dockerfile: ${MY_BACKEND_TASK_MANAGER_WEB_PATH}Dockerfile
       args:
-        - APP_PATH=${MY_BACKEND_SERVICE_TASK_MANAGER_WEB_PATH}
+        - APP_PATH=${MY_BACKEND_TASK_MANAGER_WEB_PATH}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ASPNETCORE_URLS=http://*:${MY_BACKEND_SERVICE_TASK_MANAGER_WEB_PORT_HTTP}
+      - ASPNETCORE_URLS=http://*:${MY_BACKEND_TASK_MANAGER_WEB_PORT_HTTP}
       - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
       - App__Language=${MY_LANGUAGE}
     volumes:
-      - ${MY_DOCKER_FOLDER}backend-service-task-manager/logs:/app/logs
+      - ${MY_DOCKER_FOLDER}backend-task-manager-web/logs:/app/logs
       - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
     depends_on:
-      - backend-service-task-executor
-      - backend-service-task-reader
-      - backend-service-task-storage
+      - backend-task-executor-web
+      - backend-task-reader-web
+      - backend-task-storage-web
       - external-pgbouncer
       - external-rabbitmq
     networks:
       - network-backend
 
-  backend-service-task-reader:
-    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-task-reader
-    image: ${MY_IMAGE_PEFIX}backend-service-task-reader
+  backend-task-reader-web:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-task-reader-web
+    image: ${MY_IMAGE_PEFIX}backend-task-reader-web
     build:
       context: .
-      dockerfile: ${MY_BACKEND_SERVICE_TASK_READER_WEB_PATH}Dockerfile
+      dockerfile: ${MY_BACKEND_TASK_READER_WEB_PATH}Dockerfile
       args:
-        - APP_PATH=${MY_BACKEND_SERVICE_TASK_READER_WEB_PATH}
+        - APP_PATH=${MY_BACKEND_TASK_READER_WEB_PATH}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ASPNETCORE_URLS=http://*:${MY_BACKEND_SERVICE_TASK_READER_WEB_PORT_HTTP}
+      - ASPNETCORE_URLS=http://*:${MY_BACKEND_TASK_READER_WEB_PORT_HTTP}
       - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
       - App__Language=${MY_LANGUAGE}
     volumes:
-      - ${MY_DOCKER_FOLDER}backend-service-task-reader/logs:/app/logs
+      - ${MY_DOCKER_FOLDER}backend-task-reader-web/logs:/app/logs
       - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
     depends_on:
       - external-pgbouncer
@@ -96,21 +96,21 @@ services:
     networks:
       - network-backend
 
-  backend-service-task-storage:
-    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-task-storage
-    image: ${MY_IMAGE_PEFIX}backend-service-task-storage
+  backend-task-storage-web:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-task-storage-web
+    image: ${MY_IMAGE_PEFIX}backend-task-storage-web
     build:
       context: .
-      dockerfile: ${MY_BACKEND_SERVICE_TASK_STORAGE_WEB_PATH}Dockerfile
+      dockerfile: ${MY_BACKEND_TASK_STORAGE_WEB_PATH}Dockerfile
       args:
-        - APP_PATH=${MY_BACKEND_SERVICE_TASK_STORAGE_WEB_PATH}
+        - APP_PATH=${MY_BACKEND_TASK_STORAGE_WEB_PATH}
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ASPNETCORE_URLS=http://*:${MY_BACKEND_SERVICE_TASK_STORAGE_WEB_PORT_HTTP}
+      - ASPNETCORE_URLS=http://*:${MY_BACKEND_TASK_STORAGE_WEB_PORT_HTTP}
       - App__IsRetryEnabledByOrchestrator=${MY_IS_RETRY_ENABLED_BY_ORCHESTRATOR}
       - App__Language=${MY_LANGUAGE}
     volumes:
-      - ${MY_DOCKER_FOLDER}backend-service-task-storage/logs:/app/logs
+      - ${MY_DOCKER_FOLDER}backend-task-storage-web/logs:/app/logs
       - ${MY_SECRETS_FOLDER}:/root/.microsoft/usersecrets:ro
     depends_on:
       - external-pgbouncer
@@ -151,7 +151,7 @@ services:
       - ${MY_HTTPS_FOLDER}cert.crt:/etc/nginx/cert.crt
       - ${MY_HTTPS_FOLDER}cert.rsa:/etc/nginx/cert.rsa
     depends_on:
-      - backend-gateway-webapi
+      - backend-gateway-web
       - frontend-web-reactvite
     networks:
       - network-backend

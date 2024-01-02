@@ -3,11 +3,11 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>81632c6c-a0b7-405c-937f-14187d2e7e0e</ProjectGuid>
-    <DockerComposeProjectName>makc2024_tasking</DockerComposeProjectName>
+    <ProjectGuid>a67f720a-e15d-4e2b-8fe3-479260062e83</ProjectGuid>
+    <DockerComposeProjectName>makc2024_tasking_task_executor</DockerComposeProjectName>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/swagger</DockerServiceUrl>
-    <DockerServiceName>backend-gateway-web</DockerServiceName>	
+    <DockerServiceName>backend-task-executor-web</DockerServiceName>	
   </PropertyGroup>
   <ItemGroup>
     <None Include=".env" />
