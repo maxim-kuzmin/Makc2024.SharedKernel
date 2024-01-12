@@ -56,8 +56,8 @@ services:
     build:
       context: .
       dockerfile: ${MY_FRONTEND_WEB_REACTVITE_PATH}debug/Dockerfile
-    environment:
-      - WATCHPACK_POLLING=true #https://stackoverflow.com/questions/72023425/my-react-18-app-does-not-reload-automatically-i-try-to-click-on-the-create-new-p
+    # environment:
+    #   - WATCHPACK_POLLING=true #https://stackoverflow.com/questions/72023425/my-react-18-app-does-not-reload-automatically-i-try-to-click-on-the-create-new-p
     volumes:
       - ./${MY_FRONTEND_WEB_REACTVITE_PATH}:/app
       - ./${MY_FRONTEND_WEB_REACTVITE_PATH}debug/node_modules:/app/node_modules
