@@ -7,3 +7,4 @@ global using Makc2024.Dummy.Writer.DomainModel.User;
 global using Makc2024.Dummy.Writer.DomainUseCases.Customer.QueryFilters;
 global using Makc2024.Dummy.Writer.DomainUseCases.Invoice.QueryFilters;
 global using Makc2024.Dummy.Shared.Query;
+global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.QueryFilters;
