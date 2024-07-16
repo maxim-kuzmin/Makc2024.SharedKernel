@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  external-pgadmin:
+    container_name: ${MY_SERVICE_EXTERNAL_PGADMIN_CONTAINER_NAME}
+    image: ${MY_SERVICE_EXTERNAL_PGADMIN_IMAGE}
+    environment:
+      - PGADMIN_CONFIG_SERVER_MODE
+      - PGADMIN_DEFAULT_EMAIL
+      - PGADMIN_DEFAULT_PASSWORD
+    networks:
+      - network-backend
+
+  external-postgres:
+    container_name: ${MY_SERVICE_EXTERNAL_POSTGRES_CONTAINER_NAME}
+    image: ${MY_SERVICE_EXTERNAL_POSTGRES_IMAGE}
+    environment:
+      - PGDATA
+      - POSTGRES_DB
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+    networks:
+      - network-backend
+
+networks:
+  network-backend:
+    attachable: true
+

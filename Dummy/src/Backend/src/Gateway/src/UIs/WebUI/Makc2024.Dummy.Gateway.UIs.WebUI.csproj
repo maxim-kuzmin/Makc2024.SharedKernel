@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+	  <PackageReference Include="FastEndpoints" />
+	  <PackageReference Include="FastEndpoints.Swagger" />
+	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+	  <PackageReference Include="Swashbuckle.AspNetCore" />    
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Makc2024.Dummy.Gateway.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>A0DBB9A3-77AE-487F-B018-6A442627769C</ProjectGuid>
+    <DockerComposeProjectName>makc2024_dummy_staging_external</DockerComposeProjectName>
+    <DockerComposeEnvFilePath>.env.staging</DockerComposeEnvFilePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".env.staging" />
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
+    <None Include=".dockerignore" />
+  </ItemGroup>
+</Project>

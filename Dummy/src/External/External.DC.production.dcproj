@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>DCD78835-2C91-4D8E-8125-AC0FAF9C7ED7</ProjectGuid>
+    <DockerComposeProjectName>makc2024_dummy_production_external</DockerComposeProjectName>
+    <DockerComposeEnvFilePath>.env.production</DockerComposeEnvFilePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".env.production" />
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
+    <None Include=".dockerignore" />
+  </ItemGroup>
+</Project>

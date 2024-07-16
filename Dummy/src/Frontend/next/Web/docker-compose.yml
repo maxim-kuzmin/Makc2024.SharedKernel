@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  frontend-web-app:
+    container_name: ${MY_SERVICE_FRONTEND_WEB_APP_CONTAINER_NAME}
+    image: ${MY_SERVICE_FRONTEND_WEB_APP_IMAGE_NAME}
+    networks:
+      - network-frontend
+
+networks:
+  network-frontend:
+    attachable: true

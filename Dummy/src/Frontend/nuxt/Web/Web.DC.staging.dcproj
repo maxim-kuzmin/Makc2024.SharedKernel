@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>3311F1D0-DE63-4F7D-B6A3-1781A2568615</ProjectGuid>
+    <DockerComposeProjectName>makc2024_dummy_staging_frontend_web</DockerComposeProjectName>
+    <DockerComposeProjectsToIgnore>src\App\App.esproj</DockerComposeProjectsToIgnore>
+    <DockerComposeEnvFilePath>.env.staging</DockerComposeEnvFilePath>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
+    <DockerServiceName>frontend-web-app</DockerServiceName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".env.staging" />
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
+    <None Include=".dockerignore" />
+  </ItemGroup>
+</Project>

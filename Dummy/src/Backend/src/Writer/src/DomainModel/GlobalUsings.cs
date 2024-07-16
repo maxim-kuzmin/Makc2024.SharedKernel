@@ -1,0 +1,10 @@
+﻿global using Ardalis.GuardClauses;
+global using Ardalis.SharedKernel;
+global using Gateway.DomainModel.Customer;
+global using Gateway.DomainModel.Invoice;
+global using Gateway.DomainModel.Revenue;
+global using Gateway.DomainModel.User;
+global using Shared.Aggregate;
+global using Shared.DeepCopy;
+global using Shared.Entity;
+global using Shared.Types;

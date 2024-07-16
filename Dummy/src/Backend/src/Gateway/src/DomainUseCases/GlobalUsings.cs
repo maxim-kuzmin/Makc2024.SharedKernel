@@ -1,0 +1,9 @@
+﻿global using Ardalis.Result;
+global using Ardalis.SharedKernel;
+global using Gateway.DomainModel.Customer;
+global using Gateway.DomainModel.Invoice;
+global using Gateway.DomainModel.Revenue;
+global using Gateway.DomainModel.User;
+global using Gateway.DomainUseCases.Customer.QueryFilters;
+global using Gateway.DomainUseCases.Invoice.QueryFilters;
+global using Shared.Query;

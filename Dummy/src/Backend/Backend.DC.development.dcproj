@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>A2B6837B-6D7C-4636-B0B1-691A65CEF667</ProjectGuid>
+    <DockerComposeProjectName>makc2024_dummy_development_backend</DockerComposeProjectName>
+    <DockerComposeEnvFilePath>.env.development</DockerComposeEnvFilePath>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+    <DockerServiceName>backend-gateway-web-app</DockerServiceName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".env.development" />
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
+    <None Include=".dockerignore" />
+  </ItemGroup>
+</Project>
