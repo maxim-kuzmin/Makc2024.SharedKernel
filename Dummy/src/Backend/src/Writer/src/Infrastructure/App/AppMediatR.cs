@@ -6,9 +6,9 @@ public class AppMediatR
 
   static AppMediatR()
   {
-    var domainModelAssembly = Assembly.GetAssembly(typeof(RevenueEntity))!;
+    var domainModelAssembly = Assembly.GetAssembly(typeof(DummyItemEntity))!;
     
-    var domainUseCasesAssembly = Assembly.GetAssembly(typeof(RevenueGetListActionDTO))!;
+    var domainUseCasesAssembly = Assembly.GetAssembly(typeof(DummyItemGetListActionDTO))!;
 
     Assemblies = [domainModelAssembly, domainUseCasesAssembly];
   }

@@ -4,10 +4,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
   private static readonly AppDbSettings _appDbSettings = new();
 
-  public DbSet<CustomerEntity> Customers => base.Set<CustomerEntity>();
-  public DbSet<InvoiceEntity> Invoices => base.Set<InvoiceEntity>();
-  public DbSet<RevenueEntity> Revenues => base.Set<RevenueEntity>();
-  public DbSet<UserEntity> Users => base.Set<UserEntity>();
+  public DbSet<DummyItemEntity> DummyItem => base.Set<DummyItemEntity>();
 
   public static AppDbSettings GetAppDbSettings() => _appDbSettings;
 

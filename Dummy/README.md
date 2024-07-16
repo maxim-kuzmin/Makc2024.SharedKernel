@@ -1,5 +1,11 @@
 # Coordination
 
+## Миграции
+
+cd .\src\Backend\src\Writer\src\Infrastructure
+
+dotnet ef migrations add InitialCreate --startup-project ../Apps/WebApp --output-dir ./App/Db/Migrations
+
 ## Микросервисы
 
 1. Gateway - Шлюз

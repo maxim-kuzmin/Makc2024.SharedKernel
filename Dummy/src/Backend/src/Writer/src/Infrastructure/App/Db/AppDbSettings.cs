@@ -4,5 +4,5 @@ public class AppDbSettings
 {
   public AppDbSettingsEntities Entities { get; } = new AppDbSettingsEntities();
 
-  public string Schema { get; } = "public";
+  public string Schema { get; } = "writer";
 }

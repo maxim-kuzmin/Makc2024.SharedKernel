@@ -39,31 +39,13 @@ public static class AppExtensions
     services.AddScoped(typeof(IRepository<>), typeof(AppRepositoryBase<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(AppRepositoryBase<>));
 
-    services.AddScoped<ICustomerRepository, CustomerRepository>();
+    services.AddScoped<IDummyItemRepository, DummyItemRepository>();
 
-    services.AddScoped<ICustomerGetAllActionService, CustomerGetAllActionService>();
-    services.AddScoped<ICustomerGetCountActionService, CustomerGetCountActionService>();
-    services.AddScoped<ICustomerGetFilteredActionService, CustomerGetFilteredActionService>();
-
-    services.AddScoped<IInvoiceRepository, InvoiceRepository>();    
-
-    services.AddScoped<IInvoiceCreateActionService, InvoiceCreateActionService>();
-    services.AddScoped<IInvoiceDeleteActionService, InvoiceDeleteActionService>();
-    services.AddScoped<IInvoiceGetAmountsActionService, InvoiceGetAmountsActionService>();
-    services.AddScoped<IInvoiceGetByIdActionService, InvoiceGetByIdActionService>();
-    services.AddScoped<IInvoiceGetCountActionService, InvoiceGetCountActionService>();
-    services.AddScoped<IInvoiceGetFilteredActionService, InvoiceGetFilteredActionService>();
-    services.AddScoped<IInvoiceGetFilteredCountActionService, InvoiceGetFilteredCountActionService>();
-    services.AddScoped<IInvoiceGetLatestActionService, InvoiceGetLatestActionService>();
-    services.AddScoped<IInvoiceUpdateActionService, InvoiceUpdateActionService>();
-
-    services.AddScoped<IRevenueRepository, RevenueRepository>();
-
-    services.AddScoped<IRevenueGetListActionService, RevenueGetListActionService>();
-
-    services.AddScoped<IUserRepository, UserRepository>();
-
-    services.AddScoped<IUserGetByEmailActionService, UserGetByEmailActionService>();
+    services.AddScoped<IDummyItemCreateActionService, DummyItemCreateActionService>();
+    services.AddScoped<IDummyItemDeleteActionService, DummyItemDeleteActionService>();
+    services.AddScoped<IDummyItemGetByIdActionService, DummyItemGetByIdActionService>();
+    services.AddScoped<IDummyItemGetListActionService, DummyItemGetListActionService>();
+    services.AddScoped<IDummyItemUpdateActionService, DummyItemUpdateActionService>();
 
     logger.LogInformation("{Layer} layer added", nameof(Infrastructure));
 
