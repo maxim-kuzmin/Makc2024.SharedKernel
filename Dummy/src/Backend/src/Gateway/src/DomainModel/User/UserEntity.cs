@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainModel.User;
+﻿namespace Makc2024.Dummy.Gateway.DomainModel.User;
 
 public class UserEntity : EntityBaseWithId<Guid>, IAggregateRoot
 {

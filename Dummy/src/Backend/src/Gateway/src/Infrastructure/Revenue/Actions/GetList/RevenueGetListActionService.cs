@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Revenue.Actions.GetList;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.Revenue.Actions.GetList;
 
 public class RevenueGetListActionService(AppDbContext _db) : IRevenueGetListActionService
 {

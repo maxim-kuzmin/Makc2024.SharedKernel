@@ -1,4 +1,4 @@
-﻿namespace Shared.Types;
+﻿namespace Makc2024.Dummy.Shared.Types;
 
 public struct NonNullableStringType(string value) : IEquatable<NonNullableStringType>
 {

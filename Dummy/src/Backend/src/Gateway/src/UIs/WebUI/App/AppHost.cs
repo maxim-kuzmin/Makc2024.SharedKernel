@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.App;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.App;
 
 public class AppHost
 {

@@ -1,4 +1,4 @@
-﻿namespace Shared.Entity;
+﻿namespace Makc2024.Dummy.Shared.Entity;
 
 public abstract class EntityBaseWithoutId<TId> : IDeepCopyable
   where TId : struct, IEquatable<TId>

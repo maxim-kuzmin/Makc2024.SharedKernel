@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Invoice.Endpoints.GetById;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.Invoice.Endpoints.GetById;
 
 public class InvoiceGetByIdEndpointHandler(IMediator _mediator) :
   Endpoint<InvoiceGetByIdEndpointRequest, InvoiceGetByIdActionDTO>

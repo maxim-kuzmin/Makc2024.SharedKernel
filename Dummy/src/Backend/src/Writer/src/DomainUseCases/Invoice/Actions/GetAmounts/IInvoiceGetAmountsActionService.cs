@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.GetAmounts;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.Invoice.Actions.GetAmounts;
 
 public interface IInvoiceGetAmountsActionService
 {

@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Actions.GetById;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Invoice.Actions.GetById;
 
 public class InvoiceGetByIdActionService(AppDbContext _db) : IInvoiceGetByIdActionService
 {

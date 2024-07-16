@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.User.Endpoints.GetByEmail;
+﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.User.Endpoints.GetByEmail;
 
 public class UserGetByEmailEndpointSettings
 {

@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Customer.Actions.GetAll;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Customer.Actions.GetAll;
 
 public class CustomerGetAllActionService(AppDbContext _db) : ICustomerGetAllActionService
 {

@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.User.Entity;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.User.Entity;
 
 public class UserEntityDbSettings
 {

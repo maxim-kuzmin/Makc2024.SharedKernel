@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.App.Db;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Db;
 
 public class AppDbSettings
 {

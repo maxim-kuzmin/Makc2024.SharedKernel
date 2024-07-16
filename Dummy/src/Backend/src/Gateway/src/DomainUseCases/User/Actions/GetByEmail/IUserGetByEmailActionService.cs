@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.User.Actions.GetByEmail;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.User.Actions.GetByEmail;
 
 public interface IUserGetByEmailActionService
 {

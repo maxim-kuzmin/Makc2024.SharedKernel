@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainModel.Customer;
+﻿namespace Makc2024.Dummy.Writer.DomainModel.Customer;
 
 public class CustomerEntity : EntityBaseWithId<Guid>, IAggregateRoot
 {

@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Invoice.Endpoints.Update;
+﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.Invoice.Endpoints.Update;
 
 public class InvoiceUpdateEndpointHandler(IMediator _mediator) :
   Endpoint<InvoiceUpdateEndpointRequest, InvoiceGetByIdActionDTO>

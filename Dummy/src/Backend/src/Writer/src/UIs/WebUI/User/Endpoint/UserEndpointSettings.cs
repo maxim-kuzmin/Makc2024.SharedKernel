@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.User.Endpoint;
+﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.User.Endpoint;
 
 public class UserEndpointSettings
 {

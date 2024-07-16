@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.Delete;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.Invoice.Actions.Delete;
 
 public class InvoiceDeleteActionHandler(IInvoiceDeleteActionService _service) :
   ICommandHandler<InvoiceDeleteActionCommand, Result>

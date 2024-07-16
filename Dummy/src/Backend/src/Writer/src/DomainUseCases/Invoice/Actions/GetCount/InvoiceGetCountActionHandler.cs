@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.GetCount;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.Invoice.Actions.GetCount;
 
 public class InvoiceGetCountActionHandler(IInvoiceGetCountActionService _service) :
   IQueryHandler<InvoiceGetCountActionQuery, Result<int>>

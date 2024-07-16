@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainModel.Invoice;
+﻿namespace Makc2024.Dummy.Gateway.DomainModel.Invoice;
 
 public class InvoiceAggregate(Guid invoiceEntityId = default) : AggregateBase
 {

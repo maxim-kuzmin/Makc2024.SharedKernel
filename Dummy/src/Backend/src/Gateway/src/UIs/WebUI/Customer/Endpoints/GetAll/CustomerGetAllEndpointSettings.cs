@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Customer.Endpoints.GetAll;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.Customer.Endpoints.GetAll;
 
 public class CustomerGetAllEndpointSettings
 {

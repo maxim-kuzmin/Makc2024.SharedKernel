@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.User.Actions.GetByEmail;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.User.Actions.GetByEmail;
 
 public class UserGetByEmailActionService(AppDbContext _db) : IUserGetByEmailActionService
 {

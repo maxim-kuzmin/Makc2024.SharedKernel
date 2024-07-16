@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Actions.Update;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.Invoice.Actions.Update;
 
 public class InvoiceUpdateActionService(
   IEventDispatcher _eventDispatcher,

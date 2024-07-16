@@ -1,4 +1,4 @@
-﻿namespace Shared.DeepCopy;
+﻿namespace Makc2024.Dummy.Shared.DeepCopy;
 
 public static class DeepCopyExtensions
 {

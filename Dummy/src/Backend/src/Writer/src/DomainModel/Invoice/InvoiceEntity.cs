@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainModel.Invoice;
+﻿namespace Makc2024.Dummy.Writer.DomainModel.Invoice;
 
 public class InvoiceEntity : EntityBaseWithId<Guid>, IAggregateRoot
 {

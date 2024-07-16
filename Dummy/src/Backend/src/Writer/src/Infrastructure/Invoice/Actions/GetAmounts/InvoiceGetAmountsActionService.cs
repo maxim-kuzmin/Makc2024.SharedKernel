@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Actions.GetAmounts;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Invoice.Actions.GetAmounts;
 
 public class InvoiceGetAmountsActionService(AppDbContext _db) : IInvoiceGetAmountsActionService
 {

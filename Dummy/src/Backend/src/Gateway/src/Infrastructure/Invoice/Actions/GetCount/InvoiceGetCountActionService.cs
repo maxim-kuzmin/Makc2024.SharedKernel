@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Actions.GetCount;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.Invoice.Actions.GetCount;
 
 public class InvoiceGetCountActionService(AppDbContext _db) : IInvoiceGetCountActionService
 {

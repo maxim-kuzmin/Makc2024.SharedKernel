@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Actions.Create;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Invoice.Actions.Create;
 
 public class InvoiceCreateActionService(
   IEventDispatcher _eventDispatcher,

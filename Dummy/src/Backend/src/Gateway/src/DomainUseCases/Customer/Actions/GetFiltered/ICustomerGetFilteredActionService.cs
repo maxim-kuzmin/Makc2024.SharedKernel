@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Customer.Actions.GetFiltered;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.Customer.Actions.GetFiltered;
 
 public interface ICustomerGetFilteredActionService
 {

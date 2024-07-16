@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Invoice.Endpoints.GetLatest;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.Invoice.Endpoints.GetLatest;
 
 public class InvoiceGetLatestEndpointHandler(IMediator _mediator) :
   Endpoint<InvoiceGetLatestEndpointRequest, IEnumerable<InvoiceGetLatestActionDTO>>

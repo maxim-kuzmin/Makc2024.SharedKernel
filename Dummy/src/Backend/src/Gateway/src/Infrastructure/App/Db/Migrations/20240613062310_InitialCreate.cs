@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Gateway.Infrastructure.App.Db.Migrations
+namespace Makc2024.Dummy.Gateway.Infrastructure.App.Db.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

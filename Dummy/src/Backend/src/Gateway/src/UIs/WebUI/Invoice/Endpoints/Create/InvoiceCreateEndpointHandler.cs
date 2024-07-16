@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Invoice.Endpoints.Create;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.Invoice.Endpoints.Create;
 
 public class InvoiceCreateEndpointHandler(IMediator _mediator) :
   Endpoint<InvoiceCreateEndpointRequest, Guid>

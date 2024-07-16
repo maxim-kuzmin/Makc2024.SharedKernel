@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.App;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App;
 
 public class AppEnvironment
 {

@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Customer.Actions.GetAll;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.Customer.Actions.GetAll;
 
 public interface ICustomerGetAllActionService
 {

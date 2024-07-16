@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Actions.GetFiltered;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Invoice.Actions.GetFiltered;
 
 public class InvoiceGetFilteredActionService(AppDbContext _db) : IInvoiceGetFilteredActionService
 {

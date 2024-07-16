@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Actions.Delete;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.Invoice.Actions.Delete;
 
 public class InvoiceDeleteActionService(
   IEventDispatcher _eventDispatcher,

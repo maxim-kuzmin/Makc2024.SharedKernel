@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.User.Endpoints.GetByEmail;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.User.Endpoints.GetByEmail;
 
 public class UserGetByEmailEndpointHandler(IMediator _mediator) :
   Endpoint<UserGetByEmailEndpointRequest, UserGetByEmailActionDTO>

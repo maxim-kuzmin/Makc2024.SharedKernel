@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.Update;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.Invoice.Actions.Update;
 
 public class InvoiceUpdateActionHandler(IInvoiceUpdateActionService _service) :
   ICommandHandler<InvoiceUpdateActionCommand, Result<InvoiceUpdateActionDTO>>

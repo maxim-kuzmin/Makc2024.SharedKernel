@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.GetFiltered;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.Invoice.Actions.GetFiltered;
 
 public record InvoiceGetFilteredActionDTO(
   int Amount,

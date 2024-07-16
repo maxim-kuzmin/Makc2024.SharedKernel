@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainModel.Revenue;
+﻿namespace Makc2024.Dummy.Writer.DomainModel.Revenue;
 
 public class RevenueEntity : EntityBaseWithoutId<NonNullableStringType>, IAggregateRoot
 {

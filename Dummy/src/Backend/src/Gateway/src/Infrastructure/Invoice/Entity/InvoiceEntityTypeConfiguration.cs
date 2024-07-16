@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Entity;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.Invoice.Entity;
 
 public class InvoiceEntityTypeConfiguration : IEntityTypeConfiguration<InvoiceEntity>
 {

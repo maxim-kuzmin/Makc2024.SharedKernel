@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.App.Db;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Db;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {

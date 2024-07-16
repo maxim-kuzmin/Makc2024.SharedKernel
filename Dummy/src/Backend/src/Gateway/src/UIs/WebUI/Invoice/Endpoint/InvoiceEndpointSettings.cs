@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Invoice.Endpoint;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.Invoice.Endpoint;
 
 public class InvoiceEndpointSettings
 {

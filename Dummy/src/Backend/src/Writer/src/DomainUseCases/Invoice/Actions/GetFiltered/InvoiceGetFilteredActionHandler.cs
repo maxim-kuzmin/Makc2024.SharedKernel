@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.GetFiltered;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.Invoice.Actions.GetFiltered;
 
 public class InvoiceGetFilteredActionHandler(IInvoiceGetFilteredActionService _service) :
   IQueryHandler<InvoiceGetFilteredActionQuery, Result<IEnumerable<InvoiceGetFilteredActionDTO>>>

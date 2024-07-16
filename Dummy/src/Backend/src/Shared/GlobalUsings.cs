@@ -4,5 +4,5 @@ global using Ardalis.SharedKernel;
 global using MediatR;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
-global using Shared.DeepCopy;
-global using Shared.Event;
+global using Makc2024.Dummy.Shared.DeepCopy;
+global using Makc2024.Dummy.Shared.Event;

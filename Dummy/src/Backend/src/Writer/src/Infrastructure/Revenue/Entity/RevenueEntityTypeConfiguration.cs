@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Revenue.Entity;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Revenue.Entity;
 
 public class RevenueEntityTypeConfiguration : IEntityTypeConfiguration<RevenueEntity>
 {

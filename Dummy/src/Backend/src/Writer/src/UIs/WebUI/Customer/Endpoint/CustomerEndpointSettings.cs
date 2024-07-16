@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Customer.Endpoint;
+﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.Customer.Endpoint;
 
 public class CustomerEndpointSettings
 {

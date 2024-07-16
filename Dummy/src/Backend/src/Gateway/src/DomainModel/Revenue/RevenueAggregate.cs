@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainModel.Revenue;
+﻿namespace Makc2024.Dummy.Gateway.DomainModel.Revenue;
 
 public class RevenueAggregate(string revenueEntityMonth = "") : AggregateBase
 {

@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Customer.Entity;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Customer.Entity;
 
 public class CustomerEntityTypeConfiguration : IEntityTypeConfiguration<CustomerEntity>
 {

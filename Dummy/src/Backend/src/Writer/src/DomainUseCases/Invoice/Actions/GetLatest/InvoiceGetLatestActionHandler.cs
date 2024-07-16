@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.GetLatest;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.Invoice.Actions.GetLatest;
 
 public class InvoiceGetLatestActionHandler(IInvoiceGetLatestActionService _service) :
   IQueryHandler<InvoiceGetLatestActionQuery, Result<IEnumerable<InvoiceGetLatestActionDTO>>>

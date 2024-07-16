@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Invoice.Endpoints.GetCount;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.Invoice.Endpoints.GetCount;
 
 public class InvoiceGetCountEndpointSettings
 {

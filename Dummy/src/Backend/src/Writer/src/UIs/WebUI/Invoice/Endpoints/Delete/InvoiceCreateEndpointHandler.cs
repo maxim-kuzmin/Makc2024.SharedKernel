@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Invoice.Endpoints.Delete;
+﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.Invoice.Endpoints.Delete;
 
 public class InvoiceDeleteEndpointHandler(IMediator _mediator) :
   Endpoint<InvoiceDeleteEndpointRequest, InvoiceGetByIdActionDTO>

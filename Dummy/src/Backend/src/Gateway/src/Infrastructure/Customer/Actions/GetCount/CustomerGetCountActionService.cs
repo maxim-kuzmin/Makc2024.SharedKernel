@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Customer.Actions.GetCount;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.Customer.Actions.GetCount;
 
 public class CustomerGetCountActionService(AppDbContext _db) : ICustomerGetCountActionService
 {

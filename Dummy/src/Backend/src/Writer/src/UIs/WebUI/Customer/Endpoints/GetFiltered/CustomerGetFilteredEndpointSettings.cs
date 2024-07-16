@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Customer.Endpoints.GetFiltered;
+﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.Customer.Endpoints.GetFiltered;
 
 public class CustomerGetFilteredEndpointSettings
 {

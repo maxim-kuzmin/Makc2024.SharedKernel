@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.GetById;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.Invoice.Actions.GetById;
 
 public record InvoiceGetByIdActionDTO(
   int Amount,

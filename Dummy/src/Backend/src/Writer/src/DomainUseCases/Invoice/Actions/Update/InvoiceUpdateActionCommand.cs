@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.Update;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.Invoice.Actions.Update;
 
 public record InvoiceUpdateActionCommand(
   int Amount,

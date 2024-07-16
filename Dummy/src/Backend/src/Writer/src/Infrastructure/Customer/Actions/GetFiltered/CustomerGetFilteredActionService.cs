@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Customer.Actions.GetFiltered;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Customer.Actions.GetFiltered;
 
 public class CustomerGetFilteredActionService(AppDbContext _db) : ICustomerGetFilteredActionService
 {

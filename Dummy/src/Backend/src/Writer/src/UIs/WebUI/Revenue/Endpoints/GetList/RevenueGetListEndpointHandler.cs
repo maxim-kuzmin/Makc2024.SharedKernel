@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Revenue.Endpoints.GetList;
+﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.Revenue.Endpoints.GetList;
 
 public class RevenueGetListEndpointHandler(IMediator _mediator) :
   EndpointWithoutRequest<IEnumerable<RevenueGetListActionDTO>>

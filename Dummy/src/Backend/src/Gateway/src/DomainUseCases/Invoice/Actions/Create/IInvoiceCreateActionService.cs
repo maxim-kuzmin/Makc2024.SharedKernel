@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Invoice.Actions.Create;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.Invoice.Actions.Create;
 
 public interface IInvoiceCreateActionService
 {

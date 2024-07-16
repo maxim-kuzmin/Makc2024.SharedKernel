@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.App.Config;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Config;
 
 public record AppConfigOptionsPostgreSQL
 {

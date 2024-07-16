@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Customer.Endpoints.GetCount;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.Customer.Endpoints.GetCount;
 
 public class CustomerGetCountEndpointHandler(IMediator _mediator) :
   EndpointWithoutRequest<int>

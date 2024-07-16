@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainModel.Customer;
+﻿namespace Makc2024.Dummy.Gateway.DomainModel.Customer;
 
 public class CustomerAggregate(Guid customerEntityId = default) : AggregateBase
 {  

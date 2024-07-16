@@ -1,4 +1,4 @@
-﻿namespace Gateway.DomainUseCases.Revenue.Actions.GetList;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.Revenue.Actions.GetList;
 
 public interface IRevenueGetListActionService
 {

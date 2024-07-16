@@ -1,4 +1,4 @@
-﻿namespace Gateway.UIs.WebUI.Invoice.Endpoints.GetAmounts;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.Invoice.Endpoints.GetAmounts;
 
 public class InvoiceGetAmountsEndpointSettings
 {

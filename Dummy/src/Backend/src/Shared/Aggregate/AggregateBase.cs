@@ -1,4 +1,4 @@
-﻿namespace Shared.Aggregate;
+﻿namespace Makc2024.Dummy.Shared.Aggregate;
 
 public class AggregateBase : EventSource
 {

@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Actions.GetFilteredCount;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Invoice.Actions.GetFilteredCount;
 
 public class InvoiceGetFilteredCountActionService(AppDbContext _db) : IInvoiceGetFilteredCountActionService
 {

@@ -1,4 +1,4 @@
-﻿namespace Gateway.Infrastructure.Invoice.Actions.GetLatest;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.Invoice.Actions.GetLatest;
 
 public class InvoiceGetLatestActionService(AppDbContext _db) : IInvoiceGetLatestActionService
 {
