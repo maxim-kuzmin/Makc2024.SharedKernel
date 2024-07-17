@@ -2,7 +2,7 @@
 
 public class AppHost
 {
-  public static async Task RunAsync(string[] args)
+  public static Task RunAsync(string[] args)
   {
     var logger = AppLogger.Create<AppHost>();
 
@@ -20,9 +20,7 @@ public class AppHost
 
       var app = builder.Build();
 
-      app.UseAppWebUILayer(logger);
-
-      await app.UseAppInfrastructureLayerAsync(logger);
+      app.UseAppWebUILayer(logger);      
 
       app.Run();
     }
@@ -34,5 +32,7 @@ public class AppHost
     {
       AppLogger.CloseAndFlush();
     }
+
+    return Task.CompletedTask;
   }
 }

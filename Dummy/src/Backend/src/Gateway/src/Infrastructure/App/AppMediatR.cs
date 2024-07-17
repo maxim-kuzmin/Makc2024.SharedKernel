@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App;
+﻿using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.GetList;
+
+namespace Makc2024.Dummy.Gateway.Infrastructure.App;
 
 public class AppMediatR
 {
@@ -6,10 +8,8 @@ public class AppMediatR
 
   static AppMediatR()
   {
-    var domainModelAssembly = Assembly.GetAssembly(typeof(RevenueEntity))!;
-    
-    var domainUseCasesAssembly = Assembly.GetAssembly(typeof(RevenueGetListActionDTO))!;
+    var domainUseCasesAssembly = Assembly.GetAssembly(typeof(DummyItemGetListActionDTO))!;
 
-    Assemblies = [domainModelAssembly, domainUseCasesAssembly];
+    Assemblies = [domainUseCasesAssembly];
   }
 }

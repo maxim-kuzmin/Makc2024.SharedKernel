@@ -1,9 +1,4 @@
 ﻿global using Ardalis.Result;
 global using Ardalis.SharedKernel;
-global using Makc2024.Dummy.Gateway.DomainModel.Customer;
-global using Makc2024.Dummy.Gateway.DomainModel.Invoice;
-global using Makc2024.Dummy.Gateway.DomainModel.Revenue;
-global using Makc2024.Dummy.Gateway.DomainModel.User;
-global using Makc2024.Dummy.Gateway.DomainUseCases.Customer.QueryFilters;
-global using Makc2024.Dummy.Gateway.DomainUseCases.Invoice.QueryFilters;
+global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.QueryFilters;
 global using Makc2024.Dummy.Shared.Query;
