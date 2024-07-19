@@ -1,39 +1,32 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Actions.Update;
 
 public class DummyItemUpdateActionService(
-  IEventDispatcher _eventDispatcher,
-  IDummyItemRepository _repository) : IDummyItemUpdateActionService
+  IHttpClientFactory _httpClientFactory) : IDummyItemUpdateActionService
 {
-  public async Task<DummyItemUpdateActionDTO?> UpdateAsync(
+  public async Task<Result<DummyItemUpdateActionDTO>> UpdateAsync(
     DummyItemUpdateActionCommand command,
     CancellationToken cancellationToken = default)
   {
-    var dummyItemEntity = await _repository.GetByIdAsync(command.Id, cancellationToken);
-    
-    if (dummyItemEntity == null)
+    using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
+
+    using var httpRequest = JsonContent.Create(command);
+
+    using var httpResponse = await httpClient.PutAsync("dummy-items", httpRequest, cancellationToken);
+
+    if (httpResponse.StatusCode == HttpStatusCode.Unauthorized)
     {
-      return null;
+      return Result.Unauthorized();
     }
 
-    var dummyItemAggregate = new DummyItemAggregate(dummyItemEntity.Id);
+    httpResponse.EnsureSuccessStatusCode();
 
-    dummyItemAggregate.UpdateName(command.Name);
+    var response = await httpResponse.Content.ReadFromJsonAsync<DummyItemUpdateActionDTO?>(cancellationToken);
 
-    dummyItemEntity = dummyItemAggregate.GetDummyItemEntityToUpdate(dummyItemEntity);
-
-    if (dummyItemEntity == null)
+    if (response == null)
     {
-      return null;
+      return Result.NotFound();
     }
 
-    await _repository.UpdateAsync(dummyItemEntity, cancellationToken);
-
-    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken);
-
-    var result = new DummyItemUpdateActionDTO(
-      dummyItemEntity.Id,
-      dummyItemEntity.Name);
-
-    return result;
+    return Result.Success(response);
   }
 }

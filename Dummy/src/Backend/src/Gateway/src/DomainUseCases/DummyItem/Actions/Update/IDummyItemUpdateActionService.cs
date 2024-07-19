@@ -2,7 +2,7 @@
 
 public interface IDummyItemUpdateActionService
 {
-  Task<DummyItemUpdateActionDTO?> UpdateAsync(
+  Task<Result<DummyItemUpdateActionDTO>> UpdateAsync(
     DummyItemUpdateActionCommand command,
     CancellationToken cancellationToken = default);
 }

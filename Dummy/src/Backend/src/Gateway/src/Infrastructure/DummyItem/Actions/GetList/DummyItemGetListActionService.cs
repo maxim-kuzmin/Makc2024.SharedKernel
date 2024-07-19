@@ -1,8 +1,4 @@
-﻿using System.Web;
-using Makc2024.Dummy.Gateway.UIs.WebUI.DummyItem.Endpoints.GetList;
-using Microsoft.AspNetCore.Http;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Actions.GetList;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Actions.GetList;
 
 public class DummyItemGetListActionService(
   IHttpClientFactory _httpClientFactory) : IDummyItemGetListActionService
