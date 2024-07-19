@@ -17,9 +17,6 @@ public class DummyItemGetListEndpointHandler(IMediator _mediator) :
 
     var result = await _mediator.Send(query, cancellationToken);
 
-    if (result.IsSuccess)
-    {
-      Response = result.Value;
-    }
+    await SendResultAsync(result.ToMinimalApiResult());
   }
 }

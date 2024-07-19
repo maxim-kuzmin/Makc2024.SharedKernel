@@ -15,11 +15,11 @@ public class DummyItemUpdateEndpointHandler(IMediator _mediator) :
       request.Id,
       request.Name);
 
-    var result = await _mediator.Send(command, cancellationToken);
+    var commandResult = await _mediator.Send(command, cancellationToken);
 
-    if (result.Status == ResultStatus.NotFound)
+    if (!commandResult.IsSuccess)
     {
-      await SendNotFoundAsync(cancellationToken);
+      await SendResultAsync(commandResult.ToMinimalApiResult());
 
       return;
     }
@@ -28,13 +28,6 @@ public class DummyItemUpdateEndpointHandler(IMediator _mediator) :
 
     var queryResult = await _mediator.Send(query, cancellationToken);
 
-    if (queryResult.IsSuccess)
-    {
-      Response = queryResult.Value;
-    }
-    else if (queryResult.Status == ResultStatus.NotFound)
-    {
-      await SendNotFoundAsync(cancellationToken);
-    }
+    await SendResultAsync(queryResult.ToMinimalApiResult());
   }
 }

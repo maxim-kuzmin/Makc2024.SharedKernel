@@ -15,13 +15,6 @@ public class DummyItemGetByIdEndpointHandler(IMediator _mediator) :
 
     var result = await _mediator.Send(query, cancellationToken);
 
-    if (result.IsSuccess)
-    {
-      Response = result.Value;
-    }
-    else if (result.Status == ResultStatus.NotFound)
-    {
-      await SendNotFoundAsync(cancellationToken);
-    }
+    await SendResultAsync(result.ToMinimalApiResult());
   }
 }

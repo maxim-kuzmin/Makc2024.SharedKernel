@@ -7,7 +7,8 @@
       "composeLaunchServiceName": "backend-gateway-web-app",
       "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "serviceActions": {
-        "backend-gateway-web-app": "StartDebugging"
+        "backend-gateway-web-app": "StartDebugging",
+        "backend-writer-web-app": "StartDebugging"
       }
     }
   }

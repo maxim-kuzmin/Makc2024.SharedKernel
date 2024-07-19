@@ -5,14 +5,7 @@ services:
     container_name: ${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_CONTAINER_NAME}
     image: ${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_IMAGE_NAME}
     environment:
-      - App__IsRetryEnabledByOrchestrator=false
-      - App__Language=ru
-      - App__PostgreSQL__ConnectionStringName=PostgreSQL
-      - App__PostgreSQL__Database=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_POSTGRESQL_DATABASE}
-      - App__PostgreSQL__Password=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_POSTGRESQL_PASSWORD}
-      - App__PostgreSQL__Port=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_POSTGRESQL_PORT}
-      - App__PostgreSQL__Server=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_POSTGRESQL_SERVER}
-      - App__PostgreSQL__UserId=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_POSTGRESQL_USERID}
+      - App__Writer__ApiAddress=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_WRITER_API_ADDRESS}
     networks:
       - network-backend
     depends_on:

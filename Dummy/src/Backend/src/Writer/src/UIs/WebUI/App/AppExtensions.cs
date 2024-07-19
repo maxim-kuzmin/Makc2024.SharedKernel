@@ -39,7 +39,7 @@ public static class AppExtensions
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware
 
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
 
     logger.LogInformation("{Layer} layer used", nameof(WebUI));
 

@@ -14,7 +14,7 @@ public static class AppExtensions
 
     hostBuilder.UseSerilog((_, config) => config.ReadFrom.Configuration(configuration));
 
-    services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppMediatR.Assemblies));
+    services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 

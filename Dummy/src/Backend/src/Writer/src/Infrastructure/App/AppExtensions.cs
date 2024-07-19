@@ -14,7 +14,7 @@ public static class AppExtensions
 
     hostBuilder.UseSerilog((_, config) => config.ReadFrom.Configuration(configuration));
 
-    services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppMediatR.Assemblies));
+    services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
@@ -40,12 +40,6 @@ public static class AppExtensions
     services.AddScoped(typeof(IReadRepository<>), typeof(AppRepositoryBase<>));
 
     services.AddScoped<IDummyItemRepository, DummyItemRepository>();
-
-    services.AddScoped<IDummyItemCreateActionService, DummyItemCreateActionService>();
-    services.AddScoped<IDummyItemDeleteActionService, DummyItemDeleteActionService>();
-    services.AddScoped<IDummyItemGetByIdActionService, DummyItemGetByIdActionService>();
-    services.AddScoped<IDummyItemGetListActionService, DummyItemGetListActionService>();
-    services.AddScoped<IDummyItemUpdateActionService, DummyItemUpdateActionService>();
 
     logger.LogInformation("{Layer} layer added", nameof(Infrastructure));
 

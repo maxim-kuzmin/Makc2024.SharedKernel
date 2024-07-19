@@ -16,9 +16,6 @@ public class DummyItemCreateEndpointHandler(IMediator _mediator) :
 
     var result = await _mediator.Send(command, cancellationToken);
 
-    if (result.IsSuccess)
-    {
-      Response = result.Value;
-    }
+    await SendResultAsync(result.ToMinimalApiResult());
   }
 }

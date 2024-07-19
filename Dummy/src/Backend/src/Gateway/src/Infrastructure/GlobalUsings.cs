@@ -1,5 +1,4 @@
-﻿global using System.Net;
-global using System.Net.Http.Json;
+﻿global using System.Net.Http.Json;
 global using System.Reflection;
 global using Ardalis.GuardClauses;
 global using Ardalis.Result;
@@ -11,8 +10,9 @@ global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.GetById;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.GetList;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Update;
 global using Makc2024.Dummy.Gateway.Infrastructure.App.Config;
-global using Makc2024.Dummy.Gateway.UIs.WebUI.DummyItem.Endpoints.GetList;
 global using Makc2024.Dummy.Shared.Event;
+global using Makc2024.Dummy.Shared.Http;
+global using Makc2024.Dummy.Gateway.Infrastructure.DummyItem.Action;
 global using MediatR;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.Extensions.Configuration;

@@ -15,13 +15,6 @@ public class DummyItemDeleteEndpointHandler(IMediator _mediator) :
 
     var result = await _mediator.Send(command, cancellationToken);
 
-    if (result.IsSuccess)
-    {
-      await SendNoContentAsync(cancellationToken);
-    }
-    else if (result.Status == ResultStatus.NotFound)
-    {
-      await SendNotFoundAsync(cancellationToken);
-    }
+    await SendResultAsync(result.ToMinimalApiResult());
   }
 }

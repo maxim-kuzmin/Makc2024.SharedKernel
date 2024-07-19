@@ -1,6 +1,6 @@
 ﻿global using Ardalis.GuardClauses;
 global using Ardalis.ListStartupServices;
-global using Ardalis.Result;
+global using Ardalis.Result.AspNetCore;
 global using FastEndpoints;
 global using FastEndpoints.Swagger;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Create;

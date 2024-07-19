@@ -2,4 +2,4 @@
 
 public record DummyItemGetListActionQuery(
   QueryPage Page,
-  DummyItemListQueryFilter Filter) : IQuery<Result<IEnumerable<DummyItemGetListActionDTO>>>;
+  DummyItemListQueryFilter Filter) : IQuery<Result<List<DummyItemGetListActionDTO>>>;
