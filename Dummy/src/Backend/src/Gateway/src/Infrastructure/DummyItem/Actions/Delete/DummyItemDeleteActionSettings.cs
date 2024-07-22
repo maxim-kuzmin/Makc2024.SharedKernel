@@ -4,6 +4,6 @@ public class DummyItemDeleteActionSettings
 {
   public static string CreateUri(DummyItemDeleteActionCommand command)
   {
-    return $"{DummyItemActionSettings.Root}/{command.Id}";
+    return $"{DummyItemActionsSettings.Root}/{command.Id}";
   }
 }

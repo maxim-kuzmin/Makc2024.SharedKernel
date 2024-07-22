@@ -2,5 +2,5 @@
 
 public class DummyItemGetListEndpointSettings
 {
-  public const string Route = $"{DummyItemEndpointSettings.Root}";
+  public const string Route = $"{DummyItemEndpointsSettings.Root}";
 }

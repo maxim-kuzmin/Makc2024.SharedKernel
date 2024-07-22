@@ -12,6 +12,6 @@ public class DummyItemGetListActionSettings
 
     var queryString = QueryString.Create(parameters);
 
-    return $"{DummyItemActionSettings.Root}{queryString}";
+    return $"{DummyItemActionsSettings.Root}{queryString}";
   }
 }

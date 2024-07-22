@@ -1,6 +1,5 @@
 ﻿global using Ardalis.GuardClauses;
 global using Ardalis.ListStartupServices;
-global using Ardalis.Result;
 global using Ardalis.Result.AspNetCore;
 global using FastEndpoints;
 global using FastEndpoints.Swagger;
@@ -12,7 +11,6 @@ global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.GetList;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Update;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.QueryFilters;
 global using Makc2024.Dummy.Writer.Infrastructure.App;
-global using Makc2024.Dummy.Writer.UIs.WebUI.DummyItem.Endpoint;
 global using MediatR;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Http;

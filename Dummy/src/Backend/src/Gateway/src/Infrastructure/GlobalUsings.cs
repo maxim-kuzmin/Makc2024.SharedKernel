@@ -12,7 +12,6 @@ global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Update;
 global using Makc2024.Dummy.Gateway.Infrastructure.App.Config;
 global using Makc2024.Dummy.Shared.Event;
 global using Makc2024.Dummy.Shared.Http;
-global using Makc2024.Dummy.Gateway.Infrastructure.DummyItem.Action;
 global using MediatR;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.Extensions.Configuration;

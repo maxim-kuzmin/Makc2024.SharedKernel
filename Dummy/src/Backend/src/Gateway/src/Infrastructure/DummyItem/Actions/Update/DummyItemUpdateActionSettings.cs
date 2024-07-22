@@ -9,6 +9,6 @@ public class DummyItemUpdateActionSettings
 
   public static string CreateUri()
   {
-    return DummyItemActionSettings.Root;
+    return DummyItemActionsSettings.Root;
   }
 }

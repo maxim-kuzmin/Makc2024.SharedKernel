@@ -2,5 +2,5 @@
 
 public class DummyItemUpdateEndpointSettings
 {
-  public const string Route = $"{DummyItemEndpointSettings.Root}/{{id:long}}";
+  public const string Route = $"{DummyItemEndpointsSettings.Root}/{{id:long}}";
 }

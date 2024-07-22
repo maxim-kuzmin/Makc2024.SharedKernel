@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace Makc2024.Dummy.Shared.Http;
+﻿namespace Makc2024.Dummy.Shared.Http;
 
 public static class HttpExtensions
 {
@@ -16,7 +14,7 @@ public static class HttpExtensions
     return result ?? Result.Success();
   }
 
-  public async static Task<Result<T>> ToResultFromJsonAsync<T>(
+  public static async Task<Result<TContent>> ToResultFromJsonAsync<TContent>(
     this HttpResponseMessage? httpResponse,
     CancellationToken cancellationToken)
   {
@@ -32,9 +30,31 @@ public static class HttpExtensions
       return result;
     }
 
-    var data = await httpResponse.Content.ReadFromJsonAsync<T>(cancellationToken);
+    var content = await httpResponse.Content.ReadFromJsonAsync<TContent>(cancellationToken);
 
-    return data != null ? Result.Success(data) : Result.NotFound();
+    return content != null ? Result.Success(content) : Result.NotFound();
+  }
+
+  public static async Task<Result<TContent>> ToResultFromJsonAsync<TContent, TOriginalContent>(
+    this HttpResponseMessage? httpResponse,
+    Func<TOriginalContent, TContent> funcToGetContent,
+    CancellationToken cancellationToken)
+  {
+    if (httpResponse == null)
+    {
+      return Result.CriticalError();
+    }
+
+    var result = httpResponse.ToUnsuccessfulResult();
+
+    if (result != null)
+    {
+      return result;
+    }
+
+    var originalContent = await httpResponse.Content.ReadFromJsonAsync<TOriginalContent>(cancellationToken);
+
+    return originalContent != null ? Result.Success(funcToGetContent.Invoke(originalContent)) : Result.NotFound();
   }
 
   private static Result? ToUnsuccessfulResult(this HttpResponseMessage httpResponse)
@@ -62,7 +82,7 @@ public static class HttpExtensions
     catch (HttpRequestException ex)
     {
       return ex.StatusCode switch
-      {        
+      {
         HttpStatusCode.BadRequest => Result.Invalid(new ValidationError(ex.Message)),
         HttpStatusCode.UnprocessableEntity => Result.Error(ex.Message),
         _ => Result.CriticalError(ex.Message),
@@ -70,7 +90,7 @@ public static class HttpExtensions
     }
     catch (Exception ex)
     {
-      Result.CriticalError(ex.Message);
+      return Result.CriticalError(ex.Message);
     }
 
     return null;
