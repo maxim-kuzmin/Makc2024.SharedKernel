@@ -9,12 +9,17 @@ public class DummyItemGetByIdActionHandler(
   {
     using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
 
-    string uri = DummyItemGetByIdActionSettings.CreateUri(request);
+    string requestUri = CreateRequestUri(request);
 
-    using var httpResponse = await httpClient.GetAsync(uri, cancellationToken);
+    using var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken);
 
     var result = await httpResponse.ToResultFromJsonAsync<DummyItemGetByIdActionDTO>(cancellationToken);
 
     return result;
+  }
+
+  public static string CreateRequestUri(DummyItemGetByIdActionQuery query)
+  {
+    return $"{DummyItemActionsSettings.Root}/{query.Id}";
   }
 }

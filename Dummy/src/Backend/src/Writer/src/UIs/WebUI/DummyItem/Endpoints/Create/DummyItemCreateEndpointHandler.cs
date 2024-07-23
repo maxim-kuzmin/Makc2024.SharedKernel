@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.DummyItem.Endpoints.Create;
 
 public class DummyItemCreateEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemCreateEndpointRequest, long>
+  Endpoint<DummyItemCreateActionCommand, long>
 {
   public override void Configure()
   {
@@ -9,12 +9,9 @@ public class DummyItemCreateEndpointHandler(IMediator _mediator) :
     AllowAnonymous();
   }
 
-  public override async Task HandleAsync(DummyItemCreateEndpointRequest request, CancellationToken cancellationToken)
+  public override async Task HandleAsync(DummyItemCreateActionCommand request, CancellationToken cancellationToken)
   {
-    var command = new DummyItemCreateActionCommand(
-      request.Name);
-
-    var result = await _mediator.Send(command, cancellationToken);
+    var result = await _mediator.Send(request, cancellationToken);
 
     await SendResultAsync(result.ToMinimalApiResult());
   }

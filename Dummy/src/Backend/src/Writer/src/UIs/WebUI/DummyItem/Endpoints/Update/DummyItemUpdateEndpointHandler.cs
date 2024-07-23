@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.DummyItem.Endpoints.Update;
 
 public class DummyItemUpdateEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemUpdateEndpointRequest, DummyItemGetByIdActionDTO>
+  Endpoint<DummyItemUpdateActionCommand, DummyItemGetByIdActionDTO>
 {
   public override void Configure()
   {
@@ -9,13 +9,9 @@ public class DummyItemUpdateEndpointHandler(IMediator _mediator) :
     AllowAnonymous();
   }
 
-  public override async Task HandleAsync(DummyItemUpdateEndpointRequest request, CancellationToken cancellationToken)
+  public override async Task HandleAsync(DummyItemUpdateActionCommand request, CancellationToken cancellationToken)
   {
-    var command = new DummyItemUpdateActionCommand(
-      request.Id,
-      request.Name);
-
-    var commandResult = await _mediator.Send(command, cancellationToken);
+    var commandResult = await _mediator.Send(request, cancellationToken);
 
     if (!commandResult.IsSuccess)
     {

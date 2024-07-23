@@ -7,14 +7,24 @@ public class DummyItemCreateActionHandler(
   {
     using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
 
-    using var content = DummyItemCreateActionSettings.CreateContent(request);
+    using var requestContent = CreateRequestContent(request);
 
-    string uri = DummyItemCreateActionSettings.CreateUri();
+    string requestUri = CreateRequestUri();
 
-    using var httpResponse = await httpClient.PostAsync(uri, content, cancellationToken);
+    using var httpResponse = await httpClient.PostAsync(requestUri, requestContent, cancellationToken);
 
     var result = await httpResponse.ToResultFromJsonAsync<long>(cancellationToken);
 
     return result;
+  }
+
+  public static JsonContent CreateRequestContent(DummyItemCreateActionCommand command)
+  {
+    return JsonContent.Create(command);
+  }
+
+  public static string CreateRequestUri()
+  {
+    return DummyItemActionsSettings.Root;
   }
 }

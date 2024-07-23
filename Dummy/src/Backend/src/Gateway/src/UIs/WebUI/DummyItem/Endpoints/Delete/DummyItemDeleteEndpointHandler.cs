@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.DummyItem.Endpoints.Delete;
 
 public class DummyItemDeleteEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemDeleteEndpointRequest, DummyItemGetByIdActionDTO>
+  Endpoint<DummyItemDeleteActionCommand, DummyItemGetByIdActionDTO>
 {
   public override void Configure()
   {
@@ -9,11 +9,9 @@ public class DummyItemDeleteEndpointHandler(IMediator _mediator) :
     AllowAnonymous();
   }
 
-  public override async Task HandleAsync(DummyItemDeleteEndpointRequest request, CancellationToken cancellationToken)
+  public override async Task HandleAsync(DummyItemDeleteActionCommand request, CancellationToken cancellationToken)
   {
-    var command = new DummyItemDeleteActionCommand(request.Id);
-
-    var result = await _mediator.Send(command, cancellationToken);
+    var result = await _mediator.Send(request, cancellationToken);
 
     await SendResultAsync(result.ToMinimalApiResult());
   }

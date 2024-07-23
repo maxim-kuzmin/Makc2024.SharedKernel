@@ -9,14 +9,24 @@ public class DummyItemUpdateActionHandler(
   {
     using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
 
-    using var content = DummyItemUpdateActionSettings.CreateContent(request);
+    using var requestContent = CreateRequestContent(request);
 
-    string uri = DummyItemUpdateActionSettings.CreateUri();
+    string requestUri = CreateRequestUri(request);
 
-    using var httpResponse = await httpClient.PutAsync(uri, content, cancellationToken);
+    using var httpResponse = await httpClient.PutAsync(requestUri, requestContent, cancellationToken);
 
     var result = await httpResponse.ToResultFromJsonAsync<DummyItemUpdateActionDTO>(cancellationToken);
 
     return result;
+  }
+
+  public static JsonContent CreateRequestContent(DummyItemUpdateActionCommand command)
+  {
+    return JsonContent.Create(command);
+  }
+
+  public static string CreateRequestUri(DummyItemUpdateActionCommand command)
+  {
+    return $"{DummyItemActionsSettings.Root}/{command.Id}";
   }
 }
