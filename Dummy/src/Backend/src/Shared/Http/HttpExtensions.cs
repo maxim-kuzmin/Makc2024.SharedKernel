@@ -35,9 +35,9 @@ public static class HttpExtensions
     return content != null ? Result.Success(content) : Result.NotFound();
   }
 
-  public static async Task<Result<TContent>> ToResultFromJsonAsync<TContent, TOriginalContent>(
+  public static async Task<Result<TContent>> ToResultFromJsonAsync<TContent, TResponse>(
     this HttpResponseMessage? httpResponse,
-    Func<TOriginalContent, TContent> funcToGetContent,
+    Func<TResponse, TContent> funcToGetContent,
     CancellationToken cancellationToken)
   {
     if (httpResponse == null)
@@ -52,7 +52,7 @@ public static class HttpExtensions
       return result;
     }
 
-    var originalContent = await httpResponse.Content.ReadFromJsonAsync<TOriginalContent>(cancellationToken);
+    var originalContent = await httpResponse.Content.ReadFromJsonAsync<TResponse>(cancellationToken);
 
     return originalContent != null ? Result.Success(funcToGetContent.Invoke(originalContent)) : Result.NotFound();
   }
