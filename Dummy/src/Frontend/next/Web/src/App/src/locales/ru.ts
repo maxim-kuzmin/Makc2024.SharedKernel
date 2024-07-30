@@ -1,5 +1,5 @@
 export default {
-  'app.layout.Title': 'Фиктивный',
+  'app.layout.Title': 'Пустышка',
   'App.Api.Error.BadRequest': 'Плохой запрос',
   'App.Api.Error.NotFound': 'Не найдено',
   'App.Api.Error.InternalServerError': 'Внутренняя ошибка сервера',
