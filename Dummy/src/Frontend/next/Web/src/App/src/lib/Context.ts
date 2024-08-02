@@ -1,5 +1,4 @@
 import {
-  AppApiErrorResources,
   createAppApiModule,
   createAppModule,
   createAuthorizationModule,
@@ -13,10 +12,12 @@ export function createContext() {
     getHttpClient: http.getClient
   });
 
-  const app = createAppModule();
-
   const authorization = createAuthorizationModule({
     getAppApiClient: api.getClient
+  });
+
+  const app = createAppModule({
+    getAuthorizationLoginActionHandler: () => authorization.actions.login.getHandler()
   });
 
   return {

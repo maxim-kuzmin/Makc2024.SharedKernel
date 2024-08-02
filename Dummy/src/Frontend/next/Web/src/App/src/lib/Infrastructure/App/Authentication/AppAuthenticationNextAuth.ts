@@ -7,11 +7,21 @@ import {
   AuthorizationLoginActionHandler
 } from '@/lib';
 
+declare module "next-auth" {
+  /**
+   * The shape of the user object returned in the OAuth providers' `profile` callback,
+   * or the second parameter of the `session` callback, when using a database.
+   */
+  interface User {
+    token: string
+  }
+}
+
 interface Options {
   getLoginActionHandler: () => AuthorizationLoginActionHandler;
 }
 
-export function createAuthorizationNextAuth({
+export function createAppAuthenticationNextAuth({
   getLoginActionHandler
 }: Options): NextAuthResult {
   return NextAuth({
@@ -36,11 +46,13 @@ export function createAuthorizationNextAuth({
         // }
 
         return true;
-      },
+      }
     },
     providers: [
       Credentials({
         async authorize(credentials) {
+          let result: User | null = null;
+
           const parsedCredentials = z
             .object({ userName: z.string(), password: z.string() })
             .safeParse(credentials);
@@ -59,20 +71,19 @@ export function createAuthorizationNextAuth({
               command: authorizationLoginActionCommand
             });
 
-            const user = await loginActionHandler.handle(authorizationLoginActionRequest);
+            const token = await loginActionHandler.handle(authorizationLoginActionRequest);
 
-            if (!user) {
-              return null;
+            if (token) {
+              result = {
+                name: userName,
+                token
+              };
             }
-
-            return {
-              name: userName
-            } as User;
+          } else {
+            console.log('Invalid credentials');
           }
 
-          console.log('Invalid credentials');
-
-          return null;
+          return result;
         },
       }),
     ],

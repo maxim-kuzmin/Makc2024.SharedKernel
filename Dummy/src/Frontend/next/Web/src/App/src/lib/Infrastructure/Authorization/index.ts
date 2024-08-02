@@ -4,5 +4,3 @@ export {
   type AuthorizationModule,
   createAuthorizationModule
 } from './AuthorizationModule';
-
-export { createAuthorizationNextAuth } from './AuthorizationNextAuth';

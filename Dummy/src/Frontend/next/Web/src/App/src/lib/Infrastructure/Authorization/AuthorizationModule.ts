@@ -1,16 +1,12 @@
-import { NextAuthResult } from 'next-auth';
-
 import {
   AppApiClient,
   AuthorizationActionsModule,  
   createAuthorizationActionsModule,
-  createAuthorizationLoginActionHandler,
-  createAuthorizationNextAuth
+  createAuthorizationLoginActionHandler
 } from '@/lib';
 
 export interface AuthorizationModule {
   readonly actions: AuthorizationActionsModule;
-  getNextAuth(): NextAuthResult;
 }
 
 interface Options {
@@ -28,12 +24,7 @@ export function createAuthorizationModule({
     getAuthorizationLoginActionHandler: () => loginActionHandler
   });
 
-  const nextAuth = createAuthorizationNextAuth({
-    getLoginActionHandler: () => loginActionHandler
-  });
-
   return {
-    actions,
-    getNextAuth: () => nextAuth
-  }
+    actions
+  };
 }

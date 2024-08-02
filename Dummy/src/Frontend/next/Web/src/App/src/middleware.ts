@@ -1,16 +1,16 @@
 import { createI18nMiddleware } from 'next-international/middleware';
 import clientContext from '@/lib/clientContext';
 
-const nextAuth = clientContext.authorization.getNextAuth();
+const { auth } = clientContext.app.authentication.getNextAuth();
 
-const localizationSettings = clientContext.app.localization.getSettings();
+const {languages, defaultLanguage } = clientContext.app.localization.getSettings();
 
 const I18nMiddleware = createI18nMiddleware({
-  locales: localizationSettings.languages,
-  defaultLocale: localizationSettings.defaultLanguage
+  locales: languages,
+  defaultLocale: defaultLanguage
 });
 
-export default nextAuth.auth((request) => {
+export default auth((request) => {
   return I18nMiddleware(request)
 });
  
