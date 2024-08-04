@@ -7,6 +7,7 @@ global using Ardalis.GuardClauses;
 global using Ardalis.Result;
 global using Ardalis.SharedKernel;
 global using DotEnv.Core;
+global using Makc2024.Dummy.Gateway.DomainModel.App;
 global using Makc2024.Dummy.Gateway.DomainUseCases.App.Actions.Login;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Create;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Delete;

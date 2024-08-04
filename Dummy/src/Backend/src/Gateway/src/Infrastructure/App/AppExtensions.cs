@@ -26,6 +26,8 @@ public static class AppExtensions
 
     services.AddScoped<IEventDispatcher, EventDispatcher>();
 
+    services.AddScoped<IAppSession, AppSession>();
+
     const string userAgent = "Makc2024.Dummy";
 
     string writerApiAddress = appConfigOptions.Writer.ApiAddress;
