@@ -5,14 +5,20 @@ public static class AppExtensions
   public static IServiceCollection AddAppInfrastructureLayer(
     this IServiceCollection services,
     Microsoft.Extensions.Logging.ILogger logger,
+    AppConfigOptions appConfigOptions,
+    IHostBuilder hostBuilder,
     IConfiguration configuration,
-    IHostBuilder hostBuilder)
+    IConfigurationSection appConfigSection)
   {
     Guard.Against.Null(logger, nameof(logger));
-    Guard.Against.Null(configuration, nameof(configuration));
+    Guard.Against.Null(appConfigOptions, nameof(appConfigOptions));
     Guard.Against.Null(hostBuilder, nameof(hostBuilder));
+    Guard.Against.Null(configuration, nameof(configuration));
+    Guard.Against.Null(appConfigSection, nameof(appConfigSection));
 
     hostBuilder.UseSerilog((_, config) => config.ReadFrom.Configuration(configuration));
+
+    services.Configure<AppConfigOptions>(appConfigSection);
 
     services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
@@ -20,17 +26,9 @@ public static class AppExtensions
 
     services.AddScoped<IEventDispatcher, EventDispatcher>();
 
-    var appConfigSection = configuration.GetSection(AppConfigOptions.SectionKey);
-
-    services.Configure<AppConfigOptions>(appConfigSection);
-
-    var appConfig = new AppConfigOptions();
-
-    appConfigSection.Bind(appConfig);
-
     const string userAgent = "Makc2024.Dummy";
 
-    string writerApiAddress = appConfig.Writer.ApiAddress;
+    string writerApiAddress = appConfigOptions.Writer.ApiAddress;
 
     Guard.Against.Empty(writerApiAddress, nameof(writerApiAddress));
 
@@ -50,5 +48,14 @@ public static class AppExtensions
     logger.LogInformation("{Layer} layer added", nameof(Infrastructure));
 
     return services;
+  }
+
+  public static AppConfigOptions CreateAppConfigOptions(this IConfigurationSection appConfigSection)
+  {
+    var result = new AppConfigOptions();
+
+    appConfigSection.Bind(result);
+
+    return result;
   }
 }

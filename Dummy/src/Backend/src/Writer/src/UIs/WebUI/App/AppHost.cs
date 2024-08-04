@@ -14,9 +14,13 @@ public class AppHost
 
       var builder = WebApplication.CreateBuilder(args);
 
+      var appConfigSection = builder.Configuration.GetSection(AppConfigOptions.SectionKey);
+
+      var appConfigOptions = appConfigSection.CreateAppConfigOptions();
+
       builder.Services
         .AddAppWebUILayer(logger)
-        .AddAppInfrastructureLayer(logger, builder.Configuration, builder.Host);
+        .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Host, builder.Configuration, appConfigSection);
 
       var app = builder.Build();
 

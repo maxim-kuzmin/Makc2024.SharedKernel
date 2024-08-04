@@ -5,14 +5,20 @@ public static class AppExtensions
   public static IServiceCollection AddAppInfrastructureLayer(
     this IServiceCollection services,
     Microsoft.Extensions.Logging.ILogger logger,
+    AppConfigOptions appConfigOptions,
+    IHostBuilder hostBuilder,
     IConfiguration configuration,
-    IHostBuilder hostBuilder)
+    IConfigurationSection appConfigSection)
   {
     Guard.Against.Null(logger, nameof(logger));
-    Guard.Against.Null(configuration, nameof(configuration));
+    Guard.Against.Null(appConfigOptions, nameof(appConfigOptions));
     Guard.Against.Null(hostBuilder, nameof(hostBuilder));
+    Guard.Against.Null(configuration, nameof(configuration));
+    Guard.Against.Null(configuration, nameof(appConfigSection));
 
     hostBuilder.UseSerilog((_, config) => config.ReadFrom.Configuration(configuration));
+
+    services.Configure<AppConfigOptions>(appConfigSection);
 
     services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
@@ -20,19 +26,12 @@ public static class AppExtensions
 
     services.AddScoped<IEventDispatcher, EventDispatcher>();
 
-    var appConfigSection = configuration.GetSection(AppConfigOptions.SectionKey);
-
-    services.Configure<AppConfigOptions>(appConfigSection);
-
-    var appConfig = new AppConfigOptions();
-
-    appConfigSection.Bind(appConfig);
-
-    var connectionStringTemplate = configuration.GetConnectionString(appConfig.PostgreSQL.ConnectionStringName);
+    var connectionStringTemplate = configuration.GetConnectionString(
+      appConfigOptions.PostgreSQL.ConnectionStringName);
 
     Guard.Against.Null(connectionStringTemplate, nameof(connectionStringTemplate));
 
-    string? connectionString = appConfig.PostgreSQL.ToConnectionString(connectionStringTemplate);
+    string connectionString = appConfigOptions.PostgreSQL.ToConnectionString(connectionStringTemplate);
 
     services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
@@ -46,9 +45,11 @@ public static class AppExtensions
     return services;
   }
 
-  public static async Task UseAppInfrastructureLayerAsync(this IHost host, Microsoft.Extensions.Logging.ILogger logger)
+  public static async Task UseAppInfrastructureLayerAsync(
+    this IHost app,
+    Microsoft.Extensions.Logging.ILogger logger)
   {
-    using var scope = host.Services.CreateScope();
+    using var scope = app.Services.CreateScope();
 
     var scopedServices = scope.ServiceProvider;
 
@@ -67,5 +68,14 @@ public static class AppExtensions
     {
       logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
     }
+  }
+
+  public static AppConfigOptions CreateAppConfigOptions(this IConfigurationSection appConfigSection)
+  {
+    var result = new AppConfigOptions();
+
+    appConfigSection.Bind(result);
+
+    return result;
   }
 }

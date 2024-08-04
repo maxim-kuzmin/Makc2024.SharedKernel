@@ -10,7 +10,7 @@ dotnet ef migrations add InitialCreate --startup-project ../Apps/WebApp --output
 
 1. Gateway - Шлюз
 
-Напраляет запросы и команды от клиентов другим микросервисам
+Направляет запросы и команды от клиентов другим микросервисам
 
 2. Writer - Писатель
 

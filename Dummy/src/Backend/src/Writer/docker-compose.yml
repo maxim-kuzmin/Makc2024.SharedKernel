@@ -8,11 +8,11 @@ services:
       - App__IsRetryEnabledByOrchestrator=false
       - App__Language=ru
       - App__PostgreSQL__ConnectionStringName=PostgreSQL
-      - App__PostgreSQL__Database=${MY_SERVICE_BACKEND_WRITER_WEB_APP_POSTGRESQL_DATABASE}
-      - App__PostgreSQL__Password=${MY_SERVICE_BACKEND_WRITER_WEB_APP_POSTGRESQL_PASSWORD}
-      - App__PostgreSQL__Port=${MY_SERVICE_BACKEND_WRITER_WEB_APP_POSTGRESQL_PORT}
-      - App__PostgreSQL__Server=${MY_SERVICE_BACKEND_WRITER_WEB_APP_POSTGRESQL_SERVER}
-      - App__PostgreSQL__UserId=${MY_SERVICE_BACKEND_WRITER_WEB_APP_POSTGRESQL_USERID}
+      - App__PostgreSQL__Database=${MY_SERVICE_BACKEND_WRITER_WEB_APP_CONFIG_POSTGRESQL_DATABASE}
+      - App__PostgreSQL__Password=${MY_SERVICE_BACKEND_WRITER_WEB_APP_CONFIG_POSTGRESQL_PASSWORD}
+      - App__PostgreSQL__Port=${MY_SERVICE_BACKEND_WRITER_WEB_APP_CONFIG_POSTGRESQL_PORT}
+      - App__PostgreSQL__Server=${MY_SERVICE_BACKEND_WRITER_WEB_APP_CONFIG_POSTGRESQL_SERVER}
+      - App__PostgreSQL__UserId=${MY_SERVICE_BACKEND_WRITER_WEB_APP_CONFIG_POSTGRESQL_USERID}
     networks:
       - network-backend
 

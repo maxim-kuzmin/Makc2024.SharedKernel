@@ -4,5 +4,7 @@ public record AppConfigOptions
 {
   public const string SectionKey = "App";
 
+  public AppConfigOptionsAuthentication Authentication { get; set; } = null!;
+
   public AppConfigOptionsWriter Writer { get; set; } = null!;
 }

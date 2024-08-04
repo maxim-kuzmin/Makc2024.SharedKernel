@@ -2,9 +2,31 @@
 
 public static class AppExtensions
 {
-  public static IServiceCollection AddAppWebUILayer(this IServiceCollection services, ILogger logger)
+  public static IServiceCollection AddAppWebUILayer(
+    this IServiceCollection services,
+    ILogger logger,
+    AppConfigOptions appConfigOptions)
   {
     Guard.Against.Null(logger, nameof(logger));
+
+    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+          byte[] keyBytes = Encoding.UTF8.GetBytes(appConfigOptions.Authentication.Key);
+
+          var issuerSigningKey = appConfigOptions.Authentication.GetSymmetricSecurityKey();
+
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+            ValidateIssuer = true,
+            ValidIssuer = appConfigOptions.Authentication.Issuer,
+            ValidateAudience = true,
+            ValidAudience = appConfigOptions.Authentication.Audience,
+            ValidateLifetime = true,
+            IssuerSigningKey = issuerSigningKey,
+            ValidateIssuerSigningKey = true
+          };
+        });
 
     services.Configure<CookiePolicyOptions>(options =>
     {
@@ -36,6 +58,9 @@ public static class AppExtensions
       app.UseDefaultExceptionHandler(); // from FastEndpoints
       app.UseHsts();
     }
+
+    app.UseAuthentication();
+    app.UseAuthorization();
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware
 
