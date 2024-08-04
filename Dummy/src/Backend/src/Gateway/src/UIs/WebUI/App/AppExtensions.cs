@@ -9,36 +9,38 @@ public static class AppExtensions
   {
     Guard.Against.Null(logger, nameof(logger));
 
-    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-          byte[] keyBytes = Encoding.UTF8.GetBytes(appConfigOptions.Authentication.Key);
-
-          var issuerSigningKey = appConfigOptions.Authentication.GetSymmetricSecurityKey();
-
-          options.TokenValidationParameters = new TokenValidationParameters
-          {
-            ValidateIssuer = true,
-            ValidIssuer = appConfigOptions.Authentication.Issuer,
-            ValidateAudience = true,
-            ValidAudience = appConfigOptions.Authentication.Audience,
-            ValidateLifetime = true,
-            IssuerSigningKey = issuerSigningKey,
-            ValidateIssuerSigningKey = true
-          };
-        });
-
-    services.AddAuthorization();
-
     services.Configure<CookiePolicyOptions>(options =>
     {
       options.CheckConsentNeeded = context => true;
       options.MinimumSameSitePolicy = SameSiteMode.None;
     });
 
-    services.AddFastEndpoints().SwaggerDocument(options =>
+    services.AddFastEndpoints()
+      .AddAuthorization()
+      .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+      .AddJwtBearer(options =>
+      {
+        byte[] keyBytes = Encoding.UTF8.GetBytes(appConfigOptions.Authentication.Key);
+
+        var issuerSigningKey = appConfigOptions.Authentication.GetSymmetricSecurityKey();
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+          ValidateIssuer = true,
+          ValidIssuer = appConfigOptions.Authentication.Issuer,
+          ValidateAudience = true,
+          ValidAudience = appConfigOptions.Authentication.Audience,
+          ValidateLifetime = true,
+          IssuerSigningKey = issuerSigningKey,
+          ValidateIssuerSigningKey = true
+        };
+      });
+
+    services.SwaggerDocument(options =>
     {
       options.ShortSchemaNames = true;
+
+      options.EnableJWTBearerAuth = true;
     });
 
     logger.LogInformation("{Layer} layer added", nameof(WebUI));
@@ -61,10 +63,10 @@ public static class AppExtensions
       app.UseHsts();
     }
 
-    app.UseAuthentication();
-    app.UseAuthorization();
-
-    app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware
+    app.UseAuthentication()
+      .UseAuthorization()
+      .UseFastEndpoints()
+      .UseSwaggerGen(); // Includes AddFileServer and static files middleware
 
     app.UseHttpsRedirection();
 

@@ -6,7 +6,7 @@ public class DummyItemGetListEndpointHandler(IMediator _mediator) :
   public override void Configure()
   {
     Get(DummyItemGetListEndpointSettings.Route);
-    AllowAnonymous();
+    //AllowAnonymous();
   }
 
   public override async Task HandleAsync(DummyItemGetListEndpointRequest request, CancellationToken cancellationToken)
