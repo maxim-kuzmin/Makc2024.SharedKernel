@@ -1,11 +1,15 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Actions.GetList;
 
-public class DummyItemGetListActionHandler(AppDbContext _db) : IDummyItemGetListActionHandler
+public class DummyItemGetListActionHandler(
+  IAppSession _appSession,
+  AppDbContext _db) : IDummyItemGetListActionHandler
 {
   public async Task<Result<DummyItemGetListActionDTO>> Handle(
     DummyItemGetListActionQuery request,
     CancellationToken cancellationToken)
   {
+    string? userName = _appSession.User.Identity?.Name;
+
     var appDbSettings = AppDbContext.GetAppDbSettings();
 
     var dummyItemEntitySettings = appDbSettings.Entities.DummyItem;

@@ -19,7 +19,7 @@ public class AppHost
       var appConfigOptions = appConfigSection.CreateAppConfigOptions();
 
       builder.Services
-        .AddAppWebUILayer(logger)
+        .AddAppWebUILayer(logger, appConfigOptions)
         .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Host, builder.Configuration, appConfigSection);
 
       var app = builder.Build();

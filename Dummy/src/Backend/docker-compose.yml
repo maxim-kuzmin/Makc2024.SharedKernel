@@ -19,6 +19,9 @@ services:
     container_name: ${MY_SERVICE_BACKEND_WRITER_WEB_APP_CONTAINER_NAME}
     image: ${MY_SERVICE_BACKEND_WRITER_WEB_APP_IMAGE_NAME}
     environment:
+      - App__Authentication__Audience=${MY_SERVICE_BACKEND_WRITER_WEB_APP_CONFIG_AUTHENTICATION_AUDIENCE}
+      - App__Authentication__Issuer=${MY_SERVICE_BACKEND_WRITER_WEB_APP_CONFIG_AUTHENTICATION_ISSUER}
+      - App__Authentication__Key=${MY_SERVICE_BACKEND_WRITER_WEB_APP_CONFIG_AUTHENTICATION_KEY}
       - App__IsRetryEnabledByOrchestrator=false
       - App__Language=ru
       - App__PostgreSQL__ConnectionStringName=PostgreSQL

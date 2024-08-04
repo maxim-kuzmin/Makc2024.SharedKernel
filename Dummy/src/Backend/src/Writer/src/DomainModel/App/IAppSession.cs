@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Gateway.DomainModel.App;
+﻿namespace Makc2024.Dummy.Writer.DomainModel.App;
 
 public interface IAppSession
 {

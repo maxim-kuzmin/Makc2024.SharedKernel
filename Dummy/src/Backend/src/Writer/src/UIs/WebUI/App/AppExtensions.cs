@@ -2,7 +2,10 @@
 
 public static class AppExtensions
 {
-  public static IServiceCollection AddAppWebUILayer(this IServiceCollection services, ILogger logger)
+  public static IServiceCollection AddAppWebUILayer(
+    this IServiceCollection services,
+    ILogger logger,
+    AppConfigOptions appConfigOptions)
   {
     Guard.Against.Null(logger, nameof(logger));
 
@@ -21,9 +24,32 @@ public static class AppExtensions
       config.Path = "/mylistallservicespath";
     });
 
-    services.AddFastEndpoints().SwaggerDocument(options =>
+    services.AddFastEndpoints()
+      .AddAuthorization()
+      .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+      .AddJwtBearer(options =>
+      {
+        byte[] keyBytes = Encoding.UTF8.GetBytes(appConfigOptions.Authentication.Key);
+
+        var issuerSigningKey = appConfigOptions.Authentication.GetSymmetricSecurityKey();
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+          ValidateIssuer = true,
+          ValidIssuer = appConfigOptions.Authentication.Issuer,
+          ValidateAudience = true,
+          ValidAudience = appConfigOptions.Authentication.Audience,
+          ValidateLifetime = true,
+          IssuerSigningKey = issuerSigningKey,
+          ValidateIssuerSigningKey = true
+        };
+      });
+
+    services.SwaggerDocument(options =>
     {
       options.ShortSchemaNames = true;
+
+      options.EnableJWTBearerAuth = true;
     });
 
     logger.LogInformation("{Layer} layer added", nameof(WebUI));
@@ -46,7 +72,11 @@ public static class AppExtensions
       app.UseHsts();
     }
 
-    app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware
+    app.UseAuthentication()
+      .UseAuthorization()
+      .UseMiddleware<AppSessionMiddleware>()
+      .UseFastEndpoints()
+      .UseSwaggerGen(); // Includes AddFileServer and static files middleware
 
     //app.UseHttpsRedirection();
 

@@ -1,33 +1,30 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Actions.Login;
 
-public class AppLoginActionHandler(IOptionsSnapshot<AppConfigOptions> _appConfigOptions) : IAppLoginActionHandler
+public class AppLoginActionHandler(
+  IHttpClientFactory _httpClientFactory) : IAppLoginActionHandler
 {
-  public Task<Result<AppLoginActionDTO>> Handle(AppLoginActionCommand request, CancellationToken cancellationToken)
+  public async Task<Result<AppLoginActionDTO>> Handle(AppLoginActionCommand request, CancellationToken cancellationToken)
   {
-    var claims = new List<Claim>
-    {
-      new(ClaimTypes.Name, request.UserName)
-    };
+    using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
 
-    var issuerSigningKey = _appConfigOptions.Value.Authentication.GetSymmetricSecurityKey();
+    using var requestContent = CreateRequestContent(request);
 
-    var signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
+    string requestUri = CreateRequestUri(request);
 
-    var expires = DateTime.UtcNow.Add(TimeSpan.FromMinutes(2));
-    
-    var jwt = new JwtSecurityToken(
-      issuer: _appConfigOptions.Value.Authentication.Issuer,
-      audience: _appConfigOptions.Value.Authentication.Audience,
-      claims: claims,
-      expires: expires,
-      signingCredentials: signingCredentials);
+    using var httpResponse = await httpClient.PostAsync(requestUri, requestContent, cancellationToken);
 
-    string accessToken = new JwtSecurityTokenHandler().WriteToken(jwt);
+    var result = await httpResponse.ToResultFromJsonAsync<AppLoginActionDTO>(cancellationToken);
 
-    var dto = new AppLoginActionDTO(request.UserName, accessToken);
+    return result;
+  }
 
-    var result = Result.Success(dto);
+  public static JsonContent CreateRequestContent(AppLoginActionCommand command)
+  {
+    return JsonContent.Create(command);
+  }
 
-    return Task.FromResult(result);
+  public static string CreateRequestUri(AppLoginActionCommand command)
+  {
+    return $"{AppctionsSettings.Root}/login";
   }
 }
