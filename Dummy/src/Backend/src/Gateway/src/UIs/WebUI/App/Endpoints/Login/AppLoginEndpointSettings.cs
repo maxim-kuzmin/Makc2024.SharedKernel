@@ -2,5 +2,5 @@
 
 public class AppLoginEndpointSettings
 {
-  public const string Route = AppEndpointsSettings.Root;
+  public const string Route = $"{AppEndpointsSettings.Root}/login";
 }

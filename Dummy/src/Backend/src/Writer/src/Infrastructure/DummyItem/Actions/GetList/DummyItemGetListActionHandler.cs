@@ -2,7 +2,7 @@
 
 public class DummyItemGetListActionHandler(AppDbContext _db) : IDummyItemGetListActionHandler
 {
-  public async Task<Result<List<DummyItemGetListActionDTO>>> Handle(
+  public async Task<Result<DummyItemGetListActionDTO>> Handle(
     DummyItemGetListActionQuery request,
     CancellationToken cancellationToken)
   {
@@ -30,7 +30,21 @@ where
       parameterIndex++;
     }
 
-    string sqlFormat = $$"""
+    string totalCountSqlFormat = $$"""
+select
+  count(*)
+from
+  "{{appDbSettings.Schema}}"."{{dummyItemEntitySettings.Table}}" di
+{{sqlFormatToFilter}}
+""";
+
+    var totalCountSql = FormattableStringFactory.Create(totalCountSqlFormat, [.. parameters]);
+
+    var totalCountData = await _db.Database.SqlQuery<long>(totalCountSql).ToListAsync(cancellationToken);
+
+    long totalCountDto = totalCountData[0];
+
+    string itemsSqlFormat = $$"""
 select
   di."{{dummyItemEntitySettings.ColumnForId}}" "Id",
   di."{{dummyItemEntitySettings.ColumnForName}}" "Name"
@@ -49,10 +63,12 @@ offset
 
     parameters.Add((request.Page.Number - 1) * request.Page.Count);
 
-    var sql = FormattableStringFactory.Create(sqlFormat, [.. parameters]);
+    var itemsSql = FormattableStringFactory.Create(itemsSqlFormat, [.. parameters]);
 
-    var data = await _db.Database.SqlQuery<DummyItemGetListActionDTO>(sql).ToListAsync(cancellationToken);
+    var itemsDto = await _db.Database.SqlQuery<DummyItemGetListActionDTOItem>(itemsSql).ToListAsync(cancellationToken);
 
-    return Result.Success(data);
+    var dto = new DummyItemGetListActionDTO(itemsDto, totalCountDto);
+
+    return Result.Success(dto);
   }
 }

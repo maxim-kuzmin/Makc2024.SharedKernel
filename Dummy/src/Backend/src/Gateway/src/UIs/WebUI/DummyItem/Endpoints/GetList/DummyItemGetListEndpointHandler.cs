@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.DummyItem.Endpoints.GetList;
 
 public class DummyItemGetListEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemGetListEndpointRequest, IEnumerable<DummyItemGetListActionDTO>>
+  Endpoint<DummyItemGetListEndpointRequest, IEnumerable<DummyItemGetListActionDTOItem>>
 {
   public override void Configure()
   {

@@ -28,8 +28,8 @@ where
 
     var sql = FormattableStringFactory.Create(sqlFormat, [.. parameters]);
 
-    var data = await _db.Database.SqlQuery<DummyItemGetByIdActionDTO>(sql).FirstOrDefaultAsync(cancellationToken);
+    var dto = await _db.Database.SqlQuery<DummyItemGetByIdActionDTO>(sql).FirstOrDefaultAsync(cancellationToken);
 
-    return data != null ? Result.Success(data) : Result.NotFound();
+    return dto != null ? Result.Success(dto) : Result.NotFound();
   }
 }

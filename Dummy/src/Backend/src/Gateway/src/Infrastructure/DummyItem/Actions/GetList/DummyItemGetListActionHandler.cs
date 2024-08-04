@@ -3,7 +3,7 @@
 public class DummyItemGetListActionHandler(
   IHttpClientFactory _httpClientFactory) : IDummyItemGetListActionHandler
 {
-  public async Task<Result<List<DummyItemGetListActionDTO>>> Handle(
+  public async Task<Result<DummyItemGetListActionDTO>> Handle(
     DummyItemGetListActionQuery request,
     CancellationToken cancellationToken)
   {
@@ -13,7 +13,7 @@ public class DummyItemGetListActionHandler(
 
     using var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken);
 
-    var result = await httpResponse.ToResultFromJsonAsync<List<DummyItemGetListActionDTO>>(cancellationToken);
+    var result = await httpResponse.ToResultFromJsonAsync<DummyItemGetListActionDTO>(cancellationToken);
 
     return result;
   }

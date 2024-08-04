@@ -2,5 +2,5 @@
 
 public class DummyItemCreateEndpointSettings
 {
-  public const string Route = $"{DummyItemEndpointsSettings.Root}/login";
+  public const string Route = DummyItemEndpointsSettings.Root;
 }

@@ -28,6 +28,8 @@ public static class AppExtensions
           };
         });
 
+    services.AddAuthorization();
+
     services.Configure<CookiePolicyOptions>(options =>
     {
       options.CheckConsentNeeded = context => true;
