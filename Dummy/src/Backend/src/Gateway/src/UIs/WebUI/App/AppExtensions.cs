@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.App;
+﻿using Makc2024.Dummy.Gateway.UIs.WebUI.App.Middlewares;
+
+namespace Makc2024.Dummy.Gateway.UIs.WebUI.App;
 
 public static class AppExtensions
 {
@@ -13,6 +15,16 @@ public static class AppExtensions
     {
       options.CheckConsentNeeded = context => true;
       options.MinimumSameSitePolicy = SameSiteMode.None;
+    });
+
+
+    // see https://github.com/ardalis/AspNetCoreStartupServices
+    services.Configure<ServiceConfig>(config =>
+    {
+      config.Services = new List<ServiceDescriptor>(services);
+
+      // optional - default path to view services is /listallservices - recommended to choose your own path
+      config.Path = "/mylistallservicespath";
     });
 
     services.AddFastEndpoints()
@@ -65,6 +77,7 @@ public static class AppExtensions
 
     app.UseAuthentication()
       .UseAuthorization()
+      .UseMiddleware<AppSessionMiddleware>()
       .UseFastEndpoints()
       .UseSwaggerGen(); // Includes AddFileServer and static files middleware
 

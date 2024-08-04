@@ -1,8 +1,8 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App;
 
-public class AppSession(ClaimsPrincipal _claimsPrincipal) : IAppSession
+public class AppSession : IAppSession
 {
-  public bool IsUserAuthenticated { get; } = _claimsPrincipal.Identity?.IsAuthenticated == true;
+  public string? AccessToken { get; set; }
 
-  public string UserName { get; } = _claimsPrincipal.Identity?.Name ?? string.Empty;
+  public ClaimsPrincipal User { get; set; } = null!;
 }

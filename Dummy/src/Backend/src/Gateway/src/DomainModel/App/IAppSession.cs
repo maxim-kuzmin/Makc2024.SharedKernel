@@ -1,8 +1,10 @@
-﻿namespace Makc2024.Dummy.Gateway.DomainModel.App;
+﻿using System.Security.Claims;
+
+namespace Makc2024.Dummy.Gateway.DomainModel.App;
 
 public interface IAppSession
 {
-  bool IsUserAuthenticated { get; }
+  string? AccessToken { get; set; }
 
-  string UserName { get; }
+  ClaimsPrincipal User { get; set; }
 }

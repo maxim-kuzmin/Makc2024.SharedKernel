@@ -1,6 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.Actions.GetList;
 
 public class DummyItemGetListActionHandler(
+  IAppSession _appSession,
   IHttpClientFactory _httpClientFactory) : IDummyItemGetListActionHandler
 {
   public async Task<Result<DummyItemGetListActionDTO>> Handle(
@@ -11,7 +12,16 @@ public class DummyItemGetListActionHandler(
 
     string requestUri = CreateRequestUri(request);
 
-    using var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken);
+    using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+
+    string? accessToken = _appSession.AccessToken;
+
+    if (!string.IsNullOrEmpty(accessToken))
+    {
+      httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+    }
+
+    using var httpResponse = await httpClient.SendAsync(httpRequestMessage, cancellationToken);
 
     var result = await httpResponse.ToResultFromJsonAsync<DummyItemGetListActionDTO>(cancellationToken);
 
