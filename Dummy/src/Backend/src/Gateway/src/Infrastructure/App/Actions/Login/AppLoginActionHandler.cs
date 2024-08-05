@@ -9,7 +9,7 @@ public class AppLoginActionHandler(
 
     using var requestContent = CreateRequestContent(request);
 
-    string requestUri = CreateRequestUri(request);
+    string requestUri = CreateRequestUri();
 
     using var httpResponse = await httpClient.PostAsync(requestUri, requestContent, cancellationToken);
 
@@ -23,8 +23,8 @@ public class AppLoginActionHandler(
     return JsonContent.Create(command);
   }
 
-  public static string CreateRequestUri(AppLoginActionCommand command)
+  public static string CreateRequestUri()
   {
-    return $"{AppctionsSettings.Root}/login";
+    return $"{AppActionsSettings.Root}/login";
   }
 }
