@@ -15,11 +15,11 @@ async function getAppApiErrorResources(): Promise<AppApiErrorResources> {
   const t = await getTranslator();
 
   return {
-    getBadRequestErrorMessage: () => t('App.Api.Error.BadRequest'),
-    getNotFoundErrorMessage: () => t('App.Api.Error.NotFound'),
-    getInternalServerErrorMessage: () => t('App.Api.Error.InternalServerError'),
-    getUnknownErrorMessage: () => t('App.Api.Error.Unknown')
-  }
+    badRequestErrorMessage: t('App.Api.Error.BadRequest'),
+    notFoundErrorMessage: t('App.Api.Error.NotFound'),
+    internalServerErrorMessage: t('App.Api.Error.InternalServerError'),
+    unknownErrorMessage: t('App.Api.Error.Unknown')
+  };
 }
 
 function createServerContext() {
@@ -35,7 +35,8 @@ function createServerContext() {
       getCurrentLanguage,
       getScopedTranslator,
       getStaticParamsTranslation,
-      getTranslator 
+      getTranslator,
+      setStaticParamsLocale
     }
   };
 

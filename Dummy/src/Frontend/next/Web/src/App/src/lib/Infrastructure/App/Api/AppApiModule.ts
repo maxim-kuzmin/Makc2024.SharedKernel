@@ -1,6 +1,5 @@
 import {
   AppApiClient,
-  AppApiErrorResources,
   AppApiSettings,
   HttpClient,
   createAppApiClient,
@@ -13,23 +12,27 @@ export interface AppApiModule {
 }
 
 interface Options {
-  readonly getHttpClient: () => HttpClient
+  readonly getHttpClient: () => HttpClient;
 }
 
 export function createAppApiModule({
   getHttpClient
 }: Options): AppApiModule {
-  const settings = createAppApiSettings({
+  const appApiSettings = createAppApiSettings({
     url: process.env.NEXT_PUBLIC_API_URL
   });
 
-  const client = createAppApiClient({
-    appApiSettings: settings,
+  const getSettings = () => appApiSettings;
+
+  const appApiClient = createAppApiClient({
+    appApiSettings,
     httpClient: getHttpClient()
   });
 
+  const getClient = () => appApiClient;
+
   return {
-    getClient: () => client,
-    getSettings: () => settings
+    getClient,
+    getSettings
   }
 }

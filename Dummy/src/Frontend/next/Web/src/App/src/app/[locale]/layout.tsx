@@ -1,7 +1,7 @@
 import '@/ui/globals.css';
 import { inter } from '@/ui/fonts';
 import serverContext from '@/lib/serverContext';
- 
+
 export async function generateMetadata() {
   const t = await serverContext.app.localization.getTranslator();
 
@@ -17,14 +17,14 @@ export async function generateMetadata() {
   }
 }
 export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const language = serverContext.app.localization.getCurrentLanguage();
-
+    params: { locale },
+    children 
+  }: {
+    params: { locale: string },
+    children: React.ReactNode 
+  }) {
   return (
-    <html lang={language}>
+    <html lang={locale}>
       <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );

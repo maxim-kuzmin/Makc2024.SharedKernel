@@ -2,7 +2,7 @@
 
 public class AppSessionMiddleware(RequestDelegate _next)
 {
-  public async Task InvokeAsync(HttpContext httpContext, IAppSession appSession)
+  public async Task InvokeAsync(HttpContext httpContext, AppSession appSession)
   {
     appSession.AccessToken = await httpContext.GetTokenAsync("access_token");
 

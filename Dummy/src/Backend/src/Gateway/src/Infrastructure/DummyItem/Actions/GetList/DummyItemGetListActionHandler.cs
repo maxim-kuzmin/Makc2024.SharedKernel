@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.Actions.GetList;
 
 public class DummyItemGetListActionHandler(
-  IAppSession _appSession,
+  AppSession _appSession,
   IHttpClientFactory _httpClientFactory) : IDummyItemGetListActionHandler
 {
   public async Task<Result<DummyItemGetListActionDTO>> Handle(

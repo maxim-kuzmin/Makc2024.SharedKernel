@@ -1,7 +1,7 @@
 import { NextAuthResult } from 'next-auth';
 
 import {
-  AuthorizationLoginActionHandler,
+  AppLoginActionHandler,
   createAppAuthenticationNextAuth,
 } from '@/lib';
 
@@ -10,18 +10,20 @@ export interface AppAuthenticationModule {
 }
 
 interface Options {
-  readonly getAuthorizationLoginActionHandler: () => AuthorizationLoginActionHandler;
+  readonly getAppLoginActionHandler: () => AppLoginActionHandler;
 }
 
 export function createAppAuthenticationModule({
-  getAuthorizationLoginActionHandler
+  getAppLoginActionHandler
 }: Options): AppAuthenticationModule {
 
   const nextAuth = createAppAuthenticationNextAuth({
-    getLoginActionHandler: getAuthorizationLoginActionHandler
+    getAppLoginActionHandler
   });
 
+  const getNextAuth = () => nextAuth;
+
   return {
-    getNextAuth: () => nextAuth
-  }
+    getNextAuth
+  };
 }

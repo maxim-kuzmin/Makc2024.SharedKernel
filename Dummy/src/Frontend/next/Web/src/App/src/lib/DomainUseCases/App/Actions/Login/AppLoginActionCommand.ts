@@ -1,15 +1,15 @@
 import { AuthorizationType } from '@/lib';
 
-export interface AuthorizationLoginActionCommand {
+export interface AppLoginActionCommand {
   readonly userName: string;
   readonly password: string;
   readonly authorizationType: AuthorizationType;
   readonly authorizationKey: string;
 }
 
-export function createAuthorizationLoginActionCommand(
-  options?: Partial<AuthorizationLoginActionCommand>
-): AuthorizationLoginActionCommand {
+export function createAppLoginActionCommand(
+  options?: Partial<AppLoginActionCommand> | null
+): AppLoginActionCommand {
   return {
     userName: options?.userName ?? '',
     password: options?.password ?? '',

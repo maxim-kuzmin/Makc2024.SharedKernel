@@ -26,7 +26,7 @@ public static class AppExtensions
 
     services.AddScoped<IEventDispatcher, EventDispatcher>();
 
-    services.AddScoped<IAppSession, AppSession>();
+    services.AddScoped<AppSession>();
 
     const string userAgent = "Makc2024.Dummy";
 

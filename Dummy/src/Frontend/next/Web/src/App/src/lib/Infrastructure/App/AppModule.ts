@@ -1,30 +1,39 @@
 import {
+  AppActionsModule,
+  AppApiClient,
+  AppApiErrorResources,
   AppAuthenticationModule,
   AppLocalizationModule,
-  AuthorizationLoginActionHandler,
+  createAppActionsModule,
   createAppAuthenticationModule,
-  createAppLocalizationModule
+  createAppLocalizationModule,
 } from '@/lib';
 
 export interface AppModule {
+  readonly actions: AppActionsModule;
   readonly authentication: AppAuthenticationModule;
   readonly localization: AppLocalizationModule;
 }
 
 interface Options {
-  readonly getAuthorizationLoginActionHandler: () => AuthorizationLoginActionHandler;
+  readonly getAppApiClient: () => AppApiClient;
 }
 
 export function createAppModule({
-  getAuthorizationLoginActionHandler
+  getAppApiClient
 }: Options): AppModule {
+  const actions = createAppActionsModule({
+    getAppApiClient
+  });
+
   const authentication = createAppAuthenticationModule({
-    getAuthorizationLoginActionHandler
+    getAppLoginActionHandler: actions.login.getHandler
   });
 
   const localization = createAppLocalizationModule();
 
   return {
+    actions,
     authentication,
     localization
   };

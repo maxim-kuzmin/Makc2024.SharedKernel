@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Gateway.UIs.WebUI.App.Middlewares;
-
-namespace Makc2024.Dummy.Gateway.UIs.WebUI.App;
+﻿namespace Makc2024.Dummy.Gateway.UIs.WebUI.App;
 
 public static class AppExtensions
 {

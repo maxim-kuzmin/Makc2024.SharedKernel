@@ -52,6 +52,7 @@ async function get (url: string, config?: HttpConfig) {
 }
 
 async function post (url: string, body: any, config?: HttpConfig) {
+    console.log(`MAKC:post`, url, body, config);
   const result = await request(url, createRequestConfigValue('POST', config, body));
 
   return result;

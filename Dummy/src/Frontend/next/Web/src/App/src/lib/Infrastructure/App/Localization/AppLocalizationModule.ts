@@ -18,12 +18,14 @@ export function createAppLocalizationModule(): AppLocalizationModule {
 
   const defaultLanguage = process.env.NEXT_PUBLIC_LOCALIZATION_DEFAULT_LANGUAGE ?? languages[0];
 
-  const settings = createAppLocalizationSettings({
+  const appLocalizationSettings = createAppLocalizationSettings({
     defaultLanguage,
     languages
   });
 
+  const getSettings = () => appLocalizationSettings;
+
   return {
-    getSettings: () => settings
+    getSettings
   };
 }

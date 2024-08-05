@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Actions.GetList;
 
 public class DummyItemGetListActionHandler(
-  IAppSession _appSession,
+  AppSession _appSession,
   AppDbContext _db) : IDummyItemGetListActionHandler
 {
   public async Task<Result<DummyItemGetListActionDTO>> Handle(

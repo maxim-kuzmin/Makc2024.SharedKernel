@@ -2,9 +2,12 @@ import NextAuth, { NextAuthResult, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import {
-  createAuthorizationLoginActionCommand,
-  createAuthorizationLoginActionRequest,
-  AuthorizationLoginActionHandler
+  AppApiErrorResources,
+  AppLoginActionHandler,
+  createAppApiErrorResources,
+  createAppLoginActionCommand,
+  createAppLoginActionRequest,
+  createRequestContext,
 } from '@/lib';
 
 declare module "next-auth" {
@@ -13,16 +16,16 @@ declare module "next-auth" {
    * or the second parameter of the `session` callback, when using a database.
    */
   interface User {
-    token: string
+    accessToken: string
   }
 }
 
 interface Options {
-  getLoginActionHandler: () => AuthorizationLoginActionHandler;
+  readonly getAppLoginActionHandler: () => AppLoginActionHandler;
 }
 
 export function createAppAuthenticationNextAuth({
-  getLoginActionHandler
+  getAppLoginActionHandler,
 }: Options): NextAuthResult {
   return NextAuth({
     pages: {
@@ -32,7 +35,7 @@ export function createAppAuthenticationNextAuth({
       authorized({ auth, request: { nextUrl } }) {
         // const isLoggedIn = !!auth?.user;
 
-        // const pathToRedirect = '/dummy-item';
+        // const pathToRedirect = '/dashboard';
 
         // const index = nextUrl.pathname.indexOf(pathToRedirect);
 
@@ -54,29 +57,38 @@ export function createAppAuthenticationNextAuth({
           let result: User | null = null;
 
           const parsedCredentials = z
-            .object({ userName: z.string(), password: z.string() })
+            .object({
+              userName: z.string(),
+              password: z.string(),
+              language: z.string(),
+              appApiErrorResources: z.string()
+            })
             .safeParse(credentials);
 
           if (parsedCredentials.success) {
-            const { userName, password } = parsedCredentials.data;
+            const { userName, password, language, appApiErrorResources } = parsedCredentials.data;
 
-            const loginActionHandler = getLoginActionHandler();
+            const appLoginActionHandler = getAppLoginActionHandler();
 
-            const authorizationLoginActionCommand = createAuthorizationLoginActionCommand({
+            const appLoginActionCommand = createAppLoginActionCommand({
               userName,
               password
             });
 
-            const authorizationLoginActionRequest = createAuthorizationLoginActionRequest({
-              command: authorizationLoginActionCommand
+            const appLoginActionRequest = createAppLoginActionRequest({
+              command: appLoginActionCommand,
+              context: createRequestContext({
+                language
+              }),
+              errorResources: JSON.parse(appApiErrorResources)
             });
 
-            const token = await loginActionHandler.handle(authorizationLoginActionRequest);
-
-            if (token) {
+            const { userName: name, accessToken } = await appLoginActionHandler.handle(appLoginActionRequest);
+console.log('MAKC:name', name);
+            if (name && accessToken) {
               result = {
-                name: userName,
-                token
+                name,
+                accessToken
               };
             }
           } else {

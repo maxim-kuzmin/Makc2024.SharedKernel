@@ -1,19 +1,17 @@
 export interface AppApiErrorResources {
-  readonly getBadRequestErrorMessage: () => string;
-  readonly getNotFoundErrorMessage: () => string;
-  readonly getInternalServerErrorMessage: () => string;
-  readonly getUnknownErrorMessage: () => string;
-}
-
-function getDefaultErrorMessage() {
-  return 'Error';
+  readonly badRequestErrorMessage: string;
+  readonly notFoundErrorMessage: string;
+  readonly internalServerErrorMessage: string;
+  readonly unknownErrorMessage: string;
 }
 
 export function createAppApiErrorResources(options?: Partial<AppApiErrorResources>) {
+  const defaultErrorMessage = 'Error';
+
   return {
-    getBadRequestErrorMessage: options?.getBadRequestErrorMessage ?? getDefaultErrorMessage,
-    getNotFoundErrorMessage: options?.getNotFoundErrorMessage ?? getDefaultErrorMessage,
-    getInternalServerErrorMessage: options?.getInternalServerErrorMessage ?? getDefaultErrorMessage,
-    getUnknownErrorMessage: options?.getUnknownErrorMessage ?? getDefaultErrorMessage
+    badRequestErrorMessage: options?.badRequestErrorMessage ?? defaultErrorMessage,
+    notFoundErrorMessage: options?.notFoundErrorMessage ?? defaultErrorMessage,
+    internalServerErrorMessage: options?.internalServerErrorMessage ?? defaultErrorMessage,
+    unknownErrorMessage: options?.unknownErrorMessage ?? defaultErrorMessage
   };
 }

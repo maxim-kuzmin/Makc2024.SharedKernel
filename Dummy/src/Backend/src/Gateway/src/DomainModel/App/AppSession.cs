@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App;
+﻿namespace Makc2024.Dummy.Gateway.DomainModel.App;
 
-public class AppSession : IAppSession
+public class AppSession
 {
   public string? AccessToken { get; set; }
 

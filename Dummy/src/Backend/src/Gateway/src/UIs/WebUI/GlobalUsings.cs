@@ -14,6 +14,7 @@ global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Update;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.QueryFilters;
 global using Makc2024.Dummy.Gateway.Infrastructure.App;
 global using Makc2024.Dummy.Gateway.Infrastructure.App.Config;
+global using Makc2024.Dummy.Gateway.UIs.WebUI.App.Middlewares;
 global using Makc2024.Dummy.Shared.Query;
 global using MediatR;
 global using Microsoft.AspNetCore.Authentication;

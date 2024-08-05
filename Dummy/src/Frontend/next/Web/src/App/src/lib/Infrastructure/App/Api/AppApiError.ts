@@ -20,16 +20,16 @@ export function createAppApiError({
 
   switch (responseStatus) {
     case 400:
-      message = errorResources.getBadRequestErrorMessage()
+      message = errorResources.badRequestErrorMessage
       break;
     case 404:
-      message = errorResources.getNotFoundErrorMessage()
+      message = errorResources.notFoundErrorMessage
       break;
     case 500:
-      message = errorResources.getInternalServerErrorMessage()
+      message = errorResources.internalServerErrorMessage
       break;
     default:
-      message = errorResources.getUnknownErrorMessage()
+      message = errorResources.unknownErrorMessage
       break;
   }
 

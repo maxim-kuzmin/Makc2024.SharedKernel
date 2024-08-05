@@ -1,5 +1,6 @@
-"use client"
-import { createI18nClient } from 'next-international/client'
+'use client';
+
+import { createI18nClient } from 'next-international/client';
 import { AppApiErrorResources, createContext } from '@/lib';
 
 const {
@@ -17,11 +18,11 @@ function useAppApiErrorResources(): AppApiErrorResources {
   const t = useTranslator();
 
   return {
-    getBadRequestErrorMessage: () => t('App.Api.Error.BadRequest'),
-    getNotFoundErrorMessage: () => t('App.Api.Error.NotFound'),
-    getInternalServerErrorMessage: () => t('App.Api.Error.InternalServerError'),
-    getUnknownErrorMessage: () => t('App.Api.Error.Unknown')
-  }
+    badRequestErrorMessage: t('App.Api.Error.BadRequest'),
+    notFoundErrorMessage: t('App.Api.Error.NotFound'),
+    internalServerErrorMessage: t('App.Api.Error.InternalServerError'),
+    unknownErrorMessage: t('App.Api.Error.Unknown')
+  };
 }
 
 function createClientContext() {

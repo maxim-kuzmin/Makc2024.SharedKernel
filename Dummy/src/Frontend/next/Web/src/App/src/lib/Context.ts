@@ -1,7 +1,6 @@
 import {
   createAppApiModule,
   createAppModule,
-  createAuthorizationModule,
   createHttpModule
 } from '@/lib';
 
@@ -12,16 +11,11 @@ export function createContext() {
     getHttpClient: http.getClient
   });
 
-  const authorization = createAuthorizationModule({
+  const app = createAppModule({
     getAppApiClient: api.getClient
   });
 
-  const app = createAppModule({
-    getAuthorizationLoginActionHandler: () => authorization.actions.login.getHandler()
-  });
-
   return {
-    app,
-    authorization
+    app
   };
 }

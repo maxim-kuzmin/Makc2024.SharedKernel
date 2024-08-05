@@ -1,7 +1,12 @@
 import AcmeLogo from '@/ui/acme-logo';
 import LoginForm from '@/ui/login-form';
+import serverContext from '@/lib/serverContext';
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const appApiErrorResources = await serverContext.app.api.getErrorResources();
+
+  const language = serverContext.app.localization.getCurrentLanguage();
+
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
@@ -10,7 +15,7 @@ export default function LoginPage() {
             <AcmeLogo />
           </div>
         </div>
-        <LoginForm />
+        <LoginForm appApiErrorResources={appApiErrorResources} language={language} />
       </div>
     </main>
   );

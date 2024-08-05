@@ -42,6 +42,7 @@ function createHttpConfig({
   query,
   requestContext: {
     abortSignal,
+    accessToken,
     corellationId,
     language
   }
@@ -50,13 +51,14 @@ function createHttpConfig({
     query,
     init: {
       headers: {
-        'Accept-Language': language,
         'Content-Type': 'application/json',
-        'X-Corellation-ID': corellationId
+        ...(language && {'Accept-Language': language}),
+        ...(corellationId && {'X-Corellation-ID': corellationId}),
+        ...(accessToken && {'X-Authorization': accessToken})
       },
       signal: abortSignal
     },
-  }
+  };
 };
 
 async function request({
@@ -85,12 +87,7 @@ async function request({
     });
   }
 
-  return await Promise.reject(
-    createAppApiResponse({
-      corellationId,
-      error: appApiError
-    })
-  );
+  throw new Error(appApiError.message);
 }
 
 async function requestWithData<TData>({
@@ -120,12 +117,7 @@ async function requestWithData<TData>({
     });
   }
 
-  return await Promise.reject(
-    createAppApiResponse({
-      corellationId,
-      error: appApiError
-    })
-  );
+  throw new Error(appApiError.message);
 }
 
 export function createAppApiClient({

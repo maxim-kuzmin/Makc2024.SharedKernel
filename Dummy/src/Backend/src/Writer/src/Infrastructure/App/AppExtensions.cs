@@ -38,7 +38,7 @@ public static class AppExtensions
     services.AddScoped(typeof(IRepository<>), typeof(AppRepositoryBase<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(AppRepositoryBase<>));
 
-    services.AddScoped<IAppSession, AppSession>();
+    services.AddScoped<AppSession>();
 
     services.AddScoped<IDummyItemRepository, DummyItemRepository>();
 

@@ -1,7 +1,14 @@
-import { ReactElement } from 'react'
-import clientContext from '@/lib/clientContext'
+'use client';
+
+import clientContext from '@/lib/clientContext';
  
-export default function SubLayout({ params: { locale }, children }: { params: { locale: string }, children: ReactElement }) {
+export default function SubLayout({
+    params: { locale },
+    children
+  }: {
+    params: { locale: string },
+    children: React.ReactNode 
+  }) {
   const LocalizationContextProvider = clientContext.app.localization.ContextProvider;
 
   return (
