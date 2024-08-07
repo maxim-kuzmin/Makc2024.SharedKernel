@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Config;
+﻿namespace Makc2024.Dummy.Gateway.DomainModel.App.Config;
 
 public record AppConfigOptions
 {

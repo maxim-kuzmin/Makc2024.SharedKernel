@@ -85,4 +85,12 @@ public static class AppExtensions
 
     return app;
   }
+
+  private static SymmetricSecurityKey GetSymmetricSecurityKey(
+    this AppConfigOptionsAuthentication options)
+  {
+    byte[] keyBytes = Encoding.UTF8.GetBytes(options.Key);
+
+    return new SymmetricSecurityKey(keyBytes);
+  }
 }

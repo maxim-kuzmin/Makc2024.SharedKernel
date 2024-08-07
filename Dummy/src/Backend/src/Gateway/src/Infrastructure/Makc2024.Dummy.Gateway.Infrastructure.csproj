@@ -12,8 +12,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Http" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
-    <PackageReference Include="Serilog.AspNetCore" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="Serilog.AspNetCore" />    
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DomainUseCases\Makc2024.Dummy.Gateway.DomainUseCases.csproj" />
