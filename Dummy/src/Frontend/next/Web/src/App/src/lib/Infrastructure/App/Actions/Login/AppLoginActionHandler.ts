@@ -25,9 +25,8 @@ export function createAppLoginActionHandler({
       errorResources: request.errorResources
     });
 
-    console.log('MAKC:appApiRequest', appApiRequest);
     const appApiResponse = await appApiClient.post<AppLoginActionDTO>(appApiRequest);
-    console.log('MAKC:appApiResponse', appApiResponse);
+
     return appApiResponse.data ?? createAppLoginActionDTO();
   }
 

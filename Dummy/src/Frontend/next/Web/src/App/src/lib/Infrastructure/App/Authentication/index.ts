@@ -1,2 +1,2 @@
-export { type AppAuthenticationModule, createAppAuthenticationModule } from './AppAuthenticationModule';
-export { createAppAuthenticationNextAuth } from './AppAuthenticationNextAuth';
+export * from './AppAuthenticationModule';
+export * from './AppAuthenticationNextAuth';

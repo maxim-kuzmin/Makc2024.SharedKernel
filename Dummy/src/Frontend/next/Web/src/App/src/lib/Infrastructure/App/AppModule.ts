@@ -1,26 +1,26 @@
 import {
   AppActionsModule,
   AppApiClient,
-  AppApiErrorResources,
   AppAuthenticationModule,
-  AppLocalizationModule,
+  AppConfigOptions,
   createAppActionsModule,
   createAppAuthenticationModule,
-  createAppLocalizationModule,
 } from '@/lib';
 
 export interface AppModule {
   readonly actions: AppActionsModule;
   readonly authentication: AppAuthenticationModule;
-  readonly localization: AppLocalizationModule;
+  readonly getConfigOptions: () => AppConfigOptions;
 }
 
 interface Options {
   readonly getAppApiClient: () => AppApiClient;
+  readonly getAppConfigOptions: () => AppConfigOptions;  
 }
 
 export function createAppModule({
-  getAppApiClient
+  getAppApiClient,
+  getAppConfigOptions
 }: Options): AppModule {
   const actions = createAppActionsModule({
     getAppApiClient
@@ -30,11 +30,9 @@ export function createAppModule({
     getAppLoginActionHandler: actions.login.getHandler
   });
 
-  const localization = createAppLocalizationModule();
-
   return {
     actions,
     authentication,
-    localization
+    getConfigOptions: getAppConfigOptions,
   };
 }

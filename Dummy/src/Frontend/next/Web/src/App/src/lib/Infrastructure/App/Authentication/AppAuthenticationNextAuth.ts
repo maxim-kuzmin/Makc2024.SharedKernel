@@ -1,14 +1,14 @@
 import NextAuth, { NextAuthResult, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { z } from 'zod';
+import { string, z } from 'zod';
 import {
-  AppApiErrorResources,
   AppLoginActionHandler,
   createAppApiErrorResources,
   createAppLoginActionCommand,
   createAppLoginActionRequest,
   createRequestContext,
 } from '@/lib';
+import indexContext from '@/lib/indexContext';
 
 declare module "next-auth" {
   /**
@@ -24,31 +24,33 @@ interface Options {
   readonly getAppLoginActionHandler: () => AppLoginActionHandler;
 }
 
+const paths = {
+  login: '/login',
+  admin: '/admin',
+}
+
 export function createAppAuthenticationNextAuth({
   getAppLoginActionHandler,
 }: Options): NextAuthResult {
   return NextAuth({
     pages: {
-      signIn: '/login',
+      signIn: paths.login,
     },
     callbacks: {
       authorized({ auth, request: { nextUrl } }) {
-        // const isLoggedIn = !!auth?.user;
+        const isLoggedIn = !!auth?.user;
 
-        // const pathToRedirect = '/dashboard';
+        const isNextPathToLoginPage = indexContext.localization.isLocalizedPathStartsWith(nextUrl.pathname, paths.login);
 
-        // const index = nextUrl.pathname.indexOf(pathToRedirect);
+        if (isNextPathToLoginPage) {
+          return;
+        }
 
-        // const isOnDashboard = index === 0 || index === 3;
+        const isNextPathToAdminPage = indexContext.localization.isLocalizedPathStartsWith(nextUrl.pathname, paths.admin);
 
-        // if (isOnDashboard) {
-        //   if (isLoggedIn) return true;
-        //   return false; // Redirect unauthenticated users to login page
-        // } else if (isLoggedIn) {
-        //   return Response.redirect(new URL(pathToRedirect, nextUrl));
-        // }
-
-        return true;
+        if (isNextPathToAdminPage && !isLoggedIn) {
+          return Response.redirect(new URL(paths.login, nextUrl))
+        }
       }
     },
     providers: [
@@ -58,41 +60,48 @@ export function createAppAuthenticationNextAuth({
 
           const parsedCredentials = z
             .object({
-              userName: z.string(),
-              password: z.string(),
+              appApiErrorResourcesOptions: z.string(),
               language: z.string(),
-              appApiErrorResources: z.string()
+              password: z.string(),
+              userName: z.string(),
             })
             .safeParse(credentials);
 
-          if (parsedCredentials.success) {
-            const { userName, password, language, appApiErrorResources } = parsedCredentials.data;
-
-            const appLoginActionHandler = getAppLoginActionHandler();
-
-            const appLoginActionCommand = createAppLoginActionCommand({
-              userName,
-              password
-            });
-
-            const appLoginActionRequest = createAppLoginActionRequest({
-              command: appLoginActionCommand,
-              context: createRequestContext({
-                language
-              }),
-              errorResources: JSON.parse(appApiErrorResources)
-            });
-
-            const { userName: name, accessToken } = await appLoginActionHandler.handle(appLoginActionRequest);
-console.log('MAKC:name', name);
-            if (name && accessToken) {
-              result = {
-                name,
-                accessToken
-              };
-            }
-          } else {
+          if (!parsedCredentials.success) {
             console.log('Invalid credentials');
+
+            return null;
+          }
+
+          const {
+            appApiErrorResourcesOptions,
+            language,
+            password,
+            userName
+          } = parsedCredentials.data;
+
+          const appLoginActionHandler = getAppLoginActionHandler();
+
+          const appLoginActionCommand = createAppLoginActionCommand({
+            userName,
+            password,
+          });
+
+          const appLoginActionRequest = createAppLoginActionRequest({
+            command: appLoginActionCommand,
+            context: createRequestContext({
+              language
+            }),
+            errorResources: createAppApiErrorResources(JSON.parse(appApiErrorResourcesOptions))
+          });
+
+          const { userName: name, accessToken } = await appLoginActionHandler.handle(appLoginActionRequest);
+
+          if (name && accessToken) {
+            result = {
+              name,
+              accessToken
+            };
           }
 
           return result;

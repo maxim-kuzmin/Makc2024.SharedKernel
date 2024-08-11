@@ -1,21 +1,22 @@
-import AcmeLogo from '@/ui/acme-logo';
-import LoginForm from '@/ui/login-form';
+import Logo from '@/ui/components/logo';
+import LoginForm from '@/ui/pages/login/login-form';
 import serverContext from '@/lib/serverContext';
+import Language from '@/ui/components/language';
+import Link from 'next/link';
 
-export default async function LoginPage() {
-  const appApiErrorResources = await serverContext.app.api.getErrorResources();
-
-  const language = serverContext.app.localization.getCurrentLanguage();
+export default async function Page() {
+  const appSession = await serverContext.app.authentication.getAppSession();
 
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
-        <div className="flex h-20 w-full items-end rounded-lg bg-blue-500 p-3 md:h-36">
-          <div className="w-32 text-white md:w-36">
-            <AcmeLogo />
-          </div>
+        <div className="flex flex-col gap-3 min-h-32 shrink-0 items-center justify-between rounded-lg bg-blue-500 p-4">
+          <Link href="/">
+            <Logo />
+          </Link>
+          <Language />
         </div>
-        <LoginForm appApiErrorResources={appApiErrorResources} language={language} />
+        <LoginForm />
       </div>
     </main>
   );

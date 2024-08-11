@@ -1,4 +1,2 @@
-export {
-  type AppApiErrorResources,
-  createAppApiErrorResources
-} from './AppApiErrorResources';
+export * from './AppApiErrorResources';
+export * from './AppApiErrorResourcesOptions';

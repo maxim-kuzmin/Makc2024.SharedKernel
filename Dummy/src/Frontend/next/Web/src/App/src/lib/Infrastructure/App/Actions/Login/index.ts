@@ -1,2 +1,2 @@
-export { createAppLoginActionHandler } from './AppLoginActionHandler';
-export { type AppLoginActionModule, createAppLoginActionModule } from './AppLoginActionModule';
+export * from './AppLoginActionHandler';
+export * from './AppLoginActionModule';

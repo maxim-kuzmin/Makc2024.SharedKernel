@@ -1,5 +1,5 @@
-export { type HttpClient, createHttpClient } from './HttpClient';
-export { type HttpConfig } from './HttpConfig';
-export { type HttpModule, createHttpModule } from './HttpModule';
-export { type HttpRequest } from './HttpRequest';
-export { type HttpResponse } from './HttpResponse';
+export * from './HttpClient';
+export * from './HttpConfig';
+export * from './HttpModule';
+export * from './HttpRequest';
+export * from './HttpResponse';

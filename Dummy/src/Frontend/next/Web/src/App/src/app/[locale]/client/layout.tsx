@@ -1,5 +1,6 @@
 'use client';
 
+import { SessionProvider } from 'next-auth/react';
 import clientContext from '@/lib/clientContext';
  
 export default function SubLayout({
@@ -9,11 +10,13 @@ export default function SubLayout({
     params: { locale: string },
     children: React.ReactNode 
   }) {
-  const LocalizationContextProvider = clientContext.app.localization.ContextProvider;
+  const AppLocalizationContextProvider = clientContext.app.localization.ContextProvider;
 
   return (
-    <LocalizationContextProvider locale={locale}>
+    <SessionProvider>
+    <AppLocalizationContextProvider locale={locale}>
       {children}
-    </LocalizationContextProvider>
+    </AppLocalizationContextProvider>
+    </SessionProvider>
   )
 }

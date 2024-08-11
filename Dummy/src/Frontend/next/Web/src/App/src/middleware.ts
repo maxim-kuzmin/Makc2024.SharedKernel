@@ -1,9 +1,11 @@
 import { createI18nMiddleware } from 'next-international/middleware';
-import clientContext from '@/lib/clientContext';
+import modules from '@/lib/modules';
 
-const { auth } = clientContext.app.authentication.getNextAuth();
+const { auth } = modules.app.authentication.getNextAuth();
 
-const {languages, defaultLanguage } = clientContext.app.localization.getSettings();
+const appConfigOptions = modules.app.getConfigOptions();
+
+const {languages, defaultLanguage } = appConfigOptions.localization;
 
 const I18nMiddleware = createI18nMiddleware({
   locales: languages,

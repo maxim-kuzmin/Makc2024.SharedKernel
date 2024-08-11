@@ -5,7 +5,7 @@ import {
   AppApiRequestWithBody,
   AppApiResponse,
   AppApiResponseWithData,
-  AppApiSettings,
+  AppConfigOptionsApi,
   HttpClient,
   HttpConfig,
   HttpResponse,
@@ -23,8 +23,8 @@ export interface AppApiClient {
 }
 
 interface Options {
-  readonly appApiSettings: AppApiSettings;
-  readonly httpClient: HttpClient;  
+  readonly appConfigOptionsApi: AppConfigOptionsApi;
+  readonly httpClient: HttpClient;
 }
 
 interface HttpConfigOptions {
@@ -35,7 +35,7 @@ interface HttpConfigOptions {
 interface RequestOptions {
   readonly corellationId: string;
   readonly errorResources: AppApiErrorResources;
-  readonly getResponse: () => Promise<HttpResponse>;  
+  readonly getResponse: () => Promise<HttpResponse>;
 }
 
 function createHttpConfig({
@@ -52,9 +52,9 @@ function createHttpConfig({
     init: {
       headers: {
         'Content-Type': 'application/json',
-        ...(language && {'Accept-Language': language}),
-        ...(corellationId && {'X-Corellation-ID': corellationId}),
-        ...(accessToken && {'X-Authorization': accessToken})
+        ...(language && { 'Accept-Language': language }),
+        ...(corellationId && { 'X-Corellation-ID': corellationId }),
+        ...(accessToken && { 'Authorization': accessToken })
       },
       signal: abortSignal
     },
@@ -121,11 +121,11 @@ async function requestWithData<TData>({
 }
 
 export function createAppApiClient({
+  appConfigOptionsApi,
   httpClient,
-  appApiSettings
-}: Options): AppApiClient {  
+}: Options): AppApiClient {
   function createUrl(endpoint: string) {
-    return `${appApiSettings.url}/${endpoint}`;
+    return `${appConfigOptionsApi.url}/${endpoint}`;
   }
 
   async function _delete({

@@ -1,5 +1,3 @@
-import serverContext from '@/lib/serverContext';
+import modules from '@/lib/modules';
 
-const { handlers } = serverContext.authorization.getNextAuth();
-
-export const { GET, POST } = handlers;
+export const { GET, POST } = modules.app.authentication.getNextAuth().handlers;

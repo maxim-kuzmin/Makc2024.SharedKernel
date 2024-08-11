@@ -1,0 +1,20 @@
+import {AppApiErrorResources } from '@/lib';
+import indexContext from '@/lib/indexContext';
+
+export interface AppApiErrorResourcesOptions extends Partial<AppApiErrorResources> {
+  readonly badRequestErrorMessage: string;
+  readonly notFoundErrorMessage: string;
+  readonly internalServerErrorMessage: string;
+  readonly unknownErrorMessage: string;
+}
+
+export function createAppApiErrorResourcesOptions(options?: Partial<AppApiErrorResourcesOptions>): AppApiErrorResourcesOptions {
+  const getMessage = indexContext.localization.getMessage;
+
+  return {
+    badRequestErrorMessage: getMessage(options?.getBadRequestErrorMessage, options?.badRequestErrorMessage),
+    notFoundErrorMessage: getMessage(options?.getNotFoundErrorMessage, options?.notFoundErrorMessage),
+    internalServerErrorMessage: getMessage(options?.getInternalServerErrorMessage, options?.internalServerErrorMessage),
+    unknownErrorMessage: getMessage(options?.getUnknownErrorMessage, options?.unknownErrorMessage),
+  };
+}

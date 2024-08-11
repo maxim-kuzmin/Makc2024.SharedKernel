@@ -1,10 +1,9 @@
+import app from './app/ru';
+import lib from './lib/ru';
+import ui from './ui/ru';
+
 export default {
-  'app.layout.Title': 'Пустышка',
-  'App.Api.Error.BadRequest': 'Плохой запрос',
-  'App.Api.Error.NotFound': 'Не найдено',
-  'App.Api.Error.InternalServerError': 'Внутренняя ошибка сервера',
-  'App.Api.Error.Unknown': 'Неизвестная ошибка',
-  'hello': 'Привет',
-  'hello.world': 'Привет мир!',
-  'welcome': 'Привет {name}!'
-} as const
+  ...app,
+  ...lib,
+  ...ui,
+} as const;

@@ -25,11 +25,15 @@ async function request (url: string, config: HttpConfig): Promise<HttpResponse> 
 
   const response = await fetch(input, init);
 
-  const value = await response.json();
-
   const { headers, ok, status, statusText } = response;
 
-  return {
+  let value: any;
+
+  if (ok) {
+    value = await response.json();
+  }
+
+  const result: HttpResponse = {
     headers,
     ok,
     status,
@@ -37,6 +41,8 @@ async function request (url: string, config: HttpConfig): Promise<HttpResponse> 
     value,
     url: response.url,
   };
+
+  return result;
 }
 
 async function _delete (url: string, config?: HttpConfig) {
@@ -52,7 +58,6 @@ async function get (url: string, config?: HttpConfig) {
 }
 
 async function post (url: string, body: any, config?: HttpConfig) {
-    console.log(`MAKC:post`, url, body, config);
   const result = await request(url, createRequestConfigValue('POST', config, body));
 
   return result;
