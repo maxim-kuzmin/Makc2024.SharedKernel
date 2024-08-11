@@ -1,8 +1,8 @@
-export interface DummyItemDeleteActionQuery {
+export interface DummyItemDeleteActionCommand {
   readonly id: number;
 }
 
-export function createDummyItemDeleteActionQuery(options?: Partial<DummyItemDeleteActionQuery> | null): DummyItemDeleteActionQuery {
+export function createDummyItemDeleteActionCommand(options?: Partial<DummyItemDeleteActionCommand> | null): DummyItemDeleteActionCommand {
   return {
     id: options?.id ?? 0,
   };

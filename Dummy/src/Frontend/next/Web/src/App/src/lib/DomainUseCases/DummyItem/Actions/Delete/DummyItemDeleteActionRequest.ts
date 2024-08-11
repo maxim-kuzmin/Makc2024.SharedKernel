@@ -1,14 +1,14 @@
 import {
   AppApiErrorResources,
-  DummyItemDeleteActionQuery,
+  DummyItemDeleteActionCommand,
   RequestBase,
   createAppApiErrorResources,
-  createDummyItemDeleteActionQuery,
+  createDummyItemDeleteActionCommand,
   createRequestBase
 } from '@/lib';
 
 export interface DummyItemDeleteActionRequest extends RequestBase {
-  query: DummyItemDeleteActionQuery;
+  command: DummyItemDeleteActionCommand;
   errorResources: AppApiErrorResources
 }
 
@@ -17,7 +17,7 @@ export function createDummyItemDeleteActionRequest(options?: Partial<DummyItemDe
 
   return {
     ...base,
-    query: options?.query ?? createDummyItemDeleteActionQuery(),
+    command: options?.command ?? createDummyItemDeleteActionCommand(),
     errorResources: options?.errorResources ?? createAppApiErrorResources()
   };
 }

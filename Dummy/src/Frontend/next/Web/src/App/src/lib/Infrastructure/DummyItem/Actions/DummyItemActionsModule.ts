@@ -1,11 +1,17 @@
 import {
   AppApiClient,
+  DummyItemDeleteActionModule,
+  DummyItemGetActionModule,
   DummyItemGetListActionModule,
+  createDummyItemDeleteActionModule,
+  createDummyItemGetActionModule,
   createDummyItemGetListActionModule
 } from '@/lib';
 
 export interface DummyItemActionsModule {
-  readonly getList: DummyItemGetListActionModule;  
+  readonly delete: DummyItemDeleteActionModule;
+  readonly get: DummyItemGetActionModule;
+  readonly getList: DummyItemGetListActionModule;
 }
 
 interface Options {
@@ -15,11 +21,21 @@ interface Options {
 export function createDummyItemActionsModule({
   getAppApiClient
 }: Options): DummyItemActionsModule {
+  const _delete = createDummyItemDeleteActionModule({
+    getAppApiClient
+  });
+
+  const get = createDummyItemGetActionModule({
+    getAppApiClient
+  });
+
   const getList = createDummyItemGetListActionModule({
     getAppApiClient
   });
 
   return {
+    delete: _delete,
+    get,
     getList,
   };
 }

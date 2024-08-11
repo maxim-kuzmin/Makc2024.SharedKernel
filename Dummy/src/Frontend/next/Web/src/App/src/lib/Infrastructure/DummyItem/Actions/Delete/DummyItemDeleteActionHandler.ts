@@ -15,7 +15,7 @@ export function createDummyItemDeleteActionHandler({
 }: Options): DummyItemDeleteActionHandler {
   async function handle(request: DummyItemDeleteActionRequest): Promise<void> {
     const appApiRequest = createAppApiRequest({
-      endpoint: `${indexContext.dummyItem.actions.settings.rootPath}/${request.query.id}`,
+      endpoint: `${indexContext.dummyItem.actions.settings.rootPath}/${request.command.id}`,
       requestContext: request.context,
       errorResources: request.errorResources
     });
