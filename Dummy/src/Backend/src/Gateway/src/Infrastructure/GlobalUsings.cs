@@ -10,7 +10,7 @@ global using Makc2024.Dummy.Gateway.DomainModel.App.Config;
 global using Makc2024.Dummy.Gateway.DomainUseCases.App.Actions.Login;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Create;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Delete;
-global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.GetById;
+global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Get;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.GetList;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Update;
 global using Makc2024.Dummy.Shared.Event;

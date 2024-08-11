@@ -5,22 +5,20 @@ import {
   createAppApiRequestWithBody,
   AppLoginActionDTO,
   createAppLoginActionDTO,
-  AppActionsSettings
 } from '@/lib';
+import indexContext from '@/lib/indexContext';
 
 interface Options {
-  readonly appActionsSettings: AppActionsSettings;
   readonly appApiClient: AppApiClient;
 }
 
 export function createAppLoginActionHandler({
-  appActionsSettings,
   appApiClient 
 }: Options): AppLoginActionHandler {
   async function handle(request: AppLoginActionRequest): Promise<AppLoginActionDTO> {
     const appApiRequest = createAppApiRequestWithBody({
       body: request.command,
-      endpoint: `${appActionsSettings.rootPath}/login`,
+      endpoint: `${indexContext.app.actions.settings.rootPath}/login`,
       requestContext: request.context,
       errorResources: request.errorResources
     });

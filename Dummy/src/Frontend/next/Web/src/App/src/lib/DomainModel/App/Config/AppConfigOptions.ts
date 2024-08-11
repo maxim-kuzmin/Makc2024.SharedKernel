@@ -15,7 +15,7 @@ export interface AppConfigOptions {
   readonly localization: AppConfigOptionsLocalization;
 }
 
-export function createAppConfigOptions(options?: Partial<AppConfigOptions>): AppConfigOptions {
+export function createAppConfigOptions(options?: Partial<AppConfigOptions> | null): AppConfigOptions {
   return {
     api: options?.api ?? createAppConfigOptionsApi(),
     author: options?.author ?? createAppConfigOptionsAuthor(),

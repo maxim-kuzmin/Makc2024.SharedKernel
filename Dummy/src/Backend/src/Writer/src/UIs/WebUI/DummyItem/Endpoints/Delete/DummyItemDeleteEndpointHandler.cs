@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.DummyItem.Endpoints.Delete;
 
 public class DummyItemDeleteEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemDeleteActionCommand, DummyItemGetByIdActionDTO>
+  Endpoint<DummyItemDeleteActionCommand, DummyItemGetActionDTO>
 {
   public override void Configure()
   {

@@ -12,9 +12,7 @@ export interface AppLoginActionRequest extends RequestBase {
   errorResources: AppApiErrorResources
 }
 
-export function createAppLoginActionRequest(
-  options?: Partial<AppLoginActionRequest> | null
-): AppLoginActionRequest {
+export function createAppLoginActionRequest(options?: Partial<AppLoginActionRequest> | null): AppLoginActionRequest {
   const base = createRequestBase(options?.context);
 
   return {

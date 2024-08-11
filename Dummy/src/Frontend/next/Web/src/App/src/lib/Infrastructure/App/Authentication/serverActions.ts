@@ -5,7 +5,7 @@ import modules from '@/lib/modules';
 import serverContext from '@/lib/serverContext';
 import { createAppApiErrorResourcesOptions } from '@/lib';
 
-export async function serverActionToAppAuthenticationAtLogin(
+export async function serverActionWithAppAuthenticationToLogin(
   prevState: string | undefined,
   formData: FormData,
 ) {
@@ -45,7 +45,7 @@ export async function serverActionToAppAuthenticationAtLogin(
   }
 }
 
-export async function serverActionToAppAuthenticationAtLogout() {
+export async function serverActionWithAppAuthenticationToLogout() {
   const { signOut } = modules.app.authentication.getNextAuth();
 
   await signOut({ redirectTo: '/' });

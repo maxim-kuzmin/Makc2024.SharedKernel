@@ -40,13 +40,13 @@ export function createAppAuthenticationNextAuth({
       authorized({ auth, request: { nextUrl } }) {
         const isLoggedIn = !!auth?.user;
 
-        const isNextPathToLoginPage = indexContext.localization.isLocalizedPathStartsWith(nextUrl.pathname, paths.login);
+        const isNextPathToLoginPage = indexContext.app.localization.isLocalizedPathStartsWith(nextUrl.pathname, paths.login);
 
         if (isNextPathToLoginPage) {
           return;
         }
 
-        const isNextPathToAdminPage = indexContext.localization.isLocalizedPathStartsWith(nextUrl.pathname, paths.admin);
+        const isNextPathToAdminPage = indexContext.app.localization.isLocalizedPathStartsWith(nextUrl.pathname, paths.admin);
 
         if (isNextPathToAdminPage && !isLoggedIn) {
           return Response.redirect(new URL(paths.login, nextUrl))

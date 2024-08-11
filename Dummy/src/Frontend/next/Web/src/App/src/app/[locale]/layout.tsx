@@ -1,7 +1,7 @@
 import '@/ui/globals.css';
 import { inter } from '@/ui/fonts';
-import SubLayout from './client/layout';
 import serverContext from '@/lib/serverContext';
+import ClientContextWrapper from '@/ui/components/client-context-wrapper';
 
 export async function generateMetadata() {
   const t = await serverContext.app.localization.getTranslator();
@@ -29,9 +29,9 @@ export default function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${inter.className} antialiased`}>
-        <SubLayout params={params}>
+        <ClientContextWrapper params={params}>
           {children}
-        </SubLayout>
+        </ClientContextWrapper>
         </body>
     </html>
   );

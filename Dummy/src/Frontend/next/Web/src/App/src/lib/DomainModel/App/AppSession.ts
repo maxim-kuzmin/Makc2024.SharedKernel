@@ -3,7 +3,7 @@ export interface AppSession {
   readonly userName: string | null;
 }
 
-export function createAppSession(options?: Partial<AppSession>): AppSession {
+export function createAppSession(options?: Partial<AppSession> | null): AppSession {
   return {
     accessToken: options?.accessToken ?? null,
     userName: options?.userName ?? null,

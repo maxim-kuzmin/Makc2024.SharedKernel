@@ -19,7 +19,7 @@ public class DummyItemGetListActionHandler(
     int parameterIndex = 0;
     string sqlFormatToFilter = string.Empty;
 
-    if (!string.IsNullOrEmpty(request.Filter.FullTextSearchQuery))
+    if (!string.IsNullOrEmpty(request.Filter?.FullTextSearchQuery))
     {
       sqlFormatToFilter = $$"""
 where
@@ -57,15 +57,30 @@ from
 {{sqlFormatToFilter}}
 order by
   di."{{dummyItemEntitySettings.ColumnForId}}" desc
+""";
+
+    if (request.Page != null)
+    {
+      if (request.Page.Count > 0)
+      {
+        itemsSqlFormat += $$"""
 limit
     {{{parameterIndex++}}}
+""";
+
+        parameters.Add(request.Page.Count);
+      }
+
+      if (request.Page.Number > 0)
+      {
+        itemsSqlFormat += $$"""
 offset
     {{{parameterIndex++}}}
 """;
 
-    parameters.Add(request.Page.Count);
-
-    parameters.Add((request.Page.Number - 1) * request.Page.Count);
+        parameters.Add((request.Page.Number - 1) * request.Page.Count);
+      }
+    }
 
     var itemsSql = FormattableStringFactory.Create(itemsSqlFormat, [.. parameters]);
 

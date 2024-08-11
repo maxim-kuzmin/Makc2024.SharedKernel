@@ -13,7 +13,7 @@ public class DummyItemGetListEndpointHandler(IMediator _mediator) :
   {
     var query = new DummyItemGetListActionQuery(
       new QueryPage(request.CurrentPage, request.ItemsPerPage),
-      new DummyItemListQueryFilter(request.Query));
+      new DummyItemGetListActionQueryFilter(request.Query));
 
     var result = await _mediator.Send(query, cancellationToken);
 

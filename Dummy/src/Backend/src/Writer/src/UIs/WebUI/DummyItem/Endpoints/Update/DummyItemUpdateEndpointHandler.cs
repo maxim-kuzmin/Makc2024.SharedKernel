@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.UIs.WebUI.DummyItem.Endpoints.Update;
 
 public class DummyItemUpdateEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemUpdateActionCommand, DummyItemGetByIdActionDTO>
+  Endpoint<DummyItemUpdateActionCommand, DummyItemGetActionDTO>
 {
   public override void Configure()
   {
@@ -20,7 +20,7 @@ public class DummyItemUpdateEndpointHandler(IMediator _mediator) :
       return;
     }
 
-    var query = new DummyItemGetByIdActionQuery(request.Id);
+    var query = new DummyItemGetActionQuery(request.Id);
 
     var queryResult = await _mediator.Send(query, cancellationToken);
 

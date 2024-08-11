@@ -3,9 +3,9 @@ import {
   createAppConfigOptions,
   createAppConfigOptionsApi,
   createAppConfigOptionsAuthor,
-  createAppConfigOptionsJira,
   createAppConfigOptionsLocalization,
   createAppModule,
+  createDummyItemModule,
   createHttpModule
 } from '@/lib';
 
@@ -46,8 +46,13 @@ const app = createAppModule({
   getAppApiClient: api.getClient
 });
 
+const dummyItem = createDummyItemModule({
+ getAppApiClient: api.getClient
+});
+
 const modules = {
-  app
+  app,
+  dummyItem,
 };
 
 export default modules;

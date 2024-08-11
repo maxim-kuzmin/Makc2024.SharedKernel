@@ -36,29 +36,7 @@ export default async function Page() {
           </Link>
         </div>
         <div className='flex grow flex-col gap-4 md:flex-row flex-wrap'>
-          <div className="flex flex-col gap-6 p-6 md:px-28 md:py-12">
-            <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal ${lusitana.className}`}>
-              <strong>{t('app._page.Content.DummyItem.1')}</strong> {t('app._page.Content.DummyItem.2')}
-            </p>
-            <Link
-              href="/dummy-item"
-              className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-            >
-              <span>{t('app._page.GoToDummyItem')}</span> <ArrowRightIcon className="w-5 md:w-6" />
-            </Link>
-          </div>
-          <div className="flex flex-col gap-6 p-6 md:px-28 md:py-12">
-            <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal ${lusitana.className}`}>
-              <strong>{t('app._page.Content.DummyNode.1')}</strong> {t('app._page.Content.DummyNode.2')}
-            </p>
-            <Link
-              href="/dummy-node"
-              className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-            >
-              <span>{t('app._page.GoToDummyNode')}</span> <ArrowRightIcon className="w-5 md:w-6" />
-            </Link>
-          </div>
-          <div className="flex flex-col gap-6 p-6 md:px-28 md:py-12">
+        <div className="flex flex-col gap-6 p-6 md:px-28 md:py-12">
             <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal ${lusitana.className}`}>
               <strong>{t('app._page.Content.Admin.1')}</strong> {t('app._page.Content.Admin.2')}
             </p>
@@ -67,6 +45,17 @@ export default async function Page() {
               className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
             >
               <span>{t('app._page.GoToAdmin')}</span> <ArrowRightIcon className="w-5 md:w-6" />
+            </Link>
+          </div>
+          <div className="flex flex-col gap-6 p-6 md:px-28 md:py-12">
+            <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal ${lusitana.className}`}>
+              <strong>{t('app._page.Content.Review.1')}</strong> {t('app._page.Content.Review.2')}
+            </p>
+            <Link
+              href="/review"
+              className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
+            >
+              <span>{t('app._page.GoToReview')}</span> <ArrowRightIcon className="w-5 md:w-6" />
             </Link>
           </div>
         </div>

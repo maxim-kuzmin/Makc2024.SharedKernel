@@ -8,8 +8,8 @@ export interface AppApiErrorResourcesOptions extends Partial<AppApiErrorResource
   readonly unknownErrorMessage: string;
 }
 
-export function createAppApiErrorResourcesOptions(options?: Partial<AppApiErrorResourcesOptions>): AppApiErrorResourcesOptions {
-  const getMessage = indexContext.localization.getMessage;
+export function createAppApiErrorResourcesOptions(options?: Partial<AppApiErrorResourcesOptions> | null): AppApiErrorResourcesOptions {
+  const getMessage = indexContext.app.localization.getMessage;
 
   return {
     badRequestErrorMessage: getMessage(options?.getBadRequestErrorMessage, options?.badRequestErrorMessage),

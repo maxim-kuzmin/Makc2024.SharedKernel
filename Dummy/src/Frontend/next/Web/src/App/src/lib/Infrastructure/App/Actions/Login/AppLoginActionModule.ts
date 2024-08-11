@@ -1,5 +1,4 @@
 import {
-  AppActionsSettings,
   AppApiClient,
   AppLoginActionHandler,
   createAppLoginActionHandler
@@ -10,16 +9,13 @@ export interface AppLoginActionModule {
 }
 
 interface Options {
-  readonly getAppActionsSettings: () => AppActionsSettings;
   readonly getAppApiClient: () => AppApiClient;
 }
 
 export function createAppLoginActionModule({
-  getAppActionsSettings,
   getAppApiClient
 }: Options): AppLoginActionModule {
   const appLoginActionHandler = createAppLoginActionHandler({
-    appActionsSettings: getAppActionsSettings(),
     appApiClient: getAppApiClient()
   });
 
