@@ -3,7 +3,7 @@
 public class DummyItemCreateActionHandler(
   IHttpClientFactory _httpClientFactory) : IDummyItemCreateActionHandler
 {
-  public async Task<Result<long>> Handle(DummyItemCreateActionCommand request, CancellationToken cancellationToken)
+  public async Task<Result<DummyItemGetActionDTO>> Handle(DummyItemCreateActionCommand request, CancellationToken cancellationToken)
   {
     using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
 
@@ -13,7 +13,7 @@ public class DummyItemCreateActionHandler(
 
     using var httpResponse = await httpClient.PostAsync(requestUri, requestContent, cancellationToken);
 
-    var result = await httpResponse.ToResultFromJsonAsync<long>(cancellationToken);
+    var result = await httpResponse.ToResultFromJsonAsync<DummyItemGetActionDTO>(cancellationToken);
 
     return result;
   }

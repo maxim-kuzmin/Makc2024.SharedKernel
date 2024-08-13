@@ -2,4 +2,4 @@
 
 public record DummyItemUpdateActionCommand(
   long Id,
-  string Name) : ICommand<Result<DummyItemUpdateActionDTO>>;
+  string Name) : ICommand<Result<DummyItemGetActionDTO>>;

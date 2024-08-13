@@ -3,7 +3,7 @@
 public class DummyItemUpdateActionHandler(
   IHttpClientFactory _httpClientFactory) : IDummyItemUpdateActionHandler
 {
-  public async Task<Result<DummyItemUpdateActionDTO>> Handle(
+  public async Task<Result<DummyItemGetActionDTO>> Handle(
     DummyItemUpdateActionCommand request,
     CancellationToken cancellationToken)
   {
@@ -15,7 +15,7 @@ public class DummyItemUpdateActionHandler(
 
     using var httpResponse = await httpClient.PutAsync(requestUri, requestContent, cancellationToken);
 
-    var result = await httpResponse.ToResultFromJsonAsync<DummyItemUpdateActionDTO>(cancellationToken);
+    var result = await httpResponse.ToResultFromJsonAsync<DummyItemGetActionDTO>(cancellationToken);
 
     return result;
   }

@@ -5,7 +5,7 @@ public class DummyItemCreateActionHandler(
   IDummyItemRepository _repository
   ) : IDummyItemCreateActionHandler
 {
-  public async Task<Result<long>> Handle(DummyItemCreateActionCommand request, CancellationToken cancellationToken)
+  public async Task<Result<DummyItemGetActionDTO>> Handle(DummyItemCreateActionCommand request, CancellationToken cancellationToken)
   {
     var dummyItemAggregate = new DummyItemAggregate();
 
@@ -22,6 +22,10 @@ public class DummyItemCreateActionHandler(
 
     await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken);
 
-    return Result.Success(dummyItemEntity.Id);
+    var data = new DummyItemGetActionDTO(
+      dummyItemEntity.Id,
+      dummyItemEntity.Name);
+
+    return Result.Success(data);
   }
 }

@@ -12,7 +12,6 @@ global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Delete;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Get;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.GetList;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Update;
-global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.QueryFilters;
 global using Makc2024.Dummy.Gateway.Infrastructure.App;
 global using Makc2024.Dummy.Gateway.UIs.WebUI.App.Middlewares;
 global using Makc2024.Dummy.Shared.Query;

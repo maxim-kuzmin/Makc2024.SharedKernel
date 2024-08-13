@@ -11,19 +11,8 @@ public class DummyItemUpdateEndpointHandler(IMediator _mediator) :
 
   public override async Task HandleAsync(DummyItemUpdateActionCommand request, CancellationToken cancellationToken)
   {
-    var commandResult = await _mediator.Send(request, cancellationToken);
+    var result = await _mediator.Send(request, cancellationToken);
 
-    if (!commandResult.IsSuccess)
-    {
-      await SendResultAsync(commandResult.ToMinimalApiResult());
-
-      return;
-    }
-
-    var query = new DummyItemGetActionQuery(request.Id);
-
-    var queryResult = await _mediator.Send(query, cancellationToken);
-
-    await SendResultAsync(queryResult.ToMinimalApiResult());
+    await SendResultAsync(result.ToMinimalApiResult());
   }
 }

@@ -22,7 +22,7 @@ export function createDummyItemGetActionHandler({
       errorResources: request.errorResources
     });
 
-    const appApiResponse = await appApiClient.post<DummyItemGetActionDTO>(appApiRequest);
+    const appApiResponse = await appApiClient.get<DummyItemGetActionDTO>(appApiRequest);
 
     return appApiResponse.data ?? createDummyItemGetActionDTO();
   }

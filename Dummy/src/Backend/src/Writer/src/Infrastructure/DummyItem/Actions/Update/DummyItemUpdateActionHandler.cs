@@ -4,7 +4,7 @@ public class DummyItemUpdateActionHandler(
   IEventDispatcher _eventDispatcher,
   IDummyItemRepository _repository) : IDummyItemUpdateActionHandler
 {
-  public async Task<Result<DummyItemUpdateActionDTO>> Handle(
+  public async Task<Result<DummyItemGetActionDTO>> Handle(
     DummyItemUpdateActionCommand request,
     CancellationToken cancellationToken)
   {
@@ -30,7 +30,7 @@ public class DummyItemUpdateActionHandler(
 
     await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken);
 
-    var data = new DummyItemUpdateActionDTO(
+    var data = new DummyItemGetActionDTO(
       dummyItemEntity.Id,
       dummyItemEntity.Name);
 
