@@ -1,11 +1,11 @@
 export interface QueryPage {
-  readonly count: number;
+  readonly size: number;
   readonly number: number;
 }
 
 export function createQueryPage(options?: Partial<QueryPage> | null): QueryPage {
   return {
-    count: options?.count ?? 0,
+    size: options?.size ?? 0,
     number: options?.number ?? 1,
   };
 }

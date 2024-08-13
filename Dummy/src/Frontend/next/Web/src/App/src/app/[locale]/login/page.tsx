@@ -1,5 +1,5 @@
 import Logo from '@/ui/components/logo';
-import LoginForm from '@/ui/pages/login/login-form';
+import Form from '@/ui/pages/login/form';
 import serverContext from '@/lib/serverContext';
 import Language from '@/ui/components/language';
 import Link from 'next/link';
@@ -16,7 +16,7 @@ export default async function Page() {
           </Link>
           <Language />
         </div>
-        <LoginForm />
+        <Form />
       </div>
     </main>
   );

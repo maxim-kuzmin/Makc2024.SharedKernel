@@ -1,3 +1,14 @@
+function formatDateToLocal(dateStr: string, locale: string) {
+  const date = new Date(dateStr);
+  const options: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
+  const formatter = new Intl.DateTimeFormat(locale, options);
+  return formatter.format(date);
+};
+
 function getMessage(functionToGetValue?: () => string, value?: string): string {
   let result = '';
 
@@ -25,6 +36,7 @@ function isLocalizedPathStartsWith(localizedPath: string, pattern: string): bool
 }
 
 export const localization = {
+  formatDateToLocal,
   getMessage,
   isLocalizedPathSame,
   isLocalizedPathStartsWith

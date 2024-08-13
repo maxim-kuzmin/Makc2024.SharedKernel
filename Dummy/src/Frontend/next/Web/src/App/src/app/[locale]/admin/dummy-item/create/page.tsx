@@ -1,5 +1,5 @@
 import Breadcrumbs from '@/ui/pages/admin/dummy-item/breadcrumbs';
-import CreateForm from '@/ui/pages/admin/dummy-item/create-form';
+import Form from '@/ui/pages/admin/dummy-item/create/form';
 import serverContext from '@/lib/serverContext';
 
 export default async function Page() {
@@ -13,7 +13,7 @@ export default async function Page() {
           { label: t('app.admin.dummy-item.create._page._page.Breadcrumb.2'), href: '/admin/dummy-item/create', active: true },
         ]}
       />
-      <CreateForm />
+      <Form />
     </main>
   );
 }

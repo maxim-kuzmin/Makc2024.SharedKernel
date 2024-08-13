@@ -1,6 +1,8 @@
-import { PlusIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { serverActionWithDummyItemToDelete } from '@/lib/serverActions';
 import serverContext from '@/lib/serverContext';
+import { createDummyItemDeleteActionCommand } from '@/lib';
 
 export async function CreateDummyItemButton() {
   const t = await serverContext.app.localization.getTranslator();
@@ -12,6 +14,34 @@ export async function CreateDummyItemButton() {
     >
       <span className="hidden md:block">{t('ui.pages.admin.dummy-item._buttons.Create')}</span>{' '}
       <PlusIcon className="h-5 md:ml-4" />
+    </Link>
+  );
+}
+
+export function DeleteDummyItemButton({ id }: { id: number }) {
+  const command = createDummyItemDeleteActionCommand({
+    id
+  });
+
+  const deleteDummyItem = serverActionWithDummyItemToDelete.bind(null, command);
+
+  return (
+    <form action={deleteDummyItem}>
+      <button className="rounded-md border p-2 hover:bg-gray-100">
+        <span className="sr-only">Delete</span>
+        <TrashIcon className="w-5" />
+      </button>
+    </form>
+  );
+}
+
+export function UpdateDummyItemButton({ id }: { id: number }) {
+  return (
+    <Link
+      href={`/admin/dummy-item/${id}/edit`}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <PencilIcon className="w-5" />
     </Link>
   );
 }

@@ -20,7 +20,7 @@ export function createDummyItemGetListActionHandler({
       query: {
         ...(request.query.page && {
           'currentPage': request.query.page.number,
-          'itemsPerPage': request.query.page.count,
+          'itemsPerPage': request.query.page.size,
         }),
         ...(request.query.filter?.fullTextSearchQuery && {
           'query': request.query.filter?.fullTextSearchQuery

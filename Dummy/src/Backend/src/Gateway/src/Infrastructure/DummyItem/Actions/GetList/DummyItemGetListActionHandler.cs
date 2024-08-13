@@ -32,7 +32,7 @@ public class DummyItemGetListActionHandler(
   {
     IEnumerable<KeyValuePair<string, string?>> parameters = [
       new("CurrentPage", request.Page.Number.ToString()),
-      new("ItemsPerPage", request.Page.Count.ToString()),
+      new("ItemsPerPage", request.Page.Size.ToString()),
       new("Query", request.Filter.FullTextSearchQuery)
     ];
 

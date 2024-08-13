@@ -13,7 +13,7 @@ import { serverActionWithAppAuthenticationToLogin } from '@/lib/serverActions';
 import clientContext from '@/lib/clientContext';
 import { FormEvent } from 'react';
 
-export default function LoginForm() {
+export default function Form() {
   const [errorMessage, dispatch] = useFormState(serverActionWithAppAuthenticationToLogin, undefined);
 
   const appSession = clientContext.app.authentication.useAppSession();

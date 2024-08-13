@@ -61,14 +61,14 @@ order by
 
     if (request.Page != null)
     {
-      if (request.Page.Count > 0)
+      if (request.Page.Size > 0)
       {
         itemsSqlFormat += $$"""
 limit
     {{{parameterIndex++}}}
 """;
 
-        parameters.Add(request.Page.Count);
+        parameters.Add(request.Page.Size);
       }
 
       if (request.Page.Number > 0)
@@ -78,7 +78,7 @@ offset
     {{{parameterIndex++}}}
 """;
 
-        parameters.Add((request.Page.Number - 1) * request.Page.Count);
+        parameters.Add((request.Page.Number - 1) * request.Page.Size);
       }
     }
 
