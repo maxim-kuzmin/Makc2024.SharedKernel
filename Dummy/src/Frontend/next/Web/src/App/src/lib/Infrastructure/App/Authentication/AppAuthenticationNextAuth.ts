@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthResult, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { string, z } from 'zod';
+import { z } from 'zod';
 import {
   AppLoginActionHandler,
   createAppApiErrorResources,
@@ -24,34 +24,12 @@ interface Options {
   readonly getAppLoginActionHandler: () => AppLoginActionHandler;
 }
 
-const paths = {
-  login: '/login',
-  admin: '/admin',
-}
-
 export function createAppAuthenticationNextAuth({
   getAppLoginActionHandler,
 }: Options): NextAuthResult {
   return NextAuth({
     pages: {
-      signIn: paths.login,
-    },
-    callbacks: {
-      authorized({ auth, request: { nextUrl } }) {
-        const isLoggedIn = !!auth?.user;
-
-        const isNextPathToLoginPage = indexContext.app.localization.isLocalizedPathStartsWith(nextUrl.pathname, paths.login);
-
-        if (isNextPathToLoginPage) {
-          return;
-        }
-
-        const isNextPathToAdminPage = indexContext.app.localization.isLocalizedPathStartsWith(nextUrl.pathname, paths.admin);
-
-        if (isNextPathToAdminPage && !isLoggedIn) {
-          return Response.redirect(new URL(paths.login, nextUrl))
-        }
-      }
+      signIn: indexContext.app.getHrefToLogin(),
     },
     providers: [
       Credentials({

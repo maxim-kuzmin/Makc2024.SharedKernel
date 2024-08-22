@@ -30,9 +30,9 @@ export default function Form() {
     const validityState = input.validity;
 
     if (validityState.valueMissing) {
-      input.setCustomValidity(t('ui.pages.login._login-form.PasswordErrorMessageForRequired'));
+      input.setCustomValidity(t('ui.pages.login._form.PasswordErrorMessageForRequired'));
     } else if (validityState.tooShort) {
-      input.setCustomValidity(t('ui.pages.login._login-form.PasswordErrorMessageForMinLength'));
+      input.setCustomValidity(t('ui.pages.login._form.PasswordErrorMessageForMinLength'));
     }
   }
 
@@ -46,7 +46,7 @@ export default function Form() {
     const validityState = input.validity;
 
     if (validityState.valueMissing) {
-      input.setCustomValidity(t('ui.pages.login._login-form.UserNameErrorMessageForRequired'));
+      input.setCustomValidity(t('ui.pages.login._form.UserNameErrorMessageForRequired'));
     }
   }
 
@@ -58,7 +58,7 @@ export default function Form() {
     <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`${lusitana.className} mb-3 text-2xl`}>
-          {t('ui.pages.login._login-form.Title')}
+          {t('ui.pages.login._form.Title')}
         </h1>
         <div className="w-full">
           <div>
@@ -66,14 +66,14 @@ export default function Form() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="email"
             >
-              {t('ui.pages.login._login-form.UserName')}
+              {t('ui.pages.login._form.UserName')}
             </label>
             <div className="relative">
               <input
                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="userName"
                 name="userName"
-                placeholder={t('ui.pages.login._login-form.UserNamePlaceholder')}
+                placeholder={t('ui.pages.login._form.UserNamePlaceholder')}
                 required
                 onChange={onChangeForUserName}
                 onInvalid={onInvalidForUserName}
@@ -87,7 +87,7 @@ export default function Form() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="password"
             >
-              {t('ui.pages.login._login-form.Password')}
+              {t('ui.pages.login._form.Password')}
             </label>
             <div className="relative">
               <input
@@ -95,7 +95,7 @@ export default function Form() {
                 id="password"
                 type="password"
                 name="password"
-                placeholder={t('ui.pages.login._login-form.PasswordPlaceholder')}
+                placeholder={t('ui.pages.login._form.PasswordPlaceholder')}
                 required
                 minLength={6}
                 onChange={onChangeForPassword}
@@ -131,7 +131,7 @@ function LoginButton() {
 
   return (
     <Button className="mt-4 w-full" aria-disabled={pending}>
-      {t('ui.pages.login._login-form.LogIn')} <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+      {t('ui.pages.login._form.LogIn')} <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
 }

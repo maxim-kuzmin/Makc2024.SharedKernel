@@ -1,9 +1,11 @@
-import admin from './admin/ru';
+import _internal from './_internal/ru';
+import dummyItem from './dummy-item/ru';
 import login from './login/ru';
 
 const pages = {
-  ...admin,
+  ..._internal,
+  ...dummyItem,
   ...login,
 } as const;
 
-export default pages;
+export default pages

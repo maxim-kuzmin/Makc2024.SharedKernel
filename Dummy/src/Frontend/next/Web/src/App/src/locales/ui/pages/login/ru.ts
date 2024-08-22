@@ -1,4 +1,4 @@
-import _loginForm from './_login-form/ru';
+import _loginForm from './_form/ru';
 
 const login = {
   ..._loginForm,

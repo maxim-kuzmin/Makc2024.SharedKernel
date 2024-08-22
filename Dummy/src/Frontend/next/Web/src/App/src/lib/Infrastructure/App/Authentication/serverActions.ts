@@ -4,6 +4,7 @@ import { AuthError } from 'next-auth';
 import modules from '@/lib/modules';
 import serverContext from '@/lib/serverContext';
 import { createAppApiErrorResourcesOptions } from '@/lib';
+import indexContext from '@/lib/indexContext';
 
 export async function serverActionWithAppAuthenticationToLogin(
   prevState: string | undefined,
@@ -26,7 +27,7 @@ export async function serverActionWithAppAuthenticationToLogin(
 
   try {
     await signIn('credentials', {
-      redirectTo: '/',
+      redirectTo: indexContext.app.getHrefToRoot(),
       appApiErrorResourcesOptions,
       language,
       password,
@@ -48,5 +49,5 @@ export async function serverActionWithAppAuthenticationToLogin(
 export async function serverActionWithAppAuthenticationToLogout() {
   const { signOut } = modules.app.authentication.getNextAuth();
 
-  await signOut({ redirectTo: '/' });
+  await signOut({ redirectTo: indexContext.app.getHrefToRoot() });
 }
