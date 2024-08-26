@@ -21,9 +21,12 @@ export async function serverActionWithDummyItemToCreate(command: DummyItemCreate
 
   const errorResources = await serverContext.app.api.getErrorResources();
 
+  const { accessToken } = await serverContext.app.authentication.getAppSession();
+
   const request = createDummyItemCreateActionRequest({
     command,
     context: createRequestContext({
+      accessToken,
       language
     }),
     errorResources
@@ -39,9 +42,12 @@ export async function serverActionWithDummyItemToDelete(command: DummyItemDelete
 
   const errorResources = await serverContext.app.api.getErrorResources();
 
+  const { accessToken } = await serverContext.app.authentication.getAppSession();
+
   const request = createDummyItemDeleteActionRequest({
     command,
     context: createRequestContext({
+      accessToken,
       language
     }),
     errorResources
@@ -55,9 +61,12 @@ export async function serverActionWithDummyItemToGet(query: DummyItemGetActionQu
 
   const errorResources = await serverContext.app.api.getErrorResources();
 
+  const { accessToken } = await serverContext.app.authentication.getAppSession();
+
   const request = createDummyItemGetActionRequest({
     query,
     context: createRequestContext({
+      accessToken,
       language
     }),
     errorResources
@@ -73,9 +82,14 @@ export async function serverActionWithDummyItemToGetList(query: DummyItemGetList
 
   const errorResources = await serverContext.app.api.getErrorResources();
 
+  const appSession = await serverContext.app.authentication.getAppSession();
+  
+  const {accessToken} = appSession;
+  
   const request = createDummyItemGetListActionRequest({
     query,
     context: createRequestContext({
+      accessToken,
       language
     }),
     errorResources
@@ -91,9 +105,12 @@ export async function serverActionWithDummyItemToUpdate(command: DummyItemUpdate
 
   const errorResources = await serverContext.app.api.getErrorResources();
 
+  const { accessToken } = await serverContext.app.authentication.getAppSession();
+
   const request = createDummyItemUpdateActionRequest({
     command,
     context: createRequestContext({
+      accessToken,
       language
     }),
     errorResources

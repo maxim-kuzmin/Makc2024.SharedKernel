@@ -22,10 +22,12 @@ public class DummyItemGetListActionHandler(
     if (!string.IsNullOrEmpty(request.Filter?.FullTextSearchQuery))
     {
       sqlFormatToFilter = $$"""
+
 where
   di."{{dummyItemEntitySettings.ColumnForId}}"::text ilike {{{parameterIndex}}}
   or
   di."{{dummyItemEntitySettings.ColumnForName}}" ilike {{{parameterIndex}}}
+
 """
       ;
 
@@ -35,11 +37,13 @@ where
     }
 
     string totalCountSqlFormat = $$"""
+
 select
   count(*)
 from
   "{{appDbSettings.Schema}}"."{{dummyItemEntitySettings.Table}}" di
 {{sqlFormatToFilter}}
+
 """;
 
     var totalCountSql = FormattableStringFactory.Create(totalCountSqlFormat, [.. parameters]);
@@ -49,6 +53,7 @@ from
     long totalCountDto = totalCountData[0];
 
     string itemsSqlFormat = $$"""
+
 select
   di."{{dummyItemEntitySettings.ColumnForId}}" "Id",
   di."{{dummyItemEntitySettings.ColumnForName}}" "Name"
@@ -57,6 +62,7 @@ from
 {{sqlFormatToFilter}}
 order by
   di."{{dummyItemEntitySettings.ColumnForId}}" desc
+
 """;
 
     if (request.Page != null)
@@ -64,8 +70,10 @@ order by
       if (request.Page.Size > 0)
       {
         itemsSqlFormat += $$"""
+
 limit
     {{{parameterIndex++}}}
+
 """;
 
         parameters.Add(request.Page.Size);
@@ -74,8 +82,10 @@ limit
       if (request.Page.Number > 0)
       {
         itemsSqlFormat += $$"""
+
 offset
     {{{parameterIndex++}}}
+
 """;
 
         parameters.Add((request.Page.Number - 1) * request.Page.Size);

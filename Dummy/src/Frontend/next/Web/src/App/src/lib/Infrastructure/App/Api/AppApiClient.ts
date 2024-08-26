@@ -22,14 +22,17 @@ export interface AppApiClient {
   readonly put: <TData>(request: AppApiRequestWithBody) => Promise<AppApiResponseWithData<TData>>;
 }
 
+const applicationJsonContentType = 'application/json';
+
 interface Options {
   readonly appConfigOptionsApi: AppConfigOptionsApi;
   readonly httpClient: HttpClient;
 }
 
 interface HttpConfigOptions {
+  readonly contentType?: string;
   readonly query?: any;
-  readonly requestContext: RequestContext;
+  readonly requestContext: RequestContext;  
 }
 
 interface RequestOptions {
@@ -39,22 +42,23 @@ interface RequestOptions {
 }
 
 function createHttpConfig({
+  contentType,
   query,
   requestContext: {
     abortSignal,
     accessToken,
     corellationId,
     language
-  }
+  },  
 }: HttpConfigOptions): HttpConfig {
   return {
     query,
     init: {
       headers: {
-        'Content-Type': 'application/json',
+        ...(contentType && { 'Content-Type': contentType}),
         ...(language && { 'Accept-Language': language }),
         ...(corellationId && { 'X-Corellation-ID': corellationId }),
-        ...(accessToken && { 'Authorization': accessToken })
+        ...(accessToken && { 'Authorization': `Bearer ${accessToken}` })
       },
       signal: abortSignal
     },
@@ -184,6 +188,7 @@ export function createAppApiClient({
         createUrl(endpoint),
         body,
         createHttpConfig({
+          contentType: applicationJsonContentType,
           query,
           requestContext
         })
@@ -207,6 +212,7 @@ export function createAppApiClient({
         createUrl(endpoint),
         body,
         createHttpConfig({
+          contentType: applicationJsonContentType,
           query,
           requestContext
         })

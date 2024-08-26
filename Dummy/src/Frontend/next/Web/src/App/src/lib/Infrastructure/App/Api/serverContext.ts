@@ -13,6 +13,7 @@ async function getErrorResources(): Promise<AppApiErrorResources> {
     getBadRequestErrorMessage: () => t('lib.app.api.error.BadRequest'),
     getNotFoundErrorMessage: () => t('lib.app.api.error.NotFound'),
     getInternalServerErrorMessage: () => t('lib.app.api.error.InternalServerError'),
+    getUnauthorizedErrorMessage: () => t('lib.app.api.error.Unauthorized'),
     getUnknownErrorMessage: () => t('lib.app.api.error.Unknown')
   }));
 }

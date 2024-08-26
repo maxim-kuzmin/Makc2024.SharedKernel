@@ -51,7 +51,7 @@ async function _delete (url: string, config?: HttpConfig) {
   return result;
 }
 
-async function get (url: string, config?: HttpConfig) {
+async function get (url: string, config?: HttpConfig) {  
   const result = await request(url, createRequestConfigValue('GET', config));
 
   return result;

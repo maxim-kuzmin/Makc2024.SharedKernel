@@ -31,7 +31,7 @@ export function createDummyItemGetListActionHandler({
       errorResources: request.errorResources
     });
 
-    const appApiResponse = await appApiClient.post<DummyItemGetListActionDTO>(appApiRequest);
+    const appApiResponse = await appApiClient.get<DummyItemGetListActionDTO>(appApiRequest);
 
     return appApiResponse.data ?? createDummyItemGetListActionDTO();
   }

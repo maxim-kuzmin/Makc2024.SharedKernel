@@ -13,7 +13,7 @@ public class AppLoginActionHandler(IOptionsSnapshot<AppConfigOptions> _appConfig
 
     var signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
 
-    var expires = DateTime.UtcNow.Add(TimeSpan.FromMinutes(2));
+    var expires = DateTime.UtcNow.Add(TimeSpan.FromDays(1));
     
     var jwt = new JwtSecurityToken(
       issuer: _appConfigOptions.Value.Authentication.Issuer,

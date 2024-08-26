@@ -5,6 +5,7 @@ export interface AppApiErrorResourcesOptions extends Partial<AppApiErrorResource
   readonly badRequestErrorMessage: string;
   readonly notFoundErrorMessage: string;
   readonly internalServerErrorMessage: string;
+  readonly unauthorizedErrorMessage: string;
   readonly unknownErrorMessage: string;
 }
 
@@ -15,6 +16,7 @@ export function createAppApiErrorResourcesOptions(options?: Partial<AppApiErrorR
     badRequestErrorMessage: getMessage(options?.getBadRequestErrorMessage, options?.badRequestErrorMessage),
     notFoundErrorMessage: getMessage(options?.getNotFoundErrorMessage, options?.notFoundErrorMessage),
     internalServerErrorMessage: getMessage(options?.getInternalServerErrorMessage, options?.internalServerErrorMessage),
+    unauthorizedErrorMessage: getMessage(options?.getUnauthorizedErrorMessage, options?.unauthorizedErrorMessage),
     unknownErrorMessage: getMessage(options?.getUnknownErrorMessage, options?.unknownErrorMessage),
   };
 }

@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthResult, User } from 'next-auth';
+import NextAuth, { DefaultSession, NextAuthResult, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import {
@@ -9,14 +9,22 @@ import {
   createRequestContext,
 } from '@/lib';
 import indexContext from '@/lib/indexContext';
+import { AdapterUser } from 'next-auth/adapters';
 
 declare module "next-auth" {
-  /**
-   * The shape of the user object returned in the OAuth providers' `profile` callback,
-   * or the second parameter of the `session` callback, when using a database.
-   */
   interface User {
-    accessToken: string
+    accessToken: string,
+  }
+
+  interface Session {
+    openIdAccessToken?: string,
+  }
+}
+
+declare module "@auth/core/jwt" {
+  interface JWT {
+    user: AdapterUser,
+    openIdAccessToken?: string,
   }
 }
 
@@ -28,9 +36,28 @@ export function createAppAuthenticationNextAuth({
   getAppLoginActionHandler,
 }: Options): NextAuthResult {
   return NextAuth({
+    session: {
+      strategy: 'jwt'
+    },
     pages: {
       signIn: indexContext.app.getHrefToLogin(),
     },
+    callbacks: {
+      async session({ session, token, user }) {
+          session.openIdAccessToken = token.openIdAccessToken;
+        session.user = token.user;
+  
+        return session;
+      },
+      async jwt({ token, user, account }) {        
+        if (account) {
+          token.openIdAccessToken = account.access_token;
+          token.user = user as AdapterUser;
+        }
+
+        return token;
+      }
+    },    
     providers: [
       Credentials({
         async authorize(credentials) {
@@ -73,7 +100,9 @@ export function createAppAuthenticationNextAuth({
             errorResources: createAppApiErrorResources(JSON.parse(appApiErrorResourcesOptions))
           });
 
-          const { userName: name, accessToken } = await appLoginActionHandler.handle(appLoginActionRequest);
+          const appLoginActionDTO = await appLoginActionHandler.handle(appLoginActionRequest);
+
+          const { userName: name, accessToken } = appLoginActionDTO;
 
           if (name && accessToken) {
             result = {
