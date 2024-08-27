@@ -7,7 +7,7 @@ import clientContext from '@/lib/clientContext';
 import indexContext from '@/lib/indexContext';
 
 interface ServerActionResponse {
-  message: string | null;
+  errorMessage: string | null;
   errors: {
     name: string,
   } | any;
@@ -17,7 +17,7 @@ async function serverActionToCreate(): Promise<ServerActionResponse> {
   var result = await new Promise<ServerActionResponse>(
     (resolve) => setTimeout(resolve, 1000)
   ).then(() => ({
-    message: '',
+    errorMessage: '',
     errors: {}
   } as ServerActionResponse
   ));
@@ -26,7 +26,7 @@ async function serverActionToCreate(): Promise<ServerActionResponse> {
 }
 
 export default function Form() {
-  const initialState = { message: null, errors: {} };
+  const initialState = { errorMessage: null, errors: {} };
 
   const [state, dispatch] = useFormState(serverActionToCreate, initialState);
 
@@ -37,7 +37,7 @@ export default function Form() {
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <div className="mb-4">
           <label htmlFor="name" className="mb-2 block text-sm font-medium">
-            Choose an amount
+            {t('ui.pages.dummy-item.create._form.field.name.Title')}
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -45,7 +45,7 @@ export default function Form() {
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Enter name"
+                placeholder={t('ui.pages.dummy-item.create._form.field.name.Title')}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="name-error"
               />
@@ -61,9 +61,9 @@ export default function Form() {
           </div>
         </div>
         <div aria-live="polite" aria-atomic="true">
-          {state.message &&
+          {state.errorMessage &&
             <p className="mt-2 text-sm text-red-500">
-              {state.message}
+              {state.errorMessage}
             </p>
           }
         </div>
@@ -73,9 +73,9 @@ export default function Form() {
           href={indexContext.app.getHrefToDummyItem()}
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
-          {t('ui.pages.dummy-item.create._form.Cancel')}
+          {t('ui.pages.dummy-item.create._form.button.cancel.Title')}
         </Link>
-        <Button type="submit">{t('ui.pages.dummy-item.create._form.Create')}</Button>
+        <Button type="submit">{t('ui.pages.dummy-item.create._form.button.create.Title')}</Button>
       </div>
     </form>
   );

@@ -1,8 +1,17 @@
 import { AppApiErrorResources } from "@/lib/DomainUseCases";
 
-export interface AppApiError {
+interface AppApiErrorOptions {
   readonly message: string;
   readonly responseStatus: number;
+}
+
+export class AppApiError extends Error {
+  responseStatus: number;
+
+  constructor({message, responseStatus}: AppApiErrorOptions) {
+    super(message);
+    this.responseStatus = responseStatus;
+  }
 }
 
 interface Options extends ErrorOptions {
@@ -15,7 +24,7 @@ export function createAppApiError({
   errorMessage,
   errorResources,
   responseStatus
-}: Options) {
+}: Options): AppApiError {
   let message: string;
 
   switch (responseStatus) {
@@ -25,7 +34,7 @@ export function createAppApiError({
     case 401:
       message = errorResources.getUnauthorizedErrorMessage();
       break;
-      case 404:
+    case 404:
       message = errorResources.getNotFoundErrorMessage();
       break;
     case 500:
@@ -40,8 +49,8 @@ export function createAppApiError({
     message = message ? `${message}: ${errorMessage}` : errorMessage;
   }
 
-  return {
+  return new AppApiError({
     message,
     responseStatus: responseStatus ?? 0,
-  };
+  });
 }

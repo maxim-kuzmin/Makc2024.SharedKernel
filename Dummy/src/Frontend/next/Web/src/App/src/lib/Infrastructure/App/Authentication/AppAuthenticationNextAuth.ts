@@ -15,16 +15,11 @@ declare module "next-auth" {
   interface User {
     accessToken: string,
   }
-
-  interface Session {
-    openIdAccessToken?: string,
-  }
 }
 
 declare module "@auth/core/jwt" {
   interface JWT {
     user: AdapterUser,
-    openIdAccessToken?: string,
   }
 }
 
@@ -44,20 +39,18 @@ export function createAppAuthenticationNextAuth({
     },
     callbacks: {
       async session({ session, token, user }) {
-          session.openIdAccessToken = token.openIdAccessToken;
         session.user = token.user;
-  
+
         return session;
       },
-      async jwt({ token, user, account }) {        
+      async jwt({ token, user, account }) {
         if (account) {
-          token.openIdAccessToken = account.access_token;
           token.user = user as AdapterUser;
         }
 
         return token;
       }
-    },    
+    },
     providers: [
       Credentials({
         async authorize(credentials) {

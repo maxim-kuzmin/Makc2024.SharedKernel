@@ -91,7 +91,7 @@ async function request({
     });
   }
 
-  throw new Error(appApiError.message);
+  throw appApiError;
 }
 
 async function requestWithData<TData>({
@@ -121,7 +121,7 @@ async function requestWithData<TData>({
     });
   }
 
-  throw new Error(appApiError.message);
+  throw appApiError;
 }
 
 export function createAppApiClient({

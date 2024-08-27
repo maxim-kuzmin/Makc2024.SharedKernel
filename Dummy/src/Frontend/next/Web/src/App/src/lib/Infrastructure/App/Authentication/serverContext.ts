@@ -10,7 +10,7 @@ async function getAppSession(): Promise<AppSession> {
   const user = nextAuthSession?.user;
 
   return createAppSession({
-    accessToken: nextAuthSession?.openIdAccessToken ?? user?.accessToken,
+    accessToken: user?.accessToken,
     userName: user?.name
   });
 }

@@ -49,7 +49,6 @@ public static class AppExtensions
     services.SwaggerDocument(options =>
     {
       options.ShortSchemaNames = true;
-
       options.EnableJWTBearerAuth = true;
     });
 
