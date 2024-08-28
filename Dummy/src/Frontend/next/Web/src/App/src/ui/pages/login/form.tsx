@@ -9,12 +9,12 @@ import {
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/ui/components/button';
 import { useFormState, useFormStatus } from 'react-dom';
-import { serverActionWithAppAuthenticationToLogin } from '@/lib/serverActions';
+import { serverActionToAppAuthenticationLogin } from '@/lib/serverActions';
 import clientContext from '@/lib/clientContext';
 import { FormEvent } from 'react';
 
 export default function Form() {
-  const [errorMessage, dispatch] = useFormState(serverActionWithAppAuthenticationToLogin, undefined);
+  const [errorMessage, dispatch] = useFormState(serverActionToAppAuthenticationLogin, undefined);
 
   const appSession = clientContext.app.authentication.useAppSession();
 

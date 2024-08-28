@@ -1,6 +1,6 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { serverActionWithDummyItemToDelete } from '@/lib/serverActions';
+import { serverActionToDummyItemDelete } from '@/lib/serverActions';
 import serverContext from '@/lib/serverContext';
 import { createDummyItemDeleteActionCommand } from '@/lib';
 import indexContext from '@/lib/indexContext';
@@ -24,7 +24,7 @@ export function DeleteDummyItemButton({ id }: { id: number }) {
     id
   });
 
-  const deleteDummyItem = serverActionWithDummyItemToDelete.bind(null, command);
+  const deleteDummyItem = serverActionToDummyItemDelete.bind(null, command);
 
   return (
     <form action={deleteDummyItem}>

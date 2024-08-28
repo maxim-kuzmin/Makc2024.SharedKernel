@@ -6,7 +6,7 @@ import serverContext from '@/lib/serverContext';
 import { createAppApiErrorResourcesOptions } from '@/lib';
 import indexContext from '@/lib/indexContext';
 
-export async function serverActionWithAppAuthenticationToLogin(
+export async function serverActionToAppAuthenticationLogin(
   prevState: string | undefined,
   formData: FormData,
 ) {
@@ -46,7 +46,7 @@ export async function serverActionWithAppAuthenticationToLogin(
   }
 }
 
-export async function serverActionWithAppAuthenticationToLogout() {
+export async function serverActionToAppAuthenticationLogout() {
   const { signOut } = modules.app.authentication.getNextAuth();
 
   await signOut({ redirectTo: indexContext.app.getHrefToRoot() });

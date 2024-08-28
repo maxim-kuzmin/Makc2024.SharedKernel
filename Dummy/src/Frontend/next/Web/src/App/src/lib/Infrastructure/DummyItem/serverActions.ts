@@ -16,7 +16,7 @@ import {
 import modules from '@/lib/modules';
 import serverContext from '@/lib/serverContext';
 
-export async function serverActionWithDummyItemToCreate(command: DummyItemCreateActionCommand) {
+export async function serverActionToDummyItemCreate(command: DummyItemCreateActionCommand) {
   const language = serverContext.app.localization.getCurrentLanguage();
 
   const errorResources = await serverContext.app.api.getErrorResources();
@@ -37,7 +37,7 @@ export async function serverActionWithDummyItemToCreate(command: DummyItemCreate
   return result;
 }
 
-export async function serverActionWithDummyItemToDelete(command: DummyItemDeleteActionCommand) {
+export async function serverActionToDummyItemDelete(command: DummyItemDeleteActionCommand) {
   const language = serverContext.app.localization.getCurrentLanguage();
 
   const errorResources = await serverContext.app.api.getErrorResources();
@@ -56,7 +56,7 @@ export async function serverActionWithDummyItemToDelete(command: DummyItemDelete
   await modules.dummyItem.actions.delete.getHandler().handle(request);
 }
 
-export async function serverActionWithDummyItemToGet(query: DummyItemGetActionQuery) {
+export async function serverActionToDummyItemGet(query: DummyItemGetActionQuery) {
   const language = serverContext.app.localization.getCurrentLanguage();
 
   const errorResources = await serverContext.app.api.getErrorResources();
@@ -77,7 +77,7 @@ export async function serverActionWithDummyItemToGet(query: DummyItemGetActionQu
   return result;
 }
 
-export async function serverActionWithDummyItemToGetList(query: DummyItemGetListActionQuery) {
+export async function serverActionToDummyItemGetList(query: DummyItemGetListActionQuery) {
   const language = serverContext.app.localization.getCurrentLanguage();
 
   const errorResources = await serverContext.app.api.getErrorResources();
@@ -100,7 +100,7 @@ export async function serverActionWithDummyItemToGetList(query: DummyItemGetList
   return result;
 }
 
-export async function serverActionWithDummyItemToUpdate(command: DummyItemUpdateActionCommand) {
+export async function serverActionToDummyItemUpdate(command: DummyItemUpdateActionCommand) {
   const language = serverContext.app.localization.getCurrentLanguage();
 
   const errorResources = await serverContext.app.api.getErrorResources();

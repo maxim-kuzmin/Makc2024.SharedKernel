@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Form from '@/ui/pages/dummy-item/edit/form';
 import Breadcrumbs from '@/ui/pages/dummy-item/breadcrumbs';
 import { createDummyItemGetActionQuery } from '@/lib';
-import { serverActionWithDummyItemToGet } from '@/lib/serverActions';
+import { serverActionToDummyItemGet } from '@/lib/serverActions';
 import indexContext from '@/lib/indexContext';
 
 export default async function Page({ params }: { params: { id: number } }) {
@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { id: number } }) {
     id
   });
 
-  const item = await serverActionWithDummyItemToGet(query);
+  const item = await serverActionToDummyItemGet(query);
   
   if (!item.id) {
     notFound();

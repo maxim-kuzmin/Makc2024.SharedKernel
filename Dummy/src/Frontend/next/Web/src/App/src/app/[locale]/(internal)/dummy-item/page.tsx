@@ -3,7 +3,7 @@ import { CreateDummyItemButton } from '@/ui/pages/dummy-item/buttons';
 import { lusitana } from '@/ui/fonts';
 import serverContext from '@/lib/serverContext';
 import { createDummyItemGetListActionQuery } from '@/lib';
-import { serverActionWithDummyItemToGetList } from '@/lib/serverActions';
+import { serverActionToDummyItemGetList } from '@/lib/serverActions';
 import Search from '@/ui/components/search';
 import { InvoicesTableSkeleton } from '@/ui/components/skeletons';
 import Table from '@/ui/pages/dummy-item/table';
@@ -42,7 +42,7 @@ export default async function Page({
     }
   });
 
-  const data = await serverActionWithDummyItemToGetList(query);
+  const data = await serverActionToDummyItemGetList(query);
 
   const totalPages = Math.ceil(data.totalCount / pageSize);
 
