@@ -19,14 +19,14 @@ public class DummyItemUpdateActionHandler(
 
     dummyItemAggregate.UpdateName(request.Name);
 
-    dummyItemEntity = dummyItemAggregate.GetDummyItemEntityToUpdate(dummyItemEntity);
+    var dummyItemEntityToUpdate = dummyItemAggregate.GetDummyItemEntityToUpdate(dummyItemEntity);
 
-    if (dummyItemEntity == null)
+    if (dummyItemEntityToUpdate != null)
     {
-      return Result.NotFound();
-    }
+      dummyItemEntity = dummyItemEntityToUpdate;
 
-    await _repository.UpdateAsync(dummyItemEntity, cancellationToken);
+      await _repository.UpdateAsync(dummyItemEntity, cancellationToken);
+    }
 
     await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken);
 

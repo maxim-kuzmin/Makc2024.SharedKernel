@@ -31,7 +31,7 @@ public class DummyItemAggregate(long dummyItemEntityId = default) : AggregateBas
 
     bool isOk = false;
 
-    if (HasChangedProperty(Name) && dummyItemEntity.Name != Name)
+    if (HasChangedProperty(nameof(Name)) && dummyItemEntity.Name != Name)
     {
       dummyItemEntity.Name = Name;
 

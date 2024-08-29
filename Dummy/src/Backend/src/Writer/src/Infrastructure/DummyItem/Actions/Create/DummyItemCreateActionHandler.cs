@@ -15,7 +15,7 @@ public class DummyItemCreateActionHandler(
 
     if (dummyItemEntity == null)
     {
-      return Result.NotFound();
+      return Result.Forbidden();
     }
 
     dummyItemEntity = await _repository.AddAsync(dummyItemEntity, cancellationToken);

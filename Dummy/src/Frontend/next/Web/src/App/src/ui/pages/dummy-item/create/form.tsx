@@ -5,30 +5,13 @@ import { useFormState } from 'react-dom';
 import { Button } from '@/ui/components/button';
 import clientContext from '@/lib/clientContext';
 import indexContext from '@/lib/indexContext';
-
-interface ServerActionResponse {
-  errorMessage: string | null;
-  errors: {
-    name: string,
-  } | any;
-}
-
-async function serverActionToCreate(): Promise<ServerActionResponse> {
-  var result = await new Promise<ServerActionResponse>(
-    (resolve) => setTimeout(resolve, 1000)
-  ).then(() => ({
-    errorMessage: '',
-    errors: {}
-  } as ServerActionResponse
-  ));
-
-  return result;
-}
+import { serverActionToDummyItemCreate } from '@/lib/serverActions';
+import { createDummyItemFormState } from '@/lib';
 
 export default function Form() {
-  const initialState = { errorMessage: null, errors: {} };
+  const initialState = createDummyItemFormState();
 
-  const [state, dispatch] = useFormState(serverActionToCreate, initialState);
+  const [state, dispatch] = useFormState(serverActionToDummyItemCreate, initialState);
 
   const t = clientContext.app.localization.useTranslator();
 
@@ -75,7 +58,7 @@ export default function Form() {
         >
           {t('ui.pages.dummy-item.create._form.button.cancel.Title')}
         </Link>
-        <Button type="submit">{t('ui.pages.dummy-item.create._form.button.create.Title')}</Button>
+        <Button type="submit">{t('ui.pages.dummy-item.create._form.button.save.Title')}</Button>
       </div>
     </form>
   );

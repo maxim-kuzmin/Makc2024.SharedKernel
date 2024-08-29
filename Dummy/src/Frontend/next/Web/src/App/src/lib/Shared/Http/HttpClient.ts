@@ -27,9 +27,11 @@ async function request (url: string, config: HttpConfig): Promise<HttpResponse> 
 
   const { headers, ok, status, statusText } = response;
 
+  const contentType = headers.get('content-type');
+  
   let value: any;
 
-  if (ok) {
+  if (ok && contentType?.startsWith('application/json')) {
     value = await response.json();
   }
 
@@ -46,8 +48,8 @@ async function request (url: string, config: HttpConfig): Promise<HttpResponse> 
 }
 
 async function _delete (url: string, config?: HttpConfig) {
-  const result = await request(url, createRequestConfigValue('DELETE', config));
-
+  const result = await request(url, createRequestConfigValue('DELETE', config));  
+  
   return result;
 }
 

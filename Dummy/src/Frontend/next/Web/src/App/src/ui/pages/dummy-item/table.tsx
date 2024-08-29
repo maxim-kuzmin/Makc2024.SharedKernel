@@ -1,7 +1,10 @@
 import { DeleteDummyItemButton, UpdateDummyItemButton } from '@/ui/pages/dummy-item/buttons';
 import { DummyItemGetListActionDTOItem } from '@/lib';
+import serverContext from '@/lib/serverContext';
 
 export default async function Table({items}: {items: DummyItemGetListActionDTOItem[]}) {
+  const t = await serverContext.app.localization.getTranslator();
+
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
@@ -30,13 +33,13 @@ export default async function Table({items}: {items: DummyItemGetListActionDTOIt
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Id
+                  {t('ui.pages.dummy-item._table.column.id.Title')}
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Name
+                  {t('ui.pages.dummy-item._table.column.name.Title')}
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
-                  <span className="sr-only">Edit</span>
+                  <span className="sr-only">{t('ui.pages.dummy-item._table.column.actions.Title')}</span>
                 </th>
               </tr>
             </thead>
