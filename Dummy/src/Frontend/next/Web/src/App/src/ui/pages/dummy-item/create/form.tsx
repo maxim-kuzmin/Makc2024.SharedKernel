@@ -6,10 +6,10 @@ import { Button } from '@/ui/components/button';
 import clientContext from '@/lib/clientContext';
 import indexContext from '@/lib/indexContext';
 import { serverActionToDummyItemCreate } from '@/lib/serverActions';
-import { createDummyItemFormState } from '@/lib';
+import { createDummyItemFormComponentState } from '@/lib';
 
 export default function Form() {
-  const initialState = createDummyItemFormState();
+  const initialState = createDummyItemFormComponentState();
 
   const [state, dispatch] = useFormState(serverActionToDummyItemCreate, initialState);
 

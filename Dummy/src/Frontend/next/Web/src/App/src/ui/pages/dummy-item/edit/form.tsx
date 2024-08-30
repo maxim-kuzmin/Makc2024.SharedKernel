@@ -7,10 +7,10 @@ import { DummyItemGetActionDTO } from '@/lib';
 import clientContext from '@/lib/clientContext';
 import indexContext from '@/lib/indexContext';
 import { serverActionToDummyItemUpdate } from '@/lib/serverActions';
-import { createDummyItemFormState } from '@/lib';
+import { createDummyItemFormComponentState } from '@/lib';
 
 export default function Form({ item }: { item: DummyItemGetActionDTO }) {
-  const initialState = createDummyItemFormState();
+  const initialState = createDummyItemFormComponentState();
 
   const serverAction = serverActionToDummyItemUpdate.bind(null, item.id);
 

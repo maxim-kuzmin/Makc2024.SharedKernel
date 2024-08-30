@@ -1,7 +1,7 @@
-import form from './Form/indexContext';
+import components from './Components/indexContext';
 
 const dummyItem = {
-  form
+  components
 };
 
 export default dummyItem;

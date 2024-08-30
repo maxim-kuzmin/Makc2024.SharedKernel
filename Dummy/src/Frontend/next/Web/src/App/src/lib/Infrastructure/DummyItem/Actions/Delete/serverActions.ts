@@ -7,14 +7,14 @@ import {
   createDummyItemDeleteActionRequest,
   createRequestContext,
   createDummyItemDeleteActionCommand,
-  DummyItemTableState,
-  createDummyItemTableState,
+  DummyItemTableComponentState,
+  createDummyItemTableComponentState,
 } from '@/lib';
 import modules from '@/lib/modules';
 import serverContext from '@/lib/serverContext';
 import indexContext from '@/lib/indexContext';
 
-export async function serverActionToDummyItemDelete(id: number): Promise<DummyItemTableState> {
+export async function serverActionToDummyItemDelete(id: number): Promise<DummyItemTableComponentState> {
   const command = createDummyItemDeleteActionCommand({
     id
   });
@@ -34,12 +34,12 @@ export async function serverActionToDummyItemDelete(id: number): Promise<DummyIt
     errorResources
   });
 
-  let state: DummyItemTableState;
+  let result: DummyItemTableComponentState;
 
   try {
     await modules.dummyItem.actions.delete.getHandler().handle(request);
 
-    state = createDummyItemTableState();
+    result = createDummyItemTableComponentState();
   } catch (error) {
     console.error(error);
 
@@ -47,14 +47,14 @@ export async function serverActionToDummyItemDelete(id: number): Promise<DummyIt
       ? error.message
       : 'Failed to Delete Dummy Item';
 
-    state = createDummyItemTableState({
+    result = createDummyItemTableComponentState({
       errorMessage
     });
   }
 
-  if (state.isOk) {
+  if (result.isOk) {
     revalidatePath(indexContext.app.getHrefToDummyItem());
   }
 
-  return state;
+  return result;
 }
