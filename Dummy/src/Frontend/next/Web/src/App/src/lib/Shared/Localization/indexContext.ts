@@ -35,9 +35,11 @@ function isLocalizedPathStartsWith(localizedPath: string, pattern: string): bool
   return getPathFromLocalized(localizedPath).startsWith(pattern);
 }
 
-export const localization = {
+const localization = {
   formatDateToLocal,
   getMessage,
   isLocalizedPathSame,
   isLocalizedPathStartsWith
 };
+
+export default localization;

@@ -1,5 +1,7 @@
-import { actions } from './Actions/indexContext';
+import actions from './Actions/indexContext';
 
-export const app = {
+const app = {
   actions,
 };
+
+export default app;

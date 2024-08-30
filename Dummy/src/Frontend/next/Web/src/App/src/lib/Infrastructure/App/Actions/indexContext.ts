@@ -1,5 +1,7 @@
-export const actions = {
+const actions = {
   settings: {
     rootPath: 'app',
   },
 };
+
+export default actions;

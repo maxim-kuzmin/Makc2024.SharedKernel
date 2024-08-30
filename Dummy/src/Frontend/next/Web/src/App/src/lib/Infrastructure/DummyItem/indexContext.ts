@@ -1,5 +1,7 @@
-import { actions } from './Actions/indexContext';
+import actions from './Actions/indexContext';
 
-export const dummyItem = {
+const dummyItem = {
   actions,
 };
+
+export default dummyItem;

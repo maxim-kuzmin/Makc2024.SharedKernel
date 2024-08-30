@@ -1,15 +1,19 @@
-import { app as appFromDomainModel } from './DomainModel/indexContext';
-import { app as appFromInfrastructure } from './Infrastructure/indexContext';
-import { dummyItem } from './Infrastructure/DummyItem/indexContext';
-import { localization } from './Shared/indexContext';
+import domainModel from './DomainModel/indexContext';
+import infrastructure from './Infrastructure/indexContext';
+import shared from './Shared/indexContext';
 
 const indexContext = {
   app: {
-    ...appFromDomainModel,
-    ...appFromInfrastructure,
-    localization,
+    ...domainModel.app,
+    ...infrastructure.app,
+    localization :{
+      ...shared.localization,
+    }
   },
-  dummyItem,
+  dummyItem: {
+    ...domainModel.dummyItem,
+    ...infrastructure.dummyItem,
+  },
 };
 
 export default indexContext;
