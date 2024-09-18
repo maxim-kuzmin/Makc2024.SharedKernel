@@ -16,7 +16,7 @@ public static class AppExtensions
     Guard.Against.Null(configuration, nameof(configuration));
     Guard.Against.Null(configuration, nameof(appConfigSection));
 
-    hostBuilder.UseSerilog((_, config) => config.ReadFrom.Configuration(configuration));
+    services.AddSerilog(config => config.ReadFrom.Configuration(configuration));
 
     services.Configure<AppConfigOptions>(appConfigSection);
 

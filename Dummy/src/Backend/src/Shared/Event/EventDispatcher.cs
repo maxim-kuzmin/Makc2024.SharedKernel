@@ -10,7 +10,7 @@ public class EventDispatcher(IMediator _mediator) : IEventDispatcher
 
       foreach (var evt in events)
       {
-        await _mediator.Publish(evt).ConfigureAwait(false);
+        await _mediator.Publish(evt, cancellationToken).ConfigureAwait(false);
       }
   }
 }

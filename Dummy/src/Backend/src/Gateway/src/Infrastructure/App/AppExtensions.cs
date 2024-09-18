@@ -6,17 +6,15 @@ public static class AppExtensions
     this IServiceCollection services,
     Microsoft.Extensions.Logging.ILogger logger,
     AppConfigOptions appConfigOptions,
-    IHostBuilder hostBuilder,
     IConfiguration configuration,
     IConfigurationSection appConfigSection)
   {
     Guard.Against.Null(logger, nameof(logger));
     Guard.Against.Null(appConfigOptions, nameof(appConfigOptions));
-    Guard.Against.Null(hostBuilder, nameof(hostBuilder));
     Guard.Against.Null(configuration, nameof(configuration));
     Guard.Against.Null(appConfigSection, nameof(appConfigSection));
 
-    hostBuilder.UseSerilog((_, config) => config.ReadFrom.Configuration(configuration));
+    services.AddSerilog(config => config.ReadFrom.Configuration(configuration));
 
     services.Configure<AppConfigOptions>(appConfigSection);
 

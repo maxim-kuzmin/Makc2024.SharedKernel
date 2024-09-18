@@ -20,7 +20,7 @@ public class AppHost
 
       builder.Services
         .AddAppWebUILayer(logger, appConfigOptions)
-        .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Host, builder.Configuration, appConfigSection);
+        .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Configuration, appConfigSection);
 
       var app = builder.Build();
 
