@@ -1,10 +1,48 @@
-# Coordination
+# Dummy
+
+## Сертификат
+
+1. Создать .pfx-файл самоподписанного сертификата для HTTPS:
+
+```
+dotnet dev-certs https -ep .\https\cert.pfx -p Makc!678
+```
+
+2. Установить openssl, если он ещё не установлен:
+
+```
+winget install openssl
+```
+
+3. Создать .crt-файл открытого ключа из .pfx-файла сертификата:
+
+```
+openssl pkcs12 -in .\https\cert.pfx -clcerts -nokeys -out .\https\cert.crt
+```
+
+4. Создать .rsa-файл закрытого ключа из .pfx-файла сертификата:
+
+```
+openssl pkcs12 -in .\https\cert.pfx -nocerts -nodes -out .\https\cert.rsa
+```
+
+5. Сделать самоподписанные сертификаты доверенными на локальной машине:
+
+```
+dotnet dev-certs https --trust
+```
+
+## Фронтенд
+
+За оразец взят https://nextjs.org/learn
 
 ## Миграции
 
+```
 cd .\src\Backend\src\Writer\src\Infrastructure
 
 dotnet ef migrations add InitialCreate --startup-project ../Apps/WebApp --output-dir ./App/Db/Migrations
+```
 
 ## Микросервисы
 
