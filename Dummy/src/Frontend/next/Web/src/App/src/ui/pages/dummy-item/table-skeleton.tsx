@@ -1,35 +1,29 @@
-import { DeleteDummyItemButton, UpdateDummyItemButton } from '@/ui/pages/dummy-item/buttons';
-import { DummyItemGetListActionQuery } from '@/lib';
 import serverContext from '@/lib/serverContext';
-import Pagination from '@/ui/components/pagination';
-import { serverActionToDummyItemGetList } from '@/lib/serverActions';
+import { Shimmer } from '@/ui/components/shimmer';
 
-export default async function Table({ query, pageSize }: { query: DummyItemGetListActionQuery, pageSize: number }) {
+export default async function TableSkeleton({ pageSize }: { pageSize: number }) {
   const t = await serverContext.app.localization.getTranslator();
 
-  //await new Promise((resolve) => setTimeout(resolve, 5000));
-  const { items, totalCount } = await serverActionToDummyItemGetList(query);
-
-  const totalPages = Math.ceil(totalCount / pageSize);
+  const items = Array.from({ length: pageSize }, (_, i) => ({ id: i }));
 
   return (
-    <>
+    <Shimmer>
       <div className="mt-6 flow-root">
         <div className="inline-block min-w-full align-middle">
           <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
             <div className="md:hidden">
-              {items?.map((item) => (
+              {items.map(item => (
                 <div key={item.id} className="mb-2 w-full rounded-md bg-white p-4">
                   <div className="flex items-center justify-between border-b pb-4">
                     <div className="mb-2 flex items-center gap-2">
-                      <p>{item.id}</p>
-                      <p>{item.name}</p>
+                      <div className="h-6 w-10 rounded bg-gray-100"></div>
+                      <div className="h-6 w-32 rounded bg-gray-100"></div>
                     </div>
                   </div>
                   <div className="flex w-full items-center justify-between pt-4">
                     <div className="flex justify-end gap-2">
-                      <UpdateDummyItemButton id={item.id} />
-                      <DeleteDummyItemButton id={item.id} />
+                      <div className="h-10 w-10 rounded bg-gray-100"></div>
+                      <div className="h-10 w-10 rounded bg-gray-100"></div>
                     </div>
                   </div>
                 </div>
@@ -50,20 +44,18 @@ export default async function Table({ query, pageSize }: { query: DummyItemGetLi
                 </tr>
               </thead>
               <tbody className="bg-white">
-                {items?.map((item) => (
-                  <tr key={item.id} className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+                {items.map(item => (
+                  <tr key={item.id} className="w-full border-b border-gray-100 last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
                     <td className="whitespace-nowrap px-3 py-3">
-                      {item.id}
+                      <div className="h-6 w-10 rounded bg-gray-100"></div>
                     </td>
                     <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                      <div className="flex items-center gap-3">
-                        <p>{item.name}</p>
-                      </div>
+                      <div className="h-6 w-32 rounded bg-gray-100"></div>
                     </td>
                     <td className="whitespace-nowrap py-3 pl-6 pr-3">
                       <div className="flex justify-end gap-3">
-                        <UpdateDummyItemButton id={item.id} />
-                        <DeleteDummyItemButton id={item.id} />
+                        <div className="h-[38px] w-[38px] rounded bg-gray-100"></div>
+                        <div className="h-[38px] w-[38px] rounded bg-gray-100"></div>
                       </div>
                     </td>
                   </tr>
@@ -73,9 +65,6 @@ export default async function Table({ query, pageSize }: { query: DummyItemGetLi
           </div>
         </div>
       </div>
-      <div className="mt-5 flex w-full justify-center">
-        <Pagination totalPages={totalPages} />
-      </div>
-    </>
+    </Shimmer>
   );
 }

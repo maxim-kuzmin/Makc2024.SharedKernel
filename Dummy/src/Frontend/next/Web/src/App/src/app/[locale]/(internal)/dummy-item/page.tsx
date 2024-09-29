@@ -3,11 +3,9 @@ import { CreateDummyItemButton } from '@/ui/pages/dummy-item/buttons';
 import { lusitana } from '@/ui/fonts';
 import serverContext from '@/lib/serverContext';
 import { createDummyItemGetListActionQuery } from '@/lib';
-import { serverActionToDummyItemGetList } from '@/lib/serverActions';
 import Search from '@/ui/components/search';
-import { InvoicesTableSkeleton } from '@/ui/components/skeletons';
 import Table from '@/ui/pages/dummy-item/table';
-import Pagination from '@/ui/components/pagination';
+import TableSkeleton from '@/ui/pages/dummy-item/table-skeleton';
 
 export async function generateMetadata() {
   const t = await serverContext.app.localization.getTranslator();
@@ -42,25 +40,18 @@ export default async function Page({
     }
   });
 
-  const data = await serverActionToDummyItemGetList(query);
-
-  const totalPages = Math.ceil(data.totalCount / pageSize);
-
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
         <h1 className={`${lusitana.className} text-2xl`}>{t('app.dummy-item._page.Title')}</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <Search placeholder="Search invoices..." />
+        <Search placeholder={t('app.dummy-item._page.search.Placeholder')} />
         <CreateDummyItemButton />
       </div>
-      <Suspense key={fullTextSearchQuery + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <Table items={data.items} />
+      <Suspense key={fullTextSearchQuery + currentPage} fallback={<TableSkeleton pageSize={pageSize} />}>
+        <Table query={query} pageSize={pageSize} />
       </Suspense>
-      <div className="mt-5 flex w-full justify-center">
-        <Pagination totalPages={totalPages} />
-      </div>      
     </div>
   );
 }

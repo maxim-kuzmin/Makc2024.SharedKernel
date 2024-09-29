@@ -1,7 +1,8 @@
 'use client';
  
 import { useEffect } from 'react';
- 
+import clientContext from '@/lib/clientContext';
+
 export default function Error({
   error,
   reset,
@@ -9,6 +10,8 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = clientContext.app.localization.useTranslator();
+
   useEffect(() => {
     // Optionally log the error to an error reporting service
     console.error(error);
@@ -16,15 +19,15 @@ export default function Error({
  
   return (
     <main className="flex h-full flex-col items-center justify-center">
-      <h2 className="text-center">Something went wrong!</h2>
+      <h2 className="text-center">{t('app.dummy-item._error.Title')}</h2>
       <button
         className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
         onClick={
-          // Attempt to recover by trying to re-render the invoices route
+          // Attempt to recover by trying to re-render the route
           () => reset()
         }
       >
-        Try again
+        {t('app.dummy-item._error.button.tryAgain.Title')}
       </button>
     </main>
   );
