@@ -1,1 +1,1 @@
-﻿await Makc2024.Dummy.Writer.UIs.WebUI.App.AppHost.RunAsync(args);
+﻿await Makc2024.Dummy.Writer.Apps.WebApp.App.AppHost.RunAsync(args);

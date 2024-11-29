@@ -5,17 +5,23 @@
     <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
-  <ItemGroup>   
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Result.AspNetCore" />
+    <PackageReference Include="FastEndpoints" />
+    <PackageReference Include="FastEndpoints.Swagger" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>   
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />    
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\UIs\WebUI\Makc2024.Dummy.Writer.UIs.WebUI.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Makc2024.Dummy.Writer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
