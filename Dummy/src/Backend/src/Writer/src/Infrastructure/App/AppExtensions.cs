@@ -42,7 +42,7 @@ public static class AppExtensions
 
     services.AddScoped<IDummyItemRepository, DummyItemRepository>();
 
-    logger.LogInformation("{Layer} layer added", nameof(Infrastructure));
+    logger.LogInformation("Infrastructure layer added");
 
     return services;
   }
@@ -64,7 +64,7 @@ public static class AppExtensions
 
       await AppData.InitializeAsync(context);
 
-      logger.LogInformation("{Layer} layer used", nameof(Infrastructure));
+      logger.LogInformation("Infrastructure layer used");
     }
     catch (Exception ex)
     {

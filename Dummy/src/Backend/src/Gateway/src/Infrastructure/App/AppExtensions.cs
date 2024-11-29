@@ -45,7 +45,7 @@ public static class AppExtensions
           ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
         });
 
-    logger.LogInformation("{Layer} layer added", nameof(Infrastructure));
+    logger.LogInformation("Infrastructure layer added");
 
     return services;
   }
