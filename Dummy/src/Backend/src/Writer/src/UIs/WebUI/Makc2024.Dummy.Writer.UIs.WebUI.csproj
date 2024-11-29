@@ -5,7 +5,8 @@
 	  <PackageReference Include="FastEndpoints" />
 	  <PackageReference Include="FastEndpoints.Swagger" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
-	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" />     
+	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+	  <PackageReference Include="Microsoft.Extensions.Caching.Memory" />     
 	  <PackageReference Include="Swashbuckle.AspNetCore" />    
   </ItemGroup>
 
