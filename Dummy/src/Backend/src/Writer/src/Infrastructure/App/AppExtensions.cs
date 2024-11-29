@@ -5,8 +5,7 @@ public static class AppExtensions
   public static IServiceCollection AddAppInfrastructureLayer(
     this IServiceCollection services,
     Microsoft.Extensions.Logging.ILogger logger,
-    AppConfigOptions appConfigOptions,
-    IHostBuilder hostBuilder,
+    AppConfigOptions appConfigOptions,    
     IConfiguration configuration,
     IConfigurationSection appConfigSection)
   {

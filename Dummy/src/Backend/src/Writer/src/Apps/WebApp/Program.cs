@@ -14,7 +14,7 @@ try
 
   builder.Services
     .AddAppUILayer(logger, appConfigOptions)
-    .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Host, builder.Configuration, appConfigSection);
+    .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Configuration, appConfigSection);
 
   var app = builder.Build();
 
