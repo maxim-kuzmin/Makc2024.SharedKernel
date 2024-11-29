@@ -7,8 +7,6 @@ public static class AppExtensions
     ILogger logger,
     AppConfigOptions appConfigOptions)
   {
-    Guard.Against.Null(logger, nameof(logger));
-
     services.Configure<CookiePolicyOptions>(options =>
     {
       options.CheckConsentNeeded = context => true;
@@ -59,8 +57,6 @@ public static class AppExtensions
 
   public static WebApplication UseAppUILayer(this WebApplication app, ILogger logger)
   {
-    Guard.Against.Null(logger, nameof(logger));
-
     if (app.Environment.IsDevelopment())
     {
       app.UseDeveloperExceptionPage();

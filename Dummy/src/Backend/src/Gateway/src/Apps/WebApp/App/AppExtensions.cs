@@ -7,14 +7,11 @@ public static class AppExtensions
     ILogger logger,
     AppConfigOptions appConfigOptions)
   {
-    Guard.Against.Null(logger, nameof(logger));
-
     services.Configure<CookiePolicyOptions>(options =>
     {
       options.CheckConsentNeeded = context => true;
       options.MinimumSameSitePolicy = SameSiteMode.None;
     });
-
 
     // see https://github.com/ardalis/AspNetCoreStartupServices
     services.Configure<ServiceConfig>(config =>
@@ -59,8 +56,6 @@ public static class AppExtensions
 
   public static WebApplication UseAppUILayer(this WebApplication app, ILogger logger)
   {
-    Guard.Against.Null(logger, nameof(logger));
-
     if (app.Environment.IsDevelopment())
     {
       app.UseDeveloperExceptionPage();

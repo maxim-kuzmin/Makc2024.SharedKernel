@@ -9,11 +9,6 @@ public static class AppExtensions
     IConfiguration configuration,
     IConfigurationSection appConfigSection)
   {
-    Guard.Against.Null(logger, nameof(logger));
-    Guard.Against.Null(appConfigOptions, nameof(appConfigOptions));
-    Guard.Against.Null(configuration, nameof(configuration));
-    Guard.Against.Null(appConfigSection, nameof(appConfigSection));
-
     services.AddSerilog(config => config.ReadFrom.Configuration(configuration));
 
     services.Configure<AppConfigOptions>(appConfigSection);
