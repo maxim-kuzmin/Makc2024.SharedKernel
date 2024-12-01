@@ -8,6 +8,7 @@ global using Makc2024.Dummy.Shared.Core.Grpc;
 global using Makc2024.Dummy.Shared.Core.Query;
 global using Makc2024.Dummy.Shared.Web.App.Middlewares;
 global using Makc2024.Dummy.Writer.Apps.WebApp.App;
+global using Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Grpc;
 global using Makc2024.Dummy.Writer.DomainUseCases.App.Actions.Login;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Create;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Delete;

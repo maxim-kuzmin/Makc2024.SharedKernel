@@ -13,6 +13,11 @@ public static class AppExtensions
       options.MinimumSameSitePolicy = SameSiteMode.None;
     });
 
+    services.AddGrpc(options =>
+    {
+      options.EnableDetailedErrors = true;
+    });
+
     services.AddFastEndpoints()
       .AddAuthorization()
       .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -59,6 +64,8 @@ public static class AppExtensions
     }
 
     //app.UseHttpsRedirection();
+
+    app.MapGrpcService<DummyItemGrpcService>();
 
     app.UseAuthentication()
       .UseAuthorization()
