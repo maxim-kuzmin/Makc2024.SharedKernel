@@ -3,7 +3,7 @@
     <OutputType>library</OutputType>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup>    
     <PackageReference Include="Serilog" />
   </ItemGroup>
   <ItemGroup>
