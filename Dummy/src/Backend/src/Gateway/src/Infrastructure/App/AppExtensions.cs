@@ -23,15 +23,15 @@ public static class AppExtensions
 
     const string userAgent = "Makc2024.Dummy";
 
-    string writerApiAddress = appConfigOptions.Writer.ApiAddress;
+    string writerRestApiAddress = appConfigOptions.Writer.RestApiAddress;
 
-    Guard.Against.Empty(writerApiAddress, nameof(writerApiAddress));
+    Guard.Against.Empty(writerRestApiAddress, nameof(writerRestApiAddress));
 
     services.AddHttpClient(
         nameof(AppConfigOptionsWriter),
         client =>
         {
-          client.BaseAddress = new Uri(writerApiAddress);
+          client.BaseAddress = new Uri(writerRestApiAddress);
 
           client.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
         })

@@ -40,6 +40,8 @@
 
 ## Сертификат
 
+https://learn.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-9.0
+
 1. Создать .pfx-файл самоподписанного сертификата для HTTPS:
 
 ```
