@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   frontend-web-app:
     container_name: ${MY_SERVICE_FRONTEND_WEB_APP_CONTAINER_NAME}

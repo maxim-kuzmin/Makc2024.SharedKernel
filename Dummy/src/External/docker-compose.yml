@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   external-pgadmin:
     container_name: ${MY_SERVICE_EXTERNAL_PGADMIN_CONTAINER_NAME}

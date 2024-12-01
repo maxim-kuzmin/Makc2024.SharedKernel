@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DomainModel\Makc2024.Dummy.Gateway.DomainModel.csproj" />
   </ItemGroup>
 </Project>

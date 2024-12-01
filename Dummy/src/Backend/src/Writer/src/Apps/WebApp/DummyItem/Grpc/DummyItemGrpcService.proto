@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Grpc;
+
+import "google/protobuf/empty.proto";
+
+service DummyItemGrpc {
+    rpc Create (DummyItemCreateActionRequest) returns (DummyItemGetActionReply);
+    rpc Delete (DummyItemDeleteActionRequest) returns (google.protobuf.Empty);
+    rpc Get (DummyItemGetActionRequest) returns (DummyItemGetActionReply);
+    rpc GetList (DummyItemGetListActionRequest) returns (DummyItemGetListActionReply);
+    rpc Update (DummyItemUpdateActionRequest) returns (DummyItemGetActionReply);
+}
+
+message ActionRequestPage {
+    int32 number = 1;
+    int32 size = 2;
+}
+
+message DummyItemCreateActionRequest {
+    string name = 1;
+}
+
+message DummyItemDeleteActionRequest {
+    int64 id = 1;
+}
+
+message DummyItemGetActionRequest {
+    int64 id = 1;
+}
+
+message DummyItemGetActionReply {
+    int64 id = 1;
+    string name = 2;
+}
+
+message DummyItemGetListActionRequestFilter {
+    string full_text_search_query = 1;
+}
+
+message DummyItemGetListActionRequest {
+    ActionRequestPage page = 1;
+    DummyItemGetListActionRequestFilter filter = 2;
+}
+
+message DummyItemGetListActionReplyItem {
+    int64 id = 1;
+    string name = 2;
+}
+
+message DummyItemGetListActionReply {
+    int64 total_count = 1;
+    repeated DummyItemGetListActionReplyItem items = 2;
+}
+
+message DummyItemUpdateActionRequest {
+    int64 id = 1;
+    string name = 2;
+}

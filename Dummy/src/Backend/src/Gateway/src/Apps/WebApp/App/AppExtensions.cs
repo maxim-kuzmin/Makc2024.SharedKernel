@@ -13,15 +13,6 @@ public static class AppExtensions
       options.MinimumSameSitePolicy = SameSiteMode.None;
     });
 
-    // see https://github.com/ardalis/AspNetCoreStartupServices
-    services.Configure<ServiceConfig>(config =>
-    {
-      config.Services = new List<ServiceDescriptor>(services);
-
-      // optional - default path to view services is /listallservices - recommended to choose your own path
-      config.Path = "/mylistallservicespath";
-    });
-
     services.AddFastEndpoints()
       .AddAuthorization()
       .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -59,7 +50,6 @@ public static class AppExtensions
     if (app.Environment.IsDevelopment())
     {
       app.UseDeveloperExceptionPage();
-      app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
     }
     else
     {
@@ -67,13 +57,14 @@ public static class AppExtensions
       app.UseHsts();
     }
 
+    app.UseHttpsRedirection();
+
     app.UseAuthentication()
       .UseAuthorization()
+      .UseMiddleware<AppTracingMiddleware>()
       .UseMiddleware<AppSessionMiddleware>()
       .UseFastEndpoints()
-      .UseSwaggerGen(); // Includes AddFileServer and static files middleware
-
-    app.UseHttpsRedirection();
+      .UseSwaggerGen(); // Includes AddFileServer and static files middleware    
 
     logger.LogInformation("UI layer used");
 
