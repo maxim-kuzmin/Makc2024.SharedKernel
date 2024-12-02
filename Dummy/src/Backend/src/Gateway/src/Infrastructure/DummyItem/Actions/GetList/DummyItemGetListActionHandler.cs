@@ -4,7 +4,7 @@ public class DummyItemGetListActionHandler(
   IOptionsSnapshot<AppConfigOptions> _appConfigOptions,
   AppSession _appSession,
   IHttpClientFactory _httpClientFactory,
-  DummyItemGrpc.DummyItemGrpcClient _grpcClient) : IDummyItemGetListActionHandler
+  WriterDummyItemGrpcClient _grpcClient) : IDummyItemGetListActionHandler
 {
   public Task<Result<DummyItemGetListActionDTO>> Handle(
     DummyItemGetListActionQuery request,
@@ -31,7 +31,7 @@ public class DummyItemGetListActionHandler(
       headers.AddAuthorizationHeader(_appSession);
 
       var replyTask = _grpcClient.GetListAsync(
-        request.ToDummyItemGetListActionRequest(),
+        request.ToDummyItemGetListActionGrpcRequest(),
         headers,
         cancellationToken: cancellationToken);
 

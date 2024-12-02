@@ -7,9 +7,9 @@ public static class DummyItemDeleteActionExtensions
     return $"{DummyItemActionsSettings.Root}/{command.Id}";
   }
 
-  public static DummyItemDeleteActionRequest ToDummyItemDeleteActionRequest(this DummyItemDeleteActionCommand command)
+  public static DummyItemDeleteActionGrpcRequest ToDummyItemDeleteActionGrpcRequest(this DummyItemDeleteActionCommand command)
   {
-    return new DummyItemDeleteActionRequest
+    return new DummyItemDeleteActionGrpcRequest
     {
       Id = command.Id,
     };

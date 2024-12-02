@@ -15,23 +15,23 @@ public static class DummyItemGetListActionExtensions
     return $"{DummyItemActionsSettings.Root}{queryString}";
   }
 
-  public static DummyItemGetListActionRequest ToDummyItemGetListActionRequest(this DummyItemGetListActionQuery query)
+  public static DummyItemGetListActionGrpcRequest ToDummyItemGetListActionGrpcRequest(this DummyItemGetListActionQuery query)
   {
     return new()
     {
-      Page = new ActionRequestPage()
+      Page = new ActionGrpcRequestPage()
       {
         Number = query.Page.Number,
         Size = query.Page.Size,
       },
-      Filter = new DummyItemGetListActionRequestFilter()
+      Filter = new DummyItemGetListActionGrpcRequestFilter()
       {
         FullTextSearchQuery = query.Filter.FullTextSearchQuery
       }
     };
   }
 
-  public static DummyItemGetListActionDTO ToDummyItemGetListActionDTO(this DummyItemGetListActionReply reply)
+  public static DummyItemGetListActionDTO ToDummyItemGetListActionDTO(this DummyItemGetListActionGrpcReply reply)
   {
     var items = new List<DummyItemGetListActionDTOItem>(reply.Items.Count);
 

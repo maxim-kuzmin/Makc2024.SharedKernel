@@ -1,59 +1,62 @@
 syntax = "proto3";
 
-package Makc2024.Dummy.Gateway.Infrastructure.DummyItem.Grpc;
+option csharp_namespace = "Makc2024.Dummy.Writer.Infrastructure.DummyItem.Grpc";
+
+package Writer;
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
 
-service DummyItemGrpc {
-    rpc Create (DummyItemCreateActionRequest) returns (DummyItemGetActionReply);
-    rpc Delete (DummyItemDeleteActionRequest) returns (google.protobuf.Empty);
-    rpc Get (DummyItemGetActionRequest) returns (DummyItemGetActionReply);
-    rpc GetList (DummyItemGetListActionRequest) returns (DummyItemGetListActionReply);
-    rpc Update (DummyItemUpdateActionRequest) returns (DummyItemGetActionReply);
+service WriterDummyItemGrpcService {
+    rpc Create (DummyItemCreateActionGrpcRequest) returns (DummyItemGetActionGrpcReply);
+    rpc Delete (DummyItemDeleteActionGrpcRequest) returns (google.protobuf.Empty);
+    rpc Get (DummyItemGetActionGrpcRequest) returns (DummyItemGetActionGrpcReply);
+    rpc GetList (DummyItemGetListActionGrpcRequest) returns (DummyItemGetListActionGrpcReply);
+    rpc Update (DummyItemUpdateActionGrpcRequest) returns (DummyItemGetActionGrpcReply);
 }
 
-message ActionRequestPage {
+message ActionGrpcRequestPage {
     int32 number = 1;
     int32 size = 2;
 }
 
-message DummyItemCreateActionRequest {
+message DummyItemCreateActionGrpcRequest {
     string name = 1;
 }
 
-message DummyItemDeleteActionRequest {
+message DummyItemDeleteActionGrpcRequest {
     int64 id = 1;
 }
 
-message DummyItemGetActionRequest {
+message DummyItemGetActionGrpcRequest {
     int64 id = 1;
 }
 
-message DummyItemGetActionReply {
-    int64 id = 1;
-    string name = 2;
-}
-
-message DummyItemGetListActionRequestFilter {
-    string full_text_search_query = 1;
-}
-
-message DummyItemGetListActionRequest {
-    ActionRequestPage page = 1;
-    DummyItemGetListActionRequestFilter filter = 2;
-}
-
-message DummyItemGetListActionReplyItem {
+message DummyItemGetActionGrpcReply {
     int64 id = 1;
     string name = 2;
 }
 
-message DummyItemGetListActionReply {
+message DummyItemGetListActionGrpcRequestFilter {
+    google.protobuf.StringValue full_text_search_query = 1;
+}
+
+message DummyItemGetListActionGrpcRequest {
+    ActionGrpcRequestPage page = 1;
+    DummyItemGetListActionGrpcRequestFilter filter = 2;
+}
+
+message DummyItemGetListActionGrpcReplyItem {
+    int64 id = 1;
+    string name = 2;
+}
+
+message DummyItemGetListActionGrpcReply {
     int64 total_count = 1;
-    repeated DummyItemGetListActionReplyItem items = 2;
+    repeated DummyItemGetListActionGrpcReplyItem items = 2;
 }
 
-message DummyItemUpdateActionRequest {
+message DummyItemUpdateActionGrpcRequest {
     int64 id = 1;
     string name = 2;
 }

@@ -1,9 +1,9 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Grpc;
 
-public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItemGrpcBase
+public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpcServiceBase
 {
-  public override async Task<DummyItemGetActionReply> Create(
-    DummyItemCreateActionRequest request,
+  public override async Task<DummyItemGetActionGrpcReply> Create(
+    DummyItemCreateActionGrpcRequest request,
     ServerCallContext context)
   {
     var command = request.ToDummyItemCreateActionCommand();
@@ -12,10 +12,10 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItem
 
     result.ThrowRpcExceptionIfNotSuccess();
 
-    return result.Value.ToDummyItemGetActionReply();
+    return result.Value.ToDummyItemGetActionGrpcReply();
   }
 
-  public override async Task<Empty> Delete(DummyItemDeleteActionRequest request, ServerCallContext context)
+  public override async Task<Empty> Delete(DummyItemDeleteActionGrpcRequest request, ServerCallContext context)
   {
     var command = request.ToDummyItemDeleteActionCommand();
 
@@ -26,8 +26,8 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItem
     return new Empty();
   }
 
-  public override async Task<DummyItemGetActionReply> Get(
-    DummyItemGetActionRequest request,
+  public override async Task<DummyItemGetActionGrpcReply> Get(
+    DummyItemGetActionGrpcRequest request,
     ServerCallContext context)
   {
     var command = request.ToDummyItemGetActionQuery();
@@ -36,11 +36,11 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItem
 
     result.ThrowRpcExceptionIfNotSuccess();
 
-    return result.Value.ToDummyItemGetActionReply();
+    return result.Value.ToDummyItemGetActionGrpcReply();
   }
 
-  public override async Task<DummyItemGetListActionReply> GetList(
-    DummyItemGetListActionRequest request,
+  public override async Task<DummyItemGetListActionGrpcReply> GetList(
+    DummyItemGetListActionGrpcRequest request,
     ServerCallContext context)
   {
     var command = request.ToDummyItemGetListActionQuery();
@@ -49,11 +49,11 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItem
 
     result.ThrowRpcExceptionIfNotSuccess();
 
-    return result.Value.ToDummyItemGetListActionReply();
+    return result.Value.ToDummyItemGetListActionGrpcReply();
   }
 
-  public override async Task<DummyItemGetActionReply> Update(
-    DummyItemUpdateActionRequest request,
+  public override async Task<DummyItemGetActionGrpcReply> Update(
+    DummyItemUpdateActionGrpcRequest request,
     ServerCallContext context)
   {
     var command = request.ToDummyItemUpdateActionCommand();
@@ -62,6 +62,6 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItem
 
     result.ThrowRpcExceptionIfNotSuccess();
 
-    return result.Value.ToDummyItemGetActionReply();
+    return result.Value.ToDummyItemGetActionGrpcReply();
   }
 }

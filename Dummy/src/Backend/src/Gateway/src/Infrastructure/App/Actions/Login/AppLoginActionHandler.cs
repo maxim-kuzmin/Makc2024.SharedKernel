@@ -3,7 +3,7 @@
 public class AppLoginActionHandler(
   IOptionsSnapshot<AppConfigOptions> _appConfigOptions,
   IHttpClientFactory _httpClientFactory,
-  AppGrpc.AppGrpcClient _grpcClient) : IAppLoginActionHandler
+  WriterAppGrpcClient _grpcClient) : IAppLoginActionHandler
 {
   public Task<Result<AppLoginActionDTO>> Handle(AppLoginActionCommand request, CancellationToken cancellationToken)
   {
@@ -22,7 +22,7 @@ public class AppLoginActionHandler(
     try
     {
       var replyTask = _grpcClient.LoginAsync(
-        request.ToAppLoginActionRequest(),
+        request.ToAppLoginActionGrpcRequest(),
         cancellationToken: cancellationToken);
 
       var reply = await replyTask.ConfigureAwait(false);

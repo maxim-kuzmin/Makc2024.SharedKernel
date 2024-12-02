@@ -15,4 +15,5 @@ global using Makc2024.Dummy.Shared.Core.Query;
 global using Makc2024.Dummy.Shared.Web.App.Middlewares;
 global using MediatR;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.IdentityModel.Logging;
 global using Microsoft.IdentityModel.Tokens;

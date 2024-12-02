@@ -7,9 +7,9 @@ public static class DummyItemCreateActionExtensions
     return JsonContent.Create(command);
   }
 
-  public static DummyItemCreateActionRequest ToDummyItemCreateActionRequest(this DummyItemCreateActionCommand command)
+  public static DummyItemCreateActionGrpcRequest ToDummyItemCreateActionGrpcRequest(this DummyItemCreateActionCommand command)
   {
-    return new DummyItemCreateActionRequest
+    return new DummyItemCreateActionGrpcRequest
     {
       Name = command.Name,
     };

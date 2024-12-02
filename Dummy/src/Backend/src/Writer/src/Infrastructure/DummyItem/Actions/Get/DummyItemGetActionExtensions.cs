@@ -2,12 +2,12 @@
 
 public static class DummyItemGetActionExtensions
 {
-  public static DummyItemGetActionQuery ToDummyItemGetActionQuery(this DummyItemGetActionRequest request)
+  public static DummyItemGetActionQuery ToDummyItemGetActionQuery(this DummyItemGetActionGrpcRequest request)
   {
     return new(request.Id);
   }
 
-  public static DummyItemGetActionReply ToDummyItemGetActionReply(this DummyItemGetActionDTO dto)
+  public static DummyItemGetActionGrpcReply ToDummyItemGetActionGrpcReply(this DummyItemGetActionDTO dto)
   {
     return new()
     {

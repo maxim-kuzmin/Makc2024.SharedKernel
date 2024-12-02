@@ -12,9 +12,9 @@ public static class DummyItemUpdateActionExtensions
     return $"{DummyItemActionsSettings.Root}/{command.Id}";
   }
 
-  public static DummyItemUpdateActionRequest ToDummyItemUpdateActionRequest(this DummyItemUpdateActionCommand command)
+  public static DummyItemUpdateActionGrpcRequest ToDummyItemUpdateActionGrpcRequest(this DummyItemUpdateActionCommand command)
   {
-    return new DummyItemUpdateActionRequest
+    return new DummyItemUpdateActionGrpcRequest
     {
       Id = command.Id,
       Name = command.Name,

@@ -55,11 +55,14 @@ public static class AppExtensions
   {
     if (app.Environment.IsDevelopment())
     {
+      IdentityModelEventSource.ShowPII = true;
+
       app.UseDeveloperExceptionPage();
     }
     else
     {
       app.UseDefaultExceptionHandler(); // from FastEndpoints
+
       app.UseHsts();
     }
 
@@ -70,6 +73,7 @@ public static class AppExtensions
       .UseMiddleware<AppTracingMiddleware>()
       .UseMiddleware<AppSessionMiddleware>();
 
+    app.MapGrpcService<AppGrpcService>();
     app.MapGrpcService<DummyItemGrpcService>();
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware

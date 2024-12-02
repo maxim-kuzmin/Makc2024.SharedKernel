@@ -49,11 +49,14 @@ public static class AppExtensions
   {
     if (app.Environment.IsDevelopment())
     {
+      IdentityModelEventSource.ShowPII = true;
+
       app.UseDeveloperExceptionPage();
     }
     else
     {
       app.UseDefaultExceptionHandler(); // from FastEndpoints
+
       app.UseHsts();
     }
 

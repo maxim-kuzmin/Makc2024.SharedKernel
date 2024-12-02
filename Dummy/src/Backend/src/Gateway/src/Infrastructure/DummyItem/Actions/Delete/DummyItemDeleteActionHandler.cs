@@ -3,7 +3,7 @@
 public class DummyItemDeleteActionHandler(
   IOptionsSnapshot<AppConfigOptions> _appConfigOptions,
   IHttpClientFactory _httpClientFactory,
-  DummyItemGrpc.DummyItemGrpcClient _grpcClient) : IDummyItemDeleteActionHandler
+  WriterDummyItemGrpcClient _grpcClient) : IDummyItemDeleteActionHandler
 {
   public Task<Result> Handle(DummyItemDeleteActionCommand request, CancellationToken cancellationToken)
   {
@@ -20,7 +20,7 @@ public class DummyItemDeleteActionHandler(
     try
     {
       var replyTask = _grpcClient.DeleteAsync(
-        request.ToDummyItemDeleteActionRequest(),
+        request.ToDummyItemDeleteActionGrpcRequest(),
         cancellationToken: cancellationToken);
 
       var reply = await replyTask.ConfigureAwait(false);

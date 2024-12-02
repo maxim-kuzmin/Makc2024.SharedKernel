@@ -5,14 +5,14 @@ ARG APP_PORT_HTTPS
 ARG APP_PROJECT_NAME
 ARG BUILD_CONFIGURATION
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 ARG APP_PATH
 USER app
 WORKDIR $APP_PATH
 EXPOSE $APP_PORT_HTTP
 EXPOSE $APP_PORT_HTTPS
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG APP_PATH
 ARG APP_PROJECT_NAME
 ARG BUILD_CONFIGURATION

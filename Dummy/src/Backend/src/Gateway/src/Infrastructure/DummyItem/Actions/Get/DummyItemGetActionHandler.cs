@@ -3,7 +3,7 @@
 public class DummyItemGetActionHandler(
   IOptionsSnapshot<AppConfigOptions> _appConfigOptions,
   IHttpClientFactory _httpClientFactory,
-  DummyItemGrpc.DummyItemGrpcClient _grpcClient) : IDummyItemGetActionHandler
+  WriterDummyItemGrpcClient _grpcClient) : IDummyItemGetActionHandler
 {
   public Task<Result<DummyItemGetActionDTO>> Handle(
     DummyItemGetActionQuery request,
@@ -24,7 +24,7 @@ public class DummyItemGetActionHandler(
     try
     {
       var replyTask = _grpcClient.GetAsync(
-        request.ToDummyItemGetActionRequest(),
+        request.ToDummyItemGetActionGrpcRequest(),
         cancellationToken: cancellationToken);
 
       var reply = await replyTask.ConfigureAwait(false);

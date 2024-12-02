@@ -3,7 +3,7 @@
 public class DummyItemCreateActionHandler(
   IOptionsSnapshot<AppConfigOptions> _appConfigOptions,
   IHttpClientFactory _httpClientFactory,
-  DummyItemGrpc.DummyItemGrpcClient _grpcClient) : IDummyItemCreateActionHandler
+  WriterDummyItemGrpcClient _grpcClient) : IDummyItemCreateActionHandler
 {
   public Task<Result<DummyItemGetActionDTO>> Handle(
     DummyItemCreateActionCommand request,
@@ -15,26 +15,6 @@ public class DummyItemCreateActionHandler(
       AppTransport.Http => HandleViaHttp(request, cancellationToken),
       _ => throw new NotImplementedException()
     };
-  }
-
-  private async Task<Result<DummyItemGetActionDTO>> HandleViaGrpc(
-    DummyItemCreateActionCommand request,
-    CancellationToken cancellationToken)
-  {
-    try
-    {
-      var replyTask = _grpcClient.CreateAsync(
-        request.ToDummyItemCreateActionRequest(),
-        cancellationToken: cancellationToken);
-
-      var reply = await replyTask.ConfigureAwait(false);
-
-      return Result.Success(reply.ToDummyItemGetActionDTO());
-    }
-    catch (RpcException ex)
-    {
-      return ex.ToUnsuccessfulResult();
-    }
   }
 
   private async Task<Result<DummyItemGetActionDTO>> HandleViaHttp(
@@ -57,5 +37,25 @@ public class DummyItemCreateActionHandler(
     var result = await resultTask.ConfigureAwait(false);
 
     return result;
+  }
+
+  private async Task<Result<DummyItemGetActionDTO>> HandleViaGrpc(
+    DummyItemCreateActionCommand request,
+    CancellationToken cancellationToken)
+  {
+    try
+    {
+      var replyTask = _grpcClient.CreateAsync(
+        request.ToDummyItemCreateActionGrpcRequest(),
+        cancellationToken: cancellationToken);
+
+      var reply = await replyTask.ConfigureAwait(false);
+
+      return Result.Success(reply.ToDummyItemGetActionDTO());
+    }
+    catch (RpcException ex)
+    {
+      return ex.ToUnsuccessfulResult();
+    }
   }
 }

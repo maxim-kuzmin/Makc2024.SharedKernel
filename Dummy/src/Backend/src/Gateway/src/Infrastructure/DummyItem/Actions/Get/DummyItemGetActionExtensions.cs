@@ -7,15 +7,15 @@ public static class DummyItemGetActionExtensions
     return $"{DummyItemActionsSettings.Root}/{query.Id}";
   }
 
-  public static DummyItemGetActionRequest ToDummyItemGetActionRequest(this DummyItemGetActionQuery query)
+  public static DummyItemGetActionGrpcRequest ToDummyItemGetActionGrpcRequest(this DummyItemGetActionQuery query)
   {
-    return new DummyItemGetActionRequest
+    return new DummyItemGetActionGrpcRequest
     {
       Id = query.Id,
     };
   }
 
-  public static DummyItemGetActionDTO ToDummyItemGetActionDTO(this DummyItemGetActionReply reply)
+  public static DummyItemGetActionDTO ToDummyItemGetActionDTO(this DummyItemGetActionGrpcReply reply)
   {
     return new(reply.Id, reply.Name);
   }

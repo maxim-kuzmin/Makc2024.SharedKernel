@@ -21,7 +21,7 @@ public static class AppExtensions
 
     services.AddScoped<AppSession>();
 
-    const string userAgent = "Makc2024.Dummy";
+    const string userAgent = nameof(Dummy);
 
     string writerRestApiAddress = appConfigOptions.Writer.RestApiAddress;
     
@@ -42,29 +42,28 @@ public static class AppExtensions
 
     string writerGrpcApiAddress = appConfigOptions.Writer.GrpcApiAddress;
 
-    services.AddGrpcClient<AppGrpc.AppGrpcClient>(
+    services.AddGrpcClient<WriterAppGrpcClient>(
       AppSettings.WriterAppClientName,
       grpcOptions =>
       {
         grpcOptions.Address = new Uri(writerGrpcApiAddress);
+      })
+      .AddCallCredentials((context, metadata, serviceProvider) => Task.CompletedTask)
+      .ConfigureChannel(grpcChannelOptions =>
+      {
+        grpcChannelOptions.UnsafeUseInsecureChannelCallCredentials = true;
       });
 
-    services.AddGrpcClient<DummyItemGrpc.DummyItemGrpcClient>(
+    services.AddGrpcClient<WriterDummyItemGrpcClient>(
       AppSettings.WriterDummyItemClientName,
       grpcOptions =>
       {
         grpcOptions.Address = new Uri(writerGrpcApiAddress);
       })
-      .AddCallCredentials((context, metadata, serviceProvider) =>
+      .AddCallCredentials((context, metadata, serviceProvider) => Task.CompletedTask)
+      .ConfigureChannel(grpcChannelOptions =>
       {
-        var appSession = serviceProvider.GetRequiredService<AppSession>();
-
-        if (!string.IsNullOrWhiteSpace(appSession.AccessToken))
-        {
-          metadata.Add("Authorization", $"Bearer {appSession.AccessToken}");
-        }
-        
-        return Task.CompletedTask;
+        grpcChannelOptions.UnsafeUseInsecureChannelCallCredentials = true;
       });
 
     logger.LogInformation("Infrastructure layer added");

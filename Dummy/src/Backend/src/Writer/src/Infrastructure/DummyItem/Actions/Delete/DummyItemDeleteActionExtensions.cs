@@ -2,7 +2,7 @@
 
 public static class DummyItemDeleteActionExtensions
 {
-  public static DummyItemDeleteActionCommand ToDummyItemDeleteActionCommand(this DummyItemDeleteActionRequest request)
+  public static DummyItemDeleteActionCommand ToDummyItemDeleteActionCommand(this DummyItemDeleteActionGrpcRequest request)
   {
     return new(request.Id);
   }

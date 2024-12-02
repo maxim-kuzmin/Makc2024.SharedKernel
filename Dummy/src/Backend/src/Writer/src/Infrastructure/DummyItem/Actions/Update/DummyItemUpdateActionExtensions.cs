@@ -2,7 +2,7 @@
 
 public static class DummyItemUpdateActionExtensions
 {
-  public static DummyItemUpdateActionCommand ToDummyItemUpdateActionCommand(this DummyItemUpdateActionRequest request)
+  public static DummyItemUpdateActionCommand ToDummyItemUpdateActionCommand(this DummyItemUpdateActionGrpcRequest request)
   {
     return new(request.Id, request.Name);
   }

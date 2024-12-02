@@ -2,7 +2,7 @@
 
 public static class DummyItemCreateActionExtensions
 {
-  public static DummyItemCreateActionCommand ToDummyItemCreateActionCommand(this DummyItemCreateActionRequest request)
+  public static DummyItemCreateActionCommand ToDummyItemCreateActionCommand(this DummyItemCreateActionGrpcRequest request)
   {
     return new(request.Name);
   }

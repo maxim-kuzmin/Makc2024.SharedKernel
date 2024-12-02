@@ -7,7 +7,7 @@ public static class AppLoginActionExtensions
     return JsonContent.Create(command);
   }
 
-  public static AppLoginActionRequest ToAppLoginActionRequest(this AppLoginActionCommand command)
+  public static AppLoginActionGrpcRequest ToAppLoginActionGrpcRequest(this AppLoginActionCommand command)
   {
     return new()
     {
@@ -16,7 +16,7 @@ public static class AppLoginActionExtensions
     };
   }
 
-  public static AppLoginActionDTO ToAppLoginActionDTO(this AppLoginActionReply reply)
+  public static AppLoginActionDTO ToAppLoginActionDTO(this AppLoginActionGrpcReply reply)
   {
     return new(reply.UserName, reply.AccessToken);
   }
