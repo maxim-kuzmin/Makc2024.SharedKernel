@@ -10,9 +10,7 @@ public class DummyItemGetListActionHandler(
   {
     using var httpClient = _httpClientFactory.CreateClient(AppSettings.WriterClientName);
 
-    string requestUri = CreateRequestUri(request);
-
-    using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+    using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, request.ToHttpRequestUrl());
 
     string? accessToken = _appSession.AccessToken;
 
@@ -26,18 +24,5 @@ public class DummyItemGetListActionHandler(
     var result = await httpResponse.ToResultFromJsonAsync<DummyItemGetListActionDTO>(cancellationToken);
 
     return result;
-  }
-
-  public static string CreateRequestUri(DummyItemGetListActionQuery request)
-  {
-    IEnumerable<KeyValuePair<string, string?>> parameters = [
-      new("CurrentPage", request.Page.Number.ToString()),
-      new("ItemsPerPage", request.Page.Size.ToString()),
-      new("Query", request.Filter.FullTextSearchQuery)
-    ];
-
-    var queryString = QueryString.Create(parameters);
-
-    return $"{DummyItemActionsSettings.Root}{queryString}";
   }
 }

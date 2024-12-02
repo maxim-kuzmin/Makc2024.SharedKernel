@@ -7,15 +7,8 @@ public class DummyItemDeleteActionHandler(
   {
     using var httpClient = _httpClientFactory.CreateClient(AppSettings.WriterClientName);
 
-    string requestUri = CreateRequestUri(request);
-
-    using var httpResponse = await httpClient.DeleteAsync(requestUri, cancellationToken);
+    using var httpResponse = await httpClient.DeleteAsync(request.ToHttpRequestUrl(), cancellationToken);
 
     return httpResponse.ToResult();
-  }
-
-  public static string CreateRequestUri(DummyItemDeleteActionCommand command)
-  {
-    return $"{DummyItemActionsSettings.Root}/{command.Id}";
   }
 }
