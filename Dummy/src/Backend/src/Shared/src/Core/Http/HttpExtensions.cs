@@ -2,6 +2,20 @@
 
 public static class HttpExtensions
 {
+  public static HttpRequestMessage AddAuthorizationHeader(
+    this HttpRequestMessage httpRequestMessage,
+    AppSession appSession)
+  {
+    string? accessToken = appSession.AccessToken;
+
+    if (!string.IsNullOrEmpty(accessToken))
+    {
+      httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+    }
+
+    return httpRequestMessage;
+  }
+
   public static Result ToResult(this HttpResponseMessage? httpResponse)
   {
     if (httpResponse == null)

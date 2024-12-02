@@ -21,6 +21,7 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
   <ItemGroup>
+    <Protobuf Include="App\Grpc\AppGrpcService.proto" GrpcServices="Server" />
     <Protobuf Include="DummyItem\Grpc\DummyItemGrpcService.proto" GrpcServices="Server" />
   </ItemGroup>  
   <ItemGroup>

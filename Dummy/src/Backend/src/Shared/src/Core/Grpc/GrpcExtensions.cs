@@ -2,6 +2,18 @@
 
 public static class GrpcExtensions
 {
+  public static Metadata AddAuthorizationHeader(this Metadata headers, AppSession appSession)
+  {
+    string? accessToken = appSession.AccessToken;
+
+    if (!string.IsNullOrWhiteSpace(accessToken))
+    {
+      headers.Add("Authorization", $"Bearer {accessToken}");
+    }
+
+    return headers;
+  }
+
   public static void ThrowRpcExceptionIfNotSuccess(this Result result)
   {
     if (!result.IsSuccess)
@@ -18,7 +30,7 @@ public static class GrpcExtensions
     }
   }
 
-  public static StatusCode? ToGrpcStatusCode(HttpStatusCode httpStatusCode)
+  public static StatusCode? ToGrpcStatusCode(this HttpStatusCode httpStatusCode)
   {
     switch (httpStatusCode)
     {
@@ -107,7 +119,7 @@ public static class GrpcExtensions
     return null;
   }
 
-  public static HttpStatusCode? ToHttpStatusCode(StatusCode grpcStatusCode)
+  public static HttpStatusCode? ToHttpStatusCode(this StatusCode grpcStatusCode)
   {
     switch (grpcStatusCode)
     {
@@ -148,6 +160,21 @@ public static class GrpcExtensions
     }
 
     return null;
+  }
+
+  public static Result ToUnsuccessfulResult(this RpcException ex)
+  {
+      return ex.StatusCode switch
+      {
+        StatusCode.Aborted or StatusCode.AlreadyExists => Result.Conflict(),
+        StatusCode.PermissionDenied => Result.Forbidden(),
+        StatusCode.NotFound => Result.NotFound(),
+        StatusCode.DataLoss => Result.Unavailable(),
+        StatusCode.Unauthenticated => Result.Unauthorized(),
+        StatusCode.InvalidArgument or StatusCode.OutOfRange or StatusCode.FailedPrecondition => Result.Invalid(new ValidationError(ex.Message)),
+        StatusCode.Unknown => Result.Error(ex.Message),
+        _ => Result.CriticalError(ex.Message),
+      };
   }
 
   private static void ThrowRpcExceptionIfNotSuccess(this IResult result)

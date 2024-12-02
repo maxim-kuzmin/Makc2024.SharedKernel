@@ -2,5 +2,7 @@
 
 public class AppSettings
 {
-  public const string WriterClientName = "Writer";
+  public const string WriterAppClientName = "WriterApp";
+
+  public const string WriterDummyItemClientName = "WriterDummyItem";
 }

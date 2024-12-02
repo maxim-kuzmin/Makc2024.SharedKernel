@@ -28,7 +28,7 @@ public static class AppExtensions
     Guard.Against.Empty(writerRestApiAddress, nameof(writerRestApiAddress));
 
     services.AddHttpClient(
-      AppSettings.WriterClientName,
+      AppSettings.WriterDummyItemClientName,
       httpClient =>
       {
         httpClient.BaseAddress = new Uri(writerRestApiAddress);
@@ -42,8 +42,15 @@ public static class AppExtensions
 
     string writerGrpcApiAddress = appConfigOptions.Writer.GrpcApiAddress;
 
+    services.AddGrpcClient<AppGrpc.AppGrpcClient>(
+      AppSettings.WriterAppClientName,
+      grpcOptions =>
+      {
+        grpcOptions.Address = new Uri(writerGrpcApiAddress);
+      });
+
     services.AddGrpcClient<DummyItemGrpc.DummyItemGrpcClient>(
-      AppSettings.WriterClientName,
+      AppSettings.WriterDummyItemClientName,
       grpcOptions =>
       {
         grpcOptions.Address = new Uri(writerGrpcApiAddress);

@@ -6,4 +6,12 @@ public static class DummyItemCreateActionExtensions
   {
     return JsonContent.Create(command);
   }
+
+  public static DummyItemCreateActionRequest ToDummyItemCreateActionRequest(this DummyItemCreateActionCommand command)
+  {
+    return new DummyItemCreateActionRequest
+    {
+      Name = command.Name,
+    };
+  }
 }

@@ -6,4 +6,18 @@ public static class AppLoginActionExtensions
   {
     return JsonContent.Create(command);
   }
+
+  public static AppLoginActionRequest ToAppLoginActionRequest(this AppLoginActionCommand command)
+  {
+    return new()
+    {
+      UserName = command.UserName,
+      Password = command.Password,
+    };
+  }
+
+  public static AppLoginActionDTO ToAppLoginActionDTO(this AppLoginActionReply reply)
+  {
+    return new(reply.UserName, reply.AccessToken);
+  }
 }

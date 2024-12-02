@@ -6,4 +6,17 @@ public static class DummyItemGetActionExtensions
   {
     return $"{DummyItemActionsSettings.Root}/{query.Id}";
   }
+
+  public static DummyItemGetActionRequest ToDummyItemGetActionRequest(this DummyItemGetActionQuery query)
+  {
+    return new DummyItemGetActionRequest
+    {
+      Id = query.Id,
+    };
+  }
+
+  public static DummyItemGetActionDTO ToDummyItemGetActionDTO(this DummyItemGetActionReply reply)
+  {
+    return new(reply.Id, reply.Name);
+  }
 }

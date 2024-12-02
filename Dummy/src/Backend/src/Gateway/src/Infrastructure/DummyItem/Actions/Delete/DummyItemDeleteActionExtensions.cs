@@ -6,4 +6,12 @@ public static class DummyItemDeleteActionExtensions
   {
     return $"{DummyItemActionsSettings.Root}/{command.Id}";
   }
+
+  public static DummyItemDeleteActionRequest ToDummyItemDeleteActionRequest(this DummyItemDeleteActionCommand command)
+  {
+    return new DummyItemDeleteActionRequest
+    {
+      Id = command.Id,
+    };
+  }
 }

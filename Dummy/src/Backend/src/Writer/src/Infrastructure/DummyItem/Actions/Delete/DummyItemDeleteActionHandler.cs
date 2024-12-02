@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Actions.Delete;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Actions.Delete;
 
 public class DummyItemDeleteActionHandler(
   IEventDispatcher _eventDispatcher,

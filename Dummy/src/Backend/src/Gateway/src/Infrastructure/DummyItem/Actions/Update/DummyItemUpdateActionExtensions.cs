@@ -11,4 +11,13 @@ public static class DummyItemUpdateActionExtensions
   {
     return $"{DummyItemActionsSettings.Root}/{command.Id}";
   }
+
+  public static DummyItemUpdateActionRequest ToDummyItemUpdateActionRequest(this DummyItemUpdateActionCommand command)
+  {
+    return new DummyItemUpdateActionRequest
+    {
+      Id = command.Id,
+      Name = command.Name,
+    };
+  }
 }
