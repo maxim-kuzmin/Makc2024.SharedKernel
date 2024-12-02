@@ -24,21 +24,30 @@ public static class AppExtensions
     const string userAgent = "Makc2024.Dummy";
 
     string writerRestApiAddress = appConfigOptions.Writer.RestApiAddress;
-
+    
     Guard.Against.Empty(writerRestApiAddress, nameof(writerRestApiAddress));
 
     services.AddHttpClient(
-        nameof(AppConfigOptionsWriter),
-        client =>
-        {
-          client.BaseAddress = new Uri(writerRestApiAddress);
+      AppSettings.WriterClientName,
+      httpClient =>
+      {
+        httpClient.BaseAddress = new Uri(writerRestApiAddress);
 
-          client.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
-        })
-        .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
-        {
-          ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        });
+        httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
+      })
+      .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+      {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+      });
+
+    string writerGrpcApiAddress = appConfigOptions.Writer.GrpcApiAddress;
+
+    services.AddGrpcClient<DummyItemGrpc.DummyItemGrpcClient>(
+      AppSettings.WriterClientName,
+      grpcOptions =>
+      {
+        grpcOptions.Address = new Uri(writerGrpcApiAddress);
+      });
 
     logger.LogInformation("Infrastructure layer added");
 

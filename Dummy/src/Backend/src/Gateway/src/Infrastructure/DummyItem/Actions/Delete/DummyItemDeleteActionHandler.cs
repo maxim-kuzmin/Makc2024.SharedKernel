@@ -5,7 +5,7 @@ public class DummyItemDeleteActionHandler(
 {
   public async Task<Result> Handle(DummyItemDeleteActionCommand request, CancellationToken cancellationToken)
   {
-    using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
+    using var httpClient = _httpClientFactory.CreateClient(AppSettings.WriterClientName);
 
     string requestUri = CreateRequestUri(request);
 

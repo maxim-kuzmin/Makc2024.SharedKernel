@@ -8,7 +8,7 @@ public class DummyItemGetListActionHandler(
     DummyItemGetListActionQuery request,
     CancellationToken cancellationToken)
   {
-    using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
+    using var httpClient = _httpClientFactory.CreateClient(AppSettings.WriterClientName);
 
     string requestUri = CreateRequestUri(request);
 

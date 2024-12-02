@@ -5,7 +5,7 @@ public class DummyItemCreateActionHandler(
 {
   public async Task<Result<DummyItemGetActionDTO>> Handle(DummyItemCreateActionCommand request, CancellationToken cancellationToken)
   {
-    using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
+    using var httpClient = _httpClientFactory.CreateClient(AppSettings.WriterClientName);
 
     using var requestContent = CreateRequestContent(request);
 

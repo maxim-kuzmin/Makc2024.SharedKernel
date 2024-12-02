@@ -5,7 +5,7 @@ public class AppLoginActionHandler(
 {
   public async Task<Result<AppLoginActionDTO>> Handle(AppLoginActionCommand request, CancellationToken cancellationToken)
   {
-    using var httpClient = _httpClientFactory.CreateClient(nameof(AppConfigOptionsWriter));
+    using var httpClient = _httpClientFactory.CreateClient(AppSettings.WriterClientName);
 
     using var requestContent = CreateRequestContent(request);
 
