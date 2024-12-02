@@ -62,9 +62,9 @@ public static class AppExtensions
     app.UseAuthentication()
       .UseAuthorization()
       .UseMiddleware<AppTracingMiddleware>()
-      .UseMiddleware<AppSessionMiddleware>()
-      .UseFastEndpoints()
-      .UseSwaggerGen(); // Includes AddFileServer and static files middleware    
+      .UseMiddleware<AppSessionMiddleware>();
+
+    app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware    
 
     logger.LogInformation("UI layer used");
 

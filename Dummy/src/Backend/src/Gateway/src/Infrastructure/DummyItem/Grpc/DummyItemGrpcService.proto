@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Grpc;
+package Makc2024.Dummy.Gateway.Infrastructure.DummyItem.Grpc;
 
 import "google/protobuf/empty.proto";
 

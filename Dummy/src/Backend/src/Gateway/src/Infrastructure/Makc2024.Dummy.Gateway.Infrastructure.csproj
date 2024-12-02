@@ -2,6 +2,7 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
     <PackageReference Include="DotEnv.Core" />
+    <PackageReference Include="Grpc.AspNetCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
@@ -23,5 +24,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\src\Web\Makc2024.Dummy.Shared.Web.csproj" />
     <ProjectReference Include="..\DomainUseCases\Makc2024.Dummy.Gateway.DomainUseCases.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="DummyItem\Grpc\DummyItemGrpcService.proto" GrpcServices="Client" />
   </ItemGroup>
 </Project>

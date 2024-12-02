@@ -2,6 +2,7 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
     <PackageReference Include="DotEnv.Core" />
+    <PackageReference Include="Grpc.AspNetCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
@@ -19,6 +20,9 @@
     <PackageReference Include="Serilog.Sinks.File" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="DummyItem\Grpc\DummyItemGrpcService.proto" GrpcServices="Server" />
+  </ItemGroup>  
   <ItemGroup>
     <ProjectReference Include="..\DomainUseCases\Makc2024.Dummy.Writer.DomainUseCases.csproj" />
   </ItemGroup>

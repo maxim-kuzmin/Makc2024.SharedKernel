@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Grpc;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Grpc;
 
 public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItemGrpcBase
 {
