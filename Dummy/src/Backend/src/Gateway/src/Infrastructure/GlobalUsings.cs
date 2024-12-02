@@ -28,5 +28,5 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
 global using Serilog;
 global using Serilog.Extensions.Logging;
-global using WriterAppGrpcClient = Makc2024.Dummy.Writer.Infrastructure.App.Grpc.WriterAppGrpcService.WriterAppGrpcServiceClient;
-global using WriterDummyItemGrpcClient = Makc2024.Dummy.Writer.Infrastructure.DummyItem.Grpc.WriterDummyItemGrpcService.WriterDummyItemGrpcServiceClient;
+global using WriterAppGrpcClient = Makc2024.Dummy.Writer.Infrastructure.App.Grpc.App.AppClient;
+global using WriterDummyItemGrpcClient = Makc2024.Dummy.Writer.Infrastructure.DummyItem.Grpc.DummyItem.DummyItemClient;

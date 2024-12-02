@@ -4,7 +4,7 @@ option csharp_namespace = "Makc2024.Dummy.Writer.Infrastructure.App.Grpc";
 
 package Writer;
 
-service WriterAppGrpcService {
+service App {
     rpc Login (AppLoginActionGrpcRequest) returns (AppLoginActionGrpcReply);
 }
 
