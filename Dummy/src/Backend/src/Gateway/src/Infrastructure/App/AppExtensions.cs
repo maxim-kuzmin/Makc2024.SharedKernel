@@ -47,6 +47,17 @@ public static class AppExtensions
       grpcOptions =>
       {
         grpcOptions.Address = new Uri(writerGrpcApiAddress);
+      })
+      .AddCallCredentials((context, metadata, serviceProvider) =>
+      {
+        var appSession = serviceProvider.GetRequiredService<AppSession>();
+
+        if (!string.IsNullOrWhiteSpace(appSession.AccessToken))
+        {
+          metadata.Add("Authorization", $"Bearer {appSession.AccessToken}");
+        }
+        
+        return Task.CompletedTask;
       });
 
     logger.LogInformation("Infrastructure layer added");
