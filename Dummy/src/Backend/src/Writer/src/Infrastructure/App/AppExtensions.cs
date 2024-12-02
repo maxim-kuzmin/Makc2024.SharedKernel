@@ -52,10 +52,10 @@ public static class AppExtensions
     {
       var context = scopedServices.GetRequiredService<AppDbContext>();
 
-      //await context.Database.MigrateAsync();
-      await context.Database.EnsureCreatedAsync();
+      //await context.Database.MigrateAsync().ConfigureAwait(false);
+      await context.Database.EnsureCreatedAsync().ConfigureAwait(false);
 
-      await AppData.InitializeAsync(context);
+      await AppData.InitializeAsync(context).ConfigureAwait(false);
 
       logger.LogInformation("Infrastructure layer used");
     }

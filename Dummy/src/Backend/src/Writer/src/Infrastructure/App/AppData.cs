@@ -4,12 +4,14 @@ public static class AppData
 {
   public static async Task InitializeAsync(AppDbContext dbContext)
   {
-    if (await dbContext.DummyItem.AnyAsync()) // DB has been seeded
+    bool isSeeded = await dbContext.DummyItem.AnyAsync().ConfigureAwait(false);
+
+    if (isSeeded)
     {
       return;
     }
 
-    await PopulateTestDataAsync(dbContext);
+    await PopulateTestDataAsync(dbContext).ConfigureAwait(false);
   }
 
   public static async Task PopulateTestDataAsync(AppDbContext dbContext)
@@ -18,7 +20,7 @@ public static class AppData
 
     dbContext.DummyItem.AddRange(CreateDummyItems());
 
-    await dbContext.SaveChangesAsync();
+    await dbContext.SaveChangesAsync().ConfigureAwait(false);
 
     tran.Commit();
   }

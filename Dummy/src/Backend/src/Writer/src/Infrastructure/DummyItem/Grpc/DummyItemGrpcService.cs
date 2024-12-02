@@ -8,7 +8,7 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItem
   {
     var command = request.ToDummyItemCreateActionCommand();
 
-    var result = await _mediator.Send(command, context.CancellationToken);
+    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 
@@ -19,18 +19,20 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItem
   {
     var command = request.ToDummyItemDeleteActionCommand();
 
-    var result = await _mediator.Send(command, context.CancellationToken);
+    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 
     return new Empty();
   }
 
-  public override async Task<DummyItemGetActionReply> Get(DummyItemGetActionRequest request, ServerCallContext context)
+  public override async Task<DummyItemGetActionReply> Get(
+    DummyItemGetActionRequest request,
+    ServerCallContext context)
   {
     var command = request.ToDummyItemGetActionQuery();
 
-    var result = await _mediator.Send(command, context.CancellationToken);
+    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 
@@ -43,18 +45,20 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpc.DummyItem
   {
     var command = request.ToDummyItemGetListActionQuery();
 
-    var result = await _mediator.Send(command, context.CancellationToken);
+    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 
     return result.Value.ToDummyItemGetListActionReply();
   }
 
-  public override async Task<DummyItemGetActionReply> Update(DummyItemUpdateActionRequest request, ServerCallContext context)
+  public override async Task<DummyItemGetActionReply> Update(
+    DummyItemUpdateActionRequest request,
+    ServerCallContext context)
   {
     var command = request.ToDummyItemUpdateActionCommand();
 
-    var result = await _mediator.Send(command, context.CancellationToken);
+    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 

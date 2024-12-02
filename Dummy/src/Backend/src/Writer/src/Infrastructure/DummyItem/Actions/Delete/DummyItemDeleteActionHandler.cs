@@ -8,7 +8,7 @@ public class DummyItemDeleteActionHandler(
 {
   public async Task<Result> Handle(DummyItemDeleteActionCommand request, CancellationToken cancellationToken)
   {
-    var dummyItemEntity = await _repository.GetByIdAsync(request.Id, cancellationToken);
+    var dummyItemEntity = await _repository.GetByIdAsync(request.Id, cancellationToken).ConfigureAwait(false);
 
     if (dummyItemEntity == null)
     {
@@ -24,9 +24,9 @@ public class DummyItemDeleteActionHandler(
       return Result.NotFound();
     }
 
-    await _repository.DeleteAsync(dummyItemEntity, cancellationToken);
+    await _repository.DeleteAsync(dummyItemEntity, cancellationToken).ConfigureAwait(false);
 
-    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken);
+    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken).ConfigureAwait(false);
 
     return Result.Success();
   }

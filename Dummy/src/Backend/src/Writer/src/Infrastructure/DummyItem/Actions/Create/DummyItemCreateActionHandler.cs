@@ -18,9 +18,9 @@ public class DummyItemCreateActionHandler(
       return Result.Forbidden();
     }
 
-    dummyItemEntity = await _repository.AddAsync(dummyItemEntity, cancellationToken);
+    dummyItemEntity = await _repository.AddAsync(dummyItemEntity, cancellationToken).ConfigureAwait(false);
 
-    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken);
+    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken).ConfigureAwait(false);
 
     var data = new DummyItemGetActionDTO(
       dummyItemEntity.Id,

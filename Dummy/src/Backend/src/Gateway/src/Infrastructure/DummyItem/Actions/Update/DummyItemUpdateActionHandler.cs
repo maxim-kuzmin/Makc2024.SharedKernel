@@ -11,12 +11,16 @@ public class DummyItemUpdateActionHandler(
 
     using var httpRequestContent = request.ToHttpRequestContent();
 
-    using var httpResponse = await httpClient.PutAsync(
+    var httpResponseTask = httpClient.PutAsync(
       request.ToHttpRequestUrl(),
       httpRequestContent,
       cancellationToken);
 
-    var result = await httpResponse.ToResultFromJsonAsync<DummyItemGetActionDTO>(cancellationToken);
+    using var httpResponse = await httpResponseTask.ConfigureAwait(false);
+
+    var resultTask = httpResponse.ToResultFromJsonAsync<DummyItemGetActionDTO>(cancellationToken);
+
+    var result = await resultTask.ConfigureAwait(false);
 
     return result;
   }

@@ -9,9 +9,13 @@ public class DummyItemGetActionHandler(
   {
     using var httpClient = _httpClientFactory.CreateClient(AppSettings.WriterClientName);
 
-    using var httpResponse = await httpClient.GetAsync(request.ToHttpRequestUrl(), cancellationToken);
+    var httpResponseTask = httpClient.GetAsync(request.ToHttpRequestUrl(), cancellationToken);
 
-    var result = await httpResponse.ToResultFromJsonAsync<DummyItemGetActionDTO>(cancellationToken);
+    using var httpResponse = await httpResponseTask.ConfigureAwait(false);
+
+    var resultTask = httpResponse.ToResultFromJsonAsync<DummyItemGetActionDTO>(cancellationToken);
+
+    var result = await resultTask.ConfigureAwait(false);
 
     return result;
   }

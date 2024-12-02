@@ -30,7 +30,9 @@ public static class HttpExtensions
       return result;
     }
 
-    var content = await httpResponse.Content.ReadFromJsonAsync<TContent>(cancellationToken);
+    var contentTask = httpResponse.Content.ReadFromJsonAsync<TContent>(cancellationToken);
+
+    var content = await contentTask.ConfigureAwait(false);
 
     return content != null ? Result.Success(content) : Result.NotFound();
   }
@@ -52,7 +54,9 @@ public static class HttpExtensions
       return result;
     }
 
-    var originalContent = await httpResponse.Content.ReadFromJsonAsync<TResponse>(cancellationToken);
+    var originalContentTask = httpResponse.Content.ReadFromJsonAsync<TResponse>(cancellationToken);
+
+    var originalContent = await originalContentTask.ConfigureAwait(false);
 
     return originalContent != null ? Result.Success(funcToGetContent.Invoke(originalContent)) : Result.NotFound();
   }

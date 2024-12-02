@@ -48,7 +48,9 @@ from
 
     var totalCountSql = FormattableStringFactory.Create(totalCountSqlFormat, [.. parameters]);
 
-    var totalCountData = await _db.Database.SqlQuery<long>(totalCountSql).ToListAsync(cancellationToken);
+    var totalCountDataTask = _db.Database.SqlQuery<long>(totalCountSql).ToListAsync(cancellationToken);
+
+    var totalCountData = await totalCountDataTask.ConfigureAwait(false);
 
     long totalCountDto = totalCountData[0];
 
@@ -94,9 +96,11 @@ offset
 
     var itemsSql = FormattableStringFactory.Create(itemsSqlFormat, [.. parameters]);
 
-    var itemsDto = await _db.Database.SqlQuery<DummyItemGetListActionDTOItem>(itemsSql).ToListAsync(cancellationToken);
+    var itemDTOTask = _db.Database.SqlQuery<DummyItemGetListActionDTOItem>(itemsSql).ToListAsync(cancellationToken);
 
-    var dto = new DummyItemGetListActionDTO(itemsDto, totalCountDto);
+    var itemsDTO = await itemDTOTask.ConfigureAwait(false);
+
+    var dto = new DummyItemGetListActionDTO(itemsDTO, totalCountDto);
 
     return Result.Success(dto);
   }

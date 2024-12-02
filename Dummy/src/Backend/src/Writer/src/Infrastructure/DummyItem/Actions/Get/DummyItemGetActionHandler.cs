@@ -28,7 +28,9 @@ where
 
     var sql = FormattableStringFactory.Create(sqlFormat, [.. parameters]);
 
-    var dto = await _db.Database.SqlQuery<DummyItemGetActionDTO>(sql).FirstOrDefaultAsync(cancellationToken);
+    var dtoTask = _db.Database.SqlQuery<DummyItemGetActionDTO>(sql).FirstOrDefaultAsync(cancellationToken);
+
+    var dto = await dtoTask.ConfigureAwait(false);
 
     return dto != null ? Result.Success(dto) : Result.NotFound();
   }

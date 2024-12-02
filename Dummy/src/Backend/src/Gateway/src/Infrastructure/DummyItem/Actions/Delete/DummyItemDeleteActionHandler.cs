@@ -7,7 +7,9 @@ public class DummyItemDeleteActionHandler(
   {
     using var httpClient = _httpClientFactory.CreateClient(AppSettings.WriterClientName);
 
-    using var httpResponse = await httpClient.DeleteAsync(request.ToHttpRequestUrl(), cancellationToken);
+    var httpResponseTask = httpClient.DeleteAsync(request.ToHttpRequestUrl(), cancellationToken);
+
+    using var httpResponse = await httpResponseTask.ConfigureAwait(false);
 
     return httpResponse.ToResult();
   }

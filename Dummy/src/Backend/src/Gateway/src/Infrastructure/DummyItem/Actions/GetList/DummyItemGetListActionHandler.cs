@@ -19,9 +19,13 @@ public class DummyItemGetListActionHandler(
       httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
     }
 
-    using var httpResponse = await httpClient.SendAsync(httpRequestMessage, cancellationToken);
+    var httpResponseTask = httpClient.SendAsync(httpRequestMessage, cancellationToken);
 
-    var result = await httpResponse.ToResultFromJsonAsync<DummyItemGetListActionDTO>(cancellationToken);
+    using var httpResponse = await httpResponseTask.ConfigureAwait(false);
+
+    var resultTask = httpResponse.ToResultFromJsonAsync<DummyItemGetListActionDTO>(cancellationToken);
+
+    var result = await resultTask.ConfigureAwait(false);
 
     return result;
   }
