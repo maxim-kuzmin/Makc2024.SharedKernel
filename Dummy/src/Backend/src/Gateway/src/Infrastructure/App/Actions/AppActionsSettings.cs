@@ -3,4 +3,6 @@
 public class AppActionsSettings
 {
   public const string Root = "app";
+
+  public const string LoginActionUrl = $"{Root}/login";
 }

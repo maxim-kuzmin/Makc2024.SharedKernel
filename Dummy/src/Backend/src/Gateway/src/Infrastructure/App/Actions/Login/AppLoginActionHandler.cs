@@ -7,24 +7,15 @@ public class AppLoginActionHandler(
   {
     using var httpClient = _httpClientFactory.CreateClient(AppSettings.WriterClientName);
 
-    using var requestContent = CreateRequestContent(request);
+    using var httpRequestContent = request.ToHttpRequestContent();
 
-    string requestUri = CreateRequestUri();
-
-    using var httpResponse = await httpClient.PostAsync(requestUri, requestContent, cancellationToken);
+    using var httpResponse = await httpClient.PostAsync(
+      AppActionsSettings.LoginActionUrl,
+      httpRequestContent,
+      cancellationToken);
 
     var result = await httpResponse.ToResultFromJsonAsync<AppLoginActionDTO>(cancellationToken);
 
     return result;
-  }
-
-  public static JsonContent CreateRequestContent(AppLoginActionCommand command)
-  {
-    return JsonContent.Create(command);
-  }
-
-  public static string CreateRequestUri()
-  {
-    return $"{AppActionsSettings.Root}/login";
   }
 }
