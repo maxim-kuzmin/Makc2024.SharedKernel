@@ -1,12 +1,7 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Actions.Login;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Grpc;
 
-public static class AppLoginActionExtensions
+public static class AppGrpcExtensions
 {
-  public static JsonContent ToHttpRequestContent(this AppLoginActionCommand command)
-  {
-    return JsonContent.Create(command);
-  }
-
   public static AppLoginActionGrpcRequest ToAppLoginActionGrpcRequest(this AppLoginActionCommand command)
   {
     return new()

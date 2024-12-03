@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Actions;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Http;
 
-public class AppActionsSettings
+public class AppHttpSettings
 {
   public const string Root = "app";
 

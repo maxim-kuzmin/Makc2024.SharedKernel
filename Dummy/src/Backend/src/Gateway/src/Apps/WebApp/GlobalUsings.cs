@@ -3,6 +3,7 @@ global using Ardalis.Result.AspNetCore;
 global using FastEndpoints;
 global using FastEndpoints.Swagger;
 global using Makc2024.Dummy.Gateway.Apps.WebApp.App;
+global using Makc2024.Dummy.Gateway.DomainUseCases.App;
 global using Makc2024.Dummy.Gateway.DomainUseCases.App.Actions.Login;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Create;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Delete;

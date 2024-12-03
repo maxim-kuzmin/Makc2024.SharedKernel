@@ -13,13 +13,39 @@ public static class AppExtensions
 
     services.Configure<AppConfigOptions>(appConfigSection);
 
-    services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
     services.AddScoped<IEventDispatcher, EventDispatcher>();
 
     services.AddScoped<AppSession>();
+
+    services.AddTransient<IAppService>(x =>
+    {
+      var appConfigOptions = x.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
+
+      return appConfigOptions.Value.Writer.Transport switch
+      {
+        AppTransport.Grpc => new AppGrpcService(x.GetRequiredService<WriterAppGrpcClient>()),
+        AppTransport.Http => new AppHttpService(x.GetRequiredService<IHttpClientFactory>()),
+        _ => throw new NotImplementedException()
+      };
+    });
+
+    services.AddTransient<IDummyItemService>(x =>
+    {
+      var appConfigOptions = x.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
+
+      return appConfigOptions.Value.Writer.Transport switch
+      {
+        AppTransport.Grpc => new DummyItemGrpcService(
+          x.GetRequiredService<AppSession>(),
+          x.GetRequiredService<WriterDummyItemGrpcClient>()),
+        AppTransport.Http => new DummyItemHttpService(
+          x.GetRequiredService<AppSession>(),
+          x.GetRequiredService<IHttpClientFactory>()),
+        _ => throw new NotImplementedException()
+      };
+    });
 
     const string userAgent = nameof(Dummy);
 

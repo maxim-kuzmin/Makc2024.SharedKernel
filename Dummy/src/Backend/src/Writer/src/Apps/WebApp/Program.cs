@@ -12,9 +12,9 @@ try
 
   var appConfigOptions = appConfigSection.CreateAppConfigOptions();
 
-  builder.Services
-    .AddAppUILayer(logger, appConfigOptions)
-    .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Configuration, appConfigSection);
+  builder.Services    
+    .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Configuration, appConfigSection)
+    .AddAppUILayer(logger, appConfigOptions);
 
   var app = builder.Build();
 
