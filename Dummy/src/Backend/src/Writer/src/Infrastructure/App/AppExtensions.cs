@@ -13,8 +13,6 @@ public static class AppExtensions
 
     services.Configure<AppConfigOptions>(appConfigSection);
 
-    services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
     services.AddScoped<IEventDispatcher, EventDispatcher>();
@@ -34,6 +32,9 @@ public static class AppExtensions
     services.AddScoped<AppSession>();
 
     services.AddScoped<IDummyItemRepository, DummyItemRepository>();
+
+    services.AddTransient<IAppService, AppService>();
+    services.AddTransient<IDummyItemService, DummyItemService>();
 
     logger.LogInformation("Infrastructure layer added");
 

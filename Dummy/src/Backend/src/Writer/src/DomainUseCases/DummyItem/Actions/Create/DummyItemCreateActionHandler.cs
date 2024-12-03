@@ -1,0 +1,12 @@
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Create;
+
+public class DummyItemCreateActionHandler(IDummyItemService _service) :
+  ICommandHandler<DummyItemCreateActionCommand, Result<DummyItemGetActionDTO>>
+{
+  public Task<Result<DummyItemGetActionDTO>> Handle(
+    DummyItemCreateActionCommand request,
+    CancellationToken cancellationToken)
+  {
+    return _service.Create(request, cancellationToken);
+  }
+}

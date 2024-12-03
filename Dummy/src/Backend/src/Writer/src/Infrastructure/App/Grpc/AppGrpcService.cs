@@ -2,11 +2,15 @@
 
 public class AppGrpcService(IMediator _mediator) : AppGrpcServiceBase
 {
-  public override async Task<AppLoginActionGrpcReply> Login(AppLoginActionGrpcRequest request, ServerCallContext context)
+  public override async Task<AppLoginActionGrpcReply> Login(
+    AppLoginActionGrpcRequest request,
+    ServerCallContext context)
   {
-    var command = request.ToAppLoginActionCommand();
+    AppLoginActionCommand command = request.ToAppLoginActionCommand();
 
-    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
+    var resultTask = _mediator.Send(command, context.CancellationToken);
+
+    Result<AppLoginActionDTO> result = await resultTask.ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 

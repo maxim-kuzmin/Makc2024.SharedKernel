@@ -6,9 +6,11 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpcServiceBas
     DummyItemCreateActionGrpcRequest request,
     ServerCallContext context)
   {
-    var command = request.ToDummyItemCreateActionCommand();
+    DummyItemCreateActionCommand command = request.ToDummyItemCreateActionCommand();
 
-    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
+    var resultTask = _mediator.Send(command, context.CancellationToken);
+
+    Result<DummyItemGetActionDTO> result = await resultTask.ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 
@@ -19,7 +21,9 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpcServiceBas
   {
     var command = request.ToDummyItemDeleteActionCommand();
 
-    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
+    var resultTask = _mediator.Send(command, context.CancellationToken);
+
+    Result result = await resultTask.ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 
@@ -30,9 +34,11 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpcServiceBas
     DummyItemGetActionGrpcRequest request,
     ServerCallContext context)
   {
-    var command = request.ToDummyItemGetActionQuery();
+    DummyItemGetActionQuery query = request.ToDummyItemGetActionQuery();
 
-    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
+    var resultTask = _mediator.Send(query, context.CancellationToken);
+
+    Result<DummyItemGetActionDTO> result = await resultTask.ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 
@@ -43,9 +49,11 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpcServiceBas
     DummyItemGetListActionGrpcRequest request,
     ServerCallContext context)
   {
-    var command = request.ToDummyItemGetListActionQuery();
+    DummyItemGetListActionQuery query = request.ToDummyItemGetListActionQuery();
 
-    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
+    var resultTask = _mediator.Send(query, context.CancellationToken);
+
+    Result<DummyItemGetListActionDTO> result = await resultTask.ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 
@@ -56,9 +64,11 @@ public class DummyItemGrpcService(IMediator _mediator) : DummyItemGrpcServiceBas
     DummyItemUpdateActionGrpcRequest request,
     ServerCallContext context)
   {
-    var command = request.ToDummyItemUpdateActionCommand();
+    DummyItemUpdateActionCommand command = request.ToDummyItemUpdateActionCommand();
 
-    var result = await _mediator.Send(command, context.CancellationToken).ConfigureAwait(false);
+    var resultTask = _mediator.Send(command, context.CancellationToken);
+
+    Result<DummyItemGetActionDTO> result = await resultTask.ConfigureAwait(false);
 
     result.ThrowRpcExceptionIfNotSuccess();
 

@@ -12,7 +12,8 @@ try
 
   var appConfigOptions = appConfigSection.CreateAppConfigOptions();
 
-  builder.Services    
+  builder.Services
+    .AddAppDomainUseCasesLayer(logger)
     .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Configuration, appConfigSection)
     .AddAppUILayer(logger, appConfigOptions);
 

@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Actions.Login;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Grpc;
 
-public static class AppLoginActionExtensions
+public static class AppGrpcExtensions
 {
   public static AppLoginActionCommand ToAppLoginActionCommand(this AppLoginActionGrpcRequest request)
   {
