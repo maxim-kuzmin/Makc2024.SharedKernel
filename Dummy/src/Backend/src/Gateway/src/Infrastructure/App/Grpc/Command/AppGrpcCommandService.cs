@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Grpc;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Grpc.Command;
 
-public class AppGrpcService(WriterAppGrpcClient _grpcClient) : IAppService
+public class AppGrpcCommandService(WriterAppGrpcClient _grpcClient) : IAppCommandService
 {
   public async Task<Result<AppLoginActionDTO>> Login(
     AppLoginActionCommand command,

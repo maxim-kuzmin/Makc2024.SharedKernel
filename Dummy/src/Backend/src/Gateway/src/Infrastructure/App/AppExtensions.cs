@@ -19,28 +19,42 @@ public static class AppExtensions
 
     services.AddScoped<AppSession>();
 
-    services.AddTransient<IAppService>(x =>
+    services.AddTransient<IAppCommandService>(x =>
     {
       var appConfigOptions = x.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
 
       return appConfigOptions.Value.Writer.Transport switch
       {
-        AppTransport.Grpc => new AppGrpcService(x.GetRequiredService<WriterAppGrpcClient>()),
-        AppTransport.Http => new AppHttpService(x.GetRequiredService<IHttpClientFactory>()),
+        AppTransport.Grpc => new AppGrpcCommandService(x.GetRequiredService<WriterAppGrpcClient>()),
+        AppTransport.Http => new AppHttpCommandService(x.GetRequiredService<IHttpClientFactory>()),
         _ => throw new NotImplementedException()
       };
     });
 
-    services.AddTransient<IDummyItemService>(x =>
+    services.AddTransient<IDummyItemCommandService>(x =>
     {
       var appConfigOptions = x.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
 
       return appConfigOptions.Value.Writer.Transport switch
       {
-        AppTransport.Grpc => new DummyItemGrpcService(
+        AppTransport.Grpc => new DummyItemGrpcCommandService(
+          x.GetRequiredService<WriterDummyItemGrpcClient>()),
+        AppTransport.Http => new DummyItemHttpCommandService(
+          x.GetRequiredService<IHttpClientFactory>()),
+        _ => throw new NotImplementedException()
+      };
+    });
+
+    services.AddTransient<IDummyItemQueryService>(x =>
+    {
+      var appConfigOptions = x.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
+
+      return appConfigOptions.Value.Writer.Transport switch
+      {
+        AppTransport.Grpc => new DummyItemGrpcQueryService(
           x.GetRequiredService<AppSession>(),
           x.GetRequiredService<WriterDummyItemGrpcClient>()),
-        AppTransport.Http => new DummyItemHttpService(
+        AppTransport.Http => new DummyItemHttpQueryService(
           x.GetRequiredService<AppSession>(),
           x.GetRequiredService<IHttpClientFactory>()),
         _ => throw new NotImplementedException()

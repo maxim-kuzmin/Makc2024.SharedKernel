@@ -1,6 +1,6 @@
 ﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Delete;
 
-public class DummyItemDeleteActionHandler(IDummyItemService _service) :
+public class DummyItemDeleteActionHandler(IDummyItemCommandService _service) :
   ICommandHandler<DummyItemDeleteActionCommand, Result>
 {
   public Task<Result> Handle(DummyItemDeleteActionCommand request, CancellationToken cancellationToken)

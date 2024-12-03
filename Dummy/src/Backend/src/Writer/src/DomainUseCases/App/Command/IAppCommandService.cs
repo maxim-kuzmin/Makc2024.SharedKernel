@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.DomainUseCases.App;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.App.Command;
 
-public interface IAppService
+public interface IAppCommandService
 {
   Task<Result<AppLoginActionDTO>> Login(AppLoginActionCommand command, CancellationToken cancellationToken);
 }

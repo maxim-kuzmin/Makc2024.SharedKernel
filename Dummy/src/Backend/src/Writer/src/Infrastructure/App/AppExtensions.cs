@@ -33,8 +33,9 @@ public static class AppExtensions
 
     services.AddScoped<IDummyItemRepository, DummyItemRepository>();
 
-    services.AddTransient<IAppService, AppService>();
-    services.AddTransient<IDummyItemService, DummyItemService>();
+    services.AddTransient<IAppCommandService, AppCommandService>();
+    services.AddTransient<IDummyItemCommandService, DummyItemCommandService>();
+    services.AddTransient<IDummyItemQueryService, DummyItemQueryService>();
 
     logger.LogInformation("Infrastructure layer added");
 

@@ -1,6 +1,6 @@
 ﻿namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Update;
 
-public class DummyItemUpdateActionHandler(IDummyItemService _service) :
+public class DummyItemUpdateActionHandler(IDummyItemCommandService _service) :
   ICommandHandler<DummyItemUpdateActionCommand, Result<DummyItemGetActionDTO>>
 {
   public Task<Result<DummyItemGetActionDTO>> Handle(

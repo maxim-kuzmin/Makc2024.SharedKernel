@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Http;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.Http.Command;
 
-public class AppHttpService(IHttpClientFactory _httpClientFactory) : IAppService
+public class AppHttpCommandService(IHttpClientFactory _httpClientFactory) : IAppCommandService
 {
   public async Task<Result<AppLoginActionDTO>> Login(AppLoginActionCommand request, CancellationToken cancellationToken)
   {

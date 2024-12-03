@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.DomainUseCases.App;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Command;
 
-public class AppService(IOptionsSnapshot<AppConfigOptions> _appConfigOptions) : IAppService
+public class AppCommandService(IOptionsSnapshot<AppConfigOptions> _appConfigOptions) : IAppCommandService
 {
   public Task<Result<AppLoginActionDTO>> Login(AppLoginActionCommand command, CancellationToken cancellationToken)
   {
@@ -22,7 +22,7 @@ public class AppService(IOptionsSnapshot<AppConfigOptions> _appConfigOptions) : 
       expires: expires,
       signingCredentials: signingCredentials);
 
-    string accessToken = new JwtSecurityTokenHandler().WriteToken(jwt);
+    var accessToken = new JwtSecurityTokenHandler().WriteToken(jwt);
 
     var dto = new AppLoginActionDTO(command.UserName, accessToken);
 

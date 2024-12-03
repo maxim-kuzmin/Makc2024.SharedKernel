@@ -1,64 +1,7 @@
-﻿namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Query;
 
-public class DummyItemService(
-  AppSession _appSession,
-  AppDbContext _db,
-  IEventDispatcher _eventDispatcher,
-  IDummyItemRepository _repository) : IDummyItemService
+public class DummyItemQueryService(AppSession _appSession, AppDbContext _db) : IDummyItemQueryService
 {
-  public async Task<Result<DummyItemGetActionDTO>> Create(
-    DummyItemCreateActionCommand command,
-    CancellationToken cancellationToken)
-  {
-    var dummyItemAggregate = new DummyItemAggregate();
-
-    dummyItemAggregate.UpdateName(command.Name);
-
-    var dummyItemEntity = dummyItemAggregate.GetDummyItemEntityToCreate();
-
-    if (dummyItemEntity == null)
-    {
-      return Result.Forbidden();
-    }
-
-    dummyItemEntity = await _repository.AddAsync(dummyItemEntity, cancellationToken).ConfigureAwait(false);
-
-    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken).ConfigureAwait(false);
-
-    var data = new DummyItemGetActionDTO(
-      dummyItemEntity.Id,
-      dummyItemEntity.Name);
-
-    return Result.Success(data);
-  }
-
-  public async Task<Result> Delete(
-    DummyItemDeleteActionCommand command,
-    CancellationToken cancellationToken)
-  {
-    var dummyItemEntity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
-
-    if (dummyItemEntity == null)
-    {
-      return Result.NotFound();
-    }
-
-    var dummyItemAggregate = new DummyItemAggregate(dummyItemEntity.Id);
-
-    dummyItemEntity = dummyItemAggregate.GetDummyItemEntityToDelete(dummyItemEntity);
-
-    if (dummyItemEntity == null)
-    {
-      return Result.NotFound();
-    }
-
-    await _repository.DeleteAsync(dummyItemEntity, cancellationToken).ConfigureAwait(false);
-
-    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken).ConfigureAwait(false);
-
-    return Result.Success();
-  }
-
   public async Task<Result<DummyItemGetActionDTO>> Get(
     DummyItemGetActionQuery query,
     CancellationToken cancellationToken)
@@ -69,7 +12,7 @@ public class DummyItemService(
 
     var parameters = new List<object>();
 
-    int parameterIndex = 0;
+    var parameterIndex = 0;
 
     var sqlFormat = $$"""
 select
@@ -96,7 +39,7 @@ where
     DummyItemGetListActionQuery query,
     CancellationToken cancellationToken)
   {
-    string? userName = _appSession.User.Identity?.Name;
+    var userName = _appSession.User.Identity?.Name;
 
     var appDbSettings = AppDbContext.GetAppDbSettings();
 
@@ -104,8 +47,8 @@ where
 
     var parameters = new List<object>();
 
-    int parameterIndex = 0;
-    string sqlFormatToFilter = string.Empty;
+    var parameterIndex = 0;
+    var sqlFormatToFilter = string.Empty;
 
     if (!string.IsNullOrEmpty(query.Filter?.FullTextSearchQuery))
     {
@@ -123,7 +66,7 @@ where
       parameterIndex++;
     }
 
-    string totalCountSqlFormat = $$"""
+    var totalCountSqlFormat = $$"""
 
 select
   count(*)
@@ -139,9 +82,9 @@ from
 
     var totalCountData = await totalCountDataTask.ConfigureAwait(false);
 
-    long totalCountDto = totalCountData[0];
+    var totalCountDto = totalCountData[0];
 
-    string itemsSqlFormat = $$"""
+    var itemsSqlFormat = $$"""
 
 select
   di."{{dummyItemEntitySettings.ColumnForId}}" "Id",
@@ -192,38 +135,5 @@ offset
     var dto = new DummyItemGetListActionDTO(itemsDTO, totalCountDto);
 
     return Result.Success(dto);
-  }
-
-  public async Task<Result<DummyItemGetActionDTO>> Update(
-    DummyItemUpdateActionCommand command,
-    CancellationToken cancellationToken)
-  {
-    var dummyItemEntity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
-
-    if (dummyItemEntity == null)
-    {
-      return Result.NotFound();
-    }
-
-    var dummyItemAggregate = new DummyItemAggregate(dummyItemEntity.Id);
-
-    dummyItemAggregate.UpdateName(command.Name);
-
-    var dummyItemEntityToUpdate = dummyItemAggregate.GetDummyItemEntityToUpdate(dummyItemEntity);
-
-    if (dummyItemEntityToUpdate != null)
-    {
-      dummyItemEntity = dummyItemEntityToUpdate;
-
-      await _repository.UpdateAsync(dummyItemEntity, cancellationToken).ConfigureAwait(false);
-    }
-
-    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken).ConfigureAwait(false);
-
-    var data = new DummyItemGetActionDTO(
-      dummyItemEntity.Id,
-      dummyItemEntity.Name);
-
-    return Result.Success(data);
   }
 }
