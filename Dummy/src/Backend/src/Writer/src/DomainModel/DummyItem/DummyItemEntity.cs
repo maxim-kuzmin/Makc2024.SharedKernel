@@ -1,11 +1,12 @@
 ﻿namespace Makc2024.Dummy.Writer.DomainModel.DummyItem;
 
-public class DummyItemEntity : EntityBaseWithId<long>, IAggregateRoot
+/// <summary>
+/// Сущность фиктивного предмета.
+/// </summary>
+public class DummyItemEntity : EntityBaseWithIdProperty<long>, IAggregateRoot
 {
+  /// <summary>
+  /// Имя.
+  /// </summary>
   public string Name { get; set; } = null!;
-
-  public sealed override object DeepCopy()
-  {
-    return base.DeepCopy();
-  }
 }

@@ -11,7 +11,7 @@ public class DummyItemCommandService(IEventDispatcher _eventDispatcher, IDummyIt
 
     dummyItemAggregate.UpdateName(command.Name);
 
-    var dummyItemEntity = dummyItemAggregate.GetDummyItemEntityToCreate();
+    var dummyItemEntity = dummyItemAggregate.GetEntityToCreate();
 
     if (dummyItemEntity == null)
     {
@@ -42,7 +42,7 @@ public class DummyItemCommandService(IEventDispatcher _eventDispatcher, IDummyIt
 
     var dummyItemAggregate = new DummyItemAggregate(dummyItemEntity.Id);
 
-    dummyItemEntity = dummyItemAggregate.GetDummyItemEntityToDelete(dummyItemEntity);
+    dummyItemEntity = dummyItemAggregate.GetEntityToDelete(dummyItemEntity);
 
     if (dummyItemEntity == null)
     {
@@ -71,7 +71,7 @@ public class DummyItemCommandService(IEventDispatcher _eventDispatcher, IDummyIt
 
     dummyItemAggregate.UpdateName(command.Name);
 
-    var dummyItemEntityToUpdate = dummyItemAggregate.GetDummyItemEntityToUpdate(dummyItemEntity);
+    var dummyItemEntityToUpdate = dummyItemAggregate.GetEntityToUpdate(dummyItemEntity);
 
     if (dummyItemEntityToUpdate != null)
     {

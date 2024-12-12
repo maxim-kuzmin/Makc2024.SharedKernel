@@ -1,50 +1,41 @@
 ﻿namespace Makc2024.Dummy.Writer.DomainModel.DummyItem;
 
-public class DummyItemAggregate(long dummyItemEntityId = default) : AggregateBase
-{  
-  private readonly DummyItemEntity _dummyItemEntity = new() { Id = dummyItemEntityId };
-
-  public long Id => _dummyItemEntity.Id;
-  public string Name => _dummyItemEntity.Name;
-
-  public DummyItemEntity? GetDummyItemEntityToCreate()
+/// <summary>
+/// Агрегат фиктивного предмета.
+/// </summary>
+/// <param name="entityId">Идентификатор сущности.</param>
+public class DummyItemAggregate(long entityId = default) : AggregateBase<DummyItemEntity, long>(entityId)
+{
+  /// <inheritdoc/>
+  public sealed override DummyItemEntity? GetEntityToUpdate(DummyItemEntity entityFromDb)
   {
-    return (DummyItemEntity)_dummyItemEntity.DeepCopy();
-  }
+    var result = base.GetEntityToUpdate(entityFromDb);
 
-  public DummyItemEntity? GetDummyItemEntityToDelete(DummyItemEntity dummyItemEntity)
-  {
-    if (Id == default || dummyItemEntity.Id != Id)
+    if (result == null)
     {
-      return null;
-    }
-
-    return dummyItemEntity;
-  }
-
-  public DummyItemEntity? GetDummyItemEntityToUpdate(DummyItemEntity dummyItemEntity)
-  {
-    if (Id == default || dummyItemEntity.Id != Id)
-    {
-      return null;
+      return result;
     }
 
     bool isOk = false;
 
-    if (HasChangedProperty(nameof(Name)) && dummyItemEntity.Name != Name)
+    if (HasChangedProperty(nameof(Entity.Name)) && entityFromDb.Name != Entity.Name)
     {
-      dummyItemEntity.Name = Name;
+      entityFromDb.Name = Entity.Name;
 
       isOk = true;
     }
 
-    return isOk ? dummyItemEntity : null;
+    return isOk ? entityFromDb : null;
   }
 
+  /// <summary>
+  /// Обновить имя.
+  /// </summary>
+  /// <param name="name">Имя.</param>
   public void UpdateName(string name)
   {
-    _dummyItemEntity.Name = Guard.Against.NullOrEmpty(name, nameof(name));
+    Entity.Name = Guard.Against.NullOrEmpty(name, nameof(name));
 
-    SetChangedProperty(nameof(Name));
+    MarkPropertyAsChanged(nameof(Entity.Name));
   }
 }

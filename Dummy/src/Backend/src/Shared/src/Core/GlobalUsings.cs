@@ -9,5 +9,6 @@ global using Ardalis.SharedKernel;
 global using Grpc.Core;
 global using Makc2024.Dummy.Shared.Core.App;
 global using Makc2024.Dummy.Shared.Core.DeepCopy;
+global using Makc2024.Dummy.Shared.Core.Entity;
 global using Makc2024.Dummy.Shared.Core.Event;
 global using MediatR;
