@@ -6,12 +6,22 @@
 public class AppEventEntity : EntityBaseWithIdProperty<long>, IAggregateRoot
 {
   /// <summary>
+  /// Дата создания.
+  /// </summary>
+  public DateTimeOffset CreationDate { get; set; }
+
+  /// <summary>
+  /// Признак опубликованности.
+  /// </summary>
+  public bool IsPublished { get; set; }
+
+  /// <summary>
   /// Имя.
   /// </summary>
   public string Name { get; set; } = null!;
 
   /// <summary>
-  /// Дата создания.
+  /// Полезные нагрузки.
   /// </summary>
-  public DateTimeOffset CreationDate { get; set; }
+  public IEnumerable<AppEventPayloadEntity> Payloads { get; } = [];
 }

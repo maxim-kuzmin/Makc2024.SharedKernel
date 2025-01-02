@@ -5,8 +5,7 @@
 /// </summary>
 /// <typeparam name="TEntity">Тип сущности.</typeparam>
 /// <typeparam name="TEntityId">Тип идентификатора сущности.</typeparam>
-/// <param name="entityId">Идентификатор сущности.</param>
-public class AggregateBase<TEntity, TEntityId>(TEntityId entityId = default) : EventSource
+public class AggregateBase<TEntity, TEntityId> : EventSource
   where TEntity : class, IEntityBase<TEntityId>, new()
   where TEntityId : struct, IEquatable<TEntityId>
 {
@@ -15,7 +14,20 @@ public class AggregateBase<TEntity, TEntityId>(TEntityId entityId = default) : E
   /// <summary>
   /// Сущность.
   /// </summary>
-  protected TEntity Entity { get; } = CreateEntity(entityId);
+  protected TEntity Entity { get; }
+
+  /// <summary>
+  /// Конструктор.
+  /// </summary>
+  /// <param name="entityId">Идентификатор сущности.</param>
+  public AggregateBase(TEntityId entityId = default)
+  {
+    Entity = new TEntity();
+
+    Entity.SetId(entityId);
+
+    Init();
+  }
 
   /// <summary>
   /// Получить сущность для создания.
@@ -67,21 +79,19 @@ public class AggregateBase<TEntity, TEntityId>(TEntityId entityId = default) : E
   }
 
   /// <summary>
+  /// Инициализировать.
+  /// </summary>
+  protected virtual void Init()
+  {
+  }
+
+  /// <summary>
   /// Пометить свойство как изменённое.
   /// </summary>
   /// <param name="propertyName">Имя свойства.</param>
   protected void MarkPropertyAsChanged(string propertyName)
   {
     _changedProperties.Add(propertyName);
-  }
-
-  private static TEntity CreateEntity(TEntityId entityId)
-  {
-    var result = new TEntity();
-
-    result.SetId(entityId);
-
-    return result;
   }
 
   private bool IsUnchangeable(TEntity entityFromDb)

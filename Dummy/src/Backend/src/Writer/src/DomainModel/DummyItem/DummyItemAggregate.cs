@@ -31,10 +31,16 @@ public class DummyItemAggregate(long entityId = default) : AggregateBase<DummyIt
   /// <summary>
   /// Обновить имя.
   /// </summary>
-  /// <param name="name">Имя.</param>
-  public void UpdateName(string name)
+  /// <param name="value">Значение.</param>
+  public void UpdateName(string value)
   {
-    Entity.Name = Guard.Against.NullOrEmpty(name, nameof(name));
+    string parameterName = nameof(Entity.Name);
+
+    Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
+
+    Guard.Against.StringTooLong(value, DummyItemSettings.MaxLengthForName, parameterName: parameterName);
+
+    Entity.Name = value;
 
     MarkPropertyAsChanged(nameof(Entity.Name));
   }

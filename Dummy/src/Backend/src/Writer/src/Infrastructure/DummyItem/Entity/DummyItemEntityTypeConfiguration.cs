@@ -1,7 +1,11 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Entity;
 
+/// <summary>
+/// Конфигурация типа сущности фиктивного предмета.
+/// </summary>
 public class DummyItemEntityTypeConfiguration : IEntityTypeConfiguration<DummyItemEntity>
 {
+  /// <inheritdoc/>
   public void Configure(EntityTypeBuilder<DummyItemEntity> builder)
   {
     var appSettings = AppDbContext.GetAppDbSettings();
@@ -18,7 +22,7 @@ public class DummyItemEntityTypeConfiguration : IEntityTypeConfiguration<DummyIt
 
     builder.Property(x => x.Name)
       .IsRequired()
-      .HasMaxLength(entitySettings.MaxLengthForName)
+      .HasMaxLength(DummyItemSettings.MaxLengthForName)
       .HasColumnName(entitySettings.ColumnForName);
 
     builder.HasIndex(x => x.Name)

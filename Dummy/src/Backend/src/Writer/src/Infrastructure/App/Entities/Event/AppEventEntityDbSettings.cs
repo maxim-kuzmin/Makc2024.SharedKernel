@@ -1,14 +1,24 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Entity;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Entities.Event;
 
 /// <summary>
-/// Настройки базы данных сущности фиктивного предмета.
+/// Настройки базы данных сущности события приложения.
 /// </summary>
-public class DummyItemEntityDbSettings
+public class AppEventEntityDbSettings
 {
+  /// <summary>
+  /// Столбец для даты создания.
+  /// </summary>
+  public string ColumnForCreationDate { get; }
+
   /// <summary>
   /// Столбец для идентификатора.
   /// </summary>
   public string ColumnForId { get; }
+
+  /// <summary>
+  /// Столбец для признака опубликованности.
+  /// </summary>
+  public string ColumnForIsPublished { get; }
 
   /// <summary>
   /// Столбец для имени.
@@ -24,7 +34,7 @@ public class DummyItemEntityDbSettings
   /// Таблица.
   /// </summary>
   public string Table { get; }
-  
+
   /// <summary>
   /// Уникальный индекс для имени.
   /// </summary>
@@ -33,15 +43,17 @@ public class DummyItemEntityDbSettings
   /// <summary>
   /// Конструктор.
   /// </summary>
-  public DummyItemEntityDbSettings()
+  public AppEventEntityDbSettings()
   {
-    Table = "dummy_item";
+    Table = "app_event";
 
     PrimaryKey = $"pk_{Table}";
 
+    ColumnForCreationDate = "creation_date";
     ColumnForId = "id";
+    ColumnForIsPublished = "is_published";
     ColumnForName = "name";
 
-    UniqueIndexForName = $"ux_{Table}_name";
+    UniqueIndexForName = $"ux_{Table}_{ColumnForName}";
   }
 }
