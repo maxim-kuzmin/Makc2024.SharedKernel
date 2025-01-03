@@ -8,11 +8,11 @@ public class AppEventPayloadEntityTypeConfiguration : IEntityTypeConfiguration<A
   /// <inheritdoc/>
   public void Configure(EntityTypeBuilder<AppEventPayloadEntity> builder)
   {
-    var appSettings = AppDbContext.GetAppDbSettings();
+    var appDbSettings = AppDbContext.GetAppDbSettings();
 
-    var entitySettings = appSettings.Entities.AppEventPayload;
+    var entitySettings = appDbSettings.Entities.AppEventPayload;
 
-    builder.ToTable(entitySettings.Table, appSettings.Schema);
+    builder.ToTable(entitySettings.Table, appDbSettings.Schema);
 
     builder.HasKey(e => e.Id).HasName(entitySettings.PrimaryKey);
 

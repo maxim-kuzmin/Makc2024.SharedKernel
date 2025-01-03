@@ -24,6 +24,7 @@ public static class AppExtensions
 
     string connectionString = appConfigOptions.PostgreSQL.ToConnectionString(connectionStringTemplate);
 
+    AppDbContext.Init(new());
     services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
     services.AddScoped(typeof(IRepository<>), typeof(AppRepositoryBase<>));

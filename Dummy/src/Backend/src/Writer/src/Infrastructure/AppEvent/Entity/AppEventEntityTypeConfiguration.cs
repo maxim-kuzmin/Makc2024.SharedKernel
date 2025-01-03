@@ -8,11 +8,11 @@ public class AppEventEntityTypeConfiguration : IEntityTypeConfiguration<AppEvent
   /// <inheritdoc/>
   public void Configure(EntityTypeBuilder<AppEventEntity> builder)
   {
-    var dbSettings = AppDbContext.GetAppDbSettings();
+    var appDbSettings = AppDbContext.GetAppDbSettings();
 
-    var entityDbSettings = dbSettings.Entities.AppEvent;
+    var entityDbSettings = appDbSettings.Entities.AppEvent;
 
-    builder.ToTable(entityDbSettings.Table, dbSettings.Schema);
+    builder.ToTable(entityDbSettings.Table, appDbSettings.Schema);
 
     builder.HasKey(e => e.Id).HasName(entityDbSettings.PrimaryKey);
 

@@ -8,11 +8,11 @@ public class DummyItemEntityTypeConfiguration : IEntityTypeConfiguration<DummyIt
   /// <inheritdoc/>
   public void Configure(EntityTypeBuilder<DummyItemEntity> builder)
   {
-    var appSettings = AppDbContext.GetAppDbSettings();
+    var appDbSettings = AppDbContext.GetAppDbSettings();
 
-    var entitySettings = appSettings.Entities.DummyItem;
+    var entitySettings = appDbSettings.Entities.DummyItem;
 
-    builder.ToTable(entitySettings.Table, appSettings.Schema);
+    builder.ToTable(entitySettings.Table, appDbSettings.Schema);
 
     builder.HasKey(e => e.Id).HasName(entitySettings.PrimaryKey);
 
