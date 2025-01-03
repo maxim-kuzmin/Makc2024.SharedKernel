@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Entities.EventPayload;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEventPayload.Entity;
 
 /// <summary>
 /// Настройки базы данных сущности полезной нагрузки события приложения.

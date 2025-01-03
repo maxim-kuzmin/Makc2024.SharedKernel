@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Entities.EventPayload;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEventPayload.Entity;
 
 /// <summary>
 /// Конфигурация типа сущности полезной нагрузки события приложения.
@@ -44,7 +44,7 @@ public class AppEventPayloadEntityTypeConfiguration : IEntityTypeConfiguration<A
       .HasMaxLength(AppEventPayloadSettings.MaxLengthForName)
       .HasColumnName(entitySettings.ColumnForName);
 
-    builder.Property(x => x.NewValue)      
+    builder.Property(x => x.NewValue)
       .HasColumnName(entitySettings.ColumnForNewValue);
 
     builder.Property(x => x.OldValue)

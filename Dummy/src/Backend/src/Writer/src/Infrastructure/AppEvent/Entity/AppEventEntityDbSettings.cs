@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Entities.Event;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Entity;
 
 /// <summary>
 /// Настройки базы данных сущности события приложения.

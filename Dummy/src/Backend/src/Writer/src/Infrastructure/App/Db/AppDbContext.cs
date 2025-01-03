@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainModel.AppEvent;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.App.Db;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Db;
 
 /// <summary>
 /// Контекст базы данных приложения.
@@ -14,6 +12,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
   /// Событие приложения.
   /// </summary>
   public DbSet<AppEventEntity> AppEvent => base.Set<AppEventEntity>();
+
+  /// <summary>
+  /// Полезная нагрузка события приложения.
+  /// </summary>
+  public DbSet<AppEventPayloadEntity> AppEventPayload => base.Set<AppEventPayloadEntity>();
 
   /// <summary>
   /// Фиктивный предмет.

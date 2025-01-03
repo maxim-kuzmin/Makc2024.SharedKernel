@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainModel.AppEvent;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.App.Entities.Event;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Entity;
 
 /// <summary>
 /// Конфигурация типа сущности события приложения.
@@ -9,7 +7,7 @@ public class AppEventEntityTypeConfiguration : IEntityTypeConfiguration<AppEvent
 {
   /// <inheritdoc/>
   public void Configure(EntityTypeBuilder<AppEventEntity> builder)
-  {    
+  {
     var dbSettings = AppDbContext.GetAppDbSettings();
 
     var entityDbSettings = dbSettings.Entities.AppEvent;
