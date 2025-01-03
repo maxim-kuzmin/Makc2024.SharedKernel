@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Db;
+﻿using Makc2024.Dummy.Writer.DomainModel.AppEvent;
+
+namespace Makc2024.Dummy.Writer.Infrastructure.App.Db;
 
 /// <summary>
 /// Контекст базы данных приложения.

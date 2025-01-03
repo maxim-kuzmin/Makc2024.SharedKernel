@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.DomainModel.App.Event;
+﻿namespace Makc2024.Dummy.Writer.DomainModel.AppEvent;
 
 /// <summary>
 /// Настройки события приложения.

@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Entities.Event;
+﻿using Makc2024.Dummy.Writer.DomainModel.AppEvent;
+
+namespace Makc2024.Dummy.Writer.Infrastructure.App.Entities.Event;
 
 /// <summary>
 /// Конфигурация типа сущности события приложения.

@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.DomainModel.App.EventPayload;
+﻿namespace Makc2024.Dummy.Writer.DomainModel.AppEventPayload;
 
 /// <summary>
 /// Настройки полезной нагрузки события приложения.

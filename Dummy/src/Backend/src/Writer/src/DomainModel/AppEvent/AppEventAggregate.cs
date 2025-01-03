@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.DomainModel.App.Event;
+﻿namespace Makc2024.Dummy.Writer.DomainModel.AppEvent;
 
 /// <summary>
 /// Агрегат события приложения.
@@ -16,7 +16,7 @@ public class AppEventAggregate(long entityId = default) : AggregateBase<AppEvent
       return result;
     }
 
-    bool isOk = false;
+    var isOk = false;
 
     if (HasChangedProperty(nameof(Entity.CreationDate)) && entityFromDb.CreationDate != Entity.CreationDate)
     {
@@ -38,7 +38,7 @@ public class AppEventAggregate(long entityId = default) : AggregateBase<AppEvent
 
       isOk = true;
     }
-    
+
     return isOk ? entityFromDb : null;
   }
 
@@ -54,7 +54,7 @@ public class AppEventAggregate(long entityId = default) : AggregateBase<AppEvent
   /// <param name="value">Значение.</param>
   public void UpdateCreationDate(DateTimeOffset value)
   {
-    string parameterName = nameof(Entity.CreationDate);
+    var parameterName = nameof(Entity.CreationDate);
 
     Entity.CreationDate = Guard.Against.Default(value, parameterName: parameterName);
 
@@ -67,7 +67,7 @@ public class AppEventAggregate(long entityId = default) : AggregateBase<AppEvent
   /// <param name="value">Значение.</param>
   public void UpdateIsPublished(bool value)
   {
-    string parameterName = nameof(Entity.IsPublished);
+    var parameterName = nameof(Entity.IsPublished);
 
     Entity.IsPublished = value;
 
@@ -80,7 +80,7 @@ public class AppEventAggregate(long entityId = default) : AggregateBase<AppEvent
   /// <param name="value">Значение.</param>
   public void UpdateName(string value)
   {
-    string parameterName = nameof(Entity.Name);
+    var parameterName = nameof(Entity.Name);
 
     Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
 
