@@ -57,9 +57,12 @@ public static class AppExtensions
 
     services.AddScoped<AppSession>();
 
+    services.AddScoped<IAppEventRepository, AppEventRepository>();
     services.AddScoped<IDummyItemRepository, DummyItemRepository>();
 
     services.AddTransient<IAppActionCommandService, AppActionCommandService>();
+    services.AddTransient<IAppEventActionCommandService, AppEventActionCommandService>();
+    services.AddTransient<IAppEventActionQueryService, AppEventActionQueryService>();
     services.AddTransient<IDummyItemActionCommandService, DummyItemActionCommandService>();
     services.AddTransient<IDummyItemActionQueryService, DummyItemActionQueryService>();
 

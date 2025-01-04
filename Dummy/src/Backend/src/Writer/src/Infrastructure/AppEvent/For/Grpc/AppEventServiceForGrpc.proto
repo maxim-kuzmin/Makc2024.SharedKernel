@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option csharp_namespace = "Makc2024.Dummy.Writer.Infrastructure.AppEvent.For.Grpc";
+
+package Writer;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+service AppEvent {
+    rpc Create (AppEventCreateActionRequestForGrpc) returns (AppEventGetActionReplyForGrpc);
+    rpc Delete (AppEventDeleteActionRequestForGrpc) returns (google.protobuf.Empty);
+    rpc Get (AppEventGetActionRequestForGrpc) returns (AppEventGetActionReplyForGrpc);
+    rpc GetList (AppEventGetListActionRequestForGrpc) returns (AppEventGetListActionReplyForGrpc);
+    rpc Update (AppEventUpdateActionRequestForGrpc) returns (AppEventGetActionReplyForGrpc);
+}
+
+message ActionRequestPageForGrpc {
+    int32 number = 1;
+    int32 size = 2;
+}
+
+message AppEventCreateActionRequestForGrpc {
+    string name = 1;
+}
+
+message AppEventDeleteActionRequestForGrpc {
+    int64 id = 1;
+}
+
+message AppEventGetActionRequestForGrpc {
+    int64 id = 1;
+}
+
+message AppEventGetActionReplyForGrpc {
+    int64 id = 1;
+    string name = 2;
+}
+
+message AppEventGetListActionRequestFilterForGrpc {
+    google.protobuf.StringValue full_text_search_query = 1;
+}
+
+message AppEventGetListActionRequestForGrpc {
+    ActionRequestPageForGrpc page = 1;
+    AppEventGetListActionRequestFilterForGrpc filter = 2;
+}
+
+message AppEventGetListActionReplyItemForGrpc {
+    int64 id = 1;
+    string name = 2;
+}
+
+message AppEventGetListActionReplyForGrpc {
+    int64 total_count = 1;
+    repeated AppEventGetListActionReplyItemForGrpc items = 2;
+}
+
+message AppEventUpdateActionRequestForGrpc {
+    int64 id = 1;
+    string name = 2;
+}
