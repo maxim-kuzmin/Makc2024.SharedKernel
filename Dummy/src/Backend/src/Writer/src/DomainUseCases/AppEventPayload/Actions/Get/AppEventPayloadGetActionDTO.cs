@@ -7,4 +7,4 @@
 /// <param name="Name">Имя.</param>
 public record AppEventPayloadGetActionDTO(
   long Id,
-  string Name);
+  string? Name);

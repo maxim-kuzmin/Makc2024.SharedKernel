@@ -21,6 +21,7 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
   <ItemGroup>
+    <Protobuf Include="AppEventPayload\For\Grpc\AppEventPayloadServiceForGrpc.proto" GrpcServices="Server" />
     <Protobuf Include="AppEvent\For\Grpc\AppEventServiceForGrpc.proto" GrpcServices="Server" />
     <Protobuf Include="App\For\Grpc\AppServiceForGrpc.proto" GrpcServices="Server" />
     <Protobuf Include="DummyItem\For\Grpc\DummyItemServiceForGrpc.proto" GrpcServices="Server" />
