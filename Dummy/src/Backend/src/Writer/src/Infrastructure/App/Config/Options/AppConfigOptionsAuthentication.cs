@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Config;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Config.Options;
 
 public record AppConfigOptionsAuthentication(
   string Issuer,
@@ -7,7 +7,7 @@ public record AppConfigOptionsAuthentication(
 {
   public SymmetricSecurityKey GetSymmetricSecurityKey()
   {
-    byte[] keyBytes = Encoding.UTF8.GetBytes(Key);
+    var keyBytes = Encoding.UTF8.GetBytes(Key);
 
     return new SymmetricSecurityKey(keyBytes);
   }

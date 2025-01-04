@@ -3,10 +3,10 @@
 /// <summary>
 /// Настройки фиктивного предмета.
 /// </summary>
-public class DummyItemSettings
+public abstract class DummyItemSettings
 {
   /// <summary>
   /// Максимальная длина для имени.
   /// </summary>
-  public const int MaxLengthForName = 255;
+  public int MaxLengthForName { get; protected set; }
 }

@@ -4,7 +4,10 @@
 /// Агрегат фиктивного предмета.
 /// </summary>
 /// <param name="entityId">Идентификатор сущности.</param>
-public class DummyItemAggregate(long entityId = default) : AggregateBase<DummyItemEntity, long>(entityId)
+/// <param name="_settings">Настройки.</param>
+public class DummyItemAggregate(
+  long entityId,
+  DummyItemSettings _settings) : AggregateBase<DummyItemEntity, long>(entityId)
 {
   /// <inheritdoc/>
   public sealed override DummyItemEntity? GetEntityToUpdate(DummyItemEntity entityFromDb)
@@ -38,7 +41,7 @@ public class DummyItemAggregate(long entityId = default) : AggregateBase<DummyIt
 
     Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
 
-    Guard.Against.StringTooLong(value, DummyItemSettings.MaxLengthForName, parameterName: parameterName);
+    Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
 
     Entity.Name = value;
 

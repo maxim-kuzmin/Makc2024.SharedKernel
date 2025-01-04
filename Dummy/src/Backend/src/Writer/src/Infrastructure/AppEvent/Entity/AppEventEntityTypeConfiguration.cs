@@ -12,7 +12,7 @@ public class AppEventEntityTypeConfiguration : IEntityTypeConfiguration<AppEvent
 
     var entityDbSettings = appDbSettings.Entities.AppEvent;
 
-    builder.ToTable(entityDbSettings.Table, appDbSettings.Schema);
+    builder.ToTable(entityDbSettings.Table, entityDbSettings.Schema);
 
     builder.HasKey(e => e.Id).HasName(entityDbSettings.PrimaryKey);
 
@@ -30,7 +30,7 @@ public class AppEventEntityTypeConfiguration : IEntityTypeConfiguration<AppEvent
 
     builder.Property(x => x.Name)
       .IsRequired()
-      .HasMaxLength(AppEventSettings.MaxLengthForName)
+      .HasMaxLength(entityDbSettings.MaxLengthForName)
       .HasColumnName(entityDbSettings.ColumnForName);
 
     builder.HasIndex(x => x.Name)

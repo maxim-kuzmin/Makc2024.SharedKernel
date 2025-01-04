@@ -24,8 +24,21 @@ public static class AppExtensions
 
     string connectionString = appConfigOptions.PostgreSQL.ToConnectionString(connectionStringTemplate);
 
-    AppDbContext.Init(new());
-    services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+    AppDbContext.Init(new AppDbSettingsForPostgreSQL());
+
+    var appDbSettings = AppDbContext.GetAppDbSettings();
+
+    var entitiesDbSettings = appDbSettings.Entities;
+
+    services.AddSingleton(entitiesDbSettings.AppEvent);
+    services.AddSingleton(entitiesDbSettings.AppEventPayload);
+    services.AddSingleton(entitiesDbSettings.DummyItem);
+
+    services.AddSingleton<IAppEventFactory, AppEventFactory>();
+    services.AddSingleton<IAppEventPayloadFactory, AppEventPayloadFactory>();
+    services.AddSingleton<IDummyItemFactory, DummyItemFactory>();
+
+    services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));    
 
     services.AddScoped(typeof(IRepository<>), typeof(AppRepositoryBase<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(AppRepositoryBase<>));

@@ -15,6 +15,7 @@ global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Command;
 global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Query;
 global using Makc2024.Dummy.Gateway.Infrastructure.App;
 global using Makc2024.Dummy.Gateway.Infrastructure.App.Config;
+global using Makc2024.Dummy.Gateway.Infrastructure.App.Config.Options;
 global using Makc2024.Dummy.Gateway.Infrastructure.App.Grpc.Command;
 global using Makc2024.Dummy.Gateway.Infrastructure.App.Http.Command;
 global using Makc2024.Dummy.Gateway.Infrastructure.DummyItem.Grpc.Command;

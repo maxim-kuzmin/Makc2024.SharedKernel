@@ -10,23 +10,23 @@ public class DummyItemEntityTypeConfiguration : IEntityTypeConfiguration<DummyIt
   {
     var appDbSettings = AppDbContext.GetAppDbSettings();
 
-    var entitySettings = appDbSettings.Entities.DummyItem;
+    var entityDbSettings = appDbSettings.Entities.DummyItem;
 
-    builder.ToTable(entitySettings.Table, appDbSettings.Schema);
+    builder.ToTable(entityDbSettings.Table, entityDbSettings.Schema);
 
-    builder.HasKey(e => e.Id).HasName(entitySettings.PrimaryKey);
+    builder.HasKey(e => e.Id).HasName(entityDbSettings.PrimaryKey);
 
     builder.Property(x => x.Id)
       .ValueGeneratedOnAdd()
-      .HasColumnName(entitySettings.ColumnForId);
+      .HasColumnName(entityDbSettings.ColumnForId);
 
     builder.Property(x => x.Name)
       .IsRequired()
-      .HasMaxLength(DummyItemSettings.MaxLengthForName)
-      .HasColumnName(entitySettings.ColumnForName);
+      .HasMaxLength(entityDbSettings.MaxLengthForName)
+      .HasColumnName(entityDbSettings.ColumnForName);
 
     builder.HasIndex(x => x.Name)
       .IsUnique()
-      .HasDatabaseName(entitySettings.UniqueIndexForName);
+      .HasDatabaseName(entityDbSettings.UniqueIndexForName);
   }
 }

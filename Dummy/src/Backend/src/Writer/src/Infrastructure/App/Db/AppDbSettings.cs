@@ -3,15 +3,15 @@
 /// <summary>
 /// Настройки базы данных приложения.
 /// </summary>
-public class AppDbSettings
+public abstract class AppDbSettings
 {
   /// <summary>
   /// Сущности.
   /// </summary>
-  public AppDbSettingsEntities Entities { get; } = new AppDbSettingsEntities();
-  
+  public AppDbSettingsEntities Entities { get; protected set; } = null!;
+
   /// <summary>
   /// Схема.
   /// </summary>
-  public string Schema { get; } = "writer";
+  protected string Schema { get; set; } = null!;
 }

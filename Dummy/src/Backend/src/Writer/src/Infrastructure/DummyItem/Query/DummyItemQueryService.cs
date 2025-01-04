@@ -8,7 +8,9 @@ public class DummyItemQueryService(AppSession _appSession, AppDbContext _db) : I
   {
     var appDbSettings = AppDbContext.GetAppDbSettings();
 
-    var dummyItemEntitySettings = appDbSettings.Entities.DummyItem;
+    var entitiesDbSettings = appDbSettings.Entities;
+
+    var dummyItemEntitySettings = entitiesDbSettings.DummyItem;
 
     var parameters = new List<object>();
 
@@ -19,7 +21,7 @@ select
   "{{dummyItemEntitySettings.ColumnForId}}" "Id",
   "{{dummyItemEntitySettings.ColumnForName}}" "Name"
 from
-  "{{appDbSettings.Schema}}"."{{dummyItemEntitySettings.Table}}"
+  "{{dummyItemEntitySettings.Schema}}"."{{dummyItemEntitySettings.Table}}"
 where
   "{{dummyItemEntitySettings.ColumnForId}}" = {{{parameterIndex}}}
 """;
@@ -43,7 +45,9 @@ where
 
     var appDbSettings = AppDbContext.GetAppDbSettings();
 
-    var dummyItemEntitySettings = appDbSettings.Entities.DummyItem;
+    var entitiesDbSettings = appDbSettings.Entities;
+
+    var dummyItemEntitySettings = entitiesDbSettings.DummyItem;
 
     var parameters = new List<object>();
 
@@ -71,7 +75,7 @@ where
 select
   count(*)
 from
-  "{{appDbSettings.Schema}}"."{{dummyItemEntitySettings.Table}}" di
+  "{{dummyItemEntitySettings.Schema}}"."{{dummyItemEntitySettings.Table}}" di
 {{sqlFormatToFilter}}
 
 """;
@@ -90,7 +94,7 @@ select
   di."{{dummyItemEntitySettings.ColumnForId}}" "Id",
   di."{{dummyItemEntitySettings.ColumnForName}}" "Name"
 from
-  "{{appDbSettings.Schema}}"."{{dummyItemEntitySettings.Table}}" di
+  "{{dummyItemEntitySettings.Schema}}"."{{dummyItemEntitySettings.Table}}" di
 {{sqlFormatToFilter}}
 order by
   di."{{dummyItemEntitySettings.ColumnForId}}" desc

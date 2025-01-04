@@ -3,20 +3,20 @@
 /// <summary>
 /// Настройки полезной нагрузки события приложения.
 /// </summary>
-public class AppEventPayloadSettings
+public abstract class AppEventPayloadSettings
 {
   /// <summary>
   /// Максимальная длина для сущности.
   /// </summary>
-  public const int MaxLengthForEntity = 255;
+  public int MaxLengthForEntity { get; protected set; }
 
   /// <summary>
   /// Максимальная длина для идентификатора сущности.
   /// </summary>
-  public const int MaxLengthForEntityId = 255;
+  public int MaxLengthForEntityId { get; protected set; }
 
   /// <summary>
   /// Максимальная длина для имени.
   /// </summary>
-  public const int MaxLengthForName = 255;
+  public int MaxLengthForName { get; protected set; }
 }

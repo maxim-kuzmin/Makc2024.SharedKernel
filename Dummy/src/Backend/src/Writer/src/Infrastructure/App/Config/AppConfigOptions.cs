@@ -1,5 +1,8 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Config;
 
+/// <summary>
+/// Параметры конфигурации приложения.
+/// </summary>
 public record AppConfigOptions()
 {
   public const string SectionKey = "App";

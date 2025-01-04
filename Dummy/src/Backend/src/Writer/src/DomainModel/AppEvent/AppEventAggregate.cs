@@ -4,7 +4,10 @@
 /// Агрегат события приложения.
 /// </summary>
 /// <param name="entityId">Идентификатор сущности.</param>
-public class AppEventAggregate(long entityId = default) : AggregateBase<AppEventEntity, long>(entityId)
+/// <param name="_settings">Настройки.</param>
+public class AppEventAggregate(
+  long entityId,
+  AppEventSettings _settings) : AggregateBase<AppEventEntity, long>(entityId)
 {
   /// <inheritdoc/>
   public sealed override AppEventEntity? GetEntityToUpdate(AppEventEntity entityFromDb)
@@ -84,7 +87,7 @@ public class AppEventAggregate(long entityId = default) : AggregateBase<AppEvent
 
     Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
 
-    Guard.Against.StringTooLong(value, AppEventSettings.MaxLengthForName, parameterName: parameterName);
+    Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
 
     Entity.Name = value;
 

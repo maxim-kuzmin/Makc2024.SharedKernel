@@ -1,5 +1,8 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Config;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Config.Options;
 
+/// <summary>
+/// Секция PostgreSQL в параметрах конфигурации приложения.
+/// </summary>
 public record AppConfigOptionsPostgreSQL
 {
   public string ConnectionStringName { get; set; } = string.Empty;

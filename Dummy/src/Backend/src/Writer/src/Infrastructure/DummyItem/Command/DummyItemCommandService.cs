@@ -1,13 +1,23 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Command;
 
-public class DummyItemCommandService(IEventDispatcher _eventDispatcher, IDummyItemRepository _repository) :
+/// <summary>
+/// Сервис команд фиктивного предмета.
+/// </summary>
+/// <param name="_eventDispatcher">Диспетчер событий.</param>
+/// <param name="_factory">Фабрика.</param>
+/// <param name="_repository">Репозиторий.</param>
+public class DummyItemCommandService(
+  IEventDispatcher _eventDispatcher,
+  IDummyItemFactory _factory,
+  IDummyItemRepository _repository) :
   IDummyItemCommandService
 {
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Create(
     DummyItemCreateActionCommand command,
     CancellationToken cancellationToken)
   {
-    var dummyItemAggregate = new DummyItemAggregate();
+    var dummyItemAggregate = _factory.CreateAggregate();
 
     dummyItemAggregate.UpdateName(command.Name);
 
@@ -29,6 +39,7 @@ public class DummyItemCommandService(IEventDispatcher _eventDispatcher, IDummyIt
     return Result.Success(data);
   }
 
+  /// <inheritdoc/>
   public async Task<Result> Delete(
     DummyItemDeleteActionCommand command,
     CancellationToken cancellationToken)
@@ -40,7 +51,7 @@ public class DummyItemCommandService(IEventDispatcher _eventDispatcher, IDummyIt
       return Result.NotFound();
     }
 
-    var dummyItemAggregate = new DummyItemAggregate(dummyItemEntity.Id);
+    var dummyItemAggregate = _factory.CreateAggregate(dummyItemEntity.Id);
 
     dummyItemEntity = dummyItemAggregate.GetEntityToDelete(dummyItemEntity);
 
@@ -56,6 +67,7 @@ public class DummyItemCommandService(IEventDispatcher _eventDispatcher, IDummyIt
     return Result.Success();
   }
 
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Update(
     DummyItemUpdateActionCommand command,
     CancellationToken cancellationToken)
@@ -67,7 +79,7 @@ public class DummyItemCommandService(IEventDispatcher _eventDispatcher, IDummyIt
       return Result.NotFound();
     }
 
-    var dummyItemAggregate = new DummyItemAggregate(dummyItemEntity.Id);
+    var dummyItemAggregate = _factory.CreateAggregate(dummyItemEntity.Id);
 
     dummyItemAggregate.UpdateName(command.Name);
 

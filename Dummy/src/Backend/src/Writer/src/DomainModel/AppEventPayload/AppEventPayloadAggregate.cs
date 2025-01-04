@@ -4,7 +4,10 @@
 /// Агрегат полезной нагрузки события приложения.
 /// </summary>
 /// <param name="entityId">Идентификатор сущности.</param>
-public class AppEventPayloadAggregate(long entityId = default) : AggregateBase<AppEventPayloadEntity, long>(entityId)
+/// <param name="_settings">Настройки.</param>
+public class AppEventPayloadAggregate(
+  long entityId,
+  AppEventPayloadSettings _settings) : AggregateBase<AppEventPayloadEntity, long>(entityId)
 {
   /// <inheritdoc/>
   public sealed override AppEventPayloadEntity? GetEntityToUpdate(AppEventPayloadEntity entityFromDb)
@@ -86,7 +89,7 @@ public class AppEventPayloadAggregate(long entityId = default) : AggregateBase<A
 
     Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
 
-    Guard.Against.StringTooLong(value, AppEventPayloadSettings.MaxLengthForEntity, parameterName: parameterName);
+    Guard.Against.StringTooLong(value, _settings.MaxLengthForEntity, parameterName: parameterName);
 
     Entity.Entity = value;
 
@@ -103,7 +106,7 @@ public class AppEventPayloadAggregate(long entityId = default) : AggregateBase<A
 
     Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
 
-    Guard.Against.StringTooLong(value, AppEventPayloadSettings.MaxLengthForEntityId, parameterName: parameterName);
+    Guard.Against.StringTooLong(value, _settings.MaxLengthForEntityId, parameterName: parameterName);
 
     Entity.EntityId = value;
 
@@ -122,7 +125,7 @@ public class AppEventPayloadAggregate(long entityId = default) : AggregateBase<A
     {
       Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
 
-      Guard.Against.StringTooLong(value, AppEventPayloadSettings.MaxLengthForName, parameterName: parameterName);
+      Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
     }
 
     Entity.Name = value;

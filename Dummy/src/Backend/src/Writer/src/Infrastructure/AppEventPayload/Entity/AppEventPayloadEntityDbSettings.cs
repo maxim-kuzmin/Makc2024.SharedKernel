@@ -3,76 +3,60 @@
 /// <summary>
 /// Настройки базы данных сущности полезной нагрузки события приложения.
 /// </summary>
-public class AppEventPayloadEntityDbSettings
+public abstract class AppEventPayloadEntityDbSettings : AppEventPayloadSettings
 {
   /// <summary>
   /// Внешний ключ для идентификатора события приложения.
   /// </summary>
-  public string ColumnForAppEventId { get; }
+  public string ColumnForAppEventId { get; protected set; } = null!;
 
   /// <summary>
   /// Столбец для сущности.
   /// </summary>
-  public string ColumnForEntity { get; }
+  public string ColumnForEntity { get; protected set; } = null!;
 
   /// <summary>
   /// Столбец для идентификатора сущности.
   /// </summary>
-  public string ColumnForEntityId { get; }
+  public string ColumnForEntityId { get; protected set; } = null!;
 
   /// <summary>
   /// Столбец для идентификатора.
   /// </summary>
-  public string ColumnForId { get; }
+  public string ColumnForId { get; protected set; } = null!;
 
   /// <summary>
   /// Столбец для имени.
   /// </summary>
-  public string ColumnForName { get; }
+  public string ColumnForName { get; protected set; } = null!;
 
   /// <summary>
   /// Столбец для нового значения.
   /// </summary>
-  public string ColumnForNewValue { get; }
+  public string ColumnForNewValue { get; protected set; } = null!;
 
   /// <summary>
   /// Столбец для старого значения.
   /// </summary>  
-  public string ColumnForOldValue { get; }
+  public string ColumnForOldValue { get; protected set; } = null!;
 
   /// <summary>
   /// Внешний ключ для идентификатора события приложения.
   /// </summary>
-  public string ForeignKeyForAppEventId { get; }
+  public string ForeignKeyForAppEventId { get; protected set; } = null!;
 
   /// <summary>
   /// Первичный ключ.
   /// </summary>
-  public string PrimaryKey { get; }
+  public string PrimaryKey { get; protected set; } = null!;
+
+  /// <summary>
+  /// Схема.
+  /// </summary>
+  public string Schema { get; protected set; } = null!;
 
   /// <summary>
   /// Таблица.
   /// </summary>
-  public string Table { get; }
-
-  /// <summary>
-  /// Конструктор.
-  /// </summary>
-  /// <param name="tableForAppEventPayload">Таблица для полезной нагрузки события приложения.</param>
-  public AppEventPayloadEntityDbSettings(string tableForAppEventPayload)
-  {
-    Table = "app_event_payload";
-
-    PrimaryKey = $"pk_{Table}";
-
-    ColumnForAppEventId = "app_event_id";
-    ColumnForEntity = "entity";
-    ColumnForEntityId = "entity_id";
-    ColumnForId = "id";
-    ColumnForName = "name";
-    ColumnForNewValue = "new_value";
-    ColumnForOldValue = "old_value";
-
-    ForeignKeyForAppEventId = $"fk_{Table}_{tableForAppEventPayload}";
-  }
+  public string Table { get; protected set; } = null!;
 }
