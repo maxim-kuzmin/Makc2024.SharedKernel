@@ -21,8 +21,8 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="App\Grpc\AppGrpcService.proto" GrpcServices="Server" />
-    <Protobuf Include="DummyItem\Grpc\DummyItemGrpcService.proto" GrpcServices="Server" />
+    <Protobuf Include="App\For\Grpc\AppServiceForGrpc.proto" GrpcServices="Server" />
+    <Protobuf Include="DummyItem\For\Grpc\DummyItemServiceForGrpc.proto" GrpcServices="Server" />
   </ItemGroup>  
   <ItemGroup>
     <ProjectReference Include="..\DomainUseCases\Makc2024.Dummy.Writer.DomainUseCases.csproj" />

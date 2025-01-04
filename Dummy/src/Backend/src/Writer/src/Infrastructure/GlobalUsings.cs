@@ -55,5 +55,5 @@ global using Microsoft.Extensions.Options;
 global using Microsoft.IdentityModel.Tokens;
 global using Serilog;
 global using Serilog.Extensions.Logging;
-global using AppGrpcServiceBase = Makc2024.Dummy.Writer.Infrastructure.App.Grpc.App.AppBase;
-global using DummyItemGrpcServiceBase = Makc2024.Dummy.Writer.Infrastructure.DummyItem.Grpc.DummyItem.DummyItemBase;
+global using AppServiceBaseForGrpc = Makc2024.Dummy.Writer.Infrastructure.App.For.Grpc.App.AppBase;
+global using DummyItemServiceBaseForGrpc = Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc.DummyItem.DummyItemBase;

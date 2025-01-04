@@ -1,7 +1,19 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App;
 
+/// <summary>
+/// Расширения приложения.
+/// </summary>
 public static class AppExtensions
 {
+  /// <summary>
+  /// Добавить уровень инфраструктуры приложения.
+  /// </summary>
+  /// <param name="services">Сервисы.</param>
+  /// <param name="logger">Логгер.</param>
+  /// <param name="appConfigOptions">Параметры конфигурации приложения.</param>
+  /// <param name="configuration">Конфигурация.</param>
+  /// <param name="appConfigSection">Раздел конфигурации приложения.</param>
+  /// <returns>Сервисы.</returns>
   public static IServiceCollection AddAppInfrastructureLayer(
     this IServiceCollection services,
     Microsoft.Extensions.Logging.ILogger logger,
@@ -19,14 +31,14 @@ public static class AppExtensions
 
     services.AddScoped<AppSession>();
 
-    services.AddTransient<IAppCommandService>(x =>
+    services.AddTransient<IAppActionCommandService>(x =>
     {
       var appConfigOptions = x.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
 
       return appConfigOptions.Value.Writer.Transport switch
       {
-        AppTransport.Grpc => new AppGrpcCommandService(x.GetRequiredService<WriterAppGrpcClient>()),
-        AppTransport.Http => new AppHttpCommandService(x.GetRequiredService<IHttpClientFactory>()),
+        AppTransport.Grpc => new AppActionCommandServiceForGrpc(x.GetRequiredService<WriterAppGrpcClient>()),
+        AppTransport.Http => new AppActionCommandServiceForHttp(x.GetRequiredService<IHttpClientFactory>()),
         _ => throw new NotImplementedException()
       };
     });
@@ -37,10 +49,8 @@ public static class AppExtensions
 
       return appConfigOptions.Value.Writer.Transport switch
       {
-        AppTransport.Grpc => new DummyItemGrpcCommandService(
-          x.GetRequiredService<WriterDummyItemGrpcClient>()),
-        AppTransport.Http => new DummyItemHttpCommandService(
-          x.GetRequiredService<IHttpClientFactory>()),
+        AppTransport.Grpc => new DummyItemGrpcCommandService(x.GetRequiredService<WriterDummyItemGrpcClient>()),
+        AppTransport.Http => new DummyItemHttpCommandService(x.GetRequiredService<IHttpClientFactory>()),
         _ => throw new NotImplementedException()
       };
     });
@@ -111,6 +121,11 @@ public static class AppExtensions
     return services;
   }
 
+  /// <summary>
+  /// Создать параметры конфигурации приложения.
+  /// </summary>
+  /// <param name="appConfigSection">Раздел конфигурации приложения.</param>
+  /// <returns>Параметры конфигурации приложения.</returns>
   public static AppConfigOptions CreateAppConfigOptions(this IConfigurationSection appConfigSection)
   {
     var result = new AppConfigOptions();

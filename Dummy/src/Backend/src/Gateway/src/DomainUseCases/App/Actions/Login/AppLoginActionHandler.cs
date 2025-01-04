@@ -1,6 +1,8 @@
-﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.App.Actions.Login;
+﻿using Makc2024.Dummy.Gateway.DomainUseCases.App.Action.Command;
 
-public class AppLoginActionHandler(IAppCommandService _service) :
+namespace Makc2024.Dummy.Gateway.DomainUseCases.App.Actions.Login;
+
+public class AppLoginActionHandler(IAppActionCommandService _service) :
   ICommandHandler<AppLoginActionCommand, Result<AppLoginActionDTO>>
 {
   public Task<Result<AppLoginActionDTO>> Handle(AppLoginActionCommand request, CancellationToken cancellationToken)

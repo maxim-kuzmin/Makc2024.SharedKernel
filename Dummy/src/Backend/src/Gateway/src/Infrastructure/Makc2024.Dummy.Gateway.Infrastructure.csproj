@@ -26,7 +26,7 @@
     <ProjectReference Include="..\DomainUseCases\Makc2024.Dummy.Gateway.DomainUseCases.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="App\Grpc\AppGrpcService.proto" GrpcServices="Client" />
-    <Protobuf Include="DummyItem\Grpc\DummyItemGrpcService.proto" GrpcServices="Client" />
+    <Protobuf Include="App\For\Grpc\AppServiceForGrpc.proto" GrpcServices="Client" />
+    <Protobuf Include="DummyItem\For\Grpc\DummyItemGrpcService.proto" GrpcServices="Client" />
   </ItemGroup>
 </Project>

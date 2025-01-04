@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option csharp_namespace = "Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc";
+
+package Writer;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+service DummyItem {
+    rpc Create (DummyItemCreateActionRequestForGrpc) returns (DummyItemGetActionReplyForGrpc);
+    rpc Delete (DummyItemDeleteActionRequestForGrpc) returns (google.protobuf.Empty);
+    rpc Get (DummyItemGetActionRequestForGrpc) returns (DummyItemGetActionReplyForGrpc);
+    rpc GetList (DummyItemGetListActionRequestForGrpc) returns (DummyItemGetListActionReplyForGrpc);
+    rpc Update (DummyItemUpdateActionRequestForGrpc) returns (DummyItemGetActionReplyForGrpc);
+}
+
+message ActionRequestPageForGrpc {
+    int32 number = 1;
+    int32 size = 2;
+}
+
+message DummyItemCreateActionRequestForGrpc {
+    string name = 1;
+}
+
+message DummyItemDeleteActionRequestForGrpc {
+    int64 id = 1;
+}
+
+message DummyItemGetActionRequestForGrpc {
+    int64 id = 1;
+}
+
+message DummyItemGetActionReplyForGrpc {
+    int64 id = 1;
+    string name = 2;
+}
+
+message DummyItemGetListActionRequestFilterForGrpc {
+    google.protobuf.StringValue full_text_search_query = 1;
+}
+
+message DummyItemGetListActionRequestForGrpc {
+    ActionRequestPageForGrpc page = 1;
+    DummyItemGetListActionRequestFilterForGrpc filter = 2;
+}
+
+message DummyItemGetListActionReplyItemForGrpc {
+    int64 id = 1;
+    string name = 2;
+}
+
+message DummyItemGetListActionReplyForGrpc {
+    int64 total_count = 1;
+    repeated DummyItemGetListActionReplyItemForGrpc items = 2;
+}
+
+message DummyItemUpdateActionRequestForGrpc {
+    int64 id = 1;
+    string name = 2;
+}

@@ -1,4 +1,7 @@
-﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.App;
+﻿using Makc2024.Dummy.Writer.Infrastructure.App.For.Grpc;
+using Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc;
+
+namespace Makc2024.Dummy.Writer.Apps.WebApp.App;
 
 public static class AppExtensions
 {
@@ -73,8 +76,8 @@ public static class AppExtensions
       .UseMiddleware<AppTracingMiddleware>()
       .UseMiddleware<AppSessionMiddleware>();
 
-    app.MapGrpcService<AppGrpcService>();
-    app.MapGrpcService<DummyItemGrpcService>();
+    app.MapGrpcService<AppServiceForGrpc>();
+    app.MapGrpcService<DummyItemServiceForGrpc>();
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware
 

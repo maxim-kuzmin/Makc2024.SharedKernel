@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Action.Command;
 
 /// <summary>
-/// Сервис команд действия над фиктивным предметом
+/// Сервис команд действия над фиктивным предметом.
 /// </summary>
 /// <param name="_eventDispatcher">Диспетчер событий.</param>
 /// <param name="_factory">Фабрика.</param>

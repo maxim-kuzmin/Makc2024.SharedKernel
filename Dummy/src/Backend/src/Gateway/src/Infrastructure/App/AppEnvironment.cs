@@ -1,7 +1,13 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App;
 
+/// <summary>
+/// Окружение приложения.
+/// </summary>
 public class AppEnvironment
 {
+  /// <summary>
+  /// Загрузить переменные.
+  /// </summary>
   public static void LoadVariables()
   {
     var loader = new EnvLoader();
