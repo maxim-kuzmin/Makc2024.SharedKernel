@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Action.Command;
-
-namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Command;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Command;
 
 /// <summary>
 /// Сервис команд действия над фиктивным предметом для HTTP.

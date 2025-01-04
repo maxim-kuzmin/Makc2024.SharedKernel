@@ -15,6 +15,8 @@ global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.GetList.Quer
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Update;
 global using Makc2024.Dummy.Writer.Infrastructure.App;
 global using Makc2024.Dummy.Writer.Infrastructure.App.Config;
+global using Makc2024.Dummy.Writer.Infrastructure.App.For.Grpc;
+global using Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc;
 global using MediatR;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.IdentityModel.Logging;

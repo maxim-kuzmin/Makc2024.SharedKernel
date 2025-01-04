@@ -1,10 +1,13 @@
-﻿using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Action.Command;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Create;
 
-namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Create;
-
+/// <summary>
+/// Обработчик действия по созданию фиктивного предмета.
+/// </summary>
+/// <param name="_service">Сервис.</param>
 public class DummyItemCreateActionHandler(IDummyItemActionCommandService _service) :
   ICommandHandler<DummyItemCreateActionCommand, Result<DummyItemGetActionDTO>>
 {
+  /// <inheritdoc/>
   public Task<Result<DummyItemGetActionDTO>> Handle(
     DummyItemCreateActionCommand request,
     CancellationToken cancellationToken)

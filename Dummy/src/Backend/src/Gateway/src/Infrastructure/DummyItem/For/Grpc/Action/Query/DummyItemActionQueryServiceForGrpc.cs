@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Action.Query;
-
-namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Query;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Query;
 
 /// <summary>
 /// Сервис запросов действия над фиктивным предметом для gRPC.

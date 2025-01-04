@@ -1,7 +1,4 @@
-﻿using Makc2024.Dummy.Writer.Infrastructure.App.For.Grpc;
-using Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc;
-
-namespace Makc2024.Dummy.Writer.Apps.WebApp.App;
+﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.App;
 
 public static class AppExtensions
 {
