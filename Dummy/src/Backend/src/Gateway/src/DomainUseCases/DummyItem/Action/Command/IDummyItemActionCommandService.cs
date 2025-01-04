@@ -1,9 +1,9 @@
-﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Command;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Action.Command;
 
 /// <summary>
 /// Интерфейс сервиса команд действия над фиктивным предметом.
 /// </summary>
-public interface IDummyActionItemCommandService
+public interface IDummyItemActionCommandService
 {
   /// <summary>
   /// Создать.

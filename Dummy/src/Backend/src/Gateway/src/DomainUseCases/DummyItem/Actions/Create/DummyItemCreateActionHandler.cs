@@ -1,6 +1,8 @@
-﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Create;
+﻿using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Action.Command;
 
-public class DummyItemCreateActionHandler(IDummyActionItemCommandService _service) :
+namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Create;
+
+public class DummyItemCreateActionHandler(IDummyItemActionCommandService _service) :
   ICommandHandler<DummyItemCreateActionCommand, Result<DummyItemGetActionDTO>>
 {
   public Task<Result<DummyItemGetActionDTO>> Handle(

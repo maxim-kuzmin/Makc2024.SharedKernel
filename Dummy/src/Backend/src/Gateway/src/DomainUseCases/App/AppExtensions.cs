@@ -1,7 +1,16 @@
 ﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.App;
 
+/// <summary>
+/// Расширения приложения.
+/// </summary>
 public static class AppExtensions
 {
+  /// <summary>
+  /// Добавить уровень вариантов использования домена приложения.
+  /// </summary>
+  /// <param name="services">Сервисы.</param>
+  /// <param name="logger">Логгер.</param>
+  /// <returns>Сервисы.</returns>
   public static IServiceCollection AddAppDomainUseCasesLayer(
     this IServiceCollection services,
     ILogger logger)

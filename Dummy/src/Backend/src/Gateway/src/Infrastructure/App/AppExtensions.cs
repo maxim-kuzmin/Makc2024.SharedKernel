@@ -1,4 +1,7 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App;
+﻿using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Action.Command;
+using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Action.Query;
+
+namespace Makc2024.Dummy.Gateway.Infrastructure.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -43,7 +46,7 @@ public static class AppExtensions
       };
     });
 
-    services.AddTransient<IDummyActionItemCommandService>(x =>
+    services.AddTransient<IDummyItemActionCommandService>(x =>
     {
       var appConfigOptions = x.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
 

@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Query;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Action.Query;
 
 /// <summary>
 /// Интерфейс сервиса запросов действия над фиктивным предметом.
