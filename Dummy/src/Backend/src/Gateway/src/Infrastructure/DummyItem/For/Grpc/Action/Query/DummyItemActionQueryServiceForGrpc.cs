@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Query;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Query;
 
-public class DummyItemGrpcQueryService(AppSession _appSession, WriterDummyItemGrpcClient _grpcClient) :
+public class DummyItemActionQueryServiceForGrpc(AppSession _appSession, WriterDummyItemGrpcClient _grpcClient) :
   IDummyItemQueryService
 {
   public async Task<Result<DummyItemGetActionDTO>> Get(

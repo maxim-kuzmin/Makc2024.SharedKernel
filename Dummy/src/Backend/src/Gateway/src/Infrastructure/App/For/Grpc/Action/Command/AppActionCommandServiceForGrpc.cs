@@ -14,7 +14,7 @@ public class AppActionCommandServiceForGrpc(WriterAppGrpcClient _grpcClient) : I
     try
     {
       var replyTask = _grpcClient.LoginAsync(
-        command.ToAppLoginActionGrpcRequest(),
+        command.ToAppLoginActionRequestForGrpc(),
         cancellationToken: cancellationToken);
 
       var reply = await replyTask.ConfigureAwait(false);

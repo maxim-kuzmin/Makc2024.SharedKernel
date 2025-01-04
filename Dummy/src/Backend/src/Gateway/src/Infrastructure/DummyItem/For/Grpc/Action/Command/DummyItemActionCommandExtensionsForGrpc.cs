@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Command;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Command;
 
-public static class DummyItemGrpcCommandExtensions
+public static class DummyItemActionCommandExtensionsForGrpc
 {
   public static DummyItemCreateActionRequestForGrpc ToDummyItemCreateActionGrpcRequest(
     this DummyItemCreateActionCommand command)

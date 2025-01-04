@@ -1,6 +1,6 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc;
 
-public static class DummyItemGrpcExtensions
+public static class DummyItemExtensionsForGrpc
 {
   public static DummyItemGetActionDTO ToDummyItemGetActionDTO(this DummyItemGetActionReplyForGrpc reply)
   {

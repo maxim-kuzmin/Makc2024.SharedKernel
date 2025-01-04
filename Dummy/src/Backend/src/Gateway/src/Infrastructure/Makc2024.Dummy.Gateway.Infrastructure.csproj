@@ -27,6 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="App\For\Grpc\AppServiceForGrpc.proto" GrpcServices="Client" />
-    <Protobuf Include="DummyItem\For\Grpc\DummyItemGrpcService.proto" GrpcServices="Client" />
+    <Protobuf Include="DummyItem\For\Grpc\DummyItemServiceForGrpc.proto" GrpcServices="Client" />
   </ItemGroup>
 </Project>

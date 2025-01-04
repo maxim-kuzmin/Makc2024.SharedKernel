@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Query;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Query;
 
-public static class DummyItemGrpcQueryExtensions
+public static class DummyItemActionQueryExtensionsForGrpc
 {
   public static DummyItemGetActionRequestForGrpc ToDummyItemGetActionGrpcRequest(this DummyItemGetActionQuery query)
   {

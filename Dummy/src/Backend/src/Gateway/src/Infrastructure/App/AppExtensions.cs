@@ -49,8 +49,8 @@ public static class AppExtensions
 
       return appConfigOptions.Value.Writer.Transport switch
       {
-        AppTransport.Grpc => new DummyItemGrpcCommandService(x.GetRequiredService<WriterDummyItemGrpcClient>()),
-        AppTransport.Http => new DummyItemHttpCommandService(x.GetRequiredService<IHttpClientFactory>()),
+        AppTransport.Grpc => new DummyItemActionCommandServiceForGrpc(x.GetRequiredService<WriterDummyItemGrpcClient>()),
+        AppTransport.Http => new DummyItemActionCommandServiceForHttp(x.GetRequiredService<IHttpClientFactory>()),
         _ => throw new NotImplementedException()
       };
     });
@@ -61,10 +61,10 @@ public static class AppExtensions
 
       return appConfigOptions.Value.Writer.Transport switch
       {
-        AppTransport.Grpc => new DummyItemGrpcQueryService(
+        AppTransport.Grpc => new DummyItemActionQueryServiceForGrpc(
           x.GetRequiredService<AppSession>(),
           x.GetRequiredService<WriterDummyItemGrpcClient>()),
-        AppTransport.Http => new DummyItemHttpQueryService(
+        AppTransport.Http => new DummyItemActionQueryServiceForHttp(
           x.GetRequiredService<AppSession>(),
           x.GetRequiredService<IHttpClientFactory>()),
         _ => throw new NotImplementedException()

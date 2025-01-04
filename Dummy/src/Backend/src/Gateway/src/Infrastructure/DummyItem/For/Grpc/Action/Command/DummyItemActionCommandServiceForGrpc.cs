@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Command;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Command;
 
-public class DummyItemGrpcCommandService(WriterDummyItemGrpcClient _grpcClient) :
+public class DummyItemActionCommandServiceForGrpc(WriterDummyItemGrpcClient _grpcClient) :
   IDummyItemCommandService
 {
   public async Task<Result<DummyItemGetActionDTO>> Create(

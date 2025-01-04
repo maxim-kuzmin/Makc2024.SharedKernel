@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Query;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Query;
 
-public class DummyItemHttpQueryService(AppSession _appSession, IHttpClientFactory _httpClientFactory) :
+public class DummyItemActionQueryServiceForHttp(AppSession _appSession, IHttpClientFactory _httpClientFactory) :
   IDummyItemQueryService
 {
   public async Task<Result<DummyItemGetActionDTO>> Get(

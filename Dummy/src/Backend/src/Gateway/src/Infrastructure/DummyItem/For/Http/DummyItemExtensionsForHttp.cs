@@ -1,6 +1,6 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http;
 
-public static class DummyItemHttpExtensions
+public static class DummyItemExtensionsForHttp
 {
   public static JsonContent ToHttpRequestContent(this DummyItemCreateActionCommand command)
   {
@@ -9,12 +9,12 @@ public static class DummyItemHttpExtensions
 
   public static string ToHttpRequestUrl(this DummyItemDeleteActionCommand command)
   {
-    return $"{DummyItemHttpSettings.Root}/{command.Id}";
+    return $"{DummyItemSettingsForHttp.Root}/{command.Id}";
   }
 
   public static string ToHttpRequestUrl(this DummyItemGetActionQuery query)
   {
-    return $"{DummyItemHttpSettings.Root}/{query.Id}";
+    return $"{DummyItemSettingsForHttp.Root}/{query.Id}";
   }
 
   public static string ToHttpRequestUrl(this DummyItemGetListActionQuery request)
@@ -27,7 +27,7 @@ public static class DummyItemHttpExtensions
 
     var queryString = QueryString.Create(parameters);
 
-    return $"{DummyItemHttpSettings.Root}{queryString}";
+    return $"{DummyItemSettingsForHttp.Root}{queryString}";
   }
 
   public static JsonContent ToHttpRequestContent(this DummyItemUpdateActionCommand command)
@@ -37,6 +37,6 @@ public static class DummyItemHttpExtensions
 
   public static string ToHttpRequestUrl(this DummyItemUpdateActionCommand command)
   {
-    return $"{DummyItemHttpSettings.Root}/{command.Id}";
+    return $"{DummyItemSettingsForHttp.Root}/{command.Id}";
   }
 }

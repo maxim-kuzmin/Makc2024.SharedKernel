@@ -1,6 +1,6 @@
-﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Command;
+﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Command;
 
-public class DummyItemHttpCommandService(IHttpClientFactory _httpClientFactory) :
+public class DummyItemActionCommandServiceForHttp(IHttpClientFactory _httpClientFactory) :
   IDummyItemCommandService
 {
   public async Task<Result<DummyItemGetActionDTO>> Create(
@@ -12,7 +12,7 @@ public class DummyItemHttpCommandService(IHttpClientFactory _httpClientFactory) 
     using var httpRequestContent = command.ToHttpRequestContent();
 
     var httpResponseTask = httpClient.PostAsync(
-      DummyItemHttpSettings.Root,
+      DummyItemSettingsForHttp.Root,
       httpRequestContent,
       cancellationToken);
 
