@@ -90,6 +90,7 @@ public static class AppExtensions
       .UseMiddleware<AppSessionMiddleware>();
 
     app.MapGrpcService<AppServiceForGrpc>();
+    app.MapGrpcService<AppEventServiceForGrpc>();
     app.MapGrpcService<DummyItemServiceForGrpc>();
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware
