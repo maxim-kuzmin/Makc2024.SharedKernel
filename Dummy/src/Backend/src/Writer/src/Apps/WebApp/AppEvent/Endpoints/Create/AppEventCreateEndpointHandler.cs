@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="_mediator">Медиатор.</param>
 public class AppEventCreateEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemCreateActionCommand, long>
+  Endpoint<AppEventCreateActionCommand, long>
 {
   /// <inheritdoc/>
   public override void Configure()
@@ -15,7 +15,7 @@ public class AppEventCreateEndpointHandler(IMediator _mediator) :
   }
 
   /// <inheritdoc/>
-  public override async Task HandleAsync(DummyItemCreateActionCommand request, CancellationToken cancellationToken)
+  public override async Task HandleAsync(AppEventCreateActionCommand request, CancellationToken cancellationToken)
   {
     var result = await _mediator.Send(request, cancellationToken);
 

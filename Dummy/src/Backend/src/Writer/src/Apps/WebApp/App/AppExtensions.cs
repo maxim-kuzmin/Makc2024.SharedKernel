@@ -91,6 +91,7 @@ public static class AppExtensions
 
     app.MapGrpcService<AppServiceForGrpc>();
     app.MapGrpcService<AppEventServiceForGrpc>();
+    app.MapGrpcService<AppEventPayloadServiceForGrpc>();
     app.MapGrpcService<DummyItemServiceForGrpc>();
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware
