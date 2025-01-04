@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Query;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.GetList.DTO;
+
+namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Query;
 
 public class DummyItemQueryService(AppSession _appSession, AppDbContext _db) : IDummyItemQueryService
 {

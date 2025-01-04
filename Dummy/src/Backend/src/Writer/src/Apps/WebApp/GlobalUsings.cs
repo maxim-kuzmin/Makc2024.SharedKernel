@@ -11,6 +11,7 @@ global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Create;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Delete;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Get;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.GetList;
+global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.GetList.Query;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Update;
 global using Makc2024.Dummy.Writer.Infrastructure.App;
 global using Makc2024.Dummy.Writer.Infrastructure.App.Config;
