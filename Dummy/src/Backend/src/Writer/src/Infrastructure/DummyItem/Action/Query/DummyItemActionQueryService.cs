@@ -1,7 +1,15 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Query;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Action.Query;
 
-public class DummyItemQueryService(AppSession _appSession, AppDbContext _db) : IDummyItemActionQueryService
+/// <summary>
+/// Сервис запросов действия над фиктивным предметом.
+/// </summary>
+/// <param name="_appSession">Сессия приложения.</param>
+/// <param name="_appDbContext">Контекст базы данных приложения.</param>
+public class DummyItemActionQueryService(
+  AppSession _appSession,
+  AppDbContext _appDbContext) : IDummyItemActionQueryService
 {
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Get(
     DummyItemGetActionQuery query,
     CancellationToken cancellationToken)
@@ -30,13 +38,14 @@ where
 
     var sql = FormattableStringFactory.Create(sqlFormat, [.. parameters]);
 
-    var dtoTask = _db.Database.SqlQuery<DummyItemGetActionDTO>(sql).FirstOrDefaultAsync(cancellationToken);
+    var dtoTask = _appDbContext.Database.SqlQuery<DummyItemGetActionDTO>(sql).FirstOrDefaultAsync(cancellationToken);
 
     var dto = await dtoTask.ConfigureAwait(false);
 
     return dto != null ? Result.Success(dto) : Result.NotFound();
   }
 
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetListActionDTO>> GetList(
     DummyItemGetListActionQuery query,
     CancellationToken cancellationToken)
@@ -82,7 +91,7 @@ from
 
     var totalCountSql = FormattableStringFactory.Create(totalCountSqlFormat, [.. parameters]);
 
-    var totalCountDataTask = _db.Database.SqlQuery<long>(totalCountSql).ToListAsync(cancellationToken);
+    var totalCountDataTask = _appDbContext.Database.SqlQuery<long>(totalCountSql).ToListAsync(cancellationToken);
 
     var totalCountData = await totalCountDataTask.ConfigureAwait(false);
 
@@ -132,7 +141,7 @@ offset
 
     var itemsSql = FormattableStringFactory.Create(itemsSqlFormat, [.. parameters]);
 
-    var itemDTOTask = _db.Database.SqlQuery<DummyItemGetListActionDTOItem>(itemsSql).ToListAsync(cancellationToken);
+    var itemDTOTask = _appDbContext.Database.SqlQuery<DummyItemGetListActionDTOItem>(itemsSql).ToListAsync(cancellationToken);
 
     var itemsDTO = await itemDTOTask.ConfigureAwait(false);
 

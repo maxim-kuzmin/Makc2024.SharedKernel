@@ -1,26 +1,39 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.App;
 
+/// <summary>
+/// Данные приложения.
+/// </summary>
 public static class AppData
 {
-  public static async Task InitializeAsync(AppDbContext dbContext)
+  /// <summary>
+  /// Инициализировать асинхронно.
+  /// </summary>
+  /// <param name="appDbContext">Контекст базы данных приложения.</param>
+  /// <returns>Задача.</returns>
+  public static async Task InitializeAsync(AppDbContext appDbContext)
   {
-    bool isSeeded = await dbContext.DummyItem.AnyAsync().ConfigureAwait(false);
+    bool isSeeded = await appDbContext.DummyItem.AnyAsync().ConfigureAwait(false);
 
     if (isSeeded)
     {
       return;
     }
 
-    await PopulateTestDataAsync(dbContext).ConfigureAwait(false);
+    await PopulateTestDataAsync(appDbContext).ConfigureAwait(false);
   }
 
-  public static async Task PopulateTestDataAsync(AppDbContext dbContext)
+  /// <summary>
+  /// Заполнить тестовыми данными асинхронно.
+  /// </summary>
+  /// <param name="appDbContext">Контекст базы данных приложения.</param>
+  /// <returns>Задача.</returns>
+  public static async Task PopulateTestDataAsync(AppDbContext appDbContext)
   {
-    using var tran = dbContext.Database.BeginTransaction();
+    using var tran = appDbContext.Database.BeginTransaction();
 
-    dbContext.DummyItem.AddRange(CreateDummyItems());
+    appDbContext.DummyItem.AddRange(CreateDummyItems());
 
-    await dbContext.SaveChangesAsync().ConfigureAwait(false);
+    await appDbContext.SaveChangesAsync().ConfigureAwait(false);
 
     tran.Commit();
   }

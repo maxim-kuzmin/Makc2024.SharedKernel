@@ -1,12 +1,12 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Command;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Action.Command;
 
 /// <summary>
-/// Сервис команд фиктивного предмета.
+/// Сервис команд действия над фиктивным предметом
 /// </summary>
 /// <param name="_eventDispatcher">Диспетчер событий.</param>
 /// <param name="_factory">Фабрика.</param>
 /// <param name="_repository">Репозиторий.</param>
-public class DummyItemCommandService(
+public class DummyItemActionCommandService(
   IEventDispatcher _eventDispatcher,
   IDummyItemFactory _factory,
   IDummyItemRepository _repository) :

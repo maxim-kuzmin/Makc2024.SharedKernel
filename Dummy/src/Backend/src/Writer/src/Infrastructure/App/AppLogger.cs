@@ -1,5 +1,8 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.App;
 
+/// <summary>
+/// Логгер приложения.
+/// </summary>
 public class AppLogger
 {
   static AppLogger()
@@ -10,11 +13,19 @@ public class AppLogger
       .CreateLogger();
   }
 
+  /// <summary>
+  /// Создать.
+  /// </summary>
+  /// <typeparam name="T">Тип.</typeparam>
+  /// <returns>Логгер.</returns>
   public static Microsoft.Extensions.Logging.ILogger Create<T>()
   {
     return new SerilogLoggerFactory(Log.Logger).CreateLogger<T>();
   }
 
+  /// <summary>
+  /// Закрыть и слить.
+  /// </summary>
   public static void CloseAndFlush()
   {
     Log.CloseAndFlush();

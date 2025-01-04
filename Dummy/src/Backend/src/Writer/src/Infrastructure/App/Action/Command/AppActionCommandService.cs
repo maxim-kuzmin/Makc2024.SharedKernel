@@ -1,7 +1,12 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Command;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Action.Command;
 
-public class AppCommandService(IOptionsSnapshot<AppConfigOptions> _appConfigOptions) : IAppActionCommandService
+/// <summary>
+/// Сервис команд действия над приложением.
+/// </summary>
+/// <param name="_appConfigOptions">Параметры конфигурации приложения.</param>
+public class AppActionCommandService(IOptionsSnapshot<AppConfigOptions> _appConfigOptions) : IAppActionCommandService
 {
+  /// <inheritdoc/>
   public Task<Result<AppLoginActionDTO>> Login(AppLoginActionCommand command, CancellationToken cancellationToken)
   {
     var claims = new List<Claim>

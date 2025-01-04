@@ -1,7 +1,19 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.App;
 
+/// <summary>
+/// Расширения приложения.
+/// </summary>
 public static class AppExtensions
 {
+  /// <summary>
+  /// Добавить уровень инфраструктуры приложения.
+  /// </summary>
+  /// <param name="services">Сервисы.</param>
+  /// <param name="logger">Логгер.</param>
+  /// <param name="appConfigOptions">Параметры конфигурации приложения.</param>
+  /// <param name="configuration">Конфигурация.</param>
+  /// <param name="appConfigSection">Раздел конфигурации приложения.</param>
+  /// <returns>Сервисы.</returns>
   public static IServiceCollection AddAppInfrastructureLayer(
     this IServiceCollection services,
     Microsoft.Extensions.Logging.ILogger logger,
@@ -47,15 +59,21 @@ public static class AppExtensions
 
     services.AddScoped<IDummyItemRepository, DummyItemRepository>();
 
-    services.AddTransient<IAppActionCommandService, AppCommandService>();
-    services.AddTransient<IDummyItemActionCommandService, DummyItemCommandService>();
-    services.AddTransient<IDummyItemActionQueryService, DummyItemQueryService>();
+    services.AddTransient<IAppActionCommandService, AppActionCommandService>();
+    services.AddTransient<IDummyItemActionCommandService, DummyItemActionCommandService>();
+    services.AddTransient<IDummyItemActionQueryService, DummyItemActionQueryService>();
 
     logger.LogInformation("Infrastructure layer added");
 
     return services;
   }
 
+  /// <summary>
+  /// Использовать уровень инфраструктуры приложения асинхронно.
+  /// </summary>
+  /// <param name="app">Приложение.</param>
+  /// <param name="logger">Логгер.</param>
+  /// <returns>Задача.</returns>
   public static async Task UseAppInfrastructureLayerAsync(
     this IHost app,
     Microsoft.Extensions.Logging.ILogger logger)
@@ -81,6 +99,11 @@ public static class AppExtensions
     }
   }
 
+  /// <summary>
+  /// Создать параметры конфигурации приложения.
+  /// </summary>
+  /// <param name="appConfigSection">Раздел конфигурации приложения.</param>
+  /// <returns>Параметры конфигурации приложения.</returns>
   public static AppConfigOptions CreateAppConfigOptions(this IConfigurationSection appConfigSection)
   {
     var result = new AppConfigOptions();
