@@ -1,7 +1,17 @@
 ﻿namespace Makc2024.Dummy.Gateway.Apps.WebApp.App;
 
+/// <summary>
+/// Расширения приложения.
+/// </summary>
 public static class AppExtensions
 {
+  /// <summary>
+  /// Добавить уровень пользовательского интерфейса приложения.
+  /// </summary>
+  /// <param name="services">Сервисы.</param>
+  /// <param name="logger">Логгер.</param>
+  /// <param name="appConfigOptions">Параметры конфигурации приложения.</param>
+  /// <returns>Сервисы.</returns>
   public static IServiceCollection AddAppUILayer(
     this IServiceCollection services,
     ILogger logger,
@@ -45,6 +55,12 @@ public static class AppExtensions
     return services;
   }
 
+  /// <summary>
+  /// Использовать уровень пользовательского интерфейса приложения.
+  /// </summary>
+  /// <param name="app">Приложение.</param>
+  /// <param name="logger">Логгер.</param>
+  /// <returns>Приложение.</returns>
   public static WebApplication UseAppUILayer(this WebApplication app, ILogger logger)
   {
     if (app.Environment.IsDevelopment())
