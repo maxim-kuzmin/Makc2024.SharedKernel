@@ -4,7 +4,7 @@
 /// Обработчик действия по удалению фиктивного предмета.
 /// </summary>
 /// <param name="_service">Сервис.</param>
-public class DummyItemDeleteActionHandler(IDummyItemCommandService _service) :
+public class DummyItemDeleteActionHandler(IDummyItemActionCommandService _service) :
   ICommandHandler<DummyItemDeleteActionCommand, Result>
 {
   /// <inheritdoc/>

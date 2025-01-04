@@ -4,9 +4,10 @@
 /// Обработчик действия по обновлению фиктивного предмета.
 /// </summary>
 /// <param name="_service">Сервис.</param>
-public class DummyItemUpdateActionHandler(IDummyItemCommandService _service) :
+public class DummyItemUpdateActionHandler(IDummyItemActionCommandService _service) :
   ICommandHandler<DummyItemUpdateActionCommand, Result<DummyItemGetActionDTO>>
 {
+  /// <inheritdoc/>
   public Task<Result<DummyItemGetActionDTO>> Handle(
     DummyItemUpdateActionCommand request,
     CancellationToken cancellationToken)

@@ -1,6 +1,6 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Command;
 
-public class AppCommandService(IOptionsSnapshot<AppConfigOptions> _appConfigOptions) : IAppCommandService
+public class AppCommandService(IOptionsSnapshot<AppConfigOptions> _appConfigOptions) : IAppActionCommandService
 {
   public Task<Result<AppLoginActionDTO>> Login(AppLoginActionCommand command, CancellationToken cancellationToken)
   {

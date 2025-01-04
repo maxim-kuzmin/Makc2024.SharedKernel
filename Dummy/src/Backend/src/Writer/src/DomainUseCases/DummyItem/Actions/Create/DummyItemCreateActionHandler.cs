@@ -4,7 +4,7 @@
 /// Обработчик действия по созданию фиктивного предмета.
 /// </summary>
 /// <param name="_service">Сервис.</param>
-public class DummyItemCreateActionHandler(IDummyItemCommandService _service) :
+public class DummyItemCreateActionHandler(IDummyItemActionCommandService _service) :
   ICommandHandler<DummyItemCreateActionCommand, Result<DummyItemGetActionDTO>>
 {
   /// <inheritdoc/>

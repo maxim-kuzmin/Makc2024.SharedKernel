@@ -10,7 +10,7 @@ public class DummyItemCommandService(
   IEventDispatcher _eventDispatcher,
   IDummyItemFactory _factory,
   IDummyItemRepository _repository) :
-  IDummyItemCommandService
+  IDummyItemActionCommandService
 {
   /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Create(

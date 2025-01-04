@@ -1,8 +1,6 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.GetList.DTO;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Query;
 
-namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Query;
-
-public class DummyItemQueryService(AppSession _appSession, AppDbContext _db) : IDummyItemQueryService
+public class DummyItemQueryService(AppSession _appSession, AppDbContext _db) : IDummyItemActionQueryService
 {
   public async Task<Result<DummyItemGetActionDTO>> Get(
     DummyItemGetActionQuery query,
