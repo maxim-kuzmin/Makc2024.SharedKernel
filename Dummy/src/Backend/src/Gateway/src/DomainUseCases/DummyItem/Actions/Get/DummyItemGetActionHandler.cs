@@ -1,6 +1,6 @@
 ﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Get;
 
-public class DummyItemGetActionHandler(IDummyItemQueryService _service) :
+public class DummyItemGetActionHandler(IDummyItemActionQueryService _service) :
   IQueryHandler<DummyItemGetActionQuery, Result<DummyItemGetActionDTO>>
 {
   public Task<Result<DummyItemGetActionDTO>> Handle(

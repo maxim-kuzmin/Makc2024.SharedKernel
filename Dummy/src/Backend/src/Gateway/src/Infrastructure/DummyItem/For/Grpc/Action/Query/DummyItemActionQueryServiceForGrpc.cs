@@ -1,8 +1,15 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Query;
 
-public class DummyItemActionQueryServiceForGrpc(AppSession _appSession, WriterDummyItemGrpcClient _grpcClient) :
-  IDummyItemQueryService
+/// <summary>
+/// Сервис запросов действия над фиктивным предметом для gRPC.
+/// </summary>
+/// <param name="_appSession">Сессия приложения.</param>
+/// <param name="_grpcClient">Клиент gRPC.</param>
+public class DummyItemActionQueryServiceForGrpc(
+  AppSession _appSession,
+  WriterDummyItemGrpcClient _grpcClient) : IDummyItemActionQueryService
 {
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Get(
       DummyItemGetActionQuery query,
       CancellationToken cancellationToken)
@@ -23,6 +30,7 @@ public class DummyItemActionQueryServiceForGrpc(AppSession _appSession, WriterDu
     }
   }
 
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetListActionDTO>> GetList(
       DummyItemGetListActionQuery query,
       CancellationToken cancellationToken)

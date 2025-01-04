@@ -43,7 +43,7 @@ public static class AppExtensions
       };
     });
 
-    services.AddTransient<IDummyItemCommandService>(x =>
+    services.AddTransient<IDummyActionItemCommandService>(x =>
     {
       var appConfigOptions = x.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
 
@@ -55,7 +55,7 @@ public static class AppExtensions
       };
     });
 
-    services.AddTransient<IDummyItemQueryService>(x =>
+    services.AddTransient<IDummyItemActionQueryService>(x =>
     {
       var appConfigOptions = x.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
 

@@ -1,8 +1,15 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Query;
 
-public class DummyItemActionQueryServiceForHttp(AppSession _appSession, IHttpClientFactory _httpClientFactory) :
-  IDummyItemQueryService
+/// <summary>
+/// Сервис запросов действия над фиктивным предметом для HTTP.
+/// </summary>
+/// <param name="_appSession">Сессия приложения.</param>
+/// <param name="_httpClientFactory">Фабрика клиентов HTTP.</param>
+public class DummyItemActionQueryServiceForHttp(
+  AppSession _appSession,
+  IHttpClientFactory _httpClientFactory) : IDummyItemActionQueryService
 {
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Get(
       DummyItemGetActionQuery query,
       CancellationToken cancellationToken)
@@ -20,6 +27,7 @@ public class DummyItemActionQueryServiceForHttp(AppSession _appSession, IHttpCli
     return result;
   }
 
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetListActionDTO>> GetList(
       DummyItemGetListActionQuery query,
       CancellationToken cancellationToken)

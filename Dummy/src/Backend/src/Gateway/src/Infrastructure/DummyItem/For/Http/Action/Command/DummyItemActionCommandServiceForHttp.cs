@@ -1,8 +1,13 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Command;
 
-public class DummyItemActionCommandServiceForHttp(IHttpClientFactory _httpClientFactory) :
-  IDummyItemCommandService
+/// <summary>
+/// Сервис команд действия над фиктивным предметом для HTTP.
+/// </summary>
+/// <param name="_httpClientFactory">Фабрика клиентов HTTP.</param>
+public class DummyItemActionCommandServiceForHttp(
+  IHttpClientFactory _httpClientFactory) : IDummyActionItemCommandService
 {
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Create(
     DummyItemCreateActionCommand command,
     CancellationToken cancellationToken)
@@ -25,6 +30,7 @@ public class DummyItemActionCommandServiceForHttp(IHttpClientFactory _httpClient
     return result;
   }
 
+  /// <inheritdoc/>
   public async Task<Result> Delete(
     DummyItemDeleteActionCommand command,
     CancellationToken cancellationToken)
@@ -38,6 +44,7 @@ public class DummyItemActionCommandServiceForHttp(IHttpClientFactory _httpClient
     return httpResponse.ToResult();
   }
 
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Update(
       DummyItemUpdateActionCommand command,
       CancellationToken cancellationToken)

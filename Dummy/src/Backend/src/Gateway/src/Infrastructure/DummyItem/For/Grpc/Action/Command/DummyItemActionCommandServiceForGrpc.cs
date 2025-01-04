@@ -1,8 +1,13 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Command;
 
-public class DummyItemActionCommandServiceForGrpc(WriterDummyItemGrpcClient _grpcClient) :
-  IDummyItemCommandService
+/// <summary>
+/// Сервис команд действия над фиктивным предметом для gRPC.
+/// </summary>
+/// <param name="_grpcClient">Клиент gRPC.</param>
+public class DummyItemActionCommandServiceForGrpc(
+  WriterDummyItemGrpcClient _grpcClient) : IDummyActionItemCommandService
 {
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Create(
     DummyItemCreateActionCommand command,
     CancellationToken cancellationToken)
@@ -23,6 +28,7 @@ public class DummyItemActionCommandServiceForGrpc(WriterDummyItemGrpcClient _grp
     }
   }
 
+  /// <inheritdoc/>
   public async Task<Result> Delete(
     DummyItemDeleteActionCommand command,
     CancellationToken cancellationToken)
@@ -43,6 +49,7 @@ public class DummyItemActionCommandServiceForGrpc(WriterDummyItemGrpcClient _grp
     }
   }
 
+  /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Update(
       DummyItemUpdateActionCommand command,
       CancellationToken cancellationToken)
