@@ -19,6 +19,7 @@ public class AppEventActionCommandService(
   {
     var appEventAggregate = _factory.CreateAggregate();
 
+    appEventAggregate.UpdateIsPublished(command.IsPublished);
     appEventAggregate.UpdateName(command.Name);
 
     var appEventEntity = appEventAggregate.GetEntityToCreate();
@@ -34,6 +35,8 @@ public class AppEventActionCommandService(
 
     var data = new AppEventGetActionDTO(
       appEventEntity.Id,
+      appEventEntity.CreatedAt,
+      appEventEntity.IsPublished,
       appEventEntity.Name);
 
     return Result.Success(data);
@@ -81,6 +84,7 @@ public class AppEventActionCommandService(
 
     var appEventAggregate = _factory.CreateAggregate(appEventEntity.Id);
 
+    appEventAggregate.UpdateIsPublished(command.IsPublished);
     appEventAggregate.UpdateName(command.Name);
 
     var appEventEntityToUpdate = appEventAggregate.GetEntityToUpdate(appEventEntity);
@@ -96,6 +100,8 @@ public class AppEventActionCommandService(
 
     var data = new AppEventGetActionDTO(
       appEventEntity.Id,
+      appEventEntity.CreatedAt,
+      appEventEntity.IsPublished,
       appEventEntity.Name);
 
     return Result.Success(data);

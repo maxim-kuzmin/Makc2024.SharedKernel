@@ -21,9 +21,13 @@ public class DummyItemEntityTypeConfiguration : IEntityTypeConfiguration<DummyIt
       .HasColumnName(entityDbSettings.ColumnForId);
 
     builder.Property(x => x.Name)
-      .IsRequired()
-      .HasMaxLength(entityDbSettings.MaxLengthForName)
+      .IsRequired()      
       .HasColumnName(entityDbSettings.ColumnForName);
+
+    if (entityDbSettings.MaxLengthForName > 0)
+    {
+      builder.Property(x => x.Name).HasMaxLength(entityDbSettings.MaxLengthForName);
+    }
 
     builder.HasIndex(x => x.Name)
       .IsUnique()

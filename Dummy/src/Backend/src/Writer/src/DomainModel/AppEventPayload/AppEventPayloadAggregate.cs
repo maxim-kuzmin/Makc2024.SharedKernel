@@ -28,37 +28,9 @@ public class AppEventPayloadAggregate(
       isOk = true;
     }
 
-    if (HasChangedProperty(nameof(Entity.Entity)) && entityFromDb.Entity != Entity.Entity)
+    if (HasChangedProperty(nameof(Entity.Data)) && entityFromDb.Data != Entity.Data)
     {
-      entityFromDb.Entity = Entity.Entity;
-
-      isOk = true;
-    }
-
-    if (HasChangedProperty(nameof(Entity.EntityId)) && entityFromDb.EntityId != Entity.EntityId)
-    {
-      entityFromDb.EntityId = Entity.EntityId;
-
-      isOk = true;
-    }
-
-    if (HasChangedProperty(nameof(Entity.Name)) && entityFromDb.Name != Entity.Name)
-    {
-      entityFromDb.Name = Entity.Name;
-
-      isOk = true;
-    }
-
-    if (HasChangedProperty(nameof(Entity.NewValue)) && entityFromDb.NewValue != Entity.NewValue)
-    {
-      entityFromDb.NewValue = Entity.NewValue;
-
-      isOk = true;
-    }
-
-    if (HasChangedProperty(nameof(Entity.OldValue)) && entityFromDb.OldValue != Entity.OldValue)
-    {
-      entityFromDb.OldValue = Entity.OldValue;
+      entityFromDb.Data = Entity.Data;
 
       isOk = true;
     }
@@ -80,81 +52,21 @@ public class AppEventPayloadAggregate(
   }
 
   /// <summary>
-  /// Обновить сущность.
+  /// Обновить данные.
   /// </summary>
   /// <param name="value">Значение.</param>
-  public void UpdateEntity(string value)
+  public void UpdateData(string value)
   {
-    string parameterName = nameof(Entity.Entity);
+    string parameterName = nameof(Entity.Data);
 
     Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
 
-    Guard.Against.StringTooLong(value, _settings.MaxLengthForEntity, parameterName: parameterName);
-
-    Entity.Entity = value;
-
-    MarkPropertyAsChanged(parameterName);
-  }
-
-  /// <summary>
-  /// Обновить идентификатор сущности.
-  /// </summary>
-  /// <param name="value">Значение.</param>
-  public void UpdateEntityId(string value)
-  {
-    string parameterName = nameof(Entity.EntityId);
-
-    Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
-
-    Guard.Against.StringTooLong(value, _settings.MaxLengthForEntityId, parameterName: parameterName);
-
-    Entity.EntityId = value;
-
-    MarkPropertyAsChanged(parameterName);
-  }
-
-  /// <summary>
-  /// Обновить имя.
-  /// </summary>
-  /// <param name="value">Значение.</param>
-  public void UpdateName(string value)
-  {
-    string parameterName = nameof(Entity.Name);
-
-    if (value != null)
+    if (_settings.MaxLengthForData > 0)
     {
-      Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
-
-      Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
+      Guard.Against.StringTooLong(value, _settings.MaxLengthForData, parameterName: parameterName);
     }
 
-    Entity.Name = value;
-
-    MarkPropertyAsChanged(parameterName);
-  }
-
-  /// <summary>
-  /// Обновить новое значение.
-  /// </summary>
-  /// <param name="value">Значение.</param>
-  public void UpdateNewValue(string value)
-  {
-    string parameterName = nameof(Entity.NewValue);
-
-    Entity.NewValue = value;
-
-    MarkPropertyAsChanged(parameterName);
-  }
-
-  /// <summary>
-  /// Обновить старое значение.
-  /// </summary>
-  /// <param name="value">Значение.</param>
-  public void UpdateOldValue(string value)
-  {
-    string parameterName = nameof(Entity.OldValue);
-
-    Entity.OldValue = value;
+    Entity.Data = value;
 
     MarkPropertyAsChanged(parameterName);
   }

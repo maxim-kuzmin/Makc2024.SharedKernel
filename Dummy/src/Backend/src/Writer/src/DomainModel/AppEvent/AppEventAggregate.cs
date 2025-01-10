@@ -21,9 +21,9 @@ public class AppEventAggregate(
 
     var isOk = false;
 
-    if (HasChangedProperty(nameof(Entity.CreationDate)) && entityFromDb.CreationDate != Entity.CreationDate)
+    if (HasChangedProperty(nameof(Entity.CreatedAt)) && entityFromDb.CreatedAt != Entity.CreatedAt)
     {
-      entityFromDb.CreationDate = Entity.CreationDate;
+      entityFromDb.CreatedAt = Entity.CreatedAt;
 
       isOk = true;
     }
@@ -48,18 +48,18 @@ public class AppEventAggregate(
   /// <inheritdoc/>
   protected sealed override void Init()
   {
-    UpdateCreationDate(DateTimeOffset.Now);
+    UpdateCreatedAt(DateTimeOffset.Now);
   }
 
   /// <summary>
   /// Обновить дату создания.
   /// </summary>
   /// <param name="value">Значение.</param>
-  public void UpdateCreationDate(DateTimeOffset value)
+  public void UpdateCreatedAt(DateTimeOffset value)
   {
-    var parameterName = nameof(Entity.CreationDate);
+    var parameterName = nameof(Entity.CreatedAt);
 
-    Entity.CreationDate = Guard.Against.Default(value, parameterName: parameterName);
+    Entity.CreatedAt = Guard.Against.Default(value, parameterName: parameterName);
 
     MarkPropertyAsChanged(parameterName);
   }
@@ -87,7 +87,10 @@ public class AppEventAggregate(
 
     Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
 
-    Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
+    if (_settings.MaxLengthForName > 0)
+    {
+      Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
+    }
 
     Entity.Name = value;
 

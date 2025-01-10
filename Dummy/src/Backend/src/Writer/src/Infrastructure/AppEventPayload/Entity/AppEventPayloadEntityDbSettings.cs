@@ -11,34 +11,14 @@ public abstract class AppEventPayloadEntityDbSettings : AppEventPayloadSettings
   public string ColumnForAppEventId { get; protected set; } = null!;
 
   /// <summary>
-  /// Столбец для сущности.
+  /// Столбец для данных.
   /// </summary>
-  public string ColumnForEntity { get; protected set; } = null!;
-
-  /// <summary>
-  /// Столбец для идентификатора сущности.
-  /// </summary>
-  public string ColumnForEntityId { get; protected set; } = null!;
+  public string ColumnForData { get; protected set; } = null!;
 
   /// <summary>
   /// Столбец для идентификатора.
   /// </summary>
   public string ColumnForId { get; protected set; } = null!;
-
-  /// <summary>
-  /// Столбец для имени.
-  /// </summary>
-  public string ColumnForName { get; protected set; } = null!;
-
-  /// <summary>
-  /// Столбец для нового значения.
-  /// </summary>
-  public string ColumnForNewValue { get; protected set; } = null!;
-
-  /// <summary>
-  /// Столбец для старого значения.
-  /// </summary>  
-  public string ColumnForOldValue { get; protected set; } = null!;
 
   /// <summary>
   /// Внешний ключ для идентификатора события приложения.

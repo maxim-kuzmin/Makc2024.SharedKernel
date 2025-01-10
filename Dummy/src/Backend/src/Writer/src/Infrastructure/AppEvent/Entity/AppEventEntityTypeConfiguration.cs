@@ -16,9 +16,9 @@ public class AppEventEntityTypeConfiguration : IEntityTypeConfiguration<AppEvent
 
     builder.HasKey(e => e.Id).HasName(entityDbSettings.PrimaryKey);
 
-    builder.Property(x => x.CreationDate)
+    builder.Property(x => x.CreatedAt)
       .IsRequired()
-      .HasColumnName(entityDbSettings.ColumnForCreationDate);
+      .HasColumnName(entityDbSettings.ColumnForCreatedAt);
 
     builder.Property(x => x.Id)
       .ValueGeneratedOnAdd()
@@ -30,8 +30,12 @@ public class AppEventEntityTypeConfiguration : IEntityTypeConfiguration<AppEvent
 
     builder.Property(x => x.Name)
       .IsRequired()
-      .HasMaxLength(entityDbSettings.MaxLengthForName)
       .HasColumnName(entityDbSettings.ColumnForName);
+
+    if (entityDbSettings.MaxLengthForName > 0)
+    {
+      builder.Property(x => x.Name).HasMaxLength(entityDbSettings.MaxLengthForName);
+    }
 
     builder.HasIndex(x => x.Name)
       .IsUnique()

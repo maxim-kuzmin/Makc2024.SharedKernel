@@ -8,7 +8,7 @@ public static class AppEventPayloadExtensionsForGrpc
   public static AppEventPayloadCreateActionCommand ToAppEventPayloadCreateActionCommand(
     this AppEventPayloadCreateActionRequestForGrpc request)
   {
-    return new(request.Name);
+    return new(request.AppEventId, request.Data);
   }
 
   public static AppEventPayloadDeleteActionCommand ToAppEventPayloadDeleteActionCommand(
@@ -27,7 +27,8 @@ public static class AppEventPayloadExtensionsForGrpc
     return new()
     {
       Id = dto.Id,
-      Name = dto.Name,
+      AppEventId = dto.AppEventId,
+      Data = dto.Data,
     };
   }
 
@@ -61,6 +62,6 @@ public static class AppEventPayloadExtensionsForGrpc
   public static AppEventPayloadUpdateActionCommand ToAppEventPayloadUpdateActionCommand(
     this AppEventPayloadUpdateActionRequestForGrpc request)
   {
-    return new(request.Id, request.Name);
+    return new(request.Id, request.AppEventId, request.Data);
   }
 }

@@ -11,29 +11,9 @@ public class AppEventPayloadEntity : EntityBaseWithIdProperty<long>, IAggregateR
   public long AppEventId { get; set; }
 
   /// <summary>
-  /// Сущность.
+  /// Данные.
   /// </summary>
-  public string Entity { get; set; } = null!;
-
-  /// <summary>
-  /// Идентификатор сущности.
-  /// </summary>
-  public string EntityId { get; set; } = null!;
-
-  /// <summary>
-  /// Имя.
-  /// </summary>
-  public string? Name { get; set; }
-
-  /// <summary>
-  /// Новое значение.
-  /// </summary>
-  public string? NewValue { get; set; }
-
-  /// <summary>
-  /// Старое значение.
-  /// </summary>
-  public string? OldValue { get; set; }
+  public string Data { get; set; } = null!;
 
   /// <summary>
   /// Событие.

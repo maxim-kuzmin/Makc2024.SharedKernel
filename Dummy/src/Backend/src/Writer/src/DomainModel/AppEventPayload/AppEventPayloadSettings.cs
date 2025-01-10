@@ -6,17 +6,7 @@
 public abstract class AppEventPayloadSettings
 {
   /// <summary>
-  /// Максимальная длина для сущности.
+  /// Максимальная длина для данных.
   /// </summary>
-  public int MaxLengthForEntity { get; protected set; }
-
-  /// <summary>
-  /// Максимальная длина для идентификатора сущности.
-  /// </summary>
-  public int MaxLengthForEntityId { get; protected set; }
-
-  /// <summary>
-  /// Максимальная длина для имени.
-  /// </summary>
-  public int MaxLengthForName { get; protected set; }
+  public int MaxLengthForData { get; protected set; }
 }

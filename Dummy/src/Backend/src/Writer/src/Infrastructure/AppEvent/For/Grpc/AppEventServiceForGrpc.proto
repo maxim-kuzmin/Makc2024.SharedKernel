@@ -5,6 +5,7 @@ option csharp_namespace = "Makc2024.Dummy.Writer.Infrastructure.AppEvent.For.Grp
 package Writer;
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 service AppEvent {
@@ -21,7 +22,8 @@ message ActionRequestPageForGrpc {
 }
 
 message AppEventCreateActionRequestForGrpc {
-    string name = 1;
+    bool is_published = 1;
+    string name = 2;
 }
 
 message AppEventDeleteActionRequestForGrpc {
@@ -34,7 +36,9 @@ message AppEventGetActionRequestForGrpc {
 
 message AppEventGetActionReplyForGrpc {
     int64 id = 1;
-    string name = 2;
+    google.protobuf.Timestamp created_at = 2;
+    bool is_published = 3;
+    string name = 4;
 }
 
 message AppEventGetListActionRequestFilterForGrpc {
@@ -58,5 +62,6 @@ message AppEventGetListActionReplyForGrpc {
 
 message AppEventUpdateActionRequestForGrpc {
     int64 id = 1;
-    string name = 2;
+    bool is_published = 2;
+    string name = 3;
 }

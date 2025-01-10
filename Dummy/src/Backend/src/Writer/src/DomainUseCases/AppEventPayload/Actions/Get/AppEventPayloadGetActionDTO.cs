@@ -4,7 +4,9 @@
 /// Объект передачи данных действия по получению полезной нагрузки события приложения.
 /// </summary>
 /// <param name="Id">Идентификатор.</param>
-/// <param name="Name">Имя.</param>
+/// <param name="AppEventId">Идентификатор события приложения.</param>
+/// <param name="Data">Данные.</param>
 public record AppEventPayloadGetActionDTO(
   long Id,
-  string? Name);
+  long AppEventId,
+  string Data);

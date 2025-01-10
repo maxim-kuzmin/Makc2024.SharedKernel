@@ -8,7 +8,7 @@ public abstract class AppEventEntityDbSettings : AppEventSettings
   /// <summary>
   /// Столбец для даты создания.
   /// </summary>
-  public string ColumnForCreationDate { get; protected set; } = null!;
+  public string ColumnForCreatedAt { get; protected set; } = null!;
 
   /// <summary>
   /// Столбец для идентификатора.

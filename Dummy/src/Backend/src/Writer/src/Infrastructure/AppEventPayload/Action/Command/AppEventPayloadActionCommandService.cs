@@ -19,7 +19,8 @@ public class AppEventPayloadActionCommandService(
   {
     var appEventPayloadAggregate = _factory.CreateAggregate();
 
-    appEventPayloadAggregate.UpdateName(command.Name);
+    appEventPayloadAggregate.UpdateAppEventId(command.AppEventId);
+    appEventPayloadAggregate.UpdateData(command.Data);
 
     var appEventPayloadEntity = appEventPayloadAggregate.GetEntityToCreate();
 
@@ -34,7 +35,8 @@ public class AppEventPayloadActionCommandService(
 
     var data = new AppEventPayloadGetActionDTO(
       appEventPayloadEntity.Id,
-      appEventPayloadEntity.Name);
+      appEventPayloadEntity.AppEventId,
+      appEventPayloadEntity.Data);
 
     return Result.Success(data);
   }
@@ -81,7 +83,8 @@ public class AppEventPayloadActionCommandService(
 
     var appEventPayloadAggregate = _factory.CreateAggregate(appEventPayloadEntity.Id);
 
-    appEventPayloadAggregate.UpdateName(command.Name);
+    appEventPayloadAggregate.UpdateAppEventId(command.AppEventId);
+    appEventPayloadAggregate.UpdateData(command.Data);
 
     var appEventPayloadEntityToUpdate = appEventPayloadAggregate.GetEntityToUpdate(appEventPayloadEntity);
 
@@ -96,7 +99,8 @@ public class AppEventPayloadActionCommandService(
 
     var data = new AppEventPayloadGetActionDTO(
       appEventPayloadEntity.Id,
-      appEventPayloadEntity.Name);
+      appEventPayloadEntity.AppEventId,
+      appEventPayloadEntity.Data);
 
     return Result.Success(data);
   }

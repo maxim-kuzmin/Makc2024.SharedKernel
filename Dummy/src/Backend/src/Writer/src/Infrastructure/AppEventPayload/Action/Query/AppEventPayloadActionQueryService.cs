@@ -27,7 +27,8 @@ public class AppEventPayloadActionQueryService(
     var sqlFormat = $$"""
 select
   "{{appEventPayloadEntitySettings.ColumnForId}}" "Id",
-  "{{appEventPayloadEntitySettings.ColumnForName}}" "Name"
+"{{appEventPayloadEntitySettings.ColumnForAppEventId}}" "AppEventId",
+  "{{appEventPayloadEntitySettings.ColumnForData}}" "Data"
 from
   "{{appEventPayloadEntitySettings.Schema}}"."{{appEventPayloadEntitySettings.Table}}"
 where
@@ -68,9 +69,9 @@ where
       sqlFormatToFilter = $$"""
 
 where
-  di."{{appEventPayloadEntitySettings.ColumnForId}}"::text ilike {{{parameterIndex}}}
+  aep."{{appEventPayloadEntitySettings.ColumnForId}}"::text ilike {{{parameterIndex}}}
   or
-  di."{{appEventPayloadEntitySettings.ColumnForName}}" ilike {{{parameterIndex}}}
+  aep."{{appEventPayloadEntitySettings.ColumnForData}}" ilike {{{parameterIndex}}}
       
 """;
 
@@ -84,7 +85,7 @@ where
 select
   count(*)
 from
-  "{{appEventPayloadEntitySettings.Schema}}"."{{appEventPayloadEntitySettings.Table}}" di
+  "{{appEventPayloadEntitySettings.Schema}}"."{{appEventPayloadEntitySettings.Table}}" aep
 {{sqlFormatToFilter}}
 
 """;
@@ -100,13 +101,14 @@ from
     var itemsSqlFormat = $$"""
 
 select
-  di."{{appEventPayloadEntitySettings.ColumnForId}}" "Id",
-  di."{{appEventPayloadEntitySettings.ColumnForName}}" "Name"
+  aep."{{appEventPayloadEntitySettings.ColumnForId}}" "Id",
+  aep."{{appEventPayloadEntitySettings.ColumnForAppEventId}}" "AppEventId",
+  aep."{{appEventPayloadEntitySettings.ColumnForData}}" "Data"
 from
-  "{{appEventPayloadEntitySettings.Schema}}"."{{appEventPayloadEntitySettings.Table}}" di
+  "{{appEventPayloadEntitySettings.Schema}}"."{{appEventPayloadEntitySettings.Table}}" aep
 {{sqlFormatToFilter}}
 order by
-  di."{{appEventPayloadEntitySettings.ColumnForId}}" desc
+  aep."{{appEventPayloadEntitySettings.ColumnForId}}" desc
     
 """;
 

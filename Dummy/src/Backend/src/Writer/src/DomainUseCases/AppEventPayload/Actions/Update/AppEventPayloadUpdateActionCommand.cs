@@ -4,7 +4,9 @@
 /// Команда действия по обновлению полезной нагрузки события приложения.
 /// </summary>
 /// <param name="Id">Идентификатор.</param>
-/// <param name="Name">Имя.</param>
+/// <param name="AppEventId">Идентификатор события приложения.</param>
+/// <param name="Data">Данные.</param>
 public record AppEventPayloadUpdateActionCommand(
   long Id,
-  string Name) : ICommand<Result<AppEventPayloadGetActionDTO>>;
+  long AppEventId,
+  string Data) : ICommand<Result<AppEventPayloadGetActionDTO>>;

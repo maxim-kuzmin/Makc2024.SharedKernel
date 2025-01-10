@@ -17,7 +17,7 @@ public class AppEventEntityDbSettingsForPostgreSQL : AppEventEntityDbSettings
 
     PrimaryKey = $"pk_{Table}";
 
-    ColumnForCreationDate = "creation_date";
+    ColumnForCreatedAt = "created_at";
     ColumnForId = "id";
     ColumnForIsPublished = "is_published";
     ColumnForName = "name";

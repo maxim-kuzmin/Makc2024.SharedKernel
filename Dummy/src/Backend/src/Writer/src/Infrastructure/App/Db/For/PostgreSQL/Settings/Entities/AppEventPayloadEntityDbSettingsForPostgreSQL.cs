@@ -19,16 +19,10 @@ public class AppEventPayloadEntityDbSettingsForPostgreSQL : AppEventPayloadEntit
     PrimaryKey = $"pk_{Table}";
 
     ColumnForAppEventId = "app_event_id";
-    ColumnForEntity = "entity";
-    ColumnForEntityId = "entity_id";
+    ColumnForData = "data";
     ColumnForId = "id";
-    ColumnForName = "name";
-    ColumnForNewValue = "new_value";
-    ColumnForOldValue = "old_value";
 
-    MaxLengthForEntity = 255;
-    MaxLengthForEntityId = 255;
-    MaxLengthForName = 255;
+    MaxLengthForData = 0;
 
     ForeignKeyForAppEventId = $"fk_{Table}_{tableForAppEventPayload}";
   }

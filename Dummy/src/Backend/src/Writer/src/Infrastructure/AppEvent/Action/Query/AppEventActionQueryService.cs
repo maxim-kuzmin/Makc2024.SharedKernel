@@ -27,6 +27,8 @@ public class AppEventActionQueryService(
     var sqlFormat = $$"""
 select
   "{{appEventEntitySettings.ColumnForId}}" "Id",
+  "{{appEventEntitySettings.ColumnForCreatedAt}}" "CreatedAt",
+  "{{appEventEntitySettings.ColumnForIsPublished}}" "IsPublished",
   "{{appEventEntitySettings.ColumnForName}}" "Name"
 from
   "{{appEventEntitySettings.Schema}}"."{{appEventEntitySettings.Table}}"
@@ -68,9 +70,9 @@ where
       sqlFormatToFilter = $$"""
 
 where
-  di."{{appEventEntitySettings.ColumnForId}}"::text ilike {{{parameterIndex}}}
+  ae."{{appEventEntitySettings.ColumnForId}}"::text ilike {{{parameterIndex}}}
   or
-  di."{{appEventEntitySettings.ColumnForName}}" ilike {{{parameterIndex}}}
+  ae."{{appEventEntitySettings.ColumnForName}}" ilike {{{parameterIndex}}}
       
 """;
 
@@ -84,7 +86,7 @@ where
 select
   count(*)
 from
-  "{{appEventEntitySettings.Schema}}"."{{appEventEntitySettings.Table}}" di
+  "{{appEventEntitySettings.Schema}}"."{{appEventEntitySettings.Table}}" ae
 {{sqlFormatToFilter}}
 
 """;
@@ -100,13 +102,15 @@ from
     var itemsSqlFormat = $$"""
 
 select
-  di."{{appEventEntitySettings.ColumnForId}}" "Id",
-  di."{{appEventEntitySettings.ColumnForName}}" "Name"
+  ae."{{appEventEntitySettings.ColumnForId}}" "Id",
+  ae."{{appEventEntitySettings.ColumnForCreatedAt}}" "CreatedAt",
+  ae."{{appEventEntitySettings.ColumnForIsPublished}}" "IsPublished",
+  ae."{{appEventEntitySettings.ColumnForName}}" "Name"
 from
-  "{{appEventEntitySettings.Schema}}"."{{appEventEntitySettings.Table}}" di
+  "{{appEventEntitySettings.Schema}}"."{{appEventEntitySettings.Table}}" ae
 {{sqlFormatToFilter}}
 order by
-  di."{{appEventEntitySettings.ColumnForId}}" desc
+  ae."{{appEventEntitySettings.ColumnForId}}" desc
     
 """;
 

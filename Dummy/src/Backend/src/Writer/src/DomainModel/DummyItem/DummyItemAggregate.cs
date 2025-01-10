@@ -41,7 +41,10 @@ public class DummyItemAggregate(
 
     Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
 
-    Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
+    if (_settings.MaxLengthForName > 0)
+    {
+      Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
+    }
 
     Entity.Name = value;
 

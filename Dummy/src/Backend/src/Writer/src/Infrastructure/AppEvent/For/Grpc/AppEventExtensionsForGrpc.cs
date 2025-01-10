@@ -8,7 +8,7 @@ public static class AppEventExtensionsForGrpc
   public static AppEventCreateActionCommand ToAppEventCreateActionCommand(
     this AppEventCreateActionRequestForGrpc request)
   {
-    return new(request.Name);
+    return new(request.IsPublished, request.Name);
   }
 
   public static AppEventDeleteActionCommand ToAppEventDeleteActionCommand(
@@ -27,6 +27,8 @@ public static class AppEventExtensionsForGrpc
     return new()
     {
       Id = dto.Id,
+      CreatedAt = Timestamp.FromDateTimeOffset(dto.CreatedAt),
+      IsPublished = dto.IsPublished,
       Name = dto.Name,
     };
   }
@@ -61,6 +63,6 @@ public static class AppEventExtensionsForGrpc
   public static AppEventUpdateActionCommand ToAppEventUpdateActionCommand(
     this AppEventUpdateActionRequestForGrpc request)
   {
-    return new(request.Id, request.Name);
+    return new(request.Id, request.IsPublished, request.Name);
   }
 }

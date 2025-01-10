@@ -3,6 +3,8 @@
 /// <summary>
 /// Команда действия по созданию полезной нагрузки события приложения.
 /// </summary>
-/// <param name="Name">Имя.</param>
+/// <param name="AppEventId">Идентификатор события приложения.</param>
+/// <param name="Data">Данные.</param>
 public record AppEventPayloadCreateActionCommand(
-  string Name) : ICommand<Result<AppEventPayloadGetActionDTO>>;
+  long AppEventId,
+  string Data) : ICommand<Result<AppEventPayloadGetActionDTO>>;
