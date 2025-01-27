@@ -18,5 +18,5 @@ public class AppEventPayloadEntity : EntityBaseWithIdProperty<long>, IAggregateR
   /// <summary>
   /// Событие.
   /// </summary>
-  public AppEventEntity Event { get; private set; } = null!;
+  public AppEventEntity? Event { get; private set; }
 }

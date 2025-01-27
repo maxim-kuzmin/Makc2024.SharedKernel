@@ -1,0 +1,4 @@
+﻿{
+  "Error:DataIsEmpty": "Data is empty",
+  "Error:Format:DataIsTooLong": "Data length exceeds the maximum allowed value of {0} characters"
+}

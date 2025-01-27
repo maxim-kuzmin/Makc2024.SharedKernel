@@ -4,17 +4,19 @@
 /// Агрегат фиктивного предмета.
 /// </summary>
 /// <param name="entityId">Идентификатор сущности.</param>
+/// <param name="_resources">Ресурсы.</param>
 /// <param name="_settings">Настройки.</param>
 public class DummyItemAggregate(
   long entityId,
+  IDummyItemResources _resources,
   DummyItemSettings _settings) : AggregateBase<DummyItemEntity, long>(entityId)
 {
   /// <inheritdoc/>
-  public sealed override DummyItemEntity? GetEntityToUpdate(DummyItemEntity entityFromDb)
+  public sealed override AggregateResult<DummyItemEntity> GetResultToUpdate(DummyItemEntity entityFromDb)
   {
-    var result = base.GetEntityToUpdate(entityFromDb);
+    var result = base.GetResultToUpdate(entityFromDb);
 
-    if (result == null)
+    if (result.IsInvalid)
     {
       return result;
     }
@@ -28,7 +30,7 @@ public class DummyItemAggregate(
       isOk = true;
     }
 
-    return isOk ? entityFromDb : null;
+    return isOk ? result : new AggregateResult<DummyItemEntity>(null);
   }
 
   /// <summary>
@@ -37,13 +39,22 @@ public class DummyItemAggregate(
   /// <param name="value">Значение.</param>
   public void UpdateName(string value)
   {
-    string parameterName = nameof(Entity.Name);
-
-    Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
-
-    if (_settings.MaxLengthForName > 0)
+    if (string.IsNullOrWhiteSpace(value))
     {
-      Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
+      string errorMessage = _resources.GetNameIsEmptyErrorMessage();
+
+      var appError = DummyItemError.NameIsEmpty.ToAppError(errorMessage);
+
+      UpdateErrors.Add(appError);
+    }
+
+    if (_settings.MaxLengthForName > 0 && value.Length > _settings.MaxLengthForName)
+    {
+      string errorMessage = _resources.GetNameIsTooLongErrorMessage(_settings.MaxLengthForName);
+
+      var appError = DummyItemError.NameIsTooLong.ToAppError(errorMessage);
+
+      UpdateErrors.Add(appError);
     }
 
     Entity.Name = value;

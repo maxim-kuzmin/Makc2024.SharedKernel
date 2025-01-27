@@ -23,5 +23,5 @@ public class AppEventEntity : EntityBaseWithIdProperty<long>, IAggregateRoot
   /// <summary>
   /// Полезные нагрузки.
   /// </summary>
-  public IEnumerable<AppEventPayloadEntity> Payloads { get; } = [];
+  public IEnumerable<AppEventPayloadEntity>? Payloads { get; }
 }

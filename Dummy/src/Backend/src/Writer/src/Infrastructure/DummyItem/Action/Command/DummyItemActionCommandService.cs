@@ -9,34 +9,42 @@
 public class DummyItemActionCommandService(
   IEventDispatcher _eventDispatcher,
   IDummyItemFactory _factory,
-  IDummyItemRepository _repository) :
-  IDummyItemActionCommandService
+  IDummyItemRepository _repository) : IDummyItemActionCommandService
 {
   /// <inheritdoc/>
   public async Task<Result<DummyItemGetActionDTO>> Create(
     DummyItemCreateActionCommand command,
     CancellationToken cancellationToken)
   {
-    var dummyItemAggregate = _factory.CreateAggregate();
+    var aggregate = _factory.CreateAggregate();
 
-    dummyItemAggregate.UpdateName(command.Name);
+    aggregate.UpdateName(command.Name);
 
-    var dummyItemEntity = dummyItemAggregate.GetEntityToCreate();
+    var aggregateResult = aggregate.GetResultToCreate();
 
-    if (dummyItemEntity == null)
+    var validationErrors = aggregateResult.ToValidationErrors();
+
+    if (validationErrors.Count > 0)
+    {
+      return Result.Invalid(validationErrors);
+    }
+
+    var entity = aggregateResult.Entity;
+
+    if (entity == null)
     {
       return Result.Forbidden();
     }
 
-    dummyItemEntity = await _repository.AddAsync(dummyItemEntity, cancellationToken).ConfigureAwait(false);
+    entity = await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
 
-    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken).ConfigureAwait(false);
+    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
-    var data = new DummyItemGetActionDTO(
-      dummyItemEntity.Id,
-      dummyItemEntity.Name);
+    var dto = new DummyItemGetActionDTO(
+      entity.Id,
+      entity.Name);
 
-    return Result.Success(data);
+    return Result.Success(dto);
   }
 
   /// <inheritdoc/>
@@ -44,25 +52,34 @@ public class DummyItemActionCommandService(
     DummyItemDeleteActionCommand command,
     CancellationToken cancellationToken)
   {
-    var dummyItemEntity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
+    var entity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
 
-    if (dummyItemEntity == null)
+    if (entity == null)
     {
       return Result.NotFound();
     }
 
-    var dummyItemAggregate = _factory.CreateAggregate(dummyItemEntity.Id);
+    var aggregate = _factory.CreateAggregate(entity.Id);
 
-    dummyItemEntity = dummyItemAggregate.GetEntityToDelete(dummyItemEntity);
+    var aggregateResult = aggregate.GetResultToDelete(entity);
 
-    if (dummyItemEntity == null)
+    var validationErrors = aggregateResult.ToValidationErrors();
+
+    if (validationErrors.Count > 0)
     {
-      return Result.NotFound();
+      return Result.Invalid(validationErrors);
     }
 
-    await _repository.DeleteAsync(dummyItemEntity, cancellationToken).ConfigureAwait(false);
+    entity = aggregateResult.Entity;
 
-    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken).ConfigureAwait(false);
+    if (entity == null)
+    {
+      return Result.Forbidden();
+    }
+
+    await _repository.DeleteAsync(entity, cancellationToken).ConfigureAwait(false);
+
+    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
     return Result.Success();
   }
@@ -72,32 +89,41 @@ public class DummyItemActionCommandService(
     DummyItemUpdateActionCommand command,
     CancellationToken cancellationToken)
   {
-    var dummyItemEntity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
+    var entity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
 
-    if (dummyItemEntity == null)
+    if (entity == null)
     {
       return Result.NotFound();
     }
 
-    var dummyItemAggregate = _factory.CreateAggregate(dummyItemEntity.Id);
+    var aggregate = _factory.CreateAggregate(entity.Id);
 
-    dummyItemAggregate.UpdateName(command.Name);
+    aggregate.UpdateName(command.Name);
 
-    var dummyItemEntityToUpdate = dummyItemAggregate.GetEntityToUpdate(dummyItemEntity);
+    var aggregateResult = aggregate.GetResultToUpdate(entity);
 
-    if (dummyItemEntityToUpdate != null)
+    var validationErrors = aggregateResult.ToValidationErrors();
+
+    if (validationErrors.Count > 0)
     {
-      dummyItemEntity = dummyItemEntityToUpdate;
-
-      await _repository.UpdateAsync(dummyItemEntity, cancellationToken).ConfigureAwait(false);
+      return Result.Invalid(validationErrors);
     }
 
-    await _eventDispatcher.DispatchAndClearEvents(dummyItemAggregate, cancellationToken).ConfigureAwait(false);
+    entity = aggregateResult.Entity;
 
-    var data = new DummyItemGetActionDTO(
-      dummyItemEntity.Id,
-      dummyItemEntity.Name);
+    if (entity == null)
+    {
+      return Result.Forbidden();
+    }
 
-    return Result.Success(data);
+    await _repository.UpdateAsync(entity, cancellationToken).ConfigureAwait(false);
+
+    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
+
+    var dto = new DummyItemGetActionDTO(
+      entity.Id,
+      entity.Name);
+
+    return Result.Success(dto);
   }
 }

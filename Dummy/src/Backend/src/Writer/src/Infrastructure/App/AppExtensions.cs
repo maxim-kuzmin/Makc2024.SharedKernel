@@ -23,6 +23,8 @@ public static class AppExtensions
   {
     services.AddSerilog(config => config.ReadFrom.Configuration(configuration));
 
+    services.AddJsonLocalization();
+
     services.Configure<AppConfigOptions>(appConfigSection);
 
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
@@ -64,10 +66,15 @@ public static class AppExtensions
     services.AddTransient<IAppActionCommandService, AppActionCommandService>();
     services.AddTransient<IAppEventActionCommandService, AppEventActionCommandService>();
     services.AddTransient<IAppEventActionQueryService, AppEventActionQueryService>();
+    services.AddTransient<IAppEventResources, AppEventResources>();
+
     services.AddTransient<IAppEventPayloadActionCommandService, AppEventPayloadActionCommandService>();
     services.AddTransient<IAppEventPayloadActionQueryService, AppEventPayloadActionQueryService>();
+    services.AddTransient<IAppEventPayloadResources, AppEventPayloadResources>();
+
     services.AddTransient<IDummyItemActionCommandService, DummyItemActionCommandService>();
     services.AddTransient<IDummyItemActionQueryService, DummyItemActionQueryService>();
+    services.AddTransient<IDummyItemResources, DummyItemResources>();
 
     logger.LogInformation("Infrastructure layer added");
 

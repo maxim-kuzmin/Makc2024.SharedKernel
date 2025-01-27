@@ -9,37 +9,47 @@
 public class AppEventActionCommandService(
   IEventDispatcher _eventDispatcher,
   IAppEventFactory _factory,
-  IAppEventRepository _repository) :
-  IAppEventActionCommandService
+  IAppEventRepository _repository) : IAppEventActionCommandService
 {
   /// <inheritdoc/>
   public async Task<Result<AppEventGetActionDTO>> Create(
     AppEventCreateActionCommand command,
     CancellationToken cancellationToken)
   {
-    var appEventAggregate = _factory.CreateAggregate();
+    var aggregate = _factory.CreateAggregate();
 
-    appEventAggregate.UpdateIsPublished(command.IsPublished);
-    appEventAggregate.UpdateName(command.Name);
+    aggregate.UpdateIsPublished(command.IsPublished);
+    aggregate.UpdateName(command.Name);
 
-    var appEventEntity = appEventAggregate.GetEntityToCreate();
+    var aggregateResult = aggregate.GetResultToCreate();
 
-    if (appEventEntity == null)
+    var validationErrors = aggregateResult.ToValidationErrors();
+
+    if (validationErrors.Count > 0)
+    {
+      return Result.Invalid(validationErrors);
+    }
+
+    var entity = aggregateResult.Entity;
+
+    if (entity == null)
     {
       return Result.Forbidden();
     }
 
-    appEventEntity = await _repository.AddAsync(appEventEntity, cancellationToken).ConfigureAwait(false);
+    var taskToAddAppEventEntity = _repository.AddAsync(entity, cancellationToken);
 
-    await _eventDispatcher.DispatchAndClearEvents(appEventAggregate, cancellationToken).ConfigureAwait(false);
+    entity = await taskToAddAppEventEntity.ConfigureAwait(false);
 
-    var data = new AppEventGetActionDTO(
-      appEventEntity.Id,
-      appEventEntity.CreatedAt,
-      appEventEntity.IsPublished,
-      appEventEntity.Name);
+    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
-    return Result.Success(data);
+    var dto = new AppEventGetActionDTO(
+      entity.Id,
+      entity.CreatedAt,
+      entity.IsPublished,
+      entity.Name);
+
+    return Result.Success(dto);
   }
 
   /// <inheritdoc/>
@@ -47,25 +57,34 @@ public class AppEventActionCommandService(
     AppEventDeleteActionCommand command,
     CancellationToken cancellationToken)
   {
-    var appEventEntity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
+    var entity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
 
-    if (appEventEntity == null)
+    if (entity == null)
     {
       return Result.NotFound();
     }
 
-    var appEventAggregate = _factory.CreateAggregate(appEventEntity.Id);
+    var aggregate = _factory.CreateAggregate(entity.Id);
 
-    appEventEntity = appEventAggregate.GetEntityToDelete(appEventEntity);
+    var aggregateResult = aggregate.GetResultToDelete(entity);
 
-    if (appEventEntity == null)
+    var validationErrors = aggregateResult.ToValidationErrors();
+
+    if (validationErrors.Count > 0)
     {
-      return Result.NotFound();
+      return Result.Invalid(validationErrors);
     }
 
-    await _repository.DeleteAsync(appEventEntity, cancellationToken).ConfigureAwait(false);
+    entity = aggregateResult.Entity;
 
-    await _eventDispatcher.DispatchAndClearEvents(appEventAggregate, cancellationToken).ConfigureAwait(false);
+    if (entity == null)
+    {
+      return Result.Forbidden();
+    }
+
+    await _repository.DeleteAsync(entity, cancellationToken).ConfigureAwait(false);
+
+    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
     return Result.Success();
   }
@@ -75,35 +94,44 @@ public class AppEventActionCommandService(
     AppEventUpdateActionCommand command,
     CancellationToken cancellationToken)
   {
-    var appEventEntity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
+    var entity = await _repository.GetByIdAsync(command.Id, cancellationToken).ConfigureAwait(false);
 
-    if (appEventEntity == null)
+    if (entity == null)
     {
       return Result.NotFound();
     }
 
-    var appEventAggregate = _factory.CreateAggregate(appEventEntity.Id);
+    var aggregate = _factory.CreateAggregate(entity.Id);
 
-    appEventAggregate.UpdateIsPublished(command.IsPublished);
-    appEventAggregate.UpdateName(command.Name);
+    aggregate.UpdateIsPublished(command.IsPublished);
+    aggregate.UpdateName(command.Name);
 
-    var appEventEntityToUpdate = appEventAggregate.GetEntityToUpdate(appEventEntity);
+    var aggregateResult = aggregate.GetResultToUpdate(entity);
 
-    if (appEventEntityToUpdate != null)
+    var validationErrors = aggregateResult.ToValidationErrors();
+
+    if (validationErrors.Count > 0)
     {
-      appEventEntity = appEventEntityToUpdate;
-
-      await _repository.UpdateAsync(appEventEntity, cancellationToken).ConfigureAwait(false);
+      return Result.Invalid(validationErrors);
     }
 
-    await _eventDispatcher.DispatchAndClearEvents(appEventAggregate, cancellationToken).ConfigureAwait(false);
+    entity = aggregateResult.Entity;
 
-    var data = new AppEventGetActionDTO(
-      appEventEntity.Id,
-      appEventEntity.CreatedAt,
-      appEventEntity.IsPublished,
-      appEventEntity.Name);
+    if (entity == null)
+    {
+      return Result.Forbidden();
+    }
 
-    return Result.Success(data);
+    await _repository.UpdateAsync(entity, cancellationToken).ConfigureAwait(false);
+
+    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
+
+    var dto = new AppEventGetActionDTO(
+      entity.Id,
+      entity.CreatedAt,
+      entity.IsPublished,
+      entity.Name);
+
+    return Result.Success(dto);
   }
 }

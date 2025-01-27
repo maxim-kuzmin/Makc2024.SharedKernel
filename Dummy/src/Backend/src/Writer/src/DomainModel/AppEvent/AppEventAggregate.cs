@@ -4,17 +4,19 @@
 /// Агрегат события приложения.
 /// </summary>
 /// <param name="entityId">Идентификатор сущности.</param>
+/// <param name="_resources">Ресурсы.</param>
 /// <param name="_settings">Настройки.</param>
 public class AppEventAggregate(
   long entityId,
+  IAppEventResources _resources,
   AppEventSettings _settings) : AggregateBase<AppEventEntity, long>(entityId)
 {
   /// <inheritdoc/>
-  public sealed override AppEventEntity? GetEntityToUpdate(AppEventEntity entityFromDb)
+  public sealed override AggregateResult<AppEventEntity> GetResultToUpdate(AppEventEntity entityFromDb)
   {
-    var result = base.GetEntityToUpdate(entityFromDb);
+    var result = base.GetResultToUpdate(entityFromDb);
 
-    if (result == null)
+    if (result.IsInvalid)
     {
       return result;
     }
@@ -42,7 +44,7 @@ public class AppEventAggregate(
       isOk = true;
     }
 
-    return isOk ? entityFromDb : null;
+    return isOk ? result : new AggregateResult<AppEventEntity>(null);
   }
 
   /// <inheritdoc/>
@@ -57,11 +59,18 @@ public class AppEventAggregate(
   /// <param name="value">Значение.</param>
   public void UpdateCreatedAt(DateTimeOffset value)
   {
-    var parameterName = nameof(Entity.CreatedAt);
+    if (value == default)
+    {
+      string errorMessage = _resources.GetCreatedAtIsInvalidErrorMessage();
 
-    Entity.CreatedAt = Guard.Against.Default(value, parameterName: parameterName);
+      var appError = AppEventError.CreatedAtIsInvalid.ToAppError(errorMessage);
 
-    MarkPropertyAsChanged(parameterName);
+      UpdateErrors.Add(appError);
+    }
+
+    Entity.CreatedAt = value;
+
+    MarkPropertyAsChanged(nameof(Entity.CreatedAt));
   }
 
   /// <summary>
@@ -70,11 +79,9 @@ public class AppEventAggregate(
   /// <param name="value">Значение.</param>
   public void UpdateIsPublished(bool value)
   {
-    var parameterName = nameof(Entity.IsPublished);
-
     Entity.IsPublished = value;
 
-    MarkPropertyAsChanged(parameterName);
+    MarkPropertyAsChanged(nameof(Entity.IsPublished));
   }
 
   /// <summary>
@@ -83,17 +90,26 @@ public class AppEventAggregate(
   /// <param name="value">Значение.</param>
   public void UpdateName(string value)
   {
-    var parameterName = nameof(Entity.Name);
-
-    Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
-
-    if (_settings.MaxLengthForName > 0)
+    if (string.IsNullOrWhiteSpace(value))
     {
-      Guard.Against.StringTooLong(value, _settings.MaxLengthForName, parameterName: parameterName);
+      string errorMessage = _resources.GetNameIsEmptyErrorMessage();
+
+      var appError = AppEventError.NameIsEmpty.ToAppError(errorMessage);
+
+      UpdateErrors.Add(appError);
+    }
+
+    if (_settings.MaxLengthForName > 0 && value.Length > _settings.MaxLengthForName)
+    {
+      string errorMessage = _resources.GetNameIsTooLongErrorMessage(_settings.MaxLengthForName);
+
+      var appError = AppEventError.NameIsTooLong.ToAppError(errorMessage);
+
+      UpdateErrors.Add(appError);
     }
 
     Entity.Name = value;
 
-    MarkPropertyAsChanged(parameterName);
+    MarkPropertyAsChanged(nameof(Entity.Name));
   }
 }

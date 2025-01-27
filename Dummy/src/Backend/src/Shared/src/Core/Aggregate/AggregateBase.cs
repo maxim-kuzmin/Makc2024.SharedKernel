@@ -17,6 +17,11 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
   protected TEntity Entity { get; }
 
   /// <summary>
+  /// Ошибки обновления.
+  /// </summary>
+  protected HashSet<AppError> UpdateErrors { get; } = [];
+
+  /// <summary>
   /// Конструктор.
   /// </summary>
   /// <param name="entityId">Идентификатор сущности.</param>
@@ -30,42 +35,42 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
   }
 
   /// <summary>
-  /// Получить сущность для создания.
+  /// Получить результат для создания.
   /// </summary>
   /// <returns>Сущность для создания.</returns>
-  public virtual TEntity? GetEntityToCreate()
+  public virtual AggregateResult<TEntity> GetResultToCreate()
   {
-    return (TEntity)Entity.DeepCopy();
+    return new AggregateResult<TEntity>((TEntity)Entity.DeepCopy(), UpdateErrors);
   }
 
   /// <summary>
-  /// Получить сущность для удаления.
+  /// Получить результат для удаления.
   /// </summary>
   /// <param name="entityFromDb">Сущность из базы данных.</param>
   /// <returns>Сущность для удаления.</returns>
-  public virtual TEntity? GetEntityToDelete(TEntity entityFromDb)
+  public virtual AggregateResult<TEntity> GetResultToDelete(TEntity entityFromDb)
   {
     if (IsUnchangeable(entityFromDb))
     {
-      return null;
+      return new AggregateResult<TEntity>(null);
     }
 
-    return entityFromDb;
+    return new AggregateResult<TEntity>(entityFromDb);
   }
 
   /// <summary>
-  /// Получить сущность для обновления.
+  /// Получить результат для обновления.
   /// </summary>
   /// <param name="entityFromDb">Сущность из базы данных.</param>
   /// <returns>Сущность для обновления.</returns>
-  public virtual TEntity? GetEntityToUpdate(TEntity entityFromDb)
+  public virtual AggregateResult<TEntity> GetResultToUpdate(TEntity entityFromDb)
   {
     if (IsUnchangeable(entityFromDb))
     {
-      return null;
+      return new AggregateResult<TEntity>(null);
     }
 
-    return entityFromDb;
+    return new AggregateResult<TEntity>(entityFromDb, UpdateErrors);
   }
 
   /// <summary>

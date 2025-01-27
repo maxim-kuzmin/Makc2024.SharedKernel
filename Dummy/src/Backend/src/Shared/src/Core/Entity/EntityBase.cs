@@ -1,6 +1,4 @@
-﻿using Ardalis.SharedKernel;
-
-namespace Makc2024.Dummy.Shared.Core.Entity;
+﻿namespace Makc2024.Dummy.Shared.Core.Entity;
 
 /// <summary>
 /// Основа сущности.

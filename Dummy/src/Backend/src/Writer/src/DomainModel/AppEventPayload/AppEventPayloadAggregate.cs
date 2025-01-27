@@ -4,17 +4,19 @@
 /// Агрегат полезной нагрузки события приложения.
 /// </summary>
 /// <param name="entityId">Идентификатор сущности.</param>
+/// <param name="_resources">Ресурсы.</param>
 /// <param name="_settings">Настройки.</param>
 public class AppEventPayloadAggregate(
   long entityId,
+  IAppEventPayloadResources _resources,
   AppEventPayloadSettings _settings) : AggregateBase<AppEventPayloadEntity, long>(entityId)
 {
   /// <inheritdoc/>
-  public sealed override AppEventPayloadEntity? GetEntityToUpdate(AppEventPayloadEntity entityFromDb)
+  public sealed override AggregateResult<AppEventPayloadEntity> GetResultToUpdate(AppEventPayloadEntity entityFromDb)
   {
-    var result = base.GetEntityToUpdate(entityFromDb);
+    var result = base.GetResultToUpdate(entityFromDb);
 
-    if (result == null)
+    if (result.IsInvalid)
     {
       return result;
     }
@@ -35,7 +37,7 @@ public class AppEventPayloadAggregate(
       isOk = true;
     }
 
-    return isOk ? entityFromDb : null;
+    return isOk ? result : new AggregateResult<AppEventPayloadEntity>(null);
   }
 
   /// <summary>
@@ -44,11 +46,18 @@ public class AppEventPayloadAggregate(
   /// <param name="value">Значение.</param>
   public void UpdateAppEventId(long value)
   {
-    string parameterName = nameof(Entity.AppEventId);
+    if (value == default)
+    {
+      string errorMessage = _resources.GetAppEventIdIsInvalidErrorMessage();
 
-    Entity.AppEventId = Guard.Against.Default(value, parameterName: parameterName);
+      var appError = AppEventPayloadError.AppEventIdIsInvalid.ToAppError(errorMessage);
 
-    MarkPropertyAsChanged(parameterName);
+      UpdateErrors.Add(appError);
+    }
+
+    Entity.AppEventId = value;
+
+    MarkPropertyAsChanged(nameof(Entity.AppEventId));
   }
 
   /// <summary>
@@ -57,17 +66,26 @@ public class AppEventPayloadAggregate(
   /// <param name="value">Значение.</param>
   public void UpdateData(string value)
   {
-    string parameterName = nameof(Entity.Data);
-
-    Guard.Against.NullOrWhiteSpace(value, parameterName: parameterName);
-
-    if (_settings.MaxLengthForData > 0)
+    if (string.IsNullOrWhiteSpace(value))
     {
-      Guard.Against.StringTooLong(value, _settings.MaxLengthForData, parameterName: parameterName);
+      string errorMessage = _resources.GetDataIsEmptyErrorMessage();
+
+      var appError = AppEventPayloadError.DataIsEmpty.ToAppError(errorMessage);
+
+      UpdateErrors.Add(appError);
+    }
+
+    if (_settings.MaxLengthForData > 0 && value.Length > _settings.MaxLengthForData)
+    {
+      string errorMessage = _resources.GetDataIsTooLongErrorMessage(_settings.MaxLengthForData);
+
+      var appError = AppEventPayloadError.DataIsTooLong.ToAppError(errorMessage);
+
+      UpdateErrors.Add(appError);
     }
 
     Entity.Data = value;
 
-    MarkPropertyAsChanged(parameterName);
+    MarkPropertyAsChanged(nameof(Entity.Data));
   }
 }

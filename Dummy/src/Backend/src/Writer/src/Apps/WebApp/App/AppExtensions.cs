@@ -1,4 +1,7 @@
-﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.App;
+﻿using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+
+namespace Makc2024.Dummy.Writer.Apps.WebApp.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -81,6 +84,17 @@ public static class AppExtensions
 
       app.UseHsts();
     }
+
+    List<CultureInfo> supportedCultures = [new("ru"), new("en")];
+
+    var requestLocalizationOptions = new RequestLocalizationOptions
+    {
+      DefaultRequestCulture = new("ru"),
+      SupportedCultures = supportedCultures,
+      SupportedUICultures = supportedCultures
+    };
+
+    app.UseRequestLocalization(requestLocalizationOptions);
 
     //app.UseHttpsRedirection();
 

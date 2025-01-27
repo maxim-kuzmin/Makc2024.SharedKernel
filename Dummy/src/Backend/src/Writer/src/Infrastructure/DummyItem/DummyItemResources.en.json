@@ -1,0 +1,4 @@
+﻿{
+  "Error:NameIsEmpty": "Name is empty",
+  "Error:Format:NameIsTooLong": "Name length exceeds the maximum allowed value of {0} characters"
+}
