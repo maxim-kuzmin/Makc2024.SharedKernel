@@ -17,6 +17,7 @@ public class AppEventEntityDbSettingsForPostgreSQL : AppEventEntityDbSettings
 
     PrimaryKey = $"pk_{Table}";
 
+    ColumnForConcurrencyToken = "сoncurrency_token";
     ColumnForCreatedAt = "created_at";
     ColumnForId = "id";
     ColumnForIsPublished = "is_published";

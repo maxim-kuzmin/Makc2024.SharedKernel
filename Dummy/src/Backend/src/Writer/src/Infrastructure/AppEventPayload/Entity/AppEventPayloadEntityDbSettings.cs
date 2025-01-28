@@ -6,6 +6,11 @@
 public abstract class AppEventPayloadEntityDbSettings : AppEventPayloadSettings
 {
   /// <summary>
+  /// Столбец для токена конкуренции.
+  /// </summary>
+  public string ColumnForConcurrencyToken { get; protected set; } = null!;
+
+  /// <summary>
   /// Внешний ключ для идентификатора события приложения.
   /// </summary>
   public string ColumnForAppEventId { get; protected set; } = null!;

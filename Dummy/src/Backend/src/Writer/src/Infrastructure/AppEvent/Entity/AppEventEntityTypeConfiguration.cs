@@ -16,6 +16,10 @@ public class AppEventEntityTypeConfiguration : IEntityTypeConfiguration<AppEvent
 
     builder.HasKey(e => e.Id).HasName(entityDbSettings.PrimaryKey);
 
+    builder.Property(x => x.ConcurrencyToken)
+      .IsConcurrencyToken()
+      .HasColumnName(entityDbSettings.ColumnForConcurrencyToken);
+
     builder.Property(x => x.CreatedAt)
       .IsRequired()
       .HasColumnName(entityDbSettings.ColumnForCreatedAt);

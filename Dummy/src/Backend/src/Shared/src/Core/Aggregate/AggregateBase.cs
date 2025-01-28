@@ -76,6 +76,8 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
       return new AggregateResult<EntityChange<TEntity>>(null);
     }
 
+    entityFromDb.RefreshConcurrencyToken();
+
     TEntity? inserted = entityFromDb;
     TEntity? deleted = (TEntity)entityFromDb.DeepCopy();
 

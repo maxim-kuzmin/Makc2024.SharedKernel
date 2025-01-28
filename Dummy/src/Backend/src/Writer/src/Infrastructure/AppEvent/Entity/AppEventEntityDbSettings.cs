@@ -6,6 +6,11 @@
 public abstract class AppEventEntityDbSettings : AppEventSettings
 {
   /// <summary>
+  /// Столбец для токена конкуренции.
+  /// </summary>
+  public string ColumnForConcurrencyToken { get; protected set; } = null!;
+
+  /// <summary>
   /// Столбец для даты создания.
   /// </summary>
   public string ColumnForCreatedAt { get; protected set; } = null!;

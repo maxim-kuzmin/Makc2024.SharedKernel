@@ -6,6 +6,11 @@
 public abstract class DummyItemEntityDbSettings : DummyItemSettings
 {
   /// <summary>
+  /// Столбец для токена конкуренции.
+  /// </summary>
+  public string ColumnForConcurrencyToken { get; protected set; } = null!;
+
+  /// <summary>
   /// Столбец для идентификатора.
   /// </summary>
   public string ColumnForId { get; protected set; } = null!;

@@ -16,6 +16,10 @@ public class DummyItemEntityTypeConfiguration : IEntityTypeConfiguration<DummyIt
 
     builder.HasKey(e => e.Id).HasName(entityDbSettings.PrimaryKey);
 
+    builder.Property(x => x.ConcurrencyToken)
+      .IsConcurrencyToken()
+      .HasColumnName(entityDbSettings.ColumnForConcurrencyToken);
+
     builder.Property(x => x.Id)
       .ValueGeneratedOnAdd()
       .HasColumnName(entityDbSettings.ColumnForId);

@@ -26,6 +26,10 @@ public class AppEventPayloadEntityTypeConfiguration : IEntityTypeConfiguration<A
       .IsRequired()
       .HasColumnName(entityDbSettings.ColumnForAppEventId);
 
+    builder.Property(x => x.ConcurrencyToken)
+      .IsConcurrencyToken()
+      .HasColumnName(entityDbSettings.ColumnForConcurrencyToken);
+
     builder.Property(x => x.Data)
       .IsRequired()      
       .HasColumnName(entityDbSettings.ColumnForData);

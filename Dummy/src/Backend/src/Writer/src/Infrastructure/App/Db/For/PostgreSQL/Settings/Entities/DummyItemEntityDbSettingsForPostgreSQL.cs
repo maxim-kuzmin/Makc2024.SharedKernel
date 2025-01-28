@@ -17,6 +17,7 @@ public class DummyItemEntityDbSettingsForPostgreSQL : DummyItemEntityDbSettings
 
     PrimaryKey = $"pk_{Table}";
 
+    ColumnForConcurrencyToken = "сoncurrency_token";
     ColumnForId = "id";
     ColumnForName = "name";
 

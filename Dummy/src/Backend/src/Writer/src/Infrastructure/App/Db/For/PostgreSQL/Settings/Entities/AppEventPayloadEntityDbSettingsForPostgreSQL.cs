@@ -17,8 +17,9 @@ public class AppEventPayloadEntityDbSettingsForPostgreSQL : AppEventPayloadEntit
     Table = "app_event_payload";
 
     PrimaryKey = $"pk_{Table}";
-
+    
     ColumnForAppEventId = "app_event_id";
+    ColumnForConcurrencyToken = "сoncurrency_token";
     ColumnForData = "data";
     ColumnForId = "id";
 
