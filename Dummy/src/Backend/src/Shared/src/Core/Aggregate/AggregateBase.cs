@@ -38,9 +38,12 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
   /// Получить результат для создания.
   /// </summary>
   /// <returns>Сущность для создания.</returns>
-  public virtual AggregateResult<TEntity> GetResultToCreate()
+  public virtual AggregateResult<EntityChange<TEntity>> GetResultToCreate()
   {
-    return new AggregateResult<TEntity>((TEntity)Entity.DeepCopy(), UpdateErrors);
+    TEntity? inserted = Entity;
+    TEntity? deleted = null;
+
+    return new AggregateResult<EntityChange<TEntity>>(new(inserted, deleted), UpdateErrors);
   }
 
   /// <summary>
@@ -48,14 +51,17 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
   /// </summary>
   /// <param name="entityFromDb">Сущность из базы данных.</param>
   /// <returns>Сущность для удаления.</returns>
-  public virtual AggregateResult<TEntity> GetResultToDelete(TEntity entityFromDb)
+  public virtual AggregateResult<EntityChange<TEntity>> GetResultToDelete(TEntity entityFromDb)
   {
     if (IsUnchangeable(entityFromDb))
     {
-      return new AggregateResult<TEntity>(null);
+      return new AggregateResult<EntityChange<TEntity>>(null);
     }
 
-    return new AggregateResult<TEntity>(entityFromDb);
+    TEntity? inserted = null;
+    TEntity? deleted = entityFromDb;
+
+    return new AggregateResult<EntityChange<TEntity>>(new(inserted, deleted));
   }
 
   /// <summary>
@@ -63,21 +69,33 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
   /// </summary>
   /// <param name="entityFromDb">Сущность из базы данных.</param>
   /// <returns>Сущность для обновления.</returns>
-  public virtual AggregateResult<TEntity> GetResultToUpdate(TEntity entityFromDb)
+  public virtual AggregateResult<EntityChange<TEntity>> GetResultToUpdate(TEntity entityFromDb)
   {
     if (IsUnchangeable(entityFromDb))
     {
-      return new AggregateResult<TEntity>(null);
+      return new AggregateResult<EntityChange<TEntity>>(null);
     }
 
-    return new AggregateResult<TEntity>(entityFromDb, UpdateErrors);
+    TEntity? inserted = entityFromDb;
+    TEntity? deleted = (TEntity)entityFromDb.DeepCopy();
+
+    return new AggregateResult<EntityChange<TEntity>>(new(inserted, deleted), UpdateErrors);
   }
 
   /// <summary>
-  /// Есть изменённое свойство.
+  /// Есть ли изменённые свойства?
+  /// </summary>
+  /// <returns>Если есть изменённые свойства, то true, иначе - false.</returns>
+  protected bool HasChangedProperties()
+  {
+    return _changedProperties.Count > 0;
+  }
+
+  /// <summary>
+  /// Есть ли изменённое свойство?
   /// </summary>
   /// <param name="propertyName">Имя свойства.</param>
-  /// <returns>Если значение сойства изменилось, то true, иначе - false.</returns>
+  /// <returns>Если значение свойства изменилось, то true, иначе - false.</returns>
   protected bool HasChangedProperty(string propertyName)
   {
     return _changedProperties.Contains(propertyName);
@@ -99,7 +117,12 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
     _changedProperties.Add(propertyName);
   }
 
-  private bool IsUnchangeable(TEntity entityFromDb)
+  /// <summary>
+  /// Неизменная?
+  /// </summary>
+  /// <param name="entityFromDb">Сущность из базы данных.</param>
+  /// <returns>Если сущность не может быть изменена, то true, иначе - false.</returns>
+  protected bool IsUnchangeable(TEntity entityFromDb)
   {
     return Entity.GetId().Equals(default) || !entityFromDb.GetId().Equals(Entity.GetId());
   }

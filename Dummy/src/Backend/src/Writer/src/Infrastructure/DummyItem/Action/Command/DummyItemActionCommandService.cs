@@ -22,6 +22,11 @@ public class DummyItemActionCommandService(
 
     var aggregateResult = aggregate.GetResultToCreate();
 
+    if (aggregateResult.Data == null)
+    {
+      return Result.Invalid();
+    }
+
     var validationErrors = aggregateResult.ToValidationErrors();
 
     if (validationErrors.Count > 0)
@@ -29,7 +34,7 @@ public class DummyItemActionCommandService(
       return Result.Invalid(validationErrors);
     }
 
-    var entity = aggregateResult.Entity;
+    var entity = aggregateResult.Data.Inserted;
 
     if (entity == null)
     {
@@ -63,6 +68,11 @@ public class DummyItemActionCommandService(
 
     var aggregateResult = aggregate.GetResultToDelete(entity);
 
+    if (aggregateResult.Data == null)
+    {
+      return Result.Invalid();
+    }
+
     var validationErrors = aggregateResult.ToValidationErrors();
 
     if (validationErrors.Count > 0)
@@ -70,7 +80,7 @@ public class DummyItemActionCommandService(
       return Result.Invalid(validationErrors);
     }
 
-    entity = aggregateResult.Entity;
+    entity = aggregateResult.Data.Deleted;
 
     if (entity == null)
     {
@@ -102,6 +112,11 @@ public class DummyItemActionCommandService(
 
     var aggregateResult = aggregate.GetResultToUpdate(entity);
 
+    if (aggregateResult.Data == null)
+    {
+      return Result.Invalid();
+    }
+
     var validationErrors = aggregateResult.ToValidationErrors();
 
     if (validationErrors.Count > 0)
@@ -109,7 +124,7 @@ public class DummyItemActionCommandService(
       return Result.Invalid(validationErrors);
     }
 
-    entity = aggregateResult.Entity;
+    entity = aggregateResult.Data.Inserted;
 
     if (entity == null)
     {

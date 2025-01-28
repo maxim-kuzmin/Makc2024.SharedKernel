@@ -3,15 +3,15 @@
 /// <summary>
 /// Результат агрегата.
 /// </summary>
-/// <typeparam name="TEntity">Тип сущности.</typeparam>
-/// <param name="Entity">Сущность.</param>
+/// <typeparam name="TData">Тип данных.</typeparam>
+/// <param name="Data">Данные.</param>
 /// <param name="Errors">Ошибки.</param>
-public record AggregateResult<TEntity>(TEntity? Entity, HashSet<AppError>? Errors = null)
+public record AggregateResult<TData>(TData? Data, HashSet<AppError>? Errors = null)
 {
   /// <summary>
   /// Недействителен ли?
   /// </summary>
-  public bool IsInvalid => Entity == null || Errors?.Count > 0;
+  public bool IsInvalid => Data == null || Errors?.Count > 0;
 
   /// <summary>
   /// Преобразовать к ошибкам валидации.

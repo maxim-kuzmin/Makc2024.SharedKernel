@@ -12,7 +12,8 @@ public class AppEventPayloadAggregate(
   AppEventPayloadSettings _settings) : AggregateBase<AppEventPayloadEntity, long>(entityId)
 {
   /// <inheritdoc/>
-  public sealed override AggregateResult<AppEventPayloadEntity> GetResultToUpdate(AppEventPayloadEntity entityFromDb)
+  public sealed override AggregateResult<EntityChange<AppEventPayloadEntity>> GetResultToUpdate(
+    AppEventPayloadEntity entityFromDb)
   {
     var result = base.GetResultToUpdate(entityFromDb);
 
@@ -21,23 +22,31 @@ public class AppEventPayloadAggregate(
       return result;
     }
 
-    bool isOk = false;
-
-    if (HasChangedProperty(nameof(Entity.AppEventId)) && entityFromDb.AppEventId != Entity.AppEventId)
+    if (HasChangedProperties())
     {
-      entityFromDb.AppEventId = Entity.AppEventId;
+      bool isOk = false;
 
-      isOk = true;
+      if (HasChangedProperty(nameof(Entity.AppEventId)) && entityFromDb.AppEventId != Entity.AppEventId)
+      {
+        entityFromDb.AppEventId = Entity.AppEventId;
+
+        isOk = true;
+      }
+
+      if (HasChangedProperty(nameof(Entity.Data)) && entityFromDb.Data != Entity.Data)
+      {
+        entityFromDb.Data = Entity.Data;
+
+        isOk = true;
+      }
+
+      if (isOk)
+      {
+        return result;
+      }
     }
 
-    if (HasChangedProperty(nameof(Entity.Data)) && entityFromDb.Data != Entity.Data)
-    {
-      entityFromDb.Data = Entity.Data;
-
-      isOk = true;
-    }
-
-    return isOk ? result : new AggregateResult<AppEventPayloadEntity>(null);
+    return new AggregateResult<EntityChange<AppEventPayloadEntity>>(new(null, null));
   }
 
   /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.DomainModel.AppEvent;
+﻿using Makc2024.Dummy.Writer.DomainModel.DummyItem;
+
+namespace Makc2024.Dummy.Writer.DomainModel.AppEvent;
 
 /// <summary>
 /// Агрегат события приложения.
@@ -12,7 +14,7 @@ public class AppEventAggregate(
   AppEventSettings _settings) : AggregateBase<AppEventEntity, long>(entityId)
 {
   /// <inheritdoc/>
-  public sealed override AggregateResult<AppEventEntity> GetResultToUpdate(AppEventEntity entityFromDb)
+  public sealed override AggregateResult<EntityChange<AppEventEntity>> GetResultToUpdate(AppEventEntity entityFromDb)
   {
     var result = base.GetResultToUpdate(entityFromDb);
 
@@ -21,30 +23,38 @@ public class AppEventAggregate(
       return result;
     }
 
-    var isOk = false;
-
-    if (HasChangedProperty(nameof(Entity.CreatedAt)) && entityFromDb.CreatedAt != Entity.CreatedAt)
+    if (HasChangedProperties())
     {
-      entityFromDb.CreatedAt = Entity.CreatedAt;
+      var isOk = false;
 
-      isOk = true;
+      if (HasChangedProperty(nameof(Entity.CreatedAt)) && entityFromDb.CreatedAt != Entity.CreatedAt)
+      {
+        entityFromDb.CreatedAt = Entity.CreatedAt;
+
+        isOk = true;
+      }
+
+      if (HasChangedProperty(nameof(Entity.IsPublished)) && entityFromDb.IsPublished != Entity.IsPublished)
+      {
+        entityFromDb.IsPublished = Entity.IsPublished;
+
+        isOk = true;
+      }
+
+      if (HasChangedProperty(nameof(Entity.Name)) && entityFromDb.Name != Entity.Name)
+      {
+        entityFromDb.Name = Entity.Name;
+
+        isOk = true;
+      }
+
+      if (isOk)
+      {
+        return result;
+      }
     }
 
-    if (HasChangedProperty(nameof(Entity.IsPublished)) && entityFromDb.IsPublished != Entity.IsPublished)
-    {
-      entityFromDb.IsPublished = Entity.IsPublished;
-
-      isOk = true;
-    }
-
-    if (HasChangedProperty(nameof(Entity.Name)) && entityFromDb.Name != Entity.Name)
-    {
-      entityFromDb.Name = Entity.Name;
-
-      isOk = true;
-    }
-
-    return isOk ? result : new AggregateResult<AppEventEntity>(null);
+    return new AggregateResult<EntityChange<AppEventEntity>>(new(null, null));
   }
 
   /// <inheritdoc/>
