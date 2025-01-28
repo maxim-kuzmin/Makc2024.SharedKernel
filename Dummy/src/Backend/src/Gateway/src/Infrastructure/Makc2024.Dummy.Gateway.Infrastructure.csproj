@@ -2,8 +2,7 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
     <PackageReference Include="DotEnv.Core" />
-    <PackageReference Include="Grpc.AspNetCore" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Grpc.AspNetCore" />    
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +21,7 @@
     <PackageReference Include="Serilog.Sinks.File" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\src\Infrastructure\Makc2024.Dummy.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\Shared\src\Web\Makc2024.Dummy.Shared.Web.csproj" />
     <ProjectReference Include="..\DomainUseCases\Makc2024.Dummy.Gateway.DomainUseCases.csproj" />
   </ItemGroup>

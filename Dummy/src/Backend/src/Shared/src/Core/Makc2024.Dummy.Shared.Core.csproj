@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>   
     <PackageReference Include="Ardalis.Result" />
-    <PackageReference Include="Ardalis.SharedKernel" />
-    <PackageReference Include="Grpc.Core.Api" />
+    <PackageReference Include="Ardalis.SharedKernel" />    
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" />
   </ItemGroup>
 </Project>

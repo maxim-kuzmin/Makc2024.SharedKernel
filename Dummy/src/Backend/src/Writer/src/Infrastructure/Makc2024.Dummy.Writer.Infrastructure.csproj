@@ -8,7 +8,6 @@
     <PackageReference Include="DotEnv.Core" />
     <PackageReference Include="Embedded.Json.Localization" />
     <PackageReference Include="Grpc.AspNetCore" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <PrivateAssets>all</PrivateAssets>
@@ -32,6 +31,7 @@
     <Protobuf Include="DummyItem\For\Grpc\DummyItemServiceForGrpc.proto" GrpcServices="Server" />
   </ItemGroup>  
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\src\Infrastructure\Makc2024.Dummy.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\DomainUseCases\Makc2024.Dummy.Writer.DomainUseCases.csproj" />
   </ItemGroup>
 </Project>

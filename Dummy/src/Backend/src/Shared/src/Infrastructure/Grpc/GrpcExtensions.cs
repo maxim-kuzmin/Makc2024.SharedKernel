@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Shared.Core.Grpc;
+﻿namespace Makc2024.Dummy.Shared.Infrastructure.Grpc;
 
 public static class GrpcExtensions
 {

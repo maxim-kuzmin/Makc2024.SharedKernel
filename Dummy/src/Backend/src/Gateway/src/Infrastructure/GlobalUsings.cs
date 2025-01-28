@@ -25,7 +25,7 @@ global using Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Com
 global using Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Query;
 global using Makc2024.Dummy.Shared.Core.App;
 global using Makc2024.Dummy.Shared.Core.Event;
-global using Makc2024.Dummy.Shared.Core.Grpc;
+global using Makc2024.Dummy.Shared.Infrastructure.Grpc;
 global using Makc2024.Dummy.Shared.Core.Http;
 global using Makc2024.Dummy.Writer.Infrastructure.App.For.Grpc;
 global using Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc;

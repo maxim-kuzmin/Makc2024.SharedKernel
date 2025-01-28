@@ -6,7 +6,6 @@ global using System.Security.Cryptography;
 global using System.Text;
 global using Ardalis.Result;
 global using Ardalis.SharedKernel;
-global using Grpc.Core;
 global using Makc2024.Dummy.Shared.Core.App;
 global using Makc2024.Dummy.Shared.Core.DeepCopy;
 global using Makc2024.Dummy.Shared.Core.Entity;

@@ -52,7 +52,9 @@ public static class AppExtensions
     services.AddSingleton<IAppEventPayloadFactory, AppEventPayloadFactory>();
     services.AddSingleton<IDummyItemFactory, DummyItemFactory>();
 
-    services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));    
+    services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+    services.AddScoped<IAppDbExecutor, AppDbExecutor>();
 
     services.AddScoped(typeof(IRepository<>), typeof(AppRepositoryBase<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(AppRepositoryBase<>));

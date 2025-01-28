@@ -3,10 +3,12 @@
 /// <summary>
 /// Сервис команд действия над полезной нагрузкой события приложения.
 /// </summary>
+/// <param name="_appDbExecutor">Исполнитель базы данных.</param>
 /// <param name="_eventDispatcher">Диспетчер событий.</param>
 /// <param name="_factory">Фабрика.</param>
 /// <param name="_repository">Репозиторий.</param>
 public class AppEventPayloadActionCommandService(
+  IAppDbExecutor _appDbExecutor,
   IEventDispatcher _eventDispatcher,
   IAppEventPayloadFactory _factory,
   IAppEventPayloadRepository _repository) : IAppEventPayloadActionCommandService
@@ -42,7 +44,12 @@ public class AppEventPayloadActionCommandService(
       return Result.Forbidden();
     }
 
-    entity = await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
+    async Task SaveToDb(CancellationToken cancellationToken)
+    {
+      entity = await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
+    }
+
+    await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
     await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
@@ -89,7 +96,12 @@ public class AppEventPayloadActionCommandService(
       return Result.Forbidden();
     }
 
-    await _repository.DeleteAsync(entity, cancellationToken).ConfigureAwait(false);
+    async Task SaveToDb(CancellationToken cancellationToken)
+    {
+      await _repository.DeleteAsync(entity, cancellationToken).ConfigureAwait(false);
+    }
+
+    await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
     await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
@@ -134,7 +146,12 @@ public class AppEventPayloadActionCommandService(
       return Result.Forbidden();
     }
 
-    await _repository.UpdateAsync(entity, cancellationToken).ConfigureAwait(false);
+    async Task SaveToDb(CancellationToken cancellationToken)
+    {
+      await _repository.UpdateAsync(entity, cancellationToken).ConfigureAwait(false);
+    }
+
+    await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
     await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 

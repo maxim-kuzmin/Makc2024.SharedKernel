@@ -12,6 +12,7 @@ public class DummyItemCreateActionHandler(IDummyItemActionCommandService _servic
     DummyItemCreateActionCommand request,
     CancellationToken cancellationToken)
   {
+
     return _service.Create(request, cancellationToken);
   }
 }
