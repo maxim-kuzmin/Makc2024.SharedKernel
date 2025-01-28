@@ -45,8 +45,13 @@ public static class AppExtensions
     var entitiesDbSettings = appDbSettings.Entities;
 
     services.AddSingleton(entitiesDbSettings.AppEvent);
+    services.AddSingleton<AppEventSettings>(entitiesDbSettings.AppEvent);
+
     services.AddSingleton(entitiesDbSettings.AppEventPayload);
+    services.AddSingleton<AppEventPayloadSettings>(entitiesDbSettings.AppEventPayload);
+
     services.AddSingleton(entitiesDbSettings.DummyItem);
+    services.AddSingleton<DummyItemSettings>(entitiesDbSettings.DummyItem);
 
     services.AddSingleton<IAppEventFactory, AppEventFactory>();
     services.AddSingleton<IAppEventPayloadFactory, AppEventPayloadFactory>();

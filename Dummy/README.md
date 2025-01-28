@@ -77,5 +77,5 @@ dotnet dev-certs https --trust
 ```
 cd .\src\Backend\src\Writer\src\Infrastructure
 
-dotnet ef migrations add InitialCreate --startup-project ../Apps/WebApp --output-dir ./App/Db/Migrations
+dotnet ef migrations add InitialCreate --startup-project ../Apps/WebApp --output-dir ./App/Db/For/PostgreSQL/Migrations
 ```

@@ -43,6 +43,8 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
     TEntity? inserted = Entity;
     TEntity? deleted = null;
 
+    inserted.RefreshConcurrencyToken();
+
     return new AggregateResult<EntityChange<TEntity>>(new(inserted, deleted), UpdateErrors);
   }
 
@@ -76,10 +78,10 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
       return new AggregateResult<EntityChange<TEntity>>(null);
     }
 
-    entityFromDb.RefreshConcurrencyToken();
-
     TEntity? inserted = entityFromDb;
     TEntity? deleted = (TEntity)entityFromDb.DeepCopy();
+
+    inserted.RefreshConcurrencyToken();
 
     return new AggregateResult<EntityChange<TEntity>>(new(inserted, deleted), UpdateErrors);
   }
