@@ -74,9 +74,9 @@ public class AppEventActionCommandService(
       return Result.NotFound();
     }
 
-    var aggregate = _factory.CreateAggregate(entity.Id);
+    var aggregate = _factory.CreateAggregate(entity);
 
-    var aggregateResult = aggregate.GetResultToDelete(entity);
+    var aggregateResult = aggregate.GetResultToDelete();
 
     if (aggregateResult.Data == null)
     {
@@ -121,12 +121,12 @@ public class AppEventActionCommandService(
       return Result.NotFound();
     }
 
-    var aggregate = _factory.CreateAggregate(entity.Id);
+    var aggregate = _factory.CreateAggregate(entity);
 
     aggregate.UpdateIsPublished(command.IsPublished);
     aggregate.UpdateName(command.Name);
 
-    var aggregateResult = aggregate.GetResultToUpdate(entity);
+    var aggregateResult = aggregate.GetResultToUpdate();
 
     if (aggregateResult.Data == null)
     {

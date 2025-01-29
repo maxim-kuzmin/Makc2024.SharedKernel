@@ -8,7 +8,7 @@ public interface IAppEventPayloadFactory
   /// <summary>
   /// Создать агрегат.
   /// </summary>
-  /// <param name="entityId">Идентификатор сущности.</param>
+  /// <param name="entityFromDb">Сущность из базы данных.</param>
   /// <returns>Агрегат.</returns>
-  AppEventPayloadAggregate CreateAggregate(long entityId = default);
+  AppEventPayloadAggregate CreateAggregate(AppEventPayloadEntity? entityFromDb = null);
 }

@@ -8,20 +8,10 @@ public interface IEntityBase<TId> : IDeepCopyable
   where TId : struct, IEquatable<TId>
 {
   /// <summary>
-  /// Токен конкуренции.
-  /// </summary>
-  Guid ConcurrencyToken { get; }
-
-  /// <summary>
   /// Получить идентификатор.
   /// </summary>
   /// <returns>Идентификатор.</returns>
   TId GetId();
-
-  /// <summary>
-  /// Освежить токен конкуренции.
-  /// </summary>
-  void RefreshConcurrencyToken();
 
   /// <summary>
   /// Установить идентификатор.

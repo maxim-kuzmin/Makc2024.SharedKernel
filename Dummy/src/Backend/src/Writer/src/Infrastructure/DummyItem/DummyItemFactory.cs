@@ -8,8 +8,8 @@
 public class DummyItemFactory(IDummyItemResources _resources, DummyItemSettings _settings) : IDummyItemFactory
 {
   /// <inheritdoc/>
-  public DummyItemAggregate CreateAggregate(long entityId = 0)
+  public DummyItemAggregate CreateAggregate(DummyItemEntity? entityFromDb = null)
   {
-    return new(entityId, _resources, _settings);
+    return new(entityFromDb, _resources, _settings);
   }
 }

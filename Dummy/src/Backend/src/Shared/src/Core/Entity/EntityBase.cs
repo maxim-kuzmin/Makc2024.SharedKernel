@@ -7,11 +7,6 @@
 public abstract class EntityBase<TId> : IEntityBase<TId>
   where TId : struct, IEquatable<TId>
 {
-  /// <summary>
-  /// Токен конкуренции.
-  /// </summary>
-  public Guid ConcurrencyToken { get; set; }
-
   /// <inheritdoc/>
   public virtual object DeepCopy()
   {
@@ -20,12 +15,6 @@ public abstract class EntityBase<TId> : IEntityBase<TId>
 
   /// <inheritdoc/>
   public abstract TId GetId();
-
-  /// <inheritdoc/>
-  public void RefreshConcurrencyToken()
-  {
-    ConcurrencyToken = Guid.NewGuid();
-  }
 
   /// <inheritdoc/>
   public abstract void SetId(TId id);

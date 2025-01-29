@@ -3,20 +3,20 @@
 /// <summary>
 /// Агрегат события приложения.
 /// </summary>
-/// <param name="entityId">Идентификатор сущности.</param>
+/// <param name="entityFromDb">Сущность из базы данных.</param>
 /// <param name="_resources">Ресурсы.</param>
 /// <param name="_settings">Настройки.</param>
 public class AppEventAggregate(
-  long entityId,
+  AppEventEntity? entityFromDb,
   IAppEventResources _resources,
-  AppEventSettings _settings) : AggregateBase<AppEventEntity, long>(entityId)
+  AppEventSettings _settings) : AggregateBase<AppEventEntity, long>(entityFromDb)
 {
   /// <inheritdoc/>
-  public sealed override AggregateResult<EntityChange<AppEventEntity>> GetResultToUpdate(AppEventEntity entityFromDb)
+  public sealed override AggregateResult<EntityChange<AppEventEntity>> GetResultToUpdate()
   {
-    var result = base.GetResultToUpdate(entityFromDb);
+    var result = base.GetResultToUpdate();
 
-    if (result.IsInvalid)
+    if (IsInvalidToUpdate(result))
     {
       return result;
     }
@@ -25,23 +25,27 @@ public class AppEventAggregate(
     {
       var isOk = false;
 
-      if (HasChangedProperty(nameof(Entity.CreatedAt)) && entityFromDb.CreatedAt != Entity.CreatedAt)
+      var inserted = result.Data!.Inserted!;
+
+      var entity = GetEntityToUpdate();
+
+      if (HasChangedProperty(nameof(entity.CreatedAt)) && inserted.CreatedAt != entity.CreatedAt)
       {
-        entityFromDb.CreatedAt = Entity.CreatedAt;
+        inserted.CreatedAt = entity.CreatedAt;
 
         isOk = true;
       }
 
-      if (HasChangedProperty(nameof(Entity.IsPublished)) && entityFromDb.IsPublished != Entity.IsPublished)
+      if (HasChangedProperty(nameof(entity.IsPublished)) && inserted.IsPublished != entity.IsPublished)
       {
-        entityFromDb.IsPublished = Entity.IsPublished;
+        inserted.IsPublished = entity.IsPublished;
 
         isOk = true;
       }
 
-      if (HasChangedProperty(nameof(Entity.Name)) && entityFromDb.Name != Entity.Name)
+      if (HasChangedProperty(nameof(entity.Name)) && inserted.Name != entity.Name)
       {
-        entityFromDb.Name = Entity.Name;
+        inserted.Name = entity.Name;
 
         isOk = true;
       }
@@ -53,12 +57,6 @@ public class AppEventAggregate(
     }
 
     return new AggregateResult<EntityChange<AppEventEntity>>(new(null, null));
-  }
-
-  /// <inheritdoc/>
-  protected sealed override void Init()
-  {
-    UpdateCreatedAt(DateTimeOffset.Now);
   }
 
   /// <summary>
@@ -76,9 +74,11 @@ public class AppEventAggregate(
       UpdateErrors.Add(appError);
     }
 
-    Entity.CreatedAt = value;
+    var entity = GetEntityToUpdate();
 
-    MarkPropertyAsChanged(nameof(Entity.CreatedAt));
+    entity.CreatedAt = value;
+
+    MarkPropertyAsChanged(nameof(entity.CreatedAt));
   }
 
   /// <summary>
@@ -87,9 +87,11 @@ public class AppEventAggregate(
   /// <param name="value">Значение.</param>
   public void UpdateIsPublished(bool value)
   {
-    Entity.IsPublished = value;
+    var entity = GetEntityToUpdate();
 
-    MarkPropertyAsChanged(nameof(Entity.IsPublished));
+    entity.IsPublished = value;
+
+    MarkPropertyAsChanged(nameof(entity.IsPublished));
   }
 
   /// <summary>
@@ -116,8 +118,24 @@ public class AppEventAggregate(
       UpdateErrors.Add(appError);
     }
 
-    Entity.Name = value;
+    var entity = GetEntityToUpdate();
 
-    MarkPropertyAsChanged(nameof(Entity.Name));
+    entity.Name = value;
+
+    MarkPropertyAsChanged(nameof(entity.Name));
+  }
+
+  /// <inheritdoc/>
+  protected sealed override void OnGetResultToCreate(AppEventEntity entity)
+  {
+    entity.ConcurrencyToken = Guid.NewGuid();
+
+    entity.CreatedAt = DateTimeOffset.Now;
+  }
+
+  /// <inheritdoc/>
+  protected sealed override void OnGetResultToUpdate(AppEventEntity entity)
+  {
+    entity.ConcurrencyToken = Guid.NewGuid();
   }
 }

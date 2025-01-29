@@ -11,6 +11,11 @@ public class AppEventPayloadEntity : EntityBaseWithIdProperty<long>, IAggregateR
   public long AppEventId { get; set; }
 
   /// <summary>
+  /// Токен конкуренции.
+  /// </summary>
+  public Guid ConcurrencyToken { get; set; }
+
+  /// <summary>
   /// Данные.
   /// </summary>
   public string Data { get; set; } = null!;

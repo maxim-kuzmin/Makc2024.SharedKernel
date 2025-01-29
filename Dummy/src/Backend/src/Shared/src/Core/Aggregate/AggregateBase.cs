@@ -5,16 +5,17 @@
 /// </summary>
 /// <typeparam name="TEntity">Тип сущности.</typeparam>
 /// <typeparam name="TEntityId">Тип идентификатора сущности.</typeparam>
-public class AggregateBase<TEntity, TEntityId> : EventSource
+/// <remarks>
+/// Конструктор.
+/// </remarks>
+/// <param name="entityFromDb">Сущность из базы данных.</param>
+public class AggregateBase<TEntity, TEntityId>(TEntity? _entityFromDb = null) : EventSource
   where TEntity : class, IEntityBase<TEntityId>, new()
   where TEntityId : struct, IEquatable<TEntityId>
 {
   private readonly HashSet<string> _changedProperties = [];
 
-  /// <summary>
-  /// Сущность.
-  /// </summary>
-  protected TEntity Entity { get; }
+  private TEntity? _entity;
 
   /// <summary>
   /// Ошибки обновления.
@@ -22,68 +23,81 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
   protected HashSet<AppError> UpdateErrors { get; } = [];
 
   /// <summary>
-  /// Конструктор.
-  /// </summary>
-  /// <param name="entityId">Идентификатор сущности.</param>
-  public AggregateBase(TEntityId entityId = default)
-  {
-    Entity = new TEntity();
-
-    Entity.SetId(entityId);
-
-    Init();
-  }
-
-  /// <summary>
   /// Получить результат для создания.
   /// </summary>
-  /// <returns>Сущность для создания.</returns>
+  /// <returns>Результат для создания.</returns>
   public virtual AggregateResult<EntityChange<TEntity>> GetResultToCreate()
   {
-    TEntity? inserted = Entity;
-    TEntity? deleted = null;
+    if (_entity == null)
+    {
+      return new AggregateResult<EntityChange<TEntity>>(null);
+    }
 
-    inserted.RefreshConcurrencyToken();
+    OnGetResultToCreate(_entity);
 
-    return new AggregateResult<EntityChange<TEntity>>(new(inserted, deleted), UpdateErrors);
+    return new AggregateResult<EntityChange<TEntity>>(new(_entity, null), UpdateErrors);
   }
 
   /// <summary>
   /// Получить результат для удаления.
   /// </summary>
-  /// <param name="entityFromDb">Сущность из базы данных.</param>
-  /// <returns>Сущность для удаления.</returns>
-  public virtual AggregateResult<EntityChange<TEntity>> GetResultToDelete(TEntity entityFromDb)
+  /// <returns>Результат для удаления.</returns>
+  public virtual AggregateResult<EntityChange<TEntity>> GetResultToDelete()
   {
-    if (IsUnchangeable(entityFromDb))
+    if (_entityFromDb == null || _entityFromDb.GetId().Equals(default))
     {
       return new AggregateResult<EntityChange<TEntity>>(null);
     }
 
-    TEntity? inserted = null;
-    TEntity? deleted = entityFromDb;
+    OnGetResultToDelete(_entityFromDb);
 
-    return new AggregateResult<EntityChange<TEntity>>(new(inserted, deleted));
+    return new AggregateResult<EntityChange<TEntity>>(new(null, _entityFromDb));
   }
 
   /// <summary>
   /// Получить результат для обновления.
   /// </summary>
-  /// <param name="entityFromDb">Сущность из базы данных.</param>
-  /// <returns>Сущность для обновления.</returns>
-  public virtual AggregateResult<EntityChange<TEntity>> GetResultToUpdate(TEntity entityFromDb)
+  /// <returns>Результат для обновления.</returns>
+  public virtual AggregateResult<EntityChange<TEntity>> GetResultToUpdate()
   {
-    if (IsUnchangeable(entityFromDb))
+    if (_entityFromDb == null || _entityFromDb.GetId().Equals(default))
     {
       return new AggregateResult<EntityChange<TEntity>>(null);
     }
 
-    TEntity? inserted = entityFromDb;
-    TEntity? deleted = (TEntity)entityFromDb.DeepCopy();
+    OnGetResultToUpdate(_entityFromDb);
 
-    inserted.RefreshConcurrencyToken();
+    var deleted = (TEntity)_entityFromDb.DeepCopy();
 
-    return new AggregateResult<EntityChange<TEntity>>(new(inserted, deleted), UpdateErrors);
+    return new AggregateResult<EntityChange<TEntity>>(new(_entityFromDb, deleted), UpdateErrors);
+  }
+
+  /// <summary>
+  /// Получить сушность для обновления.
+  /// </summary>
+  /// <returns>Сущность для обновления.</returns>
+  protected TEntity GetEntityToUpdate()
+  {
+    if (_entity == null)
+    {
+      _entity = new TEntity();
+    }
+
+    return _entity;
+  }
+
+  /// <summary>
+  /// Недействителен ли для обновления?
+  /// </summary>
+  /// <param name="aggregateResult">Результат агрегата.</param>
+  /// <returns>Если недействителен для обновления, то true, иначе - false.</returns>
+  protected bool IsInvalidToUpdate(AggregateResult<EntityChange<TEntity>> aggregateResult)
+  {
+    return aggregateResult.IsInvalid
+      ||
+      aggregateResult.Data?.Inserted == null
+      ||
+      aggregateResult.Data?.Deleted == null;
   }
 
   /// <summary>
@@ -106,13 +120,6 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
   }
 
   /// <summary>
-  /// Инициализировать.
-  /// </summary>
-  protected virtual void Init()
-  {
-  }
-
-  /// <summary>
   /// Пометить свойство как изменённое.
   /// </summary>
   /// <param name="propertyName">Имя свойства.</param>
@@ -122,12 +129,26 @@ public class AggregateBase<TEntity, TEntityId> : EventSource
   }
 
   /// <summary>
-  /// Неизменная?
+  /// Обработать событие получения результата для создания.
   /// </summary>
-  /// <param name="entityFromDb">Сущность из базы данных.</param>
-  /// <returns>Если сущность не может быть изменена, то true, иначе - false.</returns>
-  protected bool IsUnchangeable(TEntity entityFromDb)
+  /// <param name="entity">Обновляемая сущность.</param>
+  protected virtual void OnGetResultToCreate(TEntity entity)
   {
-    return Entity.GetId().Equals(default) || !entityFromDb.GetId().Equals(Entity.GetId());
+  }
+
+  /// <summary>
+  /// Обработать событие получения результата для удаления.
+  /// </summary>
+  /// <param name="entity">Удаляемая сущность.</param>
+  protected virtual void OnGetResultToDelete(TEntity entity)
+  {
+  }
+
+  /// <summary>
+  /// Обработать событие получения результата для обновления.
+  /// </summary>
+  /// <param name="entity">Обновляемая сущность.</param>
+  protected virtual void OnGetResultToUpdate(TEntity entity)
+  {
   }
 }

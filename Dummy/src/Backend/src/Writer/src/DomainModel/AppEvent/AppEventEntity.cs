@@ -6,6 +6,11 @@
 public class AppEventEntity : EntityBaseWithIdProperty<long>, IAggregateRoot
 {
   /// <summary>
+  /// Токен конкуренции.
+  /// </summary>
+  public Guid ConcurrencyToken { get; set; }
+
+  /// <summary>
   /// Когда создано.
   /// </summary>
   public DateTimeOffset CreatedAt { get; set; }

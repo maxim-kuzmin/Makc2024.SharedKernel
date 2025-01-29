@@ -10,8 +10,8 @@ public class AppEventPayloadFactory(
   AppEventPayloadSettings _settings) : IAppEventPayloadFactory
 {
   /// <inheritdoc/>
-  public AppEventPayloadAggregate CreateAggregate(long entityId = 0)
+  public AppEventPayloadAggregate CreateAggregate(AppEventPayloadEntity? entityFromDb = null)
   {
-    return new(entityId, _resources, _settings);
+    return new(entityFromDb, _resources, _settings);
   }
 }

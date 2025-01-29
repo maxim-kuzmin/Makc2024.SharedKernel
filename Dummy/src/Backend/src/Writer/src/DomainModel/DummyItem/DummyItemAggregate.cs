@@ -3,20 +3,20 @@
 /// <summary>
 /// Агрегат фиктивного предмета.
 /// </summary>
-/// <param name="entityId">Идентификатор сущности.</param>
+/// <param name="entityFromDb">Сущность из базы данных.</param>
 /// <param name="_resources">Ресурсы.</param>
 /// <param name="_settings">Настройки.</param>
 public class DummyItemAggregate(
-  long entityId,
+  DummyItemEntity? entityFromDb,
   IDummyItemResources _resources,
-  DummyItemSettings _settings) : AggregateBase<DummyItemEntity, long>(entityId)
+  DummyItemSettings _settings) : AggregateBase<DummyItemEntity, long>(entityFromDb)
 {
   /// <inheritdoc/>
-  public sealed override AggregateResult<EntityChange<DummyItemEntity>> GetResultToUpdate(DummyItemEntity entityFromDb)
+  public sealed override AggregateResult<EntityChange<DummyItemEntity>> GetResultToUpdate()
   {
-    var result = base.GetResultToUpdate(entityFromDb);
+    var result = base.GetResultToUpdate();
 
-    if (result.IsInvalid)
+    if (IsInvalidToUpdate(result))
     {
       return result;
     }
@@ -25,9 +25,13 @@ public class DummyItemAggregate(
     {
       bool isOk = false;
 
-      if (HasChangedProperty(nameof(Entity.Name)) && entityFromDb.Name != Entity.Name)
+      var inserted = result.Data!.Inserted!;
+
+      var entity = GetEntityToUpdate();
+
+      if (HasChangedProperty(nameof(entity.Name)) && inserted.Name != entity.Name)
       {
-        entityFromDb.Name = Entity.Name;
+        inserted.Name = entity.Name;
 
         isOk = true;
       }
@@ -65,8 +69,22 @@ public class DummyItemAggregate(
       UpdateErrors.Add(appError);
     }
 
-    Entity.Name = value;
+    var entity = GetEntityToUpdate();
 
-    MarkPropertyAsChanged(nameof(Entity.Name));
+    entity.Name = value;
+
+    MarkPropertyAsChanged(nameof(entity.Name));
+  }
+
+  /// <inheritdoc/>
+  protected sealed override void OnGetResultToCreate(DummyItemEntity entity)
+  {
+    entity.ConcurrencyToken = Guid.NewGuid();
+  }
+
+  /// <inheritdoc/>
+  protected sealed override void OnGetResultToUpdate(DummyItemEntity entity)
+  {
+    entity.ConcurrencyToken = Guid.NewGuid();
   }
 }

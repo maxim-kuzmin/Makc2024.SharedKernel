@@ -3,21 +3,20 @@
 /// <summary>
 /// Агрегат полезной нагрузки события приложения.
 /// </summary>
-/// <param name="entityId">Идентификатор сущности.</param>
+/// <param name="entityFromDb">Сущность из базы данных.</param>
 /// <param name="_resources">Ресурсы.</param>
 /// <param name="_settings">Настройки.</param>
 public class AppEventPayloadAggregate(
-  long entityId,
+  AppEventPayloadEntity? entityFromDb,
   IAppEventPayloadResources _resources,
-  AppEventPayloadSettings _settings) : AggregateBase<AppEventPayloadEntity, long>(entityId)
+  AppEventPayloadSettings _settings) : AggregateBase<AppEventPayloadEntity, long>(entityFromDb)
 {
   /// <inheritdoc/>
-  public sealed override AggregateResult<EntityChange<AppEventPayloadEntity>> GetResultToUpdate(
-    AppEventPayloadEntity entityFromDb)
+  public sealed override AggregateResult<EntityChange<AppEventPayloadEntity>> GetResultToUpdate()
   {
-    var result = base.GetResultToUpdate(entityFromDb);
+    var result = base.GetResultToUpdate();
 
-    if (result.IsInvalid)
+    if (IsInvalidToUpdate(result))
     {
       return result;
     }
@@ -26,16 +25,20 @@ public class AppEventPayloadAggregate(
     {
       bool isOk = false;
 
-      if (HasChangedProperty(nameof(Entity.AppEventId)) && entityFromDb.AppEventId != Entity.AppEventId)
+      var inserted = result.Data!.Inserted!;
+
+      var entity = GetEntityToUpdate();
+
+      if (HasChangedProperty(nameof(entity.AppEventId)) && inserted.AppEventId != entity.AppEventId)
       {
-        entityFromDb.AppEventId = Entity.AppEventId;
+        inserted.AppEventId = entity.AppEventId;
 
         isOk = true;
       }
 
-      if (HasChangedProperty(nameof(Entity.Data)) && entityFromDb.Data != Entity.Data)
+      if (HasChangedProperty(nameof(entity.Data)) && inserted.Data != entity.Data)
       {
-        entityFromDb.Data = Entity.Data;
+        inserted.Data = entity.Data;
 
         isOk = true;
       }
@@ -64,9 +67,11 @@ public class AppEventPayloadAggregate(
       UpdateErrors.Add(appError);
     }
 
-    Entity.AppEventId = value;
+    var entity = GetEntityToUpdate();
 
-    MarkPropertyAsChanged(nameof(Entity.AppEventId));
+    entity.AppEventId = value;
+
+    MarkPropertyAsChanged(nameof(entity.AppEventId));
   }
 
   /// <summary>
@@ -93,8 +98,22 @@ public class AppEventPayloadAggregate(
       UpdateErrors.Add(appError);
     }
 
-    Entity.Data = value;
+    var entity = GetEntityToUpdate();
 
-    MarkPropertyAsChanged(nameof(Entity.Data));
+    entity.Data = value;
+
+    MarkPropertyAsChanged(nameof(entity.Data));
+  }
+
+  /// <inheritdoc/>
+  protected sealed override void OnGetResultToCreate(AppEventPayloadEntity entity)
+  {
+    entity.ConcurrencyToken = Guid.NewGuid();
+  }
+  
+  /// <inheritdoc/>
+  protected sealed override void OnGetResultToUpdate(AppEventPayloadEntity entity)
+  {
+    entity.ConcurrencyToken = Guid.NewGuid();
   }
 }
