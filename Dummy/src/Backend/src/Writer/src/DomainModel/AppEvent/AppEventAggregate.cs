@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.DomainModel.AppEvent;
+﻿using Makc2024.Dummy.Writer.DomainModel.DummyItem;
+
+namespace Makc2024.Dummy.Writer.DomainModel.AppEvent;
 
 /// <summary>
 /// Агрегат события приложения.
@@ -128,13 +130,16 @@ public class AppEventAggregate(
   /// <inheritdoc/>
   protected sealed override void OnGetResultToCreate(AppEventEntity entity)
   {
-    entity.ConcurrencyToken = Guid.NewGuid();
-
-    entity.CreatedAt = DateTimeOffset.Now;
+    RefreshConcurrencyToken(entity);
   }
 
   /// <inheritdoc/>
   protected sealed override void OnGetResultToUpdate(AppEventEntity entity)
+  {
+    RefreshConcurrencyToken(entity);
+  }
+
+  private static void RefreshConcurrencyToken(AppEventEntity entity)
   {
     entity.ConcurrencyToken = Guid.NewGuid();
   }

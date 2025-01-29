@@ -108,11 +108,16 @@ public class AppEventPayloadAggregate(
   /// <inheritdoc/>
   protected sealed override void OnGetResultToCreate(AppEventPayloadEntity entity)
   {
-    entity.ConcurrencyToken = Guid.NewGuid();
+    RefreshConcurrencyToken(entity);
   }
   
   /// <inheritdoc/>
   protected sealed override void OnGetResultToUpdate(AppEventPayloadEntity entity)
+  {
+    RefreshConcurrencyToken(entity);
+  }
+
+  private static void RefreshConcurrencyToken(AppEventPayloadEntity entity)
   {
     entity.ConcurrencyToken = Guid.NewGuid();
   }

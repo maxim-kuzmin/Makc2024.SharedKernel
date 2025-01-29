@@ -79,11 +79,16 @@ public class DummyItemAggregate(
   /// <inheritdoc/>
   protected sealed override void OnGetResultToCreate(DummyItemEntity entity)
   {
-    entity.ConcurrencyToken = Guid.NewGuid();
+    RefreshConcurrencyToken(entity);
   }
 
   /// <inheritdoc/>
   protected sealed override void OnGetResultToUpdate(DummyItemEntity entity)
+  {
+    RefreshConcurrencyToken(entity);
+  }
+
+  private static void RefreshConcurrencyToken(DummyItemEntity entity)
   {
     entity.ConcurrencyToken = Guid.NewGuid();
   }
