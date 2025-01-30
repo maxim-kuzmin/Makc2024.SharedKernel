@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.DomainModel.AppEvent;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent;
 
 /// <summary>
 /// Интерфейс репозитория события приложения.

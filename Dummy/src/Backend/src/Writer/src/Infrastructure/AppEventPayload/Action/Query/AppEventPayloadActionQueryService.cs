@@ -3,45 +3,45 @@
 /// <summary>
 /// Сервис запросов действия над полезной нагрузкой события приложения.
 /// </summary>
+/// <param name="_appDbHelperForSQL">Помощник базы данных приложения для SQL.</param>
+/// <param name="_appDbSettings">Настройки базы данных приложения.</param>
 /// <param name="_appSession">Сессия приложения.</param>
-/// <param name="_appDbContext">Контекст базы данных приложения.</param>
 public class AppEventPayloadActionQueryService(
-  AppSession _appSession,
-  AppDbContext _appDbContext) : IAppEventPayloadActionQueryService
+  IAppDbHelperForSQL _appDbHelperForSQL,
+  AppDbSettings _appDbSettings,
+  AppSession _appSession) : IAppEventPayloadActionQueryService
 {
   /// <inheritdoc/>
   public async Task<Result<AppEventPayloadGetActionDTO>> Get(
     AppEventPayloadGetActionQuery query,
     CancellationToken cancellationToken)
   {
-    var appDbSettings = AppDbContext.GetAppDbSettings();
-
-    var entitiesDbSettings = appDbSettings.Entities;
-
-    var appEventPayloadEntitySettings = entitiesDbSettings.AppEventPayload;
+    var sAppEventPayload = _appDbSettings.Entities.AppEventPayload;
 
     var parameters = new List<object>();
 
     var parameterIndex = 0;
 
-    var sqlFormat = $$"""
+    string sql = $$"""
+
 select
-  "{{appEventPayloadEntitySettings.ColumnForId}}" "Id",
-"{{appEventPayloadEntitySettings.ColumnForAppEventId}}" "AppEventId",
-  "{{appEventPayloadEntitySettings.ColumnForData}}" "Data"
+  "{{sAppEventPayload.ColumnForId}}" "Id",
+  "{{sAppEventPayload.ColumnForAppEventId}}" "AppEventId",
+  "{{sAppEventPayload.ColumnForData}}" "Data"
 from
-  "{{appEventPayloadEntitySettings.Schema}}"."{{appEventPayloadEntitySettings.Table}}"
+  "{{sAppEventPayload.Schema}}"."{{sAppEventPayload.Table}}"
 where
-  "{{appEventPayloadEntitySettings.ColumnForId}}" = {{{parameterIndex}}}
+  "{{sAppEventPayload.ColumnForId}}" = {{{parameterIndex}}}
+
 """;
 
     parameters.Add(query.Id);
 
-    var sql = FormattableStringFactory.Create(sqlFormat, [.. parameters]);
+    var dboTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventPayloadGetActionDTO>(
+      sql,
+      parameters).FirstOrDefaultAsync(cancellationToken);
 
-    var dtoTask = _appDbContext.Database.SqlQuery<AppEventPayloadGetActionDTO>(sql).FirstOrDefaultAsync(cancellationToken);
-
-    var dto = await dtoTask.ConfigureAwait(false);
+    var dto = await dboTask.ConfigureAwait(false);
 
     return dto != null ? Result.Success(dto) : Result.NotFound();
   }
@@ -51,27 +51,24 @@ where
     AppEventPayloadGetListActionQuery query,
     CancellationToken cancellationToken)
   {
-    var userName = _appSession.User.Identity?.Name;
+    string? userName = _appSession.User.Identity?.Name;
 
-    var appDbSettings = AppDbContext.GetAppDbSettings();
-
-    var entitiesDbSettings = appDbSettings.Entities;
-
-    var appEventPayloadEntitySettings = entitiesDbSettings.AppEventPayload;
+    var sAppEventPayload = _appDbSettings.Entities.AppEventPayload;
 
     var parameters = new List<object>();
 
     var parameterIndex = 0;
-    var sqlFormatToFilter = string.Empty;
+
+    string sqlForFilter = string.Empty;
 
     if (!string.IsNullOrEmpty(query.Filter?.FullTextSearchQuery))
     {
-      sqlFormatToFilter = $$"""
+      sqlForFilter = $$"""
 
 where
-  aep."{{appEventPayloadEntitySettings.ColumnForId}}"::text ilike {{{parameterIndex}}}
+  aep."{{sAppEventPayload.ColumnForId}}"::text ilike {{{parameterIndex}}}
   or
-  aep."{{appEventPayloadEntitySettings.ColumnForData}}" ilike {{{parameterIndex}}}
+  aep."{{sAppEventPayload.ColumnForData}}" ilike {{{parameterIndex}}}
       
 """;
 
@@ -80,35 +77,76 @@ where
       parameterIndex++;
     }
 
-    var totalCountSqlFormat = $$"""
+    var totalCountTask = GetTotalCount(
+      sqlForFilter,
+      parameters,
+      sAppEventPayload,
+      cancellationToken);
 
+    var totalCount = await totalCountTask.ConfigureAwait(false);
+
+    var itemsTask = GetItems(
+      query,
+      parameterIndex,
+      sqlForFilter,
+      parameters,
+      sAppEventPayload,
+      cancellationToken);
+
+    var items = await itemsTask.ConfigureAwait(false);
+
+    var dto = new AppEventPayloadGetListActionDTO(items, totalCount);
+
+    return Result.Success(dto);
+  }
+
+  private async Task<Result<long>> GetTotalCount(
+    string sqlForFilter,
+    List<object> parameters,
+    AppEventPayloadEntityDbSettings sAppEventPayload,
+    CancellationToken cancellationToken)
+  {
+    string sql = $$"""
+    
 select
   count(*)
 from
-  "{{appEventPayloadEntitySettings.Schema}}"."{{appEventPayloadEntitySettings.Table}}" aep
-{{sqlFormatToFilter}}
+  "{{sAppEventPayload.Schema}}"."{{sAppEventPayload.Table}}" aep
+
+{{sqlForFilter}}
 
 """;
 
-    var totalCountSql = FormattableStringFactory.Create(totalCountSqlFormat, [.. parameters]);
+    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<long>(
+      sql,
+      parameters).ToListAsync(cancellationToken);
 
-    var totalCountDataTask = _appDbContext.Database.SqlQuery<long>(totalCountSql).ToListAsync(cancellationToken);
+    var result = await task.ConfigureAwait(false);
 
-    var totalCountData = await totalCountDataTask.ConfigureAwait(false);
+    return result[0];
+  }
 
-    var totalCountDto = totalCountData[0];
-
-    var itemsSqlFormat = $$"""
+  private async Task<List<AppEventPayloadGetListActionDTOItem>> GetItems(
+    AppEventPayloadGetListActionQuery query,
+    int parameterIndex,
+    string sqlForFilter,
+    List<object> parameters,
+    AppEventPayloadEntityDbSettings sAppEventPayload,
+    CancellationToken cancellationToken)
+  {
+    string sql = $$"""
 
 select
-  aep."{{appEventPayloadEntitySettings.ColumnForId}}" "Id",
-  aep."{{appEventPayloadEntitySettings.ColumnForAppEventId}}" "AppEventId",
-  aep."{{appEventPayloadEntitySettings.ColumnForData}}" "Data"
+  aep."{{sAppEventPayload.ColumnForId}}" "Id",
+  aep."{{sAppEventPayload.ColumnForAppEventId}}" "AppEventId",
+  aep."{{sAppEventPayload.ColumnForData}}" "Data"
 from
-  "{{appEventPayloadEntitySettings.Schema}}"."{{appEventPayloadEntitySettings.Table}}" aep
-{{sqlFormatToFilter}}
+  "{{sAppEventPayload.Schema}}"."{{sAppEventPayload.Table}}" aep
+
+{{sqlForFilter}}
+
 order by
-  aep."{{appEventPayloadEntitySettings.ColumnForId}}" desc
+  aep."{{sAppEventPayload.ColumnForId}}" desc
     
 """;
 
@@ -116,11 +154,9 @@ order by
     {
       if (query.Page.Size > 0)
       {
-        itemsSqlFormat += $$"""
-
+        sql += $$"""
         
-limit
-    {{{parameterIndex++}}}
+limit {{{parameterIndex++}}}
         
 """;
 
@@ -129,26 +165,23 @@ limit
 
       if (query.Page.Number > 0)
       {
-        itemsSqlFormat += $$"""
-
+        sql += $$"""
         
-offset
-    {{{parameterIndex++}}}
-        
-""";
+offset {{{parameterIndex++}}}
+                
+"""
+        ;
 
         parameters.Add((query.Page.Number - 1) * query.Page.Size);
       }
     }
 
-    var itemsSql = FormattableStringFactory.Create(itemsSqlFormat, [.. parameters]);
+    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventPayloadGetListActionDTOItem>(
+      sql,
+      parameters).ToListAsync(cancellationToken);
 
-    var itemDTOTask = _appDbContext.Database.SqlQuery<AppEventPayloadGetListActionDTOItem>(itemsSql).ToListAsync(cancellationToken);
+    var result = await task.ConfigureAwait(false);
 
-    var itemsDTO = await itemDTOTask.ConfigureAwait(false);
-
-    var dto = new AppEventPayloadGetListActionDTO(itemsDTO, totalCountDto);
-
-    return Result.Success(dto);
+    return result;
   }
 }

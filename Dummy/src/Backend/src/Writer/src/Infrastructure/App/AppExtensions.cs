@@ -42,6 +42,8 @@ public static class AppExtensions
 
     var appDbSettings = AppDbContext.GetAppDbSettings();
 
+    services.AddSingleton(appDbSettings);
+
     var entitiesDbSettings = appDbSettings.Entities;
 
     services.AddSingleton(entitiesDbSettings.AppEvent);
@@ -60,6 +62,7 @@ public static class AppExtensions
     services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
     services.AddScoped<IAppDbExecutor, AppDbExecutor>();
+    services.AddScoped<IAppDbHelperForSQL, AppDbContext>();
 
     services.AddScoped(typeof(IRepository<>), typeof(AppRepositoryBase<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(AppRepositoryBase<>));

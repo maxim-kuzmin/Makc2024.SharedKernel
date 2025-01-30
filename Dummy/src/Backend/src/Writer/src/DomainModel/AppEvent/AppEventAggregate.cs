@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainModel.DummyItem;
-
-namespace Makc2024.Dummy.Writer.DomainModel.AppEvent;
+﻿namespace Makc2024.Dummy.Writer.DomainModel.AppEvent;
 
 /// <summary>
 /// Агрегат события приложения.
