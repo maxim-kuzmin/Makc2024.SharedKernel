@@ -44,17 +44,16 @@ public static class AppExtensions
 
     services.AddSingleton(appDbSettings);
 
-    var entitiesDbSettings = appDbSettings.Entities;
+    services.AddSingleton(appDbSettings.Entities.AppEvent);
+    services.AddSingleton(appDbSettings.Entities.AppEventPayload);
+    services.AddSingleton(appDbSettings.Entities.DummyItem);
 
-    services.AddSingleton(entitiesDbSettings.AppEvent);
-    services.AddSingleton<AppEventSettings>(entitiesDbSettings.AppEvent);
+    var appDomainSettings = new AppDomainSettings(appDbSettings.Entities);
 
-    services.AddSingleton(entitiesDbSettings.AppEventPayload);
-    services.AddSingleton<AppEventPayloadSettings>(entitiesDbSettings.AppEventPayload);
-
-    services.AddSingleton(entitiesDbSettings.DummyItem);
-    services.AddSingleton<DummyItemSettings>(entitiesDbSettings.DummyItem);
-
+    services.AddSingleton(appDomainSettings.AppEvent);
+    services.AddSingleton(appDomainSettings.AppEventPayload);
+    services.AddSingleton(appDomainSettings.DummyItem);
+        
     services.AddSingleton<IAppEventFactory, AppEventFactory>();
     services.AddSingleton<IAppEventPayloadFactory, AppEventPayloadFactory>();
     services.AddSingleton<IDummyItemFactory, DummyItemFactory>();

@@ -1,6 +1,5 @@
 ﻿global using System.IdentityModel.Tokens.Jwt;
 global using System.Reflection;
-global using System.Runtime.CompilerServices;
 global using System.Security.Claims;
 global using System.Text;
 global using Ardalis.GuardClauses;
@@ -54,6 +53,7 @@ global using Makc2024.Dummy.Writer.Infrastructure.App.Db.For.PostgreSQL.Settings
 global using Makc2024.Dummy.Writer.Infrastructure.App.Db.For.PostgreSQL.Settings.Entities;
 global using Makc2024.Dummy.Writer.Infrastructure.App.Db.Helpers;
 global using Makc2024.Dummy.Writer.Infrastructure.App.Db.Settings;
+global using Makc2024.Dummy.Writer.Infrastructure.App.Domain;
 global using Makc2024.Dummy.Writer.Infrastructure.App.Repository;
 global using Makc2024.Dummy.Writer.Infrastructure.AppEvent;
 global using Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Command;

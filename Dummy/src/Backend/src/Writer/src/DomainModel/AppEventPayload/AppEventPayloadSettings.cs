@@ -3,10 +3,5 @@
 /// <summary>
 /// Настройки полезной нагрузки события приложения.
 /// </summary>
-public abstract class AppEventPayloadSettings
-{
-  /// <summary>
-  /// Максимальная длина для данных.
-  /// </summary>
-  public int MaxLengthForData { get; protected set; }
-}
+/// <param name="MaxLengthForData">Максимальная длина для данных.</param>
+public record AppEventPayloadSettings(int MaxLengthForData);

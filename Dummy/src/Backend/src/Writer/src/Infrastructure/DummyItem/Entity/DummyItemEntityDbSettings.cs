@@ -3,7 +3,7 @@
 /// <summary>
 /// Настройки базы данных сущности фиктивного предмета.
 /// </summary>
-public abstract class DummyItemEntityDbSettings : DummyItemSettings
+public abstract class DummyItemEntityDbSettings
 {
   /// <summary>
   /// Столбец для токена конкуренции.
@@ -19,6 +19,11 @@ public abstract class DummyItemEntityDbSettings : DummyItemSettings
   /// Столбец для имени.
   /// </summary>
   public string ColumnForName { get; protected set; } = null!;
+
+  /// <summary>
+  /// Максимальная длина для имени.
+  /// </summary>
+  public int MaxLengthForName { get; protected set; }
 
   /// <summary>
   /// Первичный ключ.

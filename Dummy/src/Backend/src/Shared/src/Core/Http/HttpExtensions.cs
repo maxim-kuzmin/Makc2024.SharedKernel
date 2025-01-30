@@ -1,7 +1,16 @@
 ﻿namespace Makc2024.Dummy.Shared.Core.Http;
 
+/// <summary>
+/// Расширения HTTP.
+/// </summary>
 public static class HttpExtensions
 {
+  /// <summary>
+  /// Добавить заголовок авторизации.
+  /// </summary>
+  /// <param name="httpRequestMessage">Сообщение HTTP-запроса.</param>
+  /// <param name="appSession">Сессия приложения.</param>
+  /// <returns>Сообщение HTTP-запроса.</returns>
   public static HttpRequestMessage AddAuthorizationHeader(
     this HttpRequestMessage httpRequestMessage,
     AppSession appSession)
@@ -16,6 +25,11 @@ public static class HttpExtensions
     return httpRequestMessage;
   }
 
+  /// <summary>
+  /// Преобразовать к результату.
+  /// </summary>
+  /// <param name="httpResponse">HTTP-отклик.</param>
+  /// <returns>Результат.</returns>
   public static Result ToResult(this HttpResponseMessage? httpResponse)
   {
     if (httpResponse == null)
@@ -28,6 +42,13 @@ public static class HttpExtensions
     return result ?? Result.Success();
   }
 
+  /// <summary>
+  /// Асинхронно преобразовать к результату из JSON.
+  /// </summary>
+  /// <typeparam name="TContent">Тип содержимого.</typeparam>
+  /// <param name="httpResponse">HTTP-отклик.</param>
+  /// <param name="cancellationToken">Токен отмены.</param>
+  /// <returns>Результат.</returns>
   public static async Task<Result<TContent>> ToResultFromJsonAsync<TContent>(
     this HttpResponseMessage? httpResponse,
     CancellationToken cancellationToken)
@@ -51,6 +72,15 @@ public static class HttpExtensions
     return content != null ? Result.Success(content) : Result.NotFound();
   }
 
+  /// <summary>
+  /// Асинхронно преобразовать к результату из JSON.
+  /// </summary>
+  /// <typeparam name="TContent">Тип содержимого.</typeparam>
+  /// <typeparam name="TResponse">Тип отклика.</typeparam>
+  /// <param name="httpResponse">HTTP-отклик.</param>
+  /// <param name="funcToGetContent">Функция для получения содержимого.</param>
+  /// <param name="cancellationToken">Токен отмены.</param>
+  /// <returns>Результат.</returns>
   public static async Task<Result<TContent>> ToResultFromJsonAsync<TContent, TResponse>(
     this HttpResponseMessage? httpResponse,
     Func<TResponse, TContent> funcToGetContent,

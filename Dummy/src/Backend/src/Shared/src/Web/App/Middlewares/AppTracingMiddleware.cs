@@ -1,11 +1,17 @@
 ﻿namespace Makc2024.Dummy.Shared.Web.App.Middlewares;
 
-public class AppTracingMiddleware(RequestDelegate next)
+/// <summary>
+/// Промежуточный обработчик запроса для добавления заголовка с идентификатором трассировки.
+/// </summary>
+/// <param name="_next">Следующий обработчик запроса.</param>
+public class AppTracingMiddleware(RequestDelegate _next)
 {
-  private readonly RequestDelegate _next = next ?? throw new ArgumentNullException(nameof(next));
-
-  [DebuggerStepThrough]
-  public async Task Invoke(HttpContext context)
+  /// <summary>
+  /// Выполнить асинхронно.
+  /// </summary>
+  /// <param name="httpContext">HTTP-контекст.</param>
+  /// <returns>Задача.</returns>
+  public async Task InvokeAsync(HttpContext httpContext)
   {
     var traceId = Activity.Current!.TraceId.ToString();
 
@@ -13,9 +19,9 @@ public class AppTracingMiddleware(RequestDelegate next)
 
     using (LogContext.PushProperty(key, traceId))
     {
-      context.Response.Headers.Append(key, traceId);
+      httpContext.Response.Headers.Append(key, traceId);
 
-      await _next(context);
+      await _next(httpContext);
     }
   }
 }

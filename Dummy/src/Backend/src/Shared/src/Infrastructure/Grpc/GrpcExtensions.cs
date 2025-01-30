@@ -1,7 +1,16 @@
 ﻿namespace Makc2024.Dummy.Shared.Infrastructure.Grpc;
 
+/// <summary>
+/// Расширения gRPC.
+/// </summary>
 public static class GrpcExtensions
 {
+  /// <summary>
+  /// Добавить заголовок авторизации.
+  /// </summary>
+  /// <param name="headers">Заголовки.</param>
+  /// <param name="appSession">Сессия приложения.</param>
+  /// <returns>Заголовки.</returns>
   public static Metadata AddAuthorizationHeader(this Metadata headers, AppSession appSession)
   {
     string? accessToken = appSession.AccessToken;
@@ -14,6 +23,10 @@ public static class GrpcExtensions
     return headers;
   }
 
+  /// <summary>
+  /// Выбросить исключение RPC для неуспешного результата.
+  /// </summary>
+  /// <param name="result">Результат.</param>
   public static void ThrowRpcExceptionIfNotSuccess(this Result result)
   {
     if (!result.IsSuccess)
@@ -22,6 +35,11 @@ public static class GrpcExtensions
     }
   }
 
+  /// <summary>
+  /// Выбросить исключение RPC для неуспешного результата.
+  /// </summary>
+  /// <typeparam name="T">Тип значения результата.</typeparam>
+  /// <param name="result">Результат.</param>
   public static void ThrowRpcExceptionIfNotSuccess<T>(this Result<T> result)
   {
     if (!result.IsSuccess)
@@ -30,6 +48,11 @@ public static class GrpcExtensions
     }
   }
 
+  /// <summary>
+  /// Преобразовать к коду gRPC-статуса.
+  /// </summary>
+  /// <param name="httpStatusCode">Код HTTP-статуса.</param>
+  /// <returns>gRPC-статус.</returns>
   public static StatusCode? ToGrpcStatusCode(this HttpStatusCode httpStatusCode)
   {
     switch (httpStatusCode)
@@ -119,6 +142,11 @@ public static class GrpcExtensions
     return null;
   }
 
+  /// <summary>
+  /// Преобразовать к коду HTTP-статуса.
+  /// </summary>
+  /// <param name="grpcStatusCode">Код gRPC-статуса.</param>
+  /// <returns></returns>
   public static HttpStatusCode? ToHttpStatusCode(this StatusCode grpcStatusCode)
   {
     switch (grpcStatusCode)
@@ -162,6 +190,11 @@ public static class GrpcExtensions
     return null;
   }
 
+  /// <summary>
+  /// Преобразовать к неуспешному результату.
+  /// </summary>
+  /// <param name="ex">Исключение RPC.</param>
+  /// <returns>Результат.</returns>
   public static Result ToUnsuccessfulResult(this RpcException ex)
   {
       return ex.StatusCode switch

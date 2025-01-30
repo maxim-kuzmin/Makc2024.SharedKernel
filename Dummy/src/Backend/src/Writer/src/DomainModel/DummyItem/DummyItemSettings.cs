@@ -3,10 +3,5 @@
 /// <summary>
 /// Настройки фиктивного предмета.
 /// </summary>
-public abstract class DummyItemSettings
-{
-  /// <summary>
-  /// Максимальная длина для имени.
-  /// </summary>
-  public int MaxLengthForName { get; protected set; }
-}
+/// <param name="MaxLengthForName">Максимальная длина для имени.</param>
+public record DummyItemSettings(int MaxLengthForName);

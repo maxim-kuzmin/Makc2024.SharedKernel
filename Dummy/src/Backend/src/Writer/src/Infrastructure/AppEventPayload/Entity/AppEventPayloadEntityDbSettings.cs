@@ -3,7 +3,7 @@
 /// <summary>
 /// Настройки базы данных сущности полезной нагрузки события приложения.
 /// </summary>
-public abstract class AppEventPayloadEntityDbSettings : AppEventPayloadSettings
+public abstract class AppEventPayloadEntityDbSettings
 {
   /// <summary>
   /// Столбец для токена конкуренции.
@@ -29,6 +29,11 @@ public abstract class AppEventPayloadEntityDbSettings : AppEventPayloadSettings
   /// Внешний ключ для идентификатора события приложения.
   /// </summary>
   public string ForeignKeyForAppEventId { get; protected set; } = null!;
+
+  /// <summary>
+  /// Максимальная длина для данных.
+  /// </summary>
+  public int MaxLengthForData { get; protected set; }
 
   /// <summary>
   /// Первичный ключ.

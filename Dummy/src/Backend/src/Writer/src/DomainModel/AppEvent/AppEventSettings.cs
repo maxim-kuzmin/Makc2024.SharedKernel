@@ -3,10 +3,5 @@
 /// <summary>
 /// Настройки события приложения.
 /// </summary>
-public abstract class AppEventSettings
-{
-  /// <summary>
-  /// Максимальная длина для имени.
-  /// </summary>
-  public int MaxLengthForName { get; protected set; }
-}
+/// <param name="MaxLengthForName">Максимальная длина для имени.</param>
+public record AppEventSettings(int MaxLengthForName);

@@ -3,7 +3,7 @@
 /// <summary>
 /// Настройки базы данных сущности события приложения.
 /// </summary>
-public abstract class AppEventEntityDbSettings : AppEventSettings
+public abstract class AppEventEntityDbSettings
 {
   /// <summary>
   /// Столбец для токена конкуренции.
@@ -29,6 +29,11 @@ public abstract class AppEventEntityDbSettings : AppEventSettings
   /// Столбец для имени.
   /// </summary>
   public string ColumnForName { get; protected set; } = null!;
+
+  /// <summary>
+  /// Максимальная длина для имени.
+  /// </summary>
+  public int MaxLengthForName { get; protected set; }
 
   /// <summary>
   /// Первичный ключ.
