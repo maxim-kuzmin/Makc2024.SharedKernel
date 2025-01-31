@@ -30,4 +30,17 @@ public interface IDbExecutor
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Задача.</returns>
   Task ExecuteInTransaction(Func<CancellationToken, Task> funcToExecute, CancellationToken cancellationToken);
+
+  /// <summary>
+  /// С уровнем изоляции.
+  /// </summary>
+  /// <param name="isolationLevel">Уровень изоляции.</param>
+  /// <returns>Исполнитель базы данных.</returns>
+  IDbExecutor WithIsolationLevel(IsolationLevel isolationLevel);
+
+  /// <summary>
+  /// С сохранением изменений.
+  /// </summary>
+  /// <returns>Исполнитель базы данных.</returns>
+  IDbExecutor WithSaveChanges();
 }

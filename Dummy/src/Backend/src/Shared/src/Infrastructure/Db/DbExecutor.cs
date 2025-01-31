@@ -4,9 +4,18 @@
 /// Исполнитель базы данных.
 /// </summary>
 /// <param name="_dbContext">Контекст базы данных.</param>
-public class DbExecutor<TDbContext>(TDbContext _dbContext) : IDbExecutor where TDbContext : DbContext
+public class DbExecutor(DbContext _dbContext) : IDbExecutor
 {
   private bool _isExecuting = false;
+
+  private bool _isSaveChangesEnabled = false;
+
+  private IsolationLevel _isolationLevel = DefaultIsolationLevel;  
+
+  /// <summary>
+  /// Уровень изоляции по умолчанию.
+  /// </summary>
+  public const IsolationLevel DefaultIsolationLevel = IsolationLevel.ReadCommitted;
 
   /// <inheritdoc/>
   public Task Execute(Func<CancellationToken, Task> funcToExecute, CancellationToken cancellationToken)
@@ -25,11 +34,29 @@ public class DbExecutor<TDbContext>(TDbContext _dbContext) : IDbExecutor where T
   /// <inheritdoc/>
   public Task ExecuteInTransaction(Func<CancellationToken, Task> funcToExecute, CancellationToken cancellationToken)
   {
+    RelationalDatabaseFacadeExtensions.BeginTransactionAsync(_dbContext.Database, IsolationLevel.ReadCommitted, cancellationToken);
+
     return Execute(_dbContext.Database.BeginTransactionAsync, (t, ct) => funcToExecute(ct), cancellationToken);
   }
 
+  /// <inheritdoc/>
+  public IDbExecutor WithIsolationLevel(IsolationLevel isolationLevel)
+  {
+    _isolationLevel = isolationLevel;
+
+    return this;
+  }
+
+  /// <inheritdoc/>
+  public IDbExecutor WithSaveChanges()
+  {
+    _isSaveChangesEnabled = true;
+
+    return this;
+  }
+
   private async Task<IDbContextTransaction?> CreateTransaction(
-    Func<CancellationToken, Task<IDbContextTransaction>>? funcToCreateTransaction,
+    Func<IsolationLevel, CancellationToken, Task<IDbContextTransaction>>? funcToCreateTransaction,
     CancellationToken cancellationToken)
   {
     if (_dbContext.Database.CurrentTransaction != null)
@@ -38,12 +65,12 @@ public class DbExecutor<TDbContext>(TDbContext _dbContext) : IDbExecutor where T
     }
 
     return funcToCreateTransaction != null
-      ? await funcToCreateTransaction.Invoke(cancellationToken).ConfigureAwait(false)
+      ? await funcToCreateTransaction.Invoke(_isolationLevel, cancellationToken).ConfigureAwait(false)
       : null;
   }
 
   private async Task Execute(
-    Func<CancellationToken, Task<IDbContextTransaction>>? funcToCreateTransaction,
+    Func<IsolationLevel, CancellationToken, Task<IDbContextTransaction>>? funcToCreateTransaction,
     Func<IDbContextTransaction?, CancellationToken, Task> funcToExecute,
     CancellationToken cancellationToken)
   {
@@ -64,6 +91,11 @@ public class DbExecutor<TDbContext>(TDbContext _dbContext) : IDbExecutor where T
         try
         {
           await funcToExecute.Invoke(transaction, cancellationToken).ConfigureAwait(false);
+
+          if (_isSaveChangesEnabled)
+          {
+            await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+          }
 
           transaction?.Commit();
 
@@ -88,6 +120,12 @@ public class DbExecutor<TDbContext>(TDbContext _dbContext) : IDbExecutor where T
           transaction?.Dispose();
         }
       }
+
+      _isExecuting = false;
+
+      _isSaveChangesEnabled = false;
+
+      _isolationLevel = DefaultIsolationLevel;
     }
   }
 }

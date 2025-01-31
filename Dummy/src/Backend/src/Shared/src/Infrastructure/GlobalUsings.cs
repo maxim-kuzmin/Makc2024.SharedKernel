@@ -1,4 +1,5 @@
-﻿global using System.Net;
+﻿global using System.Data;
+global using System.Net;
 global using System.Runtime.CompilerServices;
 global using System.Text;
 global using Ardalis.Result;
