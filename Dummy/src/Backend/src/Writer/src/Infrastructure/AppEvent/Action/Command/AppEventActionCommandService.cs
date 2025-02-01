@@ -51,11 +51,7 @@ public class AppEventActionCommandService(
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
-    var dto = new AppEventSingleDTO(
-      entity.Id,
-      entity.CreatedAt,
-      entity.IsPublished,
-      entity.Name);
+    var dto = entity.ToAppEventSingleDTO();
 
     return Result.Success(dto);
   }
@@ -150,11 +146,7 @@ public class AppEventActionCommandService(
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
-    var dto = new AppEventSingleDTO(
-      entity.Id,
-      entity.CreatedAt,
-      entity.IsPublished,
-      entity.Name);
+    var dto = entity.ToAppEventSingleDTO();
 
     return Result.Success(dto);
   }

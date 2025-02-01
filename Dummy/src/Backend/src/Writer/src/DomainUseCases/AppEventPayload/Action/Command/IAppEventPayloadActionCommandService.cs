@@ -11,7 +11,7 @@ public interface IAppEventPayloadActionCommandService
   /// <param name="command">Команда.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<AppEventPayloadGetActionDTO>> Create(
+  Task<Result<AppEventPayloadSingleDTO>> Create(
     AppEventPayloadCreateActionCommand command,
     CancellationToken cancellationToken);
 
@@ -31,7 +31,7 @@ public interface IAppEventPayloadActionCommandService
   /// <param name="command">Команда.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<AppEventPayloadGetActionDTO>> Update(
+  Task<Result<AppEventPayloadSingleDTO>> Update(
     AppEventPayloadUpdateActionCommand command,
     CancellationToken cancellationToken);
 }

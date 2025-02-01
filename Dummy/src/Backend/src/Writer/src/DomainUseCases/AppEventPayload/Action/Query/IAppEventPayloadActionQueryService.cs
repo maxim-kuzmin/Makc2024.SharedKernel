@@ -11,9 +11,7 @@ public interface IAppEventPayloadActionQueryService
   /// <param name="query">Запрос.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<AppEventPayloadGetActionDTO>> Get(
-    AppEventPayloadGetActionQuery query,
-    CancellationToken cancellationToken);
+  Task<Result<AppEventPayloadSingleDTO>> Get(AppEventPayloadGetActionQuery query, CancellationToken cancellationToken);
 
   /// <summary>
   /// Получить список.
@@ -21,7 +19,7 @@ public interface IAppEventPayloadActionQueryService
   /// <param name="query">Запрос.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<AppEventPayloadGetListActionDTO>> GetList(
+  Task<Result<AppEventPayloadListDTO>> GetList(
     AppEventPayloadGetListActionQuery query,
     CancellationToken cancellationToken);
 }

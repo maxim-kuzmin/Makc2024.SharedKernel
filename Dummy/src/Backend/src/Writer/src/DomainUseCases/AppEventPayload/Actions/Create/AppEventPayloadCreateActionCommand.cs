@@ -7,4 +7,4 @@
 /// <param name="Data">Данные.</param>
 public record AppEventPayloadCreateActionCommand(
   long AppEventId,
-  string Data) : ICommand<Result<AppEventPayloadGetActionDTO>>;
+  string Data) : ICommand<Result<AppEventPayloadSingleDTO>>;

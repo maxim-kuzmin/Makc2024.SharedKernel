@@ -1,11 +1,13 @@
-﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEventPayload.Endpoints.Delete;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.DTOs;
+
+namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEventPayload.Endpoints.Delete;
 
 /// <summary>
 /// Обработчик конечной точки удаления полезной нагрузки события приложения.
 /// </summary>
 /// <param name="_mediator">Медиатор.</param>
 public class AppEventPayloadDeleteEndpointHandler(IMediator _mediator) :
-  Endpoint<AppEventPayloadDeleteActionCommand, AppEventPayloadGetActionDTO>
+  Endpoint<AppEventPayloadDeleteActionCommand, AppEventPayloadSingleDTO>
 {
   /// <inheritdoc/>
   public override void Configure()

@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
-
-namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Get;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Get;
 
 /// <summary>
 /// Запрос действия по получению фиктивного предмета.

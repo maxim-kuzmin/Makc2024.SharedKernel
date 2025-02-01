@@ -5,10 +5,10 @@
 /// </summary>
 /// <param name="_service">Сервис.</param>
 public class AppEventPayloadUpdateActionHandler(IAppEventPayloadActionCommandService _service) :
-  ICommandHandler<AppEventPayloadUpdateActionCommand, Result<AppEventPayloadGetActionDTO>>
+  ICommandHandler<AppEventPayloadUpdateActionCommand, Result<AppEventPayloadSingleDTO>>
 {
   /// <inheritdoc/>
-  public Task<Result<AppEventPayloadGetActionDTO>> Handle(
+  public Task<Result<AppEventPayloadSingleDTO>> Handle(
     AppEventPayloadUpdateActionCommand request,
     CancellationToken cancellationToken)
   {

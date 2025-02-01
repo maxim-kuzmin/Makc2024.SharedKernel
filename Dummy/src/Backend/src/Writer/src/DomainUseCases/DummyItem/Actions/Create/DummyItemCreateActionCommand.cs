@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
-
-namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Create;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Create;
 
 /// <summary>
 /// Команда действия по созданию фиктивного предмета.

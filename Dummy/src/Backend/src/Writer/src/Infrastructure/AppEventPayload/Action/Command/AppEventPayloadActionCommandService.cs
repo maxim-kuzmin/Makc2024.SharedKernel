@@ -13,7 +13,7 @@ public class AppEventPayloadActionCommandService(
   IAppEventPayloadRepository _repository) : IAppEventPayloadActionCommandService
 {
   /// <inheritdoc/>
-  public async Task<Result<AppEventPayloadGetActionDTO>> Create(
+  public async Task<Result<AppEventPayloadSingleDTO>> Create(
     AppEventPayloadCreateActionCommand command,
     CancellationToken cancellationToken)
   {
@@ -50,10 +50,7 @@ public class AppEventPayloadActionCommandService(
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
-    var dto = new AppEventPayloadGetActionDTO(
-      entity.Id,
-      entity.AppEventId,
-      entity.Data);
+    var dto = entity.ToAppEventPayloadSingleDTO();
 
     return Result.Success(dto);
   }
@@ -104,7 +101,7 @@ public class AppEventPayloadActionCommandService(
   }
 
   /// <inheritdoc/>
-  public async Task<Result<AppEventPayloadGetActionDTO>> Update(
+  public async Task<Result<AppEventPayloadSingleDTO>> Update(
     AppEventPayloadUpdateActionCommand command,
     CancellationToken cancellationToken)
   {
@@ -148,10 +145,7 @@ public class AppEventPayloadActionCommandService(
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
-    var dto = new AppEventPayloadGetActionDTO(
-      entity.Id,
-      entity.AppEventId,
-      entity.Data);
+    var dto = entity.ToAppEventPayloadSingleDTO();
 
     return Result.Success(dto);
   }

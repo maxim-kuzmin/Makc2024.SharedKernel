@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
-
-namespace Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Actions.Create;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Actions.Create;
 
 /// <summary>
 /// Команда действия по созданию события приложения.

@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEventPayload.For.Grpc;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.DTOs;
+
+namespace Makc2024.Dummy.Writer.Infrastructure.AppEventPayload.For.Grpc;
 
 /// <summary>
 /// Расширения полезной нагрузки события приложения для gRPC.
@@ -22,7 +24,7 @@ public static class AppEventPayloadExtensionsForGrpc
     return new(request.Id);
   }
 
-  public static AppEventPayloadGetActionReplyForGrpc ToAppEventPayloadGetActionReplyForGrpc(this AppEventPayloadGetActionDTO dto)
+  public static AppEventPayloadGetActionReplyForGrpc ToAppEventPayloadGetActionReplyForGrpc(this AppEventPayloadSingleDTO dto)
   {
     return new()
     {
@@ -38,7 +40,7 @@ public static class AppEventPayloadExtensionsForGrpc
     return new(new QueryPage(request.Page.Number, request.Page.Size), new(request.Filter.FullTextSearchQuery));
   }
 
-  public static AppEventPayloadGetListActionReplyForGrpc ToAppEventPayloadGetListActionGrpcReply(this AppEventPayloadGetListActionDTO dto)
+  public static AppEventPayloadGetListActionReplyForGrpc ToAppEventPayloadGetListActionGrpcReply(this AppEventPayloadListDTO dto)
   {
     AppEventPayloadGetListActionReplyForGrpc result = new()
     {

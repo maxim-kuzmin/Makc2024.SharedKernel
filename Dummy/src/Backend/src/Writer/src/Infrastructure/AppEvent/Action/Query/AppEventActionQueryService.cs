@@ -109,7 +109,7 @@ from
 
     var items = await itemsTask.ConfigureAwait(false);
 
-    var dto = new AppEventListDTO(items, totalCount);
+    var dto = items.ToAppEventListDTO(totalCount);
 
     return Result.Success(dto);
   }

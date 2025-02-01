@@ -1,11 +1,13 @@
-﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEventPayload.Endpoints.GetList;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.DTOs;
+
+namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEventPayload.Endpoints.GetList;
 
 /// <summary>
 /// Обработчик конечной точки получения списка полезных нагрузок события приложения.
 /// </summary>
 /// <param name="_mediator">Медиатор.</param>
 public class AppEventPayloadGetListEndpointHandler(IMediator _mediator) :
-  Endpoint<AppEventPayloadGetListEndpointRequest, IEnumerable<AppEventPayloadGetListActionDTO>>
+  Endpoint<AppEventPayloadGetListEndpointRequest, IEnumerable<AppEventPayloadListDTO>>
 {
   /// <inheritdoc/>
   public override void Configure()

@@ -12,7 +12,7 @@ public class AppEventPayloadActionQueryService(
   AppSession _appSession) : IAppEventPayloadActionQueryService
 {
   /// <inheritdoc/>
-  public async Task<Result<AppEventPayloadGetActionDTO>> Get(
+  public async Task<Result<AppEventPayloadSingleDTO>> Get(
     AppEventPayloadGetActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -37,7 +37,7 @@ where
 
     parameters.Add(query.Id);
 
-    var dboTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventPayloadGetActionDTO>(
+    var dboTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventPayloadSingleDTO>(
       sql,
       parameters).FirstOrDefaultAsync(cancellationToken);
 
@@ -47,7 +47,7 @@ where
   }
 
   /// <inheritdoc/>
-  public async Task<Result<AppEventPayloadGetListActionDTO>> GetList(
+  public async Task<Result<AppEventPayloadListDTO>> GetList(
     AppEventPayloadGetListActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -95,7 +95,7 @@ where
 
     var items = await itemsTask.ConfigureAwait(false);
 
-    var dto = new AppEventPayloadGetListActionDTO(items, totalCount);
+    var dto = items.ToAppEventPayloadListDTO(totalCount);
 
     return Result.Success(dto);
   }
@@ -126,7 +126,7 @@ from
     return result[0];
   }
 
-  private async Task<List<AppEventPayloadGetListActionDTOItem>> GetItems(
+  private async Task<List<AppEventPayloadSingleDTO>> GetItems(
     AppEventPayloadGetListActionQuery query,
     int parameterIndex,
     string sqlForFilter,
@@ -176,7 +176,7 @@ offset {{{parameterIndex++}}}
       }
     }
 
-    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventPayloadGetListActionDTOItem>(
+    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventPayloadSingleDTO>(
       sql,
       parameters).ToListAsync(cancellationToken);
 

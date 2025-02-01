@@ -7,8 +7,4 @@
 /// <param name="CreatedAt">Когда создано.</param>
 /// <param name="IsPublished">Опубликовано ли?</param>
 /// <param name="Name">Имя.</param>
-public record AppEventSingleDTO(
-  long Id,
-  DateTimeOffset CreatedAt,
-  bool IsPublished,
-  string Name);
+public record AppEventSingleDTO(long Id, DateTimeOffset CreatedAt, bool IsPublished, string Name);

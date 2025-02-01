@@ -9,4 +9,4 @@
 public record AppEventPayloadUpdateActionCommand(
   long Id,
   long AppEventId,
-  string Data) : ICommand<Result<AppEventPayloadGetActionDTO>>;
+  string Data) : ICommand<Result<AppEventPayloadSingleDTO>>;
