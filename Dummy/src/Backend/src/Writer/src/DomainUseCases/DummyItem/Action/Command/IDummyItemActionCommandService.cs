@@ -11,9 +11,7 @@ public interface IDummyItemActionCommandService
   /// <param name="command">Команда.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<DummyItemGetActionDTO>> Create(
-    DummyItemCreateActionCommand command,
-    CancellationToken cancellationToken);
+  Task<Result<DummyItemSingleDTO>> Create(DummyItemCreateActionCommand command, CancellationToken cancellationToken);
 
   /// <summary>
   /// Удалить.
@@ -21,9 +19,7 @@ public interface IDummyItemActionCommandService
   /// <param name="command">Команда.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result> Delete(
-    DummyItemDeleteActionCommand command,
-    CancellationToken cancellationToken);
+  Task<Result> Delete(DummyItemDeleteActionCommand command, CancellationToken cancellationToken);
 
   /// <summary>
   /// Обновить.
@@ -31,7 +27,5 @@ public interface IDummyItemActionCommandService
   /// <param name="command">Команда.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<DummyItemGetActionDTO>> Update(
-    DummyItemUpdateActionCommand command,
-    CancellationToken cancellationToken);
+  Task<Result<DummyItemSingleDTO>> Update(DummyItemUpdateActionCommand command, CancellationToken cancellationToken);
 }

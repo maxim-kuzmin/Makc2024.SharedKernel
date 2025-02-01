@@ -42,42 +42,52 @@ public static class AppData
     [
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Delba de Oliveira"
       },
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Lee Robinson"
       },
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Hector Simpson"
       },
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Steven Tey"
       },
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Steph Dietz"
       },
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Michael Novotny"
       },
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Evil Rabbit"
       },
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Emil Kowalski"
       },
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Amy Burns"
       },
       new()
       {
+        ConcurrencyToken = Guid.NewGuid(),
         Name = "Balazs Orban"
       },
     ];

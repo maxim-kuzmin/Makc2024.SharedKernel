@@ -14,7 +14,7 @@ public class DummyItemActionCommandService(
   IDummyItemRepository _repository) : IDummyItemActionCommandService
 {
   /// <inheritdoc/>
-  public async Task<Result<DummyItemGetActionDTO>> Create(
+  public async Task<Result<DummyItemSingleDTO>> Create(
     DummyItemCreateActionCommand command,
     CancellationToken cancellationToken)
   {
@@ -50,11 +50,9 @@ public class DummyItemActionCommandService(
       await OnEntityChanged(entity, cancellationToken).ConfigureAwait(false);
     }
 
-    await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);    
+    await _appDbExecutor.ExecuteInTransaction(SaveToDb, cancellationToken).ConfigureAwait(false);    
 
-    var dto = new DummyItemGetActionDTO(
-      entity.Id,
-      entity.Name);
+    var dto = entity.ToDummyItemSingleDTO();
 
     return Result.Success(dto);
   }
@@ -101,13 +99,13 @@ public class DummyItemActionCommandService(
       await OnEntityChanged(entity, cancellationToken).ConfigureAwait(false);
     }
 
-    await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
+    await _appDbExecutor.ExecuteInTransaction(SaveToDb, cancellationToken).ConfigureAwait(false);
 
     return Result.Success();
   }
 
   /// <inheritdoc/>
-  public async Task<Result<DummyItemGetActionDTO>> Update(
+  public async Task<Result<DummyItemSingleDTO>> Update(
     DummyItemUpdateActionCommand command,
     CancellationToken cancellationToken)
   {
@@ -150,11 +148,9 @@ public class DummyItemActionCommandService(
       await OnEntityChanged(entity, cancellationToken).ConfigureAwait(false);
     }
 
-    await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
+    await _appDbExecutor.ExecuteInTransaction(SaveToDb, cancellationToken).ConfigureAwait(false);
 
-    var dto = new DummyItemGetActionDTO(
-      entity.Id,
-      entity.Name);
+    var dto = entity.ToDummyItemSingleDTO();
 
     return Result.Success(dto);
   }

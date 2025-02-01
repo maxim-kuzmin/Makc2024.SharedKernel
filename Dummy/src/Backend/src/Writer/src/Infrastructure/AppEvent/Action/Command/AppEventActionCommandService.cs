@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Command;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
+
+namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Command;
 
 /// <summary>
 /// Сервис команд действия с событием приложения.
@@ -12,7 +14,7 @@ public class AppEventActionCommandService(
   IAppEventRepository _repository) : IAppEventActionCommandService
 {
   /// <inheritdoc/>
-  public async Task<Result<AppEventGetActionDTO>> Create(
+  public async Task<Result<AppEventSingleDTO>> Create(
     AppEventCreateActionCommand command,
     CancellationToken cancellationToken)
   {
@@ -49,7 +51,7 @@ public class AppEventActionCommandService(
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
-    var dto = new AppEventGetActionDTO(
+    var dto = new AppEventSingleDTO(
       entity.Id,
       entity.CreatedAt,
       entity.IsPublished,
@@ -104,7 +106,7 @@ public class AppEventActionCommandService(
   }
 
   /// <inheritdoc/>
-  public async Task<Result<AppEventGetActionDTO>> Update(
+  public async Task<Result<AppEventSingleDTO>> Update(
     AppEventUpdateActionCommand command,
     CancellationToken cancellationToken)
   {
@@ -148,7 +150,7 @@ public class AppEventActionCommandService(
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
-    var dto = new AppEventGetActionDTO(
+    var dto = new AppEventSingleDTO(
       entity.Id,
       entity.CreatedAt,
       entity.IsPublished,

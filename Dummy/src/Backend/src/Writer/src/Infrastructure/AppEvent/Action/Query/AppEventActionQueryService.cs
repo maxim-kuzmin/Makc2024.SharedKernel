@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Query;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
+
+namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Query;
 
 /// <summary>
 /// Сервис запросов действия с событием приложения.
@@ -12,7 +14,7 @@ public class AppEventActionQueryService(
   AppSession _appSession) : IAppEventActionQueryService
 {
   /// <inheritdoc/>
-  public async Task<Result<AppEventGetActionDTO>> Get(
+  public async Task<Result<AppEventSingleDTO>> Get(
     AppEventGetActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -38,7 +40,7 @@ where
 
     parameters.Add(query.Id);
 
-    var dtoTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventGetActionDTO>(
+    var dtoTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventSingleDTO>(
       sql,
       parameters).FirstOrDefaultAsync(cancellationToken);
 
@@ -48,7 +50,7 @@ where
   }
 
   /// <inheritdoc/>
-  public async Task<Result<AppEventGetListActionDTO>> GetList(
+  public async Task<Result<AppEventListDTO>> GetList(
     AppEventGetListActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -107,7 +109,7 @@ from
 
     var items = await itemsTask.ConfigureAwait(false);
 
-    var dto = new AppEventGetListActionDTO(items, totalCount);
+    var dto = new AppEventListDTO(items, totalCount);
 
     return Result.Success(dto);
   }
@@ -138,7 +140,7 @@ from
     return result[0];
   }
 
-  private async Task<List<AppEventGetListActionDTOItem>> GetItems(
+  private async Task<List<AppEventSingleDTO>> GetItems(
     AppEventGetListActionQuery query,
     int parameterIndex,
     string sqlForFilter,
@@ -189,7 +191,7 @@ offset {{{parameterIndex++}}}
       }
     }
 
-    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventGetListActionDTOItem>(
+    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventSingleDTO>(
       sql,
       parameters).ToListAsync(cancellationToken);
 

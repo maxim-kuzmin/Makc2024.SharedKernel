@@ -5,10 +5,10 @@
 /// </summary>
 /// <param name="_service">Сервис.</param>
 public class DummyItemGetListActionHandler(IDummyItemActionQueryService _service) :
-  IQueryHandler<DummyItemGetListActionQuery, Result<DummyItemGetListActionDTO>>
+  IQueryHandler<DummyItemGetListActionQuery, Result<DummyItemListDTO>>
 {
   /// <inheritdoc/>
-  public Task<Result<DummyItemGetListActionDTO>> Handle(
+  public Task<Result<DummyItemListDTO>> Handle(
     DummyItemGetListActionQuery request,
     CancellationToken cancellationToken)
   {

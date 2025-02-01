@@ -5,10 +5,10 @@
 /// </summary>
 /// <param name="_service">Сервис.</param>
 public class AppEventGetListActionHandler(IAppEventActionQueryService _service) :
-  IQueryHandler<AppEventGetListActionQuery, Result<AppEventGetListActionDTO>>
+  IQueryHandler<AppEventGetListActionQuery, Result<AppEventListDTO>>
 {
   /// <inheritdoc/>
-  public Task<Result<AppEventGetListActionDTO>> Handle(
+  public Task<Result<AppEventListDTO>> Handle(
     AppEventGetListActionQuery request,
     CancellationToken cancellationToken)
   {

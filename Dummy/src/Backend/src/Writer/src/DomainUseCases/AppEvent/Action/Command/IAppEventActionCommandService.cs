@@ -11,9 +11,7 @@ public interface IAppEventActionCommandService
   /// <param name="command">Команда.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<AppEventGetActionDTO>> Create(
-    AppEventCreateActionCommand command,
-    CancellationToken cancellationToken);
+  Task<Result<AppEventSingleDTO>> Create(AppEventCreateActionCommand command, CancellationToken cancellationToken);
 
   /// <summary>
   /// Удалить.
@@ -21,9 +19,7 @@ public interface IAppEventActionCommandService
   /// <param name="command">Команда.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result> Delete(
-    AppEventDeleteActionCommand command,
-    CancellationToken cancellationToken);
+  Task<Result> Delete(AppEventDeleteActionCommand command, CancellationToken cancellationToken);
 
   /// <summary>
   /// Обновить.
@@ -31,7 +27,5 @@ public interface IAppEventActionCommandService
   /// <param name="command">Команда.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<AppEventGetActionDTO>> Update(
-    AppEventUpdateActionCommand command,
-    CancellationToken cancellationToken);
+  Task<Result<AppEventSingleDTO>> Update(AppEventUpdateActionCommand command, CancellationToken cancellationToken);
 }

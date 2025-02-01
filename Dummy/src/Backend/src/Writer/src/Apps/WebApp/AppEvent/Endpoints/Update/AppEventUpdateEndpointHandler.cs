@@ -1,11 +1,13 @@
-﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEvent.Endpoints.Update;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
+
+namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEvent.Endpoints.Update;
 
 /// <summary>
 /// Обработчик конечной точки обновления события приложения.
 /// </summary>
 /// <param name="_mediator">Медиатор.</param>
 public class AppEventUpdateEndpointHandler(IMediator _mediator) :
-  Endpoint<AppEventUpdateActionCommand, AppEventGetActionDTO>
+  Endpoint<AppEventUpdateActionCommand, AppEventSingleDTO>
 {
   /// <inheritdoc/>
   public override void Configure()

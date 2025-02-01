@@ -12,7 +12,7 @@ public class DummyItemActionQueryService(
   AppSession _appSession) : IDummyItemActionQueryService
 {
   /// <inheritdoc/>
-  public async Task<Result<DummyItemGetActionDTO>> Get(
+  public async Task<Result<DummyItemSingleDTO>> Get(
     DummyItemGetActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -36,7 +36,7 @@ where
 
     parameters.Add(query.Id);
 
-    var dtoTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<DummyItemGetActionDTO>(
+    var dtoTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<DummyItemSingleDTO>(
       sqlFormat,
       parameters).FirstOrDefaultAsync(cancellationToken);
 
@@ -46,7 +46,7 @@ where
   }
 
   /// <inheritdoc/>
-  public async Task<Result<DummyItemGetListActionDTO>> GetList(
+  public async Task<Result<DummyItemListDTO>> GetList(
     DummyItemGetListActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -94,7 +94,7 @@ where
 
     var items = await itemsTask.ConfigureAwait(false);
 
-    var dto = new DummyItemGetListActionDTO(items, totalCount);
+    var dto = items.ToDummyItemListDTO(totalCount);
 
     return Result.Success(dto);
   }
@@ -125,7 +125,7 @@ from
     return result[0];
   }
 
-  private async Task<List<DummyItemGetListActionDTOItem>> GetItems(
+  private async Task<List<DummyItemSingleDTO>> GetItems(
     DummyItemGetListActionQuery query,
     int parameterIndex,
     string sqlForFilter,
@@ -174,7 +174,7 @@ offset {{{parameterIndex++}}}
       }
     }
 
-    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<DummyItemGetListActionDTOItem>(
+    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<DummyItemSingleDTO>(
       sql,
       parameters).ToListAsync(cancellationToken);
 

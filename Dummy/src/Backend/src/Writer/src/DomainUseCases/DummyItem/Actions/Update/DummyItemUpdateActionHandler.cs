@@ -5,10 +5,10 @@
 /// </summary>
 /// <param name="_service">Сервис.</param>
 public class DummyItemUpdateActionHandler(IDummyItemActionCommandService _service) :
-  ICommandHandler<DummyItemUpdateActionCommand, Result<DummyItemGetActionDTO>>
+  ICommandHandler<DummyItemUpdateActionCommand, Result<DummyItemSingleDTO>>
 {
   /// <inheritdoc/>
-  public Task<Result<DummyItemGetActionDTO>> Handle(
+  public Task<Result<DummyItemSingleDTO>> Handle(
     DummyItemUpdateActionCommand request,
     CancellationToken cancellationToken)
   {

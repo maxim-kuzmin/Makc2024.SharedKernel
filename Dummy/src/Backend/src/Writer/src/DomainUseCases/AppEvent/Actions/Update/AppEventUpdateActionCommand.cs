@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Actions.Update;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
+
+namespace Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Actions.Update;
 
 /// <summary>
 /// Команда действия по обновлению события приложения.
@@ -9,4 +11,4 @@
 public record AppEventUpdateActionCommand(
   long Id,
   bool IsPublished,
-  string Name) : ICommand<Result<AppEventGetActionDTO>>;
+  string Name) : ICommand<Result<AppEventSingleDTO>>;

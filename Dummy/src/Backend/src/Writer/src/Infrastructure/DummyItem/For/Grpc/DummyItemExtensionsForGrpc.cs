@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
+
+namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc;
 
 /// <summary>
 /// Расширения фиктивного предмета для gRPC.
@@ -22,7 +24,7 @@ public static class DummyItemExtensionsForGrpc
     return new(request.Id);
   }
 
-  public static DummyItemGetActionReplyForGrpc ToDummyItemGetActionReplyForGrpc(this DummyItemGetActionDTO dto)
+  public static DummyItemGetActionReplyForGrpc ToDummyItemGetActionReplyForGrpc(this DummyItemSingleDTO dto)
   {
     return new()
     {
@@ -37,7 +39,7 @@ public static class DummyItemExtensionsForGrpc
     return new(new QueryPage(request.Page.Number, request.Page.Size), new(request.Filter.FullTextSearchQuery));
   }
 
-  public static DummyItemGetListActionReplyForGrpc ToDummyItemGetListActionGrpcReply(this DummyItemGetListActionDTO dto)
+  public static DummyItemGetListActionReplyForGrpc ToDummyItemGetListActionGrpcReply(this DummyItemListDTO dto)
   {
     DummyItemGetListActionReplyForGrpc result = new()
     {

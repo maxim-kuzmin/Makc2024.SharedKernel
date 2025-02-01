@@ -1,11 +1,13 @@
-﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Endpoints.Delete;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
+
+namespace Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Endpoints.Delete;
 
 /// <summary>
 /// Обработчик конечной точки удаления фиктивного предмета.
 /// </summary>
 /// <param name="_mediator">Медиатор.</param>
 public class DummyItemDeleteEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemDeleteActionCommand, DummyItemGetActionDTO>
+  Endpoint<DummyItemDeleteActionCommand, DummyItemSingleDTO>
 {
   /// <inheritdoc/>
   public override void Configure()

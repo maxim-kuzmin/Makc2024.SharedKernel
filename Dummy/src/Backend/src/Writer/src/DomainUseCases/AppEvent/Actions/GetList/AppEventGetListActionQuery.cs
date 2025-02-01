@@ -7,4 +7,4 @@
 /// <param name="Filter">Фильтр.</param>
 public record AppEventGetListActionQuery(
   QueryPage? Page,
-  AppEventGetListActionQueryFilter? Filter) : IQuery<Result<AppEventGetListActionDTO>>;
+  AppEventGetListActionQueryFilter? Filter) : IQuery<Result<AppEventListDTO>>;

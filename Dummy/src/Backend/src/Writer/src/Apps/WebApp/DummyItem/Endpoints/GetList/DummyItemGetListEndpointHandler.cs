@@ -1,11 +1,13 @@
-﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Endpoints.GetList;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
+
+namespace Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Endpoints.GetList;
 
 /// <summary>
 /// Обработчик конечной точки получения списка фиктивных предметов.
 /// </summary>
 /// <param name="_mediator">Медиатор.</param>
 public class DummyItemGetListEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemGetListEndpointRequest, IEnumerable<DummyItemGetListActionDTO>>
+  Endpoint<DummyItemGetListEndpointRequest, IEnumerable<DummyItemListDTO>>
 {
   /// <inheritdoc/>
   public override void Configure()
