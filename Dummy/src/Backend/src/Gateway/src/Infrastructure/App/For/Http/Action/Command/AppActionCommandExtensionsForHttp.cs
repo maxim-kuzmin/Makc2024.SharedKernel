@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.For.Http.Action.Command;
 
 /// <summary>
-/// Расширения команд действия над приложением для HTTP.
+/// Расширения команд действия с приложением для HTTP.
 /// </summary>
 public static class AppActionCommandExtensionsForHttp
 {

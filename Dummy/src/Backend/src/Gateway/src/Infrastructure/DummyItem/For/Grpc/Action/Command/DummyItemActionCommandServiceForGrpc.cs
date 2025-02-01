@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Command;
 
 /// <summary>
-/// Сервис команд действия над фиктивным предметом для gRPC.
+/// Сервис команд действия с фиктивным предметом для gRPC.
 /// </summary>
 /// <param name="_grpcClient">Клиент gRPC.</param>
 public class DummyItemActionCommandServiceForGrpc(

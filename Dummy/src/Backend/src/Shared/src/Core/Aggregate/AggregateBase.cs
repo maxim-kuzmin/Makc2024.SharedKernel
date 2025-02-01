@@ -9,7 +9,7 @@
 /// Конструктор.
 /// </remarks>
 /// <param name="entityFromDb">Сущность из базы данных.</param>
-public class AggregateBase<TEntity, TEntityId>(TEntity? _entityFromDb = null) : EventSource
+public class AggregateBase<TEntity, TEntityId>(TEntity? _entityFromDb = null)
   where TEntity : class, IEntityBase<TEntityId>, new()
   where TEntityId : struct, IEquatable<TEntityId>
 {

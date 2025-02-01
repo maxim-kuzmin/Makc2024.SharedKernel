@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Action.Command;
 
 /// <summary>
-/// Сервис команд действия над приложением.
+/// Сервис команд действия с приложением.
 /// </summary>
 /// <param name="_appConfigOptions">Параметры конфигурации приложения.</param>
 public class AppActionCommandService(IOptionsSnapshot<AppConfigOptions> _appConfigOptions) : IAppActionCommandService

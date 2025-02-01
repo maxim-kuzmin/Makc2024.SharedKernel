@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.For.Grpc.Action.Command;
 
 /// <summary>
-/// Сервис команд действия над приложением для gRPC.
+/// Сервис команд действия с приложением для gRPC.
 /// </summary>
 /// <param name="_grpcClient">Клиент gRPC.</param>
 public class AppActionCommandServiceForGrpc(WriterAppGrpcClient _grpcClient) : IAppActionCommandService

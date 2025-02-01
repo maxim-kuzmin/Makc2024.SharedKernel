@@ -27,8 +27,6 @@ public static class AppExtensions
 
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
-    services.AddScoped<IEventDispatcher, EventDispatcher>();
-
     services.AddScoped<AppSession>();
 
     services.AddTransient<IAppActionCommandService>(x =>

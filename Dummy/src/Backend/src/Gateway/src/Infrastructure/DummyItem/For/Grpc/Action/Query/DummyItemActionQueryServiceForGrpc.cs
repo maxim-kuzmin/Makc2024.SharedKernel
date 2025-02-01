@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Query;
 
 /// <summary>
-/// Сервис запросов действия над фиктивным предметом для gRPC.
+/// Сервис запросов действия с фиктивным предметом для gRPC.
 /// </summary>
 /// <param name="_appSession">Сессия приложения.</param>
 /// <param name="_grpcClient">Клиент gRPC.</param>

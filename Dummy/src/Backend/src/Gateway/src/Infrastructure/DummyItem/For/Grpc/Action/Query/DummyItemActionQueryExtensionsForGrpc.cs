@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Query;
 
 /// <summary>
-/// Расширения запросов действия над фиктивным предметом для gRPC.
+/// Расширения запросов действия с фиктивным предметом для gRPC.
 /// </summary>
 public static class DummyItemActionQueryExtensionsForGrpc
 {

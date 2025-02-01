@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Action.Query;
 
 /// <summary>
-/// Сервис запросов действия над фиктивным предметом.
+/// Сервис запросов действия с фиктивным предметом.
 /// </summary>
 /// <param name="_appDbHelperForSQL">Помощник базы данных приложения для SQL.</param>
 /// <param name="_appDbSettings">Настройки базы данных приложения.</param>

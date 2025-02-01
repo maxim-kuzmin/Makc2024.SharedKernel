@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Query;
 
 /// <summary>
-/// Сервис запросов действия над событием приложения.
+/// Сервис запросов действия с событием приложения.
 /// </summary>
 /// <param name="_appDbHelperForSQL">Помощник базы данных приложения для SQL.</param>
 /// <param name="_appDbSettings">Настройки базы данных приложения.</param>

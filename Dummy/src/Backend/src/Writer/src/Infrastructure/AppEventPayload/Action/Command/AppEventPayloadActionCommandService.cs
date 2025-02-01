@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEventPayload.Action.Command;
 
 /// <summary>
-/// Сервис команд действия над полезной нагрузкой события приложения.
+/// Сервис команд действия с полезной нагрузкой события приложения.
 /// </summary>
 /// <param name="_appDbExecutor">Исполнитель базы данных.</param>
 /// <param name="_eventDispatcher">Диспетчер событий.</param>
@@ -9,7 +9,6 @@
 /// <param name="_repository">Репозиторий.</param>
 public class AppEventPayloadActionCommandService(
   IAppDbExecutor _appDbExecutor,
-  IEventDispatcher _eventDispatcher,
   IAppEventPayloadFactory _factory,
   IAppEventPayloadRepository _repository) : IAppEventPayloadActionCommandService
 {
@@ -50,8 +49,6 @@ public class AppEventPayloadActionCommandService(
     }
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
-
-    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
     var dto = new AppEventPayloadGetActionDTO(
       entity.Id,
@@ -103,8 +100,6 @@ public class AppEventPayloadActionCommandService(
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
-    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
-
     return Result.Success();
   }
 
@@ -152,8 +147,6 @@ public class AppEventPayloadActionCommandService(
     }
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
-
-    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
     var dto = new AppEventPayloadGetActionDTO(
       entity.Id,

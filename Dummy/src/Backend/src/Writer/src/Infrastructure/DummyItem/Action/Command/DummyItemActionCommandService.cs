@@ -1,15 +1,15 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.Action.Command;
 
 /// <summary>
-/// Сервис команд действия над фиктивным предметом.
+/// Сервис команд действия с фиктивным предметом.
 /// </summary>
 /// <param name="_appDbExecutor">Исполнитель базы данных.</param>
-/// <param name="_eventDispatcher">Диспетчер событий.</param>
+/// <param name="_appSynchronization">Синхронизация приложения.</param>
 /// <param name="_factory">Фабрика.</param>
 /// <param name="_repository">Репозиторий.</param>
 public class DummyItemActionCommandService(
   IAppDbExecutor _appDbExecutor,
-  IEventDispatcher _eventDispatcher,
+  IAppSynchronizationActionCommandService _appSynchronization,
   IDummyItemFactory _factory,
   IDummyItemRepository _repository) : IDummyItemActionCommandService
 {
@@ -46,11 +46,11 @@ public class DummyItemActionCommandService(
     async Task SaveToDb(CancellationToken cancellationToken)
     {
       entity = await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
+
+      await OnEntityChanged(entity, cancellationToken).ConfigureAwait(false);
     }
 
-    await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
-
-    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
+    await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);    
 
     var dto = new DummyItemGetActionDTO(
       entity.Id,
@@ -58,7 +58,7 @@ public class DummyItemActionCommandService(
 
     return Result.Success(dto);
   }
-  
+
   /// <inheritdoc/>
   public async Task<Result> Delete(
     DummyItemDeleteActionCommand command,
@@ -97,11 +97,11 @@ public class DummyItemActionCommandService(
     async Task SaveToDb(CancellationToken cancellationToken)
     {
       await _repository.DeleteAsync(entity, cancellationToken).ConfigureAwait(false);
+
+      await OnEntityChanged(entity, cancellationToken).ConfigureAwait(false);
     }
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
-
-    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
     return Result.Success();
   }
@@ -146,16 +146,21 @@ public class DummyItemActionCommandService(
     async Task SaveToDb(CancellationToken cancellationToken)
     {
       await _repository.UpdateAsync(entity, cancellationToken).ConfigureAwait(false);
+
+      await OnEntityChanged(entity, cancellationToken).ConfigureAwait(false);
     }
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
-
-    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
     var dto = new DummyItemGetActionDTO(
       entity.Id,
       entity.Name);
 
     return Result.Success(dto);
+  }
+
+  private Task<Result> OnEntityChanged(DummyItemEntity entity, CancellationToken cancellationToken)
+  {
+    return _appSynchronization.Start(new("DummyItem_Changed", [entity]), cancellationToken);
   }
 }

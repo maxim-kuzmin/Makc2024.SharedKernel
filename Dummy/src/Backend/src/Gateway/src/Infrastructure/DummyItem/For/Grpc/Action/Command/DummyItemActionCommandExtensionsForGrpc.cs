@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Grpc.Action.Command;
 
 /// <summary>
-/// Расширения команд действия над фиктивным предметом для gRPC.
+/// Расширения команд действия с фиктивным предметом для gRPC.
 /// </summary>
 public static class DummyItemActionCommandExtensionsForGrpc
 {

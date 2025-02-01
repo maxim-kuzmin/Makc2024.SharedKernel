@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.Action.Query;
 
 /// <summary>
-/// Интерфейс сервиса запросов действия над полезной нагрузкой события приложения.
+/// Интерфейс сервиса запросов действия с полезной нагрузкой события приложения.
 /// </summary>
 public interface IAppEventPayloadActionQueryService
 {

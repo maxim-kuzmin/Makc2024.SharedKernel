@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.Action.Command;
 
 /// <summary>
-/// Интерфейс сервиса команд действия над полезной нагрузкой события приложения.
+/// Интерфейс сервиса команд действия с полезной нагрузкой события приложения.
 /// </summary>
 public interface IAppEventPayloadActionCommandService
 {

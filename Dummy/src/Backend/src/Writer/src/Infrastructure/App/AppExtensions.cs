@@ -1,4 +1,7 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App;
+﻿using Makc2024.Dummy.Writer.DomainUseCases.AppSynchronization.Action.Command;
+using Makc2024.Dummy.Writer.Infrastructure.AppSynchronization.Action.Command;
+
+namespace Makc2024.Dummy.Writer.Infrastructure.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -28,8 +31,6 @@ public static class AppExtensions
     services.Configure<AppConfigOptions>(appConfigSection);
 
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-
-    services.AddScoped<IEventDispatcher, EventDispatcher>();
 
     var connectionStringTemplate = configuration.GetConnectionString(
       appConfigOptions.PostgreSQL.ConnectionStringName);
@@ -80,6 +81,8 @@ public static class AppExtensions
     services.AddTransient<IAppEventPayloadActionCommandService, AppEventPayloadActionCommandService>();
     services.AddTransient<IAppEventPayloadActionQueryService, AppEventPayloadActionQueryService>();
     services.AddTransient<IAppEventPayloadResources, AppEventPayloadResources>();
+
+    services.AddTransient<IAppSynchronizationActionCommandService, AppSynchronizationActionCommandService>();
 
     services.AddTransient<IDummyItemActionCommandService, DummyItemActionCommandService>();
     services.AddTransient<IDummyItemActionQueryService, DummyItemActionQueryService>();

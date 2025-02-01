@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.App.For.Http.Action.Command;
 
 /// <summary>
-/// Сервис команд действия над приложением для HTTP.
+/// Сервис команд действия с приложением для HTTP.
 /// </summary>
 /// <param name="_httpClientFactory">Фабрика клиентов HTTP.</param>
 public class AppActionCommandServiceForHttp(IHttpClientFactory _httpClientFactory) : IAppActionCommandService

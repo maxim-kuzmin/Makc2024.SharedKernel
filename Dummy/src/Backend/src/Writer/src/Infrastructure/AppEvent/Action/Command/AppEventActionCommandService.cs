@@ -1,15 +1,13 @@
 ﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Command;
 
 /// <summary>
-/// Сервис команд действия над событием приложения.
+/// Сервис команд действия с событием приложения.
 /// </summary>
 /// <param name="_appDbExecutor">Исполнитель базы данных.</param>
-/// <param name="_eventDispatcher">Диспетчер событий.</param>
 /// <param name="_factory">Фабрика.</param>
 /// <param name="_repository">Репозиторий.</param>
 public class AppEventActionCommandService(
   IAppDbExecutor _appDbExecutor,
-  IEventDispatcher _eventDispatcher,
   IAppEventFactory _factory,
   IAppEventRepository _repository) : IAppEventActionCommandService
 {
@@ -50,8 +48,6 @@ public class AppEventActionCommandService(
     }
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
-
-    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
     var dto = new AppEventGetActionDTO(
       entity.Id,
@@ -104,8 +100,6 @@ public class AppEventActionCommandService(
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
 
-    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
-
     return Result.Success();
   }
 
@@ -153,8 +147,6 @@ public class AppEventActionCommandService(
     }
 
     await _appDbExecutor.Execute(SaveToDb, cancellationToken).ConfigureAwait(false);
-
-    await _eventDispatcher.DispatchAndClearEvents(aggregate, cancellationToken).ConfigureAwait(false);
 
     var dto = new AppEventGetActionDTO(
       entity.Id,

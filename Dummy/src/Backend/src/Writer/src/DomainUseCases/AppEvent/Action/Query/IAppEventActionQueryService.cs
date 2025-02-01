@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Action.Query;
 
 /// <summary>
-/// Интерфейс сервиса запросов действия над событием приложения.
+/// Интерфейс сервиса запросов действия с событием приложения.
 /// </summary>
 public interface IAppEventActionQueryService
 {

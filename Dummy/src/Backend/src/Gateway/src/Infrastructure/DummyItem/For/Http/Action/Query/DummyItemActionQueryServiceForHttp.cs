@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Query;
 
 /// <summary>
-/// Сервис запросов действия над фиктивным предметом для HTTP.
+/// Сервис запросов действия с фиктивным предметом для HTTP.
 /// </summary>
 /// <param name="_appSession">Сессия приложения.</param>
 /// <param name="_httpClientFactory">Фабрика клиентов HTTP.</param>

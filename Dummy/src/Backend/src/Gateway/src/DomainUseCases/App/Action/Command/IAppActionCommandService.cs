@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.App.Action.Command;
 
 /// <summary>
-/// Интерфейс сервиса команд действия над приложением.
+/// Интерфейс сервиса команд действия с приложением.
 /// </summary>
 public interface IAppActionCommandService
 {

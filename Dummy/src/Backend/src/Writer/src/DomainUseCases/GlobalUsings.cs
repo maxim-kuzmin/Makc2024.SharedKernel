@@ -23,6 +23,8 @@ global using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.Actions.GetLis
 global using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.Actions.GetList.DTO;
 global using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.Actions.GetList.Query;
 global using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.Actions.Update;
+global using Makc2024.Dummy.Writer.DomainUseCases.AppSynchronization.Action.Command;
+global using Makc2024.Dummy.Writer.DomainUseCases.AppSynchronization.Actions.Start;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Action.Command;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Action.Query;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Actions.Create;

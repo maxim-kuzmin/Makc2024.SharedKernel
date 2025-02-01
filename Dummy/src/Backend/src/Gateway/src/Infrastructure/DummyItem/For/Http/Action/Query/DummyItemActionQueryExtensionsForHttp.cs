@@ -1,7 +1,7 @@
 ﻿namespace Makc2024.Dummy.Gateway.Infrastructure.DummyItem.For.Http.Action.Query;
 
 /// <summary>
-/// Расширения запросов действия над фиктивным предметом для HTTP.
+/// Расширения запросов действия с фиктивным предметом для HTTP.
 /// </summary>
 public static class DummyItemActionQueryExtensionsForHttp
 {
