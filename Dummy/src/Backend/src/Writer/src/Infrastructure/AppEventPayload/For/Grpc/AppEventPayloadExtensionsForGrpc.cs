@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.DTOs;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.AppEventPayload.For.Grpc;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEventPayload.For.Grpc;
 
 /// <summary>
 /// Расширения полезной нагрузки события приложения для gRPC.
@@ -52,7 +50,8 @@ public static class AppEventPayloadExtensionsForGrpc
       AppEventPayloadGetListActionReplyItemForGrpc item = new()
       {
         Id = itemDTO.Id,
-        Name = itemDTO.Name,
+        AppEventId = itemDTO.AppEventId,
+        Data = itemDTO.Data,
       };
 
       result.Items.Add(item);

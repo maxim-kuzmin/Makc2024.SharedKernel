@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
-
-namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEvent.Endpoints.Update;
+﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEvent.Endpoints.Update;
 
 /// <summary>
 /// Обработчик конечной точки обновления события приложения.

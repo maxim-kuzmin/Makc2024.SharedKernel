@@ -11,9 +11,7 @@ public interface IDummyItemActionQueryService
   /// <param name="query">Запрос.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<DummyItemGetActionDTO>> Get(
-    DummyItemGetActionQuery query,
-    CancellationToken cancellationToken);
+  Task<Result<DummyItemSingleDTO>> Get(DummyItemGetActionQuery query, CancellationToken cancellationToken);
 
   /// <summary>
   /// Получить список.
@@ -21,7 +19,5 @@ public interface IDummyItemActionQueryService
   /// <param name="query">Запрос.</param>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result<DummyItemGetListActionDTO>> GetList(
-    DummyItemGetListActionQuery query,
-    CancellationToken cancellationToken);
+  Task<Result<DummyItemListDTO>> GetList(DummyItemGetListActionQuery query, CancellationToken cancellationToken);
 }

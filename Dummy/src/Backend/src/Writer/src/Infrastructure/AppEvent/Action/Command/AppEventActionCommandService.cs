@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Command;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Command;
 
 /// <summary>
 /// Сервис команд действия с событием приложения.

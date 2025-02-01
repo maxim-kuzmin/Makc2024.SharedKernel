@@ -52,7 +52,9 @@ message AppEventGetListActionRequestForGrpc {
 
 message AppEventGetListActionReplyItemForGrpc {
     int64 id = 1;
-    string name = 2;
+    google.protobuf.Timestamp created_at = 2;
+    bool is_published = 3;
+    string name = 4;
 }
 
 message AppEventGetListActionReplyForGrpc {

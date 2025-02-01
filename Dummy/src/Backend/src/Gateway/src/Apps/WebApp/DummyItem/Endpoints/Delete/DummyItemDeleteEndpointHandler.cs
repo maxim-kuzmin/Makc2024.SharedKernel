@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="_mediator">Медиатор.</param>
 public class DummyItemDeleteEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemDeleteActionCommand, DummyItemGetActionDTO>
+  Endpoint<DummyItemDeleteActionCommand, DummyItemSingleDTO>
 {
   /// <inheritdoc/>
   public override void Configure()

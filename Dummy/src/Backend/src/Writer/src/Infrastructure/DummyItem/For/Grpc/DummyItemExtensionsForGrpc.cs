@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.DummyItem.For.Grpc;
 
 /// <summary>
 /// Расширения фиктивного предмета для gRPC.

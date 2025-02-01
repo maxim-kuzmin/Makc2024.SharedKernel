@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
-
-namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEvent.Endpoints.Delete;
+﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEvent.Endpoints.Delete;
 
 /// <summary>
 /// Обработчик конечной точки удаления события приложения.

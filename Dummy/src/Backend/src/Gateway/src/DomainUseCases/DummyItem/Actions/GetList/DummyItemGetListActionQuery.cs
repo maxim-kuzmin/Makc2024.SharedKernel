@@ -7,4 +7,4 @@
 /// <param name="Filter">Фильтр.</param>
 public record DummyItemGetListActionQuery(
   QueryPage Page,
-  DummyItemGetListActionQueryFilter Filter) : IQuery<Result<DummyItemGetListActionDTO>>;
+  DummyItemGetListActionQueryFilter Filter) : IQuery<Result<DummyItemListDTO>>;

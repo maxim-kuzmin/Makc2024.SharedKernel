@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.For.Grpc;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.For.Grpc;
 
 /// <summary>
 /// Расширения события приложения для gRPC.

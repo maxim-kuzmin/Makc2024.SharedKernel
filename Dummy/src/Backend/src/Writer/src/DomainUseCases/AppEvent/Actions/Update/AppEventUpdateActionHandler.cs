@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
-
-namespace Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Actions.Update;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Actions.Update;
 
 /// <summary>
 /// Обработчик действия по обновлению события приложения.

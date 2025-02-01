@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Query;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppEvent.Action.Query;
 
 /// <summary>
 /// Сервис запросов действия с событием приложения.

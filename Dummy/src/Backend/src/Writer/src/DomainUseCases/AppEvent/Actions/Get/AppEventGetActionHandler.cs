@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.DTOs;
-
-namespace Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Actions.Get;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Actions.Get;
 
 /// <summary>
 /// Обработчик действия по получению события приложения.

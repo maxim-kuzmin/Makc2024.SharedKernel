@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="_mediator">Медиатор.</param>
 public class DummyItemUpdateEndpointHandler(IMediator _mediator) :
-  Endpoint<DummyItemUpdateActionCommand, DummyItemGetActionDTO>
+  Endpoint<DummyItemUpdateActionCommand, DummyItemSingleDTO>
 {
   /// <inheritdoc/>
   public override void Configure()

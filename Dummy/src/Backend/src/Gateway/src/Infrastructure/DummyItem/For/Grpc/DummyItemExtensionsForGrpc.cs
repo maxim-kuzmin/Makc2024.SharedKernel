@@ -10,7 +10,7 @@ public static class DummyItemExtensionsForGrpc
   /// </summary>
   /// <param name="reply">Ответ.</param>
   /// <returns>Объект передачи данных действия по получению фиктивного предмета.</returns>
-  public static DummyItemGetActionDTO ToDummyItemGetActionDTO(this DummyItemGetActionReplyForGrpc reply)
+  public static DummyItemSingleDTO ToDummyItemSingleDTO(this DummyItemGetActionReplyForGrpc reply)
   {
     return new(reply.Id, reply.Name);
   }
@@ -20,13 +20,13 @@ public static class DummyItemExtensionsForGrpc
   /// </summary>
   /// <param name="reply">Ответ.</param>
   /// <returns>Объект передачи данных действия по получению списка фиктивных предметов.</returns>
-  public static DummyItemGetListActionDTO ToDummyItemGetListActionDTO(this DummyItemGetListActionReplyForGrpc reply)
+  public static DummyItemListDTO ToDummyItemGetListActionDTO(this DummyItemGetListActionReplyForGrpc reply)
   {
-    var items = new List<DummyItemGetListActionDTOItem>(reply.Items.Count);
+    var items = new List<DummyItemSingleDTO>(reply.Items.Count);
 
     foreach (var itemReply in reply.Items)
     {
-      DummyItemGetListActionDTOItem item = new(itemReply.Id, itemReply.Name);
+      DummyItemSingleDTO item = new(itemReply.Id, itemReply.Name);
 
       items.Add(item);
     }

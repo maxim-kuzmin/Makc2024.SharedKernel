@@ -5,4 +5,4 @@
 /// </summary>
 /// <param name="Name">Имя.</param>
 public record DummyItemCreateActionCommand(
-  string Name) : ICommand<Result<DummyItemGetActionDTO>>;
+  string Name) : ICommand<Result<DummyItemSingleDTO>>;

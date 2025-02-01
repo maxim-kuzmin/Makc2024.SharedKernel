@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.DTOs;
-
-namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEventPayload.Endpoints.GetList;
+﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.AppEventPayload.Endpoints.GetList;
 
 /// <summary>
 /// Обработчик конечной точки получения списка полезных нагрузок события приложения.

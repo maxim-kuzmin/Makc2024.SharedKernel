@@ -50,7 +50,8 @@ message AppEventPayloadGetListActionRequestForGrpc {
 
 message AppEventPayloadGetListActionReplyItemForGrpc {
     int64 id = 1;
-    string name = 2;
+    int64 app_event_id = 2;
+    string data = 3;
 }
 
 message AppEventPayloadGetListActionReplyForGrpc {

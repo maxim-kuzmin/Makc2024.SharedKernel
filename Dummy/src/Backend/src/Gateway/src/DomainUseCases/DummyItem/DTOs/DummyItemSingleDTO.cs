@@ -1,10 +1,8 @@
-﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.Actions.Get;
+﻿namespace Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.DTOs;
 
 /// <summary>
 /// Объект передачи данных действия по получению фиктивного предмета.
 /// </summary>
 /// <param name="Id">Идентификатор.</param>
 /// <param name="Name">Имя.</param>
-public record DummyItemGetActionDTO(
-  long Id,
-  string Name);
+public record DummyItemSingleDTO(long Id, string Name);

@@ -10,7 +10,7 @@ public class DummyItemActionQueryServiceForGrpc(
   WriterDummyItemGrpcClient _grpcClient) : IDummyItemActionQueryService
 {
   /// <inheritdoc/>
-  public async Task<Result<DummyItemGetActionDTO>> Get(
+  public async Task<Result<DummyItemSingleDTO>> Get(
       DummyItemGetActionQuery query,
       CancellationToken cancellationToken)
   {
@@ -22,7 +22,7 @@ public class DummyItemActionQueryServiceForGrpc(
 
       var reply = await replyTask.ConfigureAwait(false);
 
-      return Result.Success(reply.ToDummyItemGetActionDTO());
+      return Result.Success(reply.ToDummyItemSingleDTO());
     }
     catch (RpcException ex)
     {
@@ -31,7 +31,7 @@ public class DummyItemActionQueryServiceForGrpc(
   }
 
   /// <inheritdoc/>
-  public async Task<Result<DummyItemGetListActionDTO>> GetList(
+  public async Task<Result<DummyItemListDTO>> GetList(
       DummyItemGetListActionQuery query,
       CancellationToken cancellationToken)
   {

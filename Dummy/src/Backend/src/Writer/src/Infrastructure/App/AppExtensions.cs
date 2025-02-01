@@ -1,7 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.AppSynchronization.Action.Command;
-using Makc2024.Dummy.Writer.Infrastructure.AppSynchronization.Action.Command;
-
-namespace Makc2024.Dummy.Writer.Infrastructure.App;
+﻿namespace Makc2024.Dummy.Writer.Infrastructure.App;
 
 /// <summary>
 /// Расширения приложения.

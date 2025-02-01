@@ -8,7 +8,7 @@ public class DummyItemActionCommandServiceForHttp(
   IHttpClientFactory _httpClientFactory) : IDummyItemActionCommandService
 {
   /// <inheritdoc/>
-  public async Task<Result<DummyItemGetActionDTO>> Create(
+  public async Task<Result<DummyItemSingleDTO>> Create(
     DummyItemCreateActionCommand command,
     CancellationToken cancellationToken)
   {
@@ -23,7 +23,7 @@ public class DummyItemActionCommandServiceForHttp(
 
     using var httpResponse = await httpResponseTask.ConfigureAwait(false);
 
-    var resultTask = httpResponse.ToResultFromJsonAsync<DummyItemGetActionDTO>(cancellationToken);
+    var resultTask = httpResponse.ToResultFromJsonAsync<DummyItemSingleDTO>(cancellationToken);
 
     var result = await resultTask.ConfigureAwait(false);
 
@@ -45,7 +45,7 @@ public class DummyItemActionCommandServiceForHttp(
   }
 
   /// <inheritdoc/>
-  public async Task<Result<DummyItemGetActionDTO>> Update(
+  public async Task<Result<DummyItemSingleDTO>> Update(
       DummyItemUpdateActionCommand command,
       CancellationToken cancellationToken)
   {
@@ -60,7 +60,7 @@ public class DummyItemActionCommandServiceForHttp(
 
     using var httpResponse = await httpResponseTask.ConfigureAwait(false);
 
-    var resultTask = httpResponse.ToResultFromJsonAsync<DummyItemGetActionDTO>(cancellationToken);
+    var resultTask = httpResponse.ToResultFromJsonAsync<DummyItemSingleDTO>(cancellationToken);
 
     var result = await resultTask.ConfigureAwait(false);
 

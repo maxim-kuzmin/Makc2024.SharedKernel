@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
-
-namespace Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Endpoints.Update;
+﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.DummyItem.Endpoints.Update;
 
 /// <summary>
 /// Обработчик конечной точки обновления фиктивного предмета.
