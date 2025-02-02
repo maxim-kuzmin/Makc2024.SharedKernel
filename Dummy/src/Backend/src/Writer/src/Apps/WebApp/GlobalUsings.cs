@@ -2,8 +2,8 @@
 global using Ardalis.Result.AspNetCore;
 global using FastEndpoints;
 global using FastEndpoints.Swagger;
-global using Makc2024.Dummy.Shared.Core.Query;
-global using Makc2024.Dummy.Shared.Web.App.Middlewares;
+global using Makc2024.Dummy.Shared.Apps.WebApp.Middlewares;
+global using Makc2024.Dummy.Shared.DomainUseCases.Query;
 global using Makc2024.Dummy.Writer.Apps.WebApp.App;
 global using Makc2024.Dummy.Writer.DomainUseCases.App;
 global using Makc2024.Dummy.Writer.DomainUseCases.App.Actions.Login;

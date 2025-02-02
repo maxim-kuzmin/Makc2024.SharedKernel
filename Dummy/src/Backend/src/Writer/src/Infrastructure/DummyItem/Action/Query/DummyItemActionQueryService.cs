@@ -5,14 +5,14 @@
 /// </summary>
 /// <param name="_appDbHelperForSQL">Помощник базы данных приложения для SQL.</param>
 /// <param name="_appDbSettings">Настройки базы данных приложения.</param>
-/// <param name="_appSession">Сессия приложения.</param>
+/// <param name="appSession">Сессия приложения.</param>
 public class DummyItemActionQueryService(
   IAppDbHelperForSQL _appDbHelperForSQL,
   AppDbSettings _appDbSettings,
-  AppSession _appSession) : IDummyItemActionQueryService
+  AppSession appSession) : DummyItemActionQueryServiceBase(appSession)
 {
   /// <inheritdoc/>
-  public async Task<Result<DummyItemSingleDTO>> Get(
+  protected sealed override async Task<DummyItemSingleDTO?> GetDTO(
     DummyItemGetActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -22,7 +22,7 @@ public class DummyItemActionQueryService(
 
     var parameterIndex = 0;
 
-    var sqlFormat = $$"""
+    var sql = $$"""
 
 select
   "{{sDummyItem.ColumnForId}}" "Id",
@@ -36,22 +36,20 @@ where
 
     parameters.Add(query.Id);
 
-    var dtoTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<DummyItemSingleDTO>(
-      sqlFormat,
+    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<DummyItemSingleDTO>(
+      sql,
       parameters).FirstOrDefaultAsync(cancellationToken);
 
-    var dto = await dtoTask.ConfigureAwait(false);
+    var result = await task.ConfigureAwait(false);
 
-    return dto != null ? Result.Success(dto) : Result.NotFound();
+    return result;
   }
 
   /// <inheritdoc/>
-  public async Task<Result<DummyItemListDTO>> GetList(
+  protected sealed override async Task<DummyItemListDTO> GetDTO(
     DummyItemGetListActionQuery query,
     CancellationToken cancellationToken)
   {
-    string? userName = _appSession.User.Identity?.Name;
-
     var sDummyItem = _appDbSettings.Entities.DummyItem;
 
     var parameters = new List<object>();
@@ -94,9 +92,9 @@ where
 
     var items = await itemsTask.ConfigureAwait(false);
 
-    var dto = items.ToDummyItemListDTO(totalCount);
+    var result = items.ToDummyItemListDTO(totalCount);
 
-    return Result.Success(dto);
+    return result;
   }
 
   private async Task<Result<long>> GetTotalCount(

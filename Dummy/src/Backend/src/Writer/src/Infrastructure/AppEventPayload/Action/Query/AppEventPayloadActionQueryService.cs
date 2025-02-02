@@ -5,14 +5,14 @@
 /// </summary>
 /// <param name="_appDbHelperForSQL">Помощник базы данных приложения для SQL.</param>
 /// <param name="_appDbSettings">Настройки базы данных приложения.</param>
-/// <param name="_appSession">Сессия приложения.</param>
+/// <param name="appSession">Сессия приложения.</param>
 public class AppEventPayloadActionQueryService(
   IAppDbHelperForSQL _appDbHelperForSQL,
   AppDbSettings _appDbSettings,
-  AppSession _appSession) : IAppEventPayloadActionQueryService
+  AppSession appSession) : AppEventPayloadActionQueryServiceBase(appSession)
 {
   /// <inheritdoc/>
-  public async Task<Result<AppEventPayloadSingleDTO>> Get(
+  protected sealed override async Task<AppEventPayloadSingleDTO?> GetDTO(
     AppEventPayloadGetActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -37,22 +37,20 @@ where
 
     parameters.Add(query.Id);
 
-    var dboTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventPayloadSingleDTO>(
+    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventPayloadSingleDTO>(
       sql,
       parameters).FirstOrDefaultAsync(cancellationToken);
 
-    var dto = await dboTask.ConfigureAwait(false);
+    var result = await task.ConfigureAwait(false);
 
-    return dto != null ? Result.Success(dto) : Result.NotFound();
+    return result;
   }
 
   /// <inheritdoc/>
-  public async Task<Result<AppEventPayloadListDTO>> GetList(
+  protected sealed override async Task<AppEventPayloadListDTO> GetDTO(
     AppEventPayloadGetListActionQuery query,
     CancellationToken cancellationToken)
   {
-    string? userName = _appSession.User.Identity?.Name;
-
     var sAppEventPayload = _appDbSettings.Entities.AppEventPayload;
 
     var parameters = new List<object>();
@@ -95,9 +93,9 @@ where
 
     var items = await itemsTask.ConfigureAwait(false);
 
-    var dto = items.ToAppEventPayloadListDTO(totalCount);
+    var result = items.ToAppEventPayloadListDTO(totalCount);
 
-    return Result.Success(dto);
+    return result;
   }
 
   private async Task<Result<long>> GetTotalCount(

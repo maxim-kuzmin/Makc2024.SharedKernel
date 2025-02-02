@@ -3,13 +3,13 @@
 /// <summary>
 /// Агрегат фиктивного предмета.
 /// </summary>
-/// <param name="entityFromDb">Сущность из базы данных.</param>
+/// <param name="entityToChange">Сущность для изменения.</param>
 /// <param name="_resources">Ресурсы.</param>
 /// <param name="_settings">Настройки.</param>
 public class DummyItemAggregate(
-  DummyItemEntity? entityFromDb,
+  DummyItemEntity? entityToChange,
   IDummyItemResources _resources,
-  DummyItemSettings _settings) : AggregateBase<DummyItemEntity, long>(entityFromDb)
+  DummyItemSettings _settings) : AggregateBase<DummyItemEntity, long>(entityToChange)
 {
   /// <inheritdoc/>
   public sealed override AggregateResult<EntityChange<DummyItemEntity>> GetResultToUpdate()

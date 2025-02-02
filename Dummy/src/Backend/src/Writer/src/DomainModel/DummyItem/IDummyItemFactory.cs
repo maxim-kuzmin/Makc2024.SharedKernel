@@ -8,7 +8,7 @@ public interface IDummyItemFactory
   /// <summary>
   /// Создать агрегат.
   /// </summary>
-  /// <param name="entityFromDb">Сущность из базы данных.</param>
+  /// <param name="entityToChange">Сущность для изменения.</param>
   /// <returns>Агрегат.</returns>
-  DummyItemAggregate CreateAggregate(DummyItemEntity? entityFromDb = null);
+  DummyItemAggregate CreateAggregate(DummyItemEntity? entityToChange = null);
 }

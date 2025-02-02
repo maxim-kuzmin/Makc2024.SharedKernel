@@ -1,0 +1,5 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\DomainModel\Makc2024.Dummy.Shared.DomainModel.csproj" />
+  </ItemGroup>
+</Project>

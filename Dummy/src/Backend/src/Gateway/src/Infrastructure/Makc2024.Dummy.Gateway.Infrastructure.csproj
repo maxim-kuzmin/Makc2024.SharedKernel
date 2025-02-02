@@ -22,7 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\src\Infrastructure\Makc2024.Dummy.Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\..\Shared\src\Web\Makc2024.Dummy.Shared.Web.csproj" />
     <ProjectReference Include="..\DomainUseCases\Makc2024.Dummy.Gateway.DomainUseCases.csproj" />
   </ItemGroup>
   <ItemGroup>

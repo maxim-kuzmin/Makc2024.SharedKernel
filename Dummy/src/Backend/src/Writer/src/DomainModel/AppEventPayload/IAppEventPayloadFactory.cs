@@ -8,7 +8,7 @@ public interface IAppEventPayloadFactory
   /// <summary>
   /// Создать агрегат.
   /// </summary>
-  /// <param name="entityFromDb">Сущность из базы данных.</param>
+  /// <param name="entityToChange">Сущность для изменения.</param>
   /// <returns>Агрегат.</returns>
-  AppEventPayloadAggregate CreateAggregate(AppEventPayloadEntity? entityFromDb = null);
+  AppEventPayloadAggregate CreateAggregate(AppEventPayloadEntity? entityToChange = null);
 }

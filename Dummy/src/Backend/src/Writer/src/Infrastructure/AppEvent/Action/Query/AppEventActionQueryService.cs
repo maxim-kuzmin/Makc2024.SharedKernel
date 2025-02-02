@@ -9,10 +9,10 @@
 public class AppEventActionQueryService(
   IAppDbHelperForSQL _appDbHelperForSQL,
   AppDbSettings _appDbSettings,
-  AppSession _appSession) : IAppEventActionQueryService
+  AppSession _appSession) : AppEventActionQueryServiceBase(_appSession)
 {
   /// <inheritdoc/>
-  public async Task<Result<AppEventSingleDTO>> Get(
+  protected sealed override async Task<AppEventSingleDTO?> GetDTO(
     AppEventGetActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -38,22 +38,20 @@ where
 
     parameters.Add(query.Id);
 
-    var dtoTask = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventSingleDTO>(
+    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<AppEventSingleDTO>(
       sql,
       parameters).FirstOrDefaultAsync(cancellationToken);
 
-    var dto = await dtoTask.ConfigureAwait(false);
+    var result = await task.ConfigureAwait(false);
 
-    return dto != null ? Result.Success(dto) : Result.NotFound();
+    return result;
   }
 
   /// <inheritdoc/>
-  public async Task<Result<AppEventListDTO>> GetList(
+  protected sealed override async Task<AppEventListDTO> GetDTO(
     AppEventGetListActionQuery query,
     CancellationToken cancellationToken)
   {
-    string? userName = _appSession.User.Identity?.Name;
-
     var sAppEvent = _appDbSettings.Entities.AppEvent;
 
     var parameters = new List<object>();
@@ -107,9 +105,9 @@ from
 
     var items = await itemsTask.ConfigureAwait(false);
 
-    var dto = items.ToAppEventListDTO(totalCount);
+    var result = items.ToAppEventListDTO(totalCount);
 
-    return Result.Success(dto);
+    return result;
   }
 
   private async Task<Result<long>> GetTotalCount(

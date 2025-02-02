@@ -3,13 +3,13 @@
 /// <summary>
 /// Агрегат полезной нагрузки события приложения.
 /// </summary>
-/// <param name="entityFromDb">Сущность из базы данных.</param>
+/// <param name="entityToChange">Сущность для изменения.</param>
 /// <param name="_resources">Ресурсы.</param>
 /// <param name="_settings">Настройки.</param>
 public class AppEventPayloadAggregate(
-  AppEventPayloadEntity? entityFromDb,
+  AppEventPayloadEntity? entityToChange,
   IAppEventPayloadResources _resources,
-  AppEventPayloadSettings _settings) : AggregateBase<AppEventPayloadEntity, long>(entityFromDb)
+  AppEventPayloadSettings _settings) : AggregateBase<AppEventPayloadEntity, long>(entityToChange)
 {
   /// <inheritdoc/>
   public sealed override AggregateResult<EntityChange<AppEventPayloadEntity>> GetResultToUpdate()

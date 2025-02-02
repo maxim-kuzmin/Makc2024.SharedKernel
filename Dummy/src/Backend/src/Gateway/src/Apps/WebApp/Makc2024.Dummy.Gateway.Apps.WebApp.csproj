@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\src\Web\Makc2024.Dummy.Shared.Apps.WebApp.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Makc2024.Dummy.Gateway.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

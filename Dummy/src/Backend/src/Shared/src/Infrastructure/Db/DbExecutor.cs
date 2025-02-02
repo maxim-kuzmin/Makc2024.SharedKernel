@@ -20,15 +20,7 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
   /// <inheritdoc/>
   public Task Execute(Func<CancellationToken, Task> funcToExecute, CancellationToken cancellationToken)
   {
-    return Execute(null, (t, ct) => funcToExecute(ct), cancellationToken);
-  }
-
-  /// <inheritdoc/>
-  public Task ExecuteInTransaction(
-    Func<IDbContextTransaction?, CancellationToken, Task> funcToExecute,
-    CancellationToken cancellationToken)
-  {
-    return Execute(_dbContext.Database.BeginTransactionAsync, funcToExecute, cancellationToken);
+    return Execute(null, funcToExecute, cancellationToken);
   }
 
   /// <inheritdoc/>
@@ -36,7 +28,7 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
   {
     RelationalDatabaseFacadeExtensions.BeginTransactionAsync(_dbContext.Database, IsolationLevel.ReadCommitted, cancellationToken);
 
-    return Execute(_dbContext.Database.BeginTransactionAsync, (t, ct) => funcToExecute(ct), cancellationToken);
+    return Execute(_dbContext.Database.BeginTransactionAsync, funcToExecute, cancellationToken);
   }
 
   /// <inheritdoc/>
@@ -71,12 +63,12 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
 
   private async Task Execute(
     Func<IsolationLevel, CancellationToken, Task<IDbContextTransaction>>? funcToCreateTransaction,
-    Func<IDbContextTransaction?, CancellationToken, Task> funcToExecute,
+    Func<CancellationToken, Task> funcToExecute,
     CancellationToken cancellationToken)
   {
     if (_isExecuting)
     {
-      await funcToExecute.Invoke(_dbContext.Database.CurrentTransaction, cancellationToken).ConfigureAwait(false);
+      await funcToExecute.Invoke(cancellationToken).ConfigureAwait(false);
     }
     else
     {
@@ -90,15 +82,18 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
 
         try
         {
-          await funcToExecute.Invoke(transaction, cancellationToken).ConfigureAwait(false);
+          await funcToExecute.Invoke(cancellationToken).ConfigureAwait(false);
 
           if (_isSaveChangesEnabled)
           {
             await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
           }
 
-          transaction?.Commit();
-
+          if (transaction != null)
+          {
+            await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
+          }
+          
           isCommited = true;
         }
         catch (DbUpdateConcurrencyException ex)

@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Shared.Web.App.Middlewares;
+﻿namespace Makc2024.Dummy.Shared.Apps.WebApp.Middlewares;
 
 /// <summary>
 /// Промежуточный обработчик запроса для инициализации сессии приложения.

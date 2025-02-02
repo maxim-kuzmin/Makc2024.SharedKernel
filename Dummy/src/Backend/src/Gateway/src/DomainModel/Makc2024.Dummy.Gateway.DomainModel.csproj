@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Shared\src\Core\Makc2024.Dummy.Shared.Core.csproj" />
+    <ProjectReference Include="..\..\..\Shared\src\DomainModel\Makc2024.Dummy.Shared.DomainModel.csproj" />
   </ItemGroup>
 </Project>

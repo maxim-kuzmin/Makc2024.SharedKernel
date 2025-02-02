@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  
   <ItemGroup>
     <PackageReference Include="Grpc.Core.Api" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
   </ItemGroup>
+  
   <ItemGroup>
-    <ProjectReference Include="..\Core\Makc2024.Dummy.Shared.Core.csproj" />
-  </ItemGroup>  
+    <ProjectReference Include="..\..\..\Gateway\src\DomainUseCases\Makc2024.Dummy.Gateway.DomainUseCases.csproj" />
+  </ItemGroup>
+
 </Project>
