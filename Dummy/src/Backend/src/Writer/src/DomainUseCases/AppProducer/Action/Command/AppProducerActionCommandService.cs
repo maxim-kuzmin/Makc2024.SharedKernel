@@ -9,7 +9,7 @@ public class AppProducerActionCommandService(
   ) : IAppProducerActionCommandService
 {
   /// <inheritdoc/>
-  public Task<Result> Produce(CancellationToken cancellationToken)
+  public Task<Result> Publish(CancellationToken cancellationToken)
   {
     return Task.FromResult(Result.NoContent());
   }

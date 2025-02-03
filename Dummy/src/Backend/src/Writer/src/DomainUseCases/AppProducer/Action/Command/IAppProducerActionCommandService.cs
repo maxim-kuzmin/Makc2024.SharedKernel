@@ -6,11 +6,11 @@
 public interface IAppProducerActionCommandService
 {
   /// <summary>
-  /// Поставить в очередь сообщения о неопубликованных событиях приложения и пометить их как опубликованные.
+  /// Опубликовать сообщения о ещё не опубликованных событиях приложения и пометить их как опубликованные.
   /// </summary>
   /// <param name="cancellationToken">Токен отмены.</param>
   /// <returns>Результат.</returns>
-  Task<Result> Produce(CancellationToken cancellationToken);
+  Task<Result> Publish(CancellationToken cancellationToken);
 
   /// <summary>
   /// Сохранить в базе данных событие приложения, помеченное как неопубликованное.
