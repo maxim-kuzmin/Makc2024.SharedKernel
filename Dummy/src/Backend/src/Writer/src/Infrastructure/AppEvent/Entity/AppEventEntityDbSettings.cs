@@ -49,9 +49,4 @@ public abstract class AppEventEntityDbSettings
   /// Таблица.
   /// </summary>
   public string Table { get; protected set; } = null!;
-
-  /// <summary>
-  /// Уникальный индекс для имени.
-  /// </summary>
-  public string UniqueIndexForName { get; protected set; } = null!;
 }

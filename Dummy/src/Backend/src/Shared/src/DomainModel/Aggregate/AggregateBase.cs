@@ -65,9 +65,9 @@ public class AggregateBase<TEntity, TEntityId>(TEntity? _entityToChange = null)
       return new AggregateResult<EntityChange<TEntity>>(null);
     }
 
-    OnGetResultToUpdate(_entityToChange);
-
     var deleted = (TEntity)_entityToChange.DeepCopy();
+
+    OnGetResultToUpdate(_entityToChange);
 
     return new AggregateResult<EntityChange<TEntity>>(new(_entityToChange, deleted), UpdateErrors);
   }

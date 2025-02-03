@@ -24,7 +24,5 @@ public class AppEventEntityDbSettingsForPostgreSQL : AppEventEntityDbSettings
     ColumnForName = "name";
 
     MaxLengthForName = 255;
-    
-    UniqueIndexForName = $"ux_{Table}_{ColumnForName}";
   }
 }

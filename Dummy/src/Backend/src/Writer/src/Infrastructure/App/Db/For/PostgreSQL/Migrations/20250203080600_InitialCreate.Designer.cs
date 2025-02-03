@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Makc2024.Dummy.Writer.Infrastructure.App.Db.For.PostgreSQL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250128234308_InitialCreate")]
+    [Migration("20250203080600_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -55,10 +55,6 @@ namespace Makc2024.Dummy.Writer.Infrastructure.App.Db.For.PostgreSQL.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_app_event");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasDatabaseName("ux_app_event_name");
 
                     b.ToTable("app_event", "writer");
                 });

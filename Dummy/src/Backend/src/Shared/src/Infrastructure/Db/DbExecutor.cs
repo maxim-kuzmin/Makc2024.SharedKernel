@@ -26,8 +26,6 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
   /// <inheritdoc/>
   public Task ExecuteInTransaction(Func<CancellationToken, Task> funcToExecute, CancellationToken cancellationToken)
   {
-    RelationalDatabaseFacadeExtensions.BeginTransactionAsync(_dbContext.Database, IsolationLevel.ReadCommitted, cancellationToken);
-
     return Execute(_dbContext.Database.BeginTransactionAsync, funcToExecute, cancellationToken);
   }
 

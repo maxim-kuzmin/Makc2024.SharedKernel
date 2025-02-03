@@ -22,10 +22,10 @@ public partial class InitialCreate : Migration
         {
           id = table.Column<long>(type: "bigint", nullable: false)
                 .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+          сoncurrency_token = table.Column<Guid>(type: "uuid", nullable: false),
           created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
           is_published = table.Column<bool>(type: "boolean", nullable: false),
-          name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-          сoncurrency_token = table.Column<Guid>(type: "uuid", nullable: false)
+          name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
         },
         constraints: table =>
         {
@@ -39,8 +39,8 @@ public partial class InitialCreate : Migration
         {
           id = table.Column<long>(type: "bigint", nullable: false)
                 .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-          name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-          сoncurrency_token = table.Column<Guid>(type: "uuid", nullable: false)
+          сoncurrency_token = table.Column<Guid>(type: "uuid", nullable: false),
+          name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
         },
         constraints: table =>
         {
@@ -55,8 +55,8 @@ public partial class InitialCreate : Migration
           Id = table.Column<long>(type: "bigint", nullable: false)
                 .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
           app_event_id = table.Column<long>(type: "bigint", nullable: false),
-          data = table.Column<string>(type: "text", nullable: false),
-          сoncurrency_token = table.Column<Guid>(type: "uuid", nullable: false)
+          сoncurrency_token = table.Column<Guid>(type: "uuid", nullable: false),
+          data = table.Column<string>(type: "text", nullable: false)
         },
         constraints: table =>
         {
@@ -69,13 +69,6 @@ public partial class InitialCreate : Migration
                     principalColumn: "id",
                     onDelete: ReferentialAction.Cascade);
         });
-
-    migrationBuilder.CreateIndex(
-        name: "ux_app_event_name",
-        schema: "writer",
-        table: "app_event",
-        column: "name",
-        unique: true);
 
     migrationBuilder.CreateIndex(
         name: "IX_app_event_payload_app_event_id",

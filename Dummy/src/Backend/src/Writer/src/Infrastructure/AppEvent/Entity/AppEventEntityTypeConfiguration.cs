@@ -40,9 +40,5 @@ public class AppEventEntityTypeConfiguration : IEntityTypeConfiguration<AppEvent
     {
       builder.Property(x => x.Name).HasMaxLength(entityDbSettings.MaxLengthForName);
     }
-
-    builder.HasIndex(x => x.Name)
-      .IsUnique()
-      .HasDatabaseName(entityDbSettings.UniqueIndexForName);
   }
 }

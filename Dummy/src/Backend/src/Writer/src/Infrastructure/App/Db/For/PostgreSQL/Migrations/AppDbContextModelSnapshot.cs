@@ -53,10 +53,6 @@ namespace Makc2024.Dummy.Writer.Infrastructure.App.Db.For.PostgreSQL.Migrations
                     b.HasKey("Id")
                         .HasName("pk_app_event");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasDatabaseName("ux_app_event_name");
-
                     b.ToTable("app_event", "writer");
                 });
 

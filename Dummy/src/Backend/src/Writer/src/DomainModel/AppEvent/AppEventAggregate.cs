@@ -129,6 +129,8 @@ public class AppEventAggregate(
   protected sealed override void OnGetResultToCreate(AppEventEntity entity)
   {
     RefreshConcurrencyToken(entity);
+
+    entity.CreatedAt = DateTimeOffset.Now;
   }
 
   /// <inheritdoc/>

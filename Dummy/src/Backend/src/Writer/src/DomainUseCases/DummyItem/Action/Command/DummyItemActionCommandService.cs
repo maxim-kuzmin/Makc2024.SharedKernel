@@ -1,4 +1,6 @@
-﻿namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Action.Command;
+﻿using Makc2024.Dummy.Shared.DomainModel.Entity;
+
+namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Action.Command;
 
 /// <summary>
 /// Сервис команд действия с фиктивным предметом.
@@ -47,7 +49,7 @@ public class DummyItemActionCommandService(
     {
       entity = await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
 
-      await OnEntityChanged(entity, cancellationToken).ConfigureAwait(false);
+      await OnEntityChanged(aggregateResult.Data, cancellationToken).ConfigureAwait(false);
     }
 
     await _appDbExecutor.ExecuteInTransaction(SaveToDb, cancellationToken).ConfigureAwait(false);    
@@ -96,7 +98,7 @@ public class DummyItemActionCommandService(
     {
       await _repository.DeleteAsync(entity, cancellationToken).ConfigureAwait(false);
 
-      await OnEntityChanged(entity, cancellationToken).ConfigureAwait(false);
+      await OnEntityChanged(aggregateResult.Data, cancellationToken).ConfigureAwait(false);
     }
 
     await _appDbExecutor.ExecuteInTransaction(SaveToDb, cancellationToken).ConfigureAwait(false);
@@ -145,7 +147,7 @@ public class DummyItemActionCommandService(
     {
       await _repository.UpdateAsync(entity, cancellationToken).ConfigureAwait(false);
 
-      await OnEntityChanged(entity, cancellationToken).ConfigureAwait(false);
+      await OnEntityChanged(aggregateResult.Data, cancellationToken).ConfigureAwait(false);
     }
 
     await _appDbExecutor.ExecuteInTransaction(SaveToDb, cancellationToken).ConfigureAwait(false);
@@ -155,8 +157,8 @@ public class DummyItemActionCommandService(
     return Result.Success(dto);
   }
 
-  private Task<Result> OnEntityChanged(DummyItemEntity entity, CancellationToken cancellationToken)
+  private Task<Result> OnEntityChanged(EntityChange<DummyItemEntity> entityChange, CancellationToken cancellationToken)
   {
-    return _appProducerActionCommandService.Save(new("DummyItem_Changed", [entity]), cancellationToken);
+    return _appProducerActionCommandService.Save(new("DummyItem_Changed", [entityChange]), cancellationToken);
   }
 }
