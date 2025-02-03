@@ -3,14 +3,25 @@
 /// <summary>
 /// Исполнитель базы данных.
 /// </summary>
-/// <param name="_dbContext">Контекст базы данных.</param>
-public class DbExecutor(DbContext _dbContext) : IDbExecutor
+public class DbExecutor : IDbExecutor
 {
-  private bool _isExecuting = false;
+  private readonly DbContext _dbContext;
 
-  private bool _isSaveChangesEnabled = false;
+  private bool _isExecuting;
+  private bool _isSaveChangesEnabled;
+  private IsolationLevel _isolationLevel;
+  private IDbContextTransaction? _transaction;
 
-  private IsolationLevel _isolationLevel = DefaultIsolationLevel;  
+  /// <summary>
+  /// Конструктор.
+  /// </summary>
+  /// <param name="dbContext">Контекст базы данных.</param>
+  public DbExecutor(DbContext dbContext)
+  {
+    _dbContext = dbContext;
+
+    Reset();
+  }
 
   /// <summary>
   /// Уровень изоляции по умолчанию.
@@ -20,13 +31,13 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
   /// <inheritdoc/>
   public Task Execute(Func<CancellationToken, Task> funcToExecute, CancellationToken cancellationToken)
   {
-    return Execute(null, funcToExecute, cancellationToken);
+    return Execute(funcToExecute, false, cancellationToken);
   }
 
   /// <inheritdoc/>
   public Task ExecuteInTransaction(Func<CancellationToken, Task> funcToExecute, CancellationToken cancellationToken)
   {
-    return Execute(_dbContext.Database.BeginTransactionAsync, funcToExecute, cancellationToken);
+    return Execute(funcToExecute, true, cancellationToken);
   }
 
   /// <inheritdoc/>
@@ -45,25 +56,23 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
     return this;
   }
 
-  private async Task<IDbContextTransaction?> CreateTransaction(
-    Func<IsolationLevel, CancellationToken, Task<IDbContextTransaction>>? funcToCreateTransaction,
+  private async Task Execute(
+    Func<CancellationToken, Task> funcToExecute,
+    bool shouldBeExecutedInTransaction,
     CancellationToken cancellationToken)
   {
-    if (_dbContext.Database.CurrentTransaction != null)
+    if (shouldBeExecutedInTransaction)
     {
-      return null;
+      _transaction = _dbContext.Database.CurrentTransaction;
+
+      if (_transaction == null)
+      {
+        var task = _dbContext.Database.BeginTransactionAsync(_isolationLevel, cancellationToken);
+
+        _transaction = await task.ConfigureAwait(false);
+      }
     }
 
-    return funcToCreateTransaction != null
-      ? await funcToCreateTransaction.Invoke(_isolationLevel, cancellationToken).ConfigureAwait(false)
-      : null;
-  }
-
-  private async Task Execute(
-    Func<IsolationLevel, CancellationToken, Task<IDbContextTransaction>>? funcToCreateTransaction,
-    Func<CancellationToken, Task> funcToExecute,
-    CancellationToken cancellationToken)
-  {
     if (_isExecuting)
     {
       await funcToExecute.Invoke(cancellationToken).ConfigureAwait(false);
@@ -76,8 +85,6 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
 
       while (!isCommited)
       {
-        var transaction = await CreateTransaction(funcToCreateTransaction, cancellationToken).ConfigureAwait(false);
-
         try
         {
           await funcToExecute.Invoke(cancellationToken).ConfigureAwait(false);
@@ -87,11 +94,11 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
             await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
           }
 
-          if (transaction != null)
+          if (_transaction != null)
           {
-            await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
+            await _transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
           }
-          
+
           isCommited = true;
         }
         catch (DbUpdateConcurrencyException ex)
@@ -110,15 +117,22 @@ public class DbExecutor(DbContext _dbContext) : IDbExecutor
         }
         finally
         {
-          transaction?.Dispose();
+          if (_transaction != null)
+          {
+            await _transaction.DisposeAsync();
+          }
         }
       }
 
-      _isExecuting = false;
-
-      _isSaveChangesEnabled = false;
-
-      _isolationLevel = DefaultIsolationLevel;
+      Reset();
     }
+  }
+
+  private void Reset()
+  {
+    _isExecuting = false;
+    _isSaveChangesEnabled = false;
+    _isolationLevel = DefaultIsolationLevel;
+    _transaction = null;
   }
 }
