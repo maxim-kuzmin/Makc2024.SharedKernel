@@ -2,7 +2,6 @@
 global using System.Reflection;
 global using System.Security.Claims;
 global using System.Text;
-global using System.Text.Json;
 global using Ardalis.GuardClauses;
 global using Ardalis.Result;
 global using Ardalis.SharedKernel;
@@ -43,7 +42,6 @@ global using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.Actions.GetLis
 global using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.Actions.Update;
 global using Makc2024.Dummy.Writer.DomainUseCases.AppEventPayload.DTOs;
 global using Makc2024.Dummy.Writer.DomainUseCases.AppProducer.Action.Command;
-global using Makc2024.Dummy.Writer.DomainUseCases.AppProducer.Actions.Save;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Action.Command;
 global using Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Action.Query;
@@ -70,7 +68,6 @@ global using Makc2024.Dummy.Writer.Infrastructure.AppEvent.Entity;
 global using Makc2024.Dummy.Writer.Infrastructure.AppEventPayload;
 global using Makc2024.Dummy.Writer.Infrastructure.AppEventPayload.Action.Query;
 global using Makc2024.Dummy.Writer.Infrastructure.AppEventPayload.Entity;
-global using Makc2024.Dummy.Writer.Infrastructure.AppProducer.Action.Command;
 global using Makc2024.Dummy.Writer.Infrastructure.DummyItem;
 global using Makc2024.Dummy.Writer.Infrastructure.DummyItem.Action.Query;
 global using Makc2024.Dummy.Writer.Infrastructure.DummyItem.Entity;

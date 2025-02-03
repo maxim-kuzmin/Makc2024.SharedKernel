@@ -1,7 +1,9 @@
 ﻿global using System.Reflection;
+global using System.Text.Json;
 global using Ardalis.Result;
 global using Ardalis.SharedKernel;
 global using Makc2024.Dummy.Shared.Core.App;
+global using Makc2024.Dummy.Shared.DomainModel.Entity;
 global using Makc2024.Dummy.Shared.DomainUseCases.Db;
 global using Makc2024.Dummy.Shared.DomainUseCases.Db.Helpers;
 global using Makc2024.Dummy.Shared.DomainUseCases.DTOs;
@@ -12,6 +14,7 @@ global using Makc2024.Dummy.Writer.DomainModel.DummyItem;
 global using Makc2024.Dummy.Writer.DomainUseCases.App.Action.Command;
 global using Makc2024.Dummy.Writer.DomainUseCases.App.Actions.Login;
 global using Makc2024.Dummy.Writer.DomainUseCases.App.Db;
+global using Makc2024.Dummy.Writer.DomainUseCases.App.Event;
 global using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Action.Command;
 global using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Action.Query;
 global using Makc2024.Dummy.Writer.DomainUseCases.AppEvent.Actions.Create;

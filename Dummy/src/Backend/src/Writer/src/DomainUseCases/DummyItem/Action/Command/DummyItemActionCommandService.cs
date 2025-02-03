@@ -1,6 +1,4 @@
-﻿using Makc2024.Dummy.Shared.DomainModel.Entity;
-
-namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Action.Command;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.DummyItem.Action.Command;
 
 /// <summary>
 /// Сервис команд действия с фиктивным предметом.
@@ -52,7 +50,7 @@ public class DummyItemActionCommandService(
       await OnEntityChanged(aggregateResult.Data, cancellationToken).ConfigureAwait(false);
     }
 
-    await _appDbExecutor.ExecuteInTransaction(SaveToDb, cancellationToken).ConfigureAwait(false);    
+    await _appDbExecutor.ExecuteInTransaction(SaveToDb, cancellationToken).ConfigureAwait(false);
 
     var dto = entity.ToDummyItemSingleDTO();
 
@@ -159,6 +157,8 @@ public class DummyItemActionCommandService(
 
   private Task<Result> OnEntityChanged(EntityChange<DummyItemEntity> entityChange, CancellationToken cancellationToken)
   {
-    return _appProducerActionCommandService.Save(new("DummyItemChanged", [entityChange]), cancellationToken);
+    return _appProducerActionCommandService.Save(
+      new(AppEventName.DummyItemChanged, [entityChange]),
+      cancellationToken);
   }
 }

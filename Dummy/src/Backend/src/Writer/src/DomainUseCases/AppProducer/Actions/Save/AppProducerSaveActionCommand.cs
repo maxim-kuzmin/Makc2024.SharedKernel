@@ -6,5 +6,5 @@
 /// <param name="AppEventName">Имя события приложения.</param>
 /// <param name="AppEventPayloads">Полезные нагрузки события приложения.</param>
 public record AppProducerSaveActionCommand(
-  string AppEventName,
+  AppEventName AppEventName,
   List<object> AppEventPayloads) : ICommand<Result>;

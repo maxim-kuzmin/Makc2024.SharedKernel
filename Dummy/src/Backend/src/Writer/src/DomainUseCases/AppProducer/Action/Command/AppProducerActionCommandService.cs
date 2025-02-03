@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.AppProducer.Action.Command;
+﻿namespace Makc2024.Dummy.Writer.DomainUseCases.AppProducer.Action.Command;
 
 /// <summary>
 /// Сервис команд действия с поставщиком приложения.
@@ -18,7 +18,7 @@ public class AppProducerActionCommandService(
   public async Task<Result> Save(AppProducerSaveActionCommand command, CancellationToken cancellationToken)
   {
     var appEventActionCommandResult = await _appEventActionCommandService.Create(
-      new(false, command.AppEventName),
+      new(false, command.AppEventName.ToString()),
       cancellationToken);
 
     foreach (var payload in command.AppEventPayloads)
