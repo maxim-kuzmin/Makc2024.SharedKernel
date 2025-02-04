@@ -79,7 +79,7 @@ public static class AppExtensions
     services.AddTransient<IAppEventPayloadActionQueryService, AppEventPayloadActionQueryService>();
     services.AddTransient<IAppEventPayloadResources, AppEventPayloadResources>();
 
-    services.AddTransient<IAppProducerActionCommandService, AppProducerActionCommandService>();
+    services.AddTransient<IAppOutboxActionCommandService, AppOutboxActionCommandService>();
 
     services.AddTransient<IDummyItemActionCommandService, DummyItemActionCommandService>();
     services.AddTransient<IDummyItemActionQueryService, DummyItemActionQueryService>();

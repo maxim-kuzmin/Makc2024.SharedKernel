@@ -9,7 +9,7 @@
 /// <param name="_repository">Репозиторий.</param>
 public class DummyItemActionCommandService(
   IAppDbExecutor _appDbExecutor,
-  IAppProducerActionCommandService _appProducerActionCommandService,
+  IAppOutboxActionCommandService _appProducerActionCommandService,
   IDummyItemFactory _factory,
   IDummyItemRepository _repository) : IDummyItemActionCommandService
 {

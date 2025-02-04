@@ -9,7 +9,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\Makc2024.Dummy.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Makc2024.Dummy.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

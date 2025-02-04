@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Shared.Apps.WebApp.Middlewares;
+﻿namespace Makc2024.Dummy.Shared.Apps.WebApp.App.Middlewares;
 
 /// <summary>
 /// Промежуточный обработчик запроса для добавления заголовка с идентификатором трассировки.

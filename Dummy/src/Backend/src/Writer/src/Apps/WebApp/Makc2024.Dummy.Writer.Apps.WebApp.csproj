@@ -22,7 +22,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\src\Web\Makc2024.Dummy.Shared.Apps.WebApp.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\src\Apps\WebApp\Makc2024.Dummy.Shared.Apps.WebApp.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Makc2024.Dummy.Writer.Infrastructure.csproj" />
   </ItemGroup>
   

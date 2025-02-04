@@ -3,6 +3,7 @@ global using System.Net;
 global using System.Runtime.CompilerServices;
 global using System.Text;
 global using Ardalis.Result;
+global using DotEnv.Core;
 global using Grpc.Core;
 global using Makc2024.Dummy.Shared.Core.App;
 global using Makc2024.Dummy.Shared.DomainUseCases.Db;
