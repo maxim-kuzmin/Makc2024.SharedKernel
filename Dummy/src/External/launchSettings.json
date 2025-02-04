@@ -4,8 +4,9 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "external-postgres": "StartWithoutDebugging",
-        "external-pgadmin": "StartWithoutDebugging"
+        "external-rabbitmq": "StartWithoutDebugging",
+        "external-pgadmin": "StartWithoutDebugging",
+        "external-postgres": "StartWithoutDebugging"
       }
     }
   }
