@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />    
+    <EmbeddedResource Include="**/*.en.json" />
+    <EmbeddedResource Include="**/*.ru.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
+    <PackageReference Include="Embedded.Json.Localization" />
     <PackageReference Include="Grpc.AspNetCore" />    
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
@@ -8,7 +13,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Http" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />    
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />

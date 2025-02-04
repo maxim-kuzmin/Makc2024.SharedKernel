@@ -4,8 +4,7 @@
     <EmbeddedResource Include="**/*.ru.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
-    <PackageReference Include="DotEnv.Core" />
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />    
     <PackageReference Include="Embedded.Json.Localization" />
     <PackageReference Include="Grpc.AspNetCore" />    
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">

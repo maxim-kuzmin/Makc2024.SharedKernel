@@ -23,6 +23,8 @@ public static class AppExtensions
   {
     services.AddSerilog(config => config.ReadFrom.Configuration(configuration));
 
+    services.AddJsonLocalization();
+
     services.Configure<AppConfigOptions>(appConfigSection);
 
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

@@ -76,6 +76,17 @@ public static class AppExtensions
       app.UseHsts();
     }
 
+    List<CultureInfo> supportedCultures = [new("ru"), new("en")];
+
+    var requestLocalizationOptions = new RequestLocalizationOptions
+    {
+      DefaultRequestCulture = new("ru"),
+      SupportedCultures = supportedCultures,
+      SupportedUICultures = supportedCultures
+    };
+
+    app.UseRequestLocalization(requestLocalizationOptions);
+
     app.UseHttpsRedirection();
 
     app.UseAuthentication()

@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Localization;
-using System.Globalization;
-
-namespace Makc2024.Dummy.Writer.Apps.WebApp.App;
+﻿namespace Makc2024.Dummy.Writer.Apps.WebApp.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -55,7 +52,6 @@ public static class AppExtensions
     services.SwaggerDocument(options =>
     {
       options.ShortSchemaNames = true;
-
       options.EnableJWTBearerAuth = true;
     });
 

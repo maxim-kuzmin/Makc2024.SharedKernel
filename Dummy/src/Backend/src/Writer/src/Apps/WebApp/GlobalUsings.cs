@@ -1,4 +1,5 @@
-﻿global using System.Text;
+﻿global using System.Globalization;
+global using System.Text;
 global using Ardalis.Result.AspNetCore;
 global using FastEndpoints;
 global using FastEndpoints.Swagger;

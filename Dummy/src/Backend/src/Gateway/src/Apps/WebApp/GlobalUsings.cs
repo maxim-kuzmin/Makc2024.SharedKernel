@@ -1,4 +1,5 @@
-﻿global using System.Text;
+﻿global using System.Globalization;
+global using System.Text;
 global using Ardalis.Result.AspNetCore;
 global using FastEndpoints;
 global using FastEndpoints.Swagger;
@@ -15,7 +16,7 @@ global using Makc2024.Dummy.Gateway.DomainUseCases.DummyItem.DTOs;
 global using Makc2024.Dummy.Gateway.Infrastructure.App;
 global using Makc2024.Dummy.Gateway.Infrastructure.App.Config;
 global using Makc2024.Dummy.Gateway.Infrastructure.App.Config.Options;
-global using Makc2024.Dummy.Shared.Apps.WebApp.Middlewares;
+global using Makc2024.Dummy.Shared.Apps.WebApp.App.Middlewares;
 global using Makc2024.Dummy.Shared.DomainUseCases.Query;
 global using Makc2024.Dummy.Shared.Infrastructure.App;
 global using MediatR;
