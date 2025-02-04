@@ -6,7 +6,7 @@
       "composeLaunchAction": "LaunchBrowser",
       "composeLaunchServiceName": "backend-writer-web-app",
       "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
-      "serviceActions": {
+      "serviceActions": {        
         "backend-writer-outbox-cleaner-app": "StartDebugging",
         "backend-writer-outbox-producer-app": "StartDebugging",
         "backend-writer-web-app": "StartDebugging"

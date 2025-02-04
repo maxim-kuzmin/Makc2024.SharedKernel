@@ -8,6 +8,8 @@
       "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "serviceActions": {
         "backend-gateway-web-app": "StartDebugging",
+        "backend-reader-inbox-cleaner-app": "StartDebugging",
+        "backend-reader-inbox-consumer-app": "StartDebugging",
         "backend-writer-outbox-cleaner-app": "StartDebugging",
         "backend-writer-outbox-producer-app": "StartDebugging",
         "backend-writer-web-app": "StartDebugging"

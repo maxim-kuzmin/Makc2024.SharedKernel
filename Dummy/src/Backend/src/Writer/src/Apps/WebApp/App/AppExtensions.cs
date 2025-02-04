@@ -92,7 +92,7 @@ public static class AppExtensions
 
     app.UseRequestLocalization(requestLocalizationOptions);
 
-    //app.UseHttpsRedirection();
+    //app.UseHttpsRedirection(); // //makc//Не нужно для внутреннего сервиса//
 
     app.UseAuthentication()
       .UseAuthorization()
