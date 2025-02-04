@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Config.Options;
+﻿namespace Makc2024.Dummy.Reader.Infrastructure.App.Config.Options;
 
 /// <summary>
 /// Секция PostgreSQL в параметрах конфигурации приложения.

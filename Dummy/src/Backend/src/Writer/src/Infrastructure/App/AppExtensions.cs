@@ -29,14 +29,20 @@ public static class AppExtensions
 
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
-    var connectionStringTemplate = configuration.GetConnectionString(
-      appConfigOptions.PostgreSQL.ConnectionStringName);
+    var postgreSQL = appConfigOptions.PostgreSQL;
 
-    Guard.Against.Null(connectionStringTemplate, nameof(connectionStringTemplate));
+    if (postgreSQL != null)
+    {
+      var connectionStringTemplate = configuration.GetConnectionString(postgreSQL.ConnectionStringName);
 
-    string connectionString = appConfigOptions.PostgreSQL.ToConnectionString(connectionStringTemplate);
+      Guard.Against.Null(connectionStringTemplate, nameof(connectionStringTemplate));
 
-    AppDbContext.Init(new AppDbSettingsForPostgreSQL());
+      string connectionString = postgreSQL.ToConnectionString(connectionStringTemplate);
+
+      AppDbContext.Init(new AppDbSettingsForPostgreSQL());
+
+      services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+    }
 
     var appDbSettings = AppDbContext.GetAppDbSettings();
 
@@ -54,9 +60,7 @@ public static class AppExtensions
         
     services.AddSingleton<IAppEventFactory, AppEventFactory>();
     services.AddSingleton<IAppEventPayloadFactory, AppEventPayloadFactory>();
-    services.AddSingleton<IDummyItemFactory, DummyItemFactory>();
-
-    services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+    services.AddSingleton<IDummyItemFactory, DummyItemFactory>();    
 
     services.AddScoped<IAppDbExecutor, AppDbExecutor>();
     services.AddScoped<IAppDbHelperForSQL, AppDbContext>();

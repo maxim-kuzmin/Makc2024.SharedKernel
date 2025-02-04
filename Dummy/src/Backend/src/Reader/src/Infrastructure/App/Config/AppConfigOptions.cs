@@ -1,4 +1,4 @@
-﻿namespace Makc2024.Dummy.Writer.Infrastructure.App.Config;
+﻿namespace Makc2024.Dummy.Reader.Infrastructure.App.Config;
 
 /// <summary>
 /// Параметры конфигурации приложения.

@@ -28,26 +28,32 @@ public static class AppExtensions
       options.EnableDetailedErrors = true;
     });
 
-    services.AddFastEndpoints()
-      .AddAuthorization()
-      .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-      .AddJwtBearer(options =>
-      {
-        byte[] keyBytes = Encoding.UTF8.GetBytes(appConfigOptions.Authentication.Key);
+    services.AddFastEndpoints();
 
-        var issuerSigningKey = appConfigOptions.Authentication.GetSymmetricSecurityKey();
+    var authentication = appConfigOptions.Authentication;
 
-        options.TokenValidationParameters = new TokenValidationParameters
+    if (authentication != null)
+    {
+      services.AddAuthorization()
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
         {
-          ValidateIssuer = true,
-          ValidIssuer = appConfigOptions.Authentication.Issuer,
-          ValidateAudience = true,
-          ValidAudience = appConfigOptions.Authentication.Audience,
-          ValidateLifetime = true,
-          IssuerSigningKey = issuerSigningKey,
-          ValidateIssuerSigningKey = true
-        };
-      });
+          byte[] keyBytes = Encoding.UTF8.GetBytes(authentication.Key);
+
+          var issuerSigningKey = authentication.GetSymmetricSecurityKey();
+
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+            ValidateIssuer = true,
+            ValidIssuer = authentication.Issuer,
+            ValidateAudience = true,
+            ValidAudience = authentication.Audience,
+            ValidateLifetime = true,
+            IssuerSigningKey = issuerSigningKey,
+            ValidateIssuerSigningKey = true
+          };
+        });
+    }
 
     services.SwaggerDocument(options =>
     {

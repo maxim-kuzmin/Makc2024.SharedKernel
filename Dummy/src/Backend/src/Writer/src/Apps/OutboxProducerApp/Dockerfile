@@ -3,7 +3,8 @@ ARG APP_PATH
 ARG APP_PROJECT_NAME
 ARG BUILD_CONFIGURATION
 
-FROM mcr.microsoft.com/dotnet/runtime:9.0 AS base
+# FROM mcr.microsoft.com/dotnet/runtime:9.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 ARG APP_PATH
 USER $APP_UID
 WORKDIR $APP_PATH

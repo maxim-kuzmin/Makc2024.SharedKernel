@@ -9,20 +9,28 @@ public class AppActionCommandService(IOptionsSnapshot<AppConfigOptions> _appConf
   /// <inheritdoc/>
   public Task<Result<AppLoginActionDTO>> Login(AppLoginActionCommand command, CancellationToken cancellationToken)
   {
+    var authentication = _appConfigOptions.Value.Authentication;
+    
+    if (authentication == null)
+    {      
+      return Task.FromResult<Result<AppLoginActionDTO>>(
+        Result.CriticalError("Authentication configuration options not found"));
+    }
+
     var claims = new List<Claim>
     {
       new(ClaimTypes.Name, command.UserName)
     };
 
-    var issuerSigningKey = _appConfigOptions.Value.Authentication.GetSymmetricSecurityKey();
+    var issuerSigningKey = authentication.GetSymmetricSecurityKey();
 
     var signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
 
     var expires = DateTime.UtcNow.Add(TimeSpan.FromDays(1));
 
     var jwt = new JwtSecurityToken(
-      issuer: _appConfigOptions.Value.Authentication.Issuer,
-      audience: _appConfigOptions.Value.Authentication.Audience,
+      issuer: authentication.Issuer,
+      audience: authentication.Audience,
       claims: claims,
       expires: expires,
       signingCredentials: signingCredentials);
@@ -31,8 +39,6 @@ public class AppActionCommandService(IOptionsSnapshot<AppConfigOptions> _appConf
 
     var dto = new AppLoginActionDTO(command.UserName, accessToken);
 
-    var result = Result.Success(dto);
-
-    return Task.FromResult(result);
+    return Task.FromResult(Result.Success(dto));
   }
 }

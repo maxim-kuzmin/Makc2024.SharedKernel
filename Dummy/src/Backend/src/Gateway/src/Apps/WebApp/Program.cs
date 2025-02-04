@@ -2,7 +2,7 @@
 
 try
 {
-  logger.LogInformation("Starting web application");
+  logger.LogInformation("Starting application");
 
   AppEnvironment.LoadVariables();
 

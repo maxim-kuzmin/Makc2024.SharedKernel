@@ -1,7 +1,33 @@
-﻿using Makc2024.Dummy.Reader.Apps.InboxCleanerApp;
+﻿var logger = AppLogger.Create<Program>();
 
-var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<Worker>();
+try
+{
+  logger.LogInformation("Starting application");
 
-var host = builder.Build();
-host.Run();
+  AppEnvironment.LoadVariables();
+
+  var builder = Host.CreateApplicationBuilder(args);
+
+  var appConfigSection = builder.Configuration.GetSection(AppConfigOptions.SectionKey);
+
+  var appConfigOptions = appConfigSection.CreateAppConfigOptions();
+
+  builder.Services
+    //.AddAppDomainUseCasesLayer(logger)
+    .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Configuration, appConfigSection)
+    .AddAppUILayer(logger, appConfigOptions);
+
+  var app = builder.Build();
+
+  app.Run();
+}
+catch (Exception ex)
+{
+  logger.LogCritical(ex, "Application terminated unexpectedly");
+}
+finally
+{
+  AppLogger.CloseAndFlush();
+}
+
+public partial class Program { }

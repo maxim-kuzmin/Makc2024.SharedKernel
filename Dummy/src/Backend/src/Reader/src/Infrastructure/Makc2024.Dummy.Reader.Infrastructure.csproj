@@ -1,19 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <ItemGroup>
     <EmbeddedResource Include="**/*.en.json" />
     <EmbeddedResource Include="**/*.ru.json" />
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />    
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
     <PackageReference Include="Embedded.Json.Localization" />
-    <PackageReference Include="Grpc.AspNetCore" />    
+    <!--<PackageReference Include="Grpc.AspNetCore" />-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />    
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Serilog.Extensions.Hosting" />
     <PackageReference Include="Serilog.Formatting.Compact" />
@@ -22,22 +23,10 @@
     <PackageReference Include="Serilog.Sinks.Debug" />
     <PackageReference Include="Serilog.Sinks.File" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Protobuf Include="AppEventPayload\For\Grpc\AppEventPayloadServiceForGrpc.proto" GrpcServices="Server" />
-    <Protobuf Include="AppEvent\For\Grpc\AppEventServiceForGrpc.proto" GrpcServices="Server" />
-    <Protobuf Include="App\For\Grpc\AppServiceForGrpc.proto" GrpcServices="Server" />
-    <Protobuf Include="DummyItem\For\Grpc\DummyItemServiceForGrpc.proto" GrpcServices="Server" />
-  </ItemGroup>
-  
+  </ItemGroup>  
+
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\src\Infrastructure\Makc2024.Dummy.Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\DomainUseCases\Makc2024.Dummy.Writer.DomainUseCases.csproj" />
-  </ItemGroup>  
-  
-  <ItemGroup>
-    <Folder Include="App\Db\For\PostgreSQL\Migrations\" />
   </ItemGroup>
-  
+
 </Project>
